@@ -36,23 +36,33 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: "/search",
+  .state('app.webmail', {
+    url: "/webmail",
     views: {
       'menuContent': {
-        templateUrl: "templates/search.html"
+        templateUrl: "templates/views_webmail/webmail.html"
       }
     }
   })
 
-  .state('app.browse', {
-    url: "/browse",
+    .state('app.contact', {
+    url: "/contact",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/views_contact/contact.html"
       }
     }
   })
+
+  .state('app.scheduler', {
+    url: "/scheduler",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/scheduler.html"
+      }
+    }
+  })
+  
     .state('app.playlists', {
       url: "/playlists",
       views: {
@@ -63,15 +73,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
       }
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });
