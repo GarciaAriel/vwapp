@@ -38,8 +38,8 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
+.controller('ContactsCtrl', function($scope, Contacts) {
+  $scope.contacts = Contacts.all();
 })
 
 

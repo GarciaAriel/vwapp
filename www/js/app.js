@@ -84,12 +84,12 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
   
   
   
-  .state('app.friends', {
-      url: '/friends',
+  .state('app.contacts', {
+      url: '/contacts',
       views: {
         'menuContent': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+          templateUrl: 'templates/sub-contacts.html',
+          controller: 'ContactsCtrl'
         }
       }
     })

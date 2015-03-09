@@ -76,12 +76,12 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Friends', function() {
+.factory('Contacts', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
   // Some fake testing data
-  var friends = [{
+  var contacts = [{
     id: 0,
     name: 'Ben Sparrow',
     notes: 'Enjoys drawing things',
@@ -106,11 +106,11 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return friends;
+      return contacts;
     },
-    get: function(friendId) {
+    get: function(contactId) {
       // Simple index lookup
-      return friends[friendId];
+      return contacts[contactId];
     }
   }
 });
