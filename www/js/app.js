@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
+angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $translate) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,8 +17,73 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+      
+      
+      
+      
+          if (typeof navigator.globalization !== "undefined"){
+      navigator.globalization.getPreferredLanguage(function(language) { 
+         //alert((language.value).split("-")[0]);
+        $translate.use((language.value).split("-")[0]).then(function(data) {
+        //  alert(language.value);
+         // $translate.use(language.value).then(function(data) {
+              console.log("SUCCESS -> " + data);
+                }, function(error) {
+              console.log("ERROR -> " + error);
+                });
+        },null);                    
+      }  
+      
+      
+      
+      
+      
+      
+      
   });
 })
+
+
+
+
+.config(function($translateProvider) {
+    $translateProvider.translations("en", {
+            Login: "Log on",
+            Username: "Username",
+            Password:   "Password",
+            Company: "Company"
+        });
+    $translateProvider.translations("es", {
+            Login: "Ingresar",
+            Username: "Usuario",
+            Password: "Contraseña",
+            Company: "Compania"
+        });
+    
+     $translateProvider.translations("de", {
+            Login: "Anmeldung",
+            Username: "Benutzername",
+            Password: "Kennwort",
+            Company: "Firma"
+        });
+    
+    
+     $translateProvider.translations("fr", {
+            Login: "Connexion",
+            Username: "Utilisateur",
+            Password: "Mot de passe",
+            Company: "Société"
+        });
+    
+    $translateProvider.preferredLanguage("de");
+    $translateProvider.fallbackLanguage("en");
+})
+
+
+
+
+
+
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
