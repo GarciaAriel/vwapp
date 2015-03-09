@@ -51,31 +51,55 @@ angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controlle
             Login: "Log on",
             Username: "Username",
             Password:   "Password",
-            Company: "Company"
+            Company: "Company",
+            Menu: "Menu",
+            Contacts:   "Contacts",
+            Scheduler: "Scheduler",
+            Webmail: "Webmail",
+            Logout: "Log out",
+        
         });
     $translateProvider.translations("es", {
             Login: "Ingresar",
             Username: "Usuario",
             Password: "Contraseña",
-            Company: "Compania"
+            Company: "Compania",
+            Menu: "Menu",
+            Contacts:   "Contactos",
+            Scheduler: "Calendario",
+            Webmail: "Correo",
+            Logout: "Salir",
         });
+            
+    
     
      $translateProvider.translations("de", {
             Login: "Anmeldung",
             Username: "Benutzername",
             Password: "Kennwort",
-            Company: "Firma"
+            Company: "Firma",
+            Menu: "Menü",
+            Contacts:   "Kontakte",
+            Scheduler: "Scheduler",
+            Webmail: "Post",
+            Logout: "aussteigen",
         });
+        
     
     
      $translateProvider.translations("fr", {
             Login: "Connexion",
             Username: "Utilisateur",
             Password: "Mot de passe",
-            Company: "Société"
+            Company: "Société",
+            Menu: "Menu",
+            Contacts:   "Contacts",
+            Scheduler: "Scheduler",
+            Webmail: "Courrier",
+            Logout: "sortez",
         });
     
-    $translateProvider.preferredLanguage("de");
+    $translateProvider.preferredLanguage("en");
     $translateProvider.fallbackLanguage("en");
 })
 
