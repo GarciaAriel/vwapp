@@ -95,12 +95,12 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
     })
 
   
-     .state('app.friend-detail', {
-      url: '/friend/:friendId',
+     .state('app.contact-detail', {
+      url: '/contact/:contactId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+          templateUrl: 'templates/contact-detail.html',
+          controller: 'ContactDetailCtrl'
         }
       }
     })
