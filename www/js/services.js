@@ -6,7 +6,7 @@ angular.module('starter.services', [])
             var deferred = $q.defer();
             var promise = deferred.promise;
 
-            if (name == 'user' && pw == 'secret') {
+            if (name == 'admin' && pw == 'admin') {
                 deferred.resolve('Welcome ' + name + '!');
             } else {
                 deferred.reject('Wrong credentials.');
@@ -86,11 +86,6 @@ angular.module('starter.services', [])
     name: 'Ben Sparrow',
     notes: 'Enjoys drawing things',
     face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    notes: 'Odd obsession with everything',
-    face: 'https://pbs.twimg.com/profile_images/479740132258361344/KaYdH9hE.jpeg'
   }, {
     id: 2,
     name: 'Andrew Jostlen',

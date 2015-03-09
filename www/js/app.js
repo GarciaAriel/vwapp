@@ -31,7 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
 
   .state('app', {
     url: "/app",
-    abstract: true,
+    //abstract: true,
     templateUrl: "templates/menu.html",
     controller: 'AppCtrl'
   })
@@ -72,6 +72,45 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services'])
         }
       }
     })
+  
+  
+  .state('dash', {
+    url: '/dash',
+      
+        templateUrl: 'templates/tab-dash.html',
+        controller: 'DashCtrl'
+  })
+  
+  
+  
+  
+  .state('app.friends', {
+      url: '/friends',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/tab-friends.html',
+          controller: 'FriendsCtrl'
+        }
+      }
+    })
+
+  
+     .state('app.friend-detail', {
+      url: '/friend/:friendId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/friend-detail.html',
+          controller: 'FriendDetailCtrl'
+        }
+      }
+    })
+  
+  
+  
+
+  
+  
+  
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
