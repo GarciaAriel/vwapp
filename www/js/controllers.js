@@ -49,6 +49,10 @@ angular.module('starter.controllers', [])
 })
 
 
+
+.controller('MailsCtrl', function($scope) {})
+
+
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
     $scope.data = {};
 
@@ -57,7 +61,7 @@ angular.module('starter.controllers', [])
             $state.go('app');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
-                title: 'Login failed!',
+                title: 'Log on, Failed!',
                 template: 'Please check your credentials!'
             });
         });

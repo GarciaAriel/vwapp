@@ -195,7 +195,17 @@ angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controlle
     })
   
   
+   .state('app.mails', {
+      url: '/mails',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sub-mails.html',
+         //controller: 'MailsCtrl'
+        }
+      }
+    })
   
+
 
   
   
