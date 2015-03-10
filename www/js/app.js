@@ -125,14 +125,7 @@ angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controlle
     controller: 'AppCtrl'
   })
 
-  .state('app.webmail', {
-    url: "/webmail",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_webmail/webmail.html"
-      }
-    }
-  })
+  
 
     .state('app.contact', {
     url: "/contact",
@@ -193,24 +186,39 @@ angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controlle
         }
       }
     })
-  
-  
-   .state('app.mails', {
-      url: '/mails',
+
+
+  .state('app.details-mail', {
+      url: '/mail/:mailId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/sub-mails.html',
-         //controller: 'MailsCtrl'
+          templateUrl: 'templates/views_webmail/mail-detail.html',
+          controller: 'MailDetailCtrl'
         }
       }
     })
-  
 
+   .state('app.mail-items', {
+      url: '/listmails/:itemId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/views_webmail/mails-list.html',
+          controller: 'MailsListCtrl'
+        }
+      }
+    })  
+  
+   .state('app.mailboxes', {
+      url: '/mailboxes',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/views_webmail/sub-menu-mails.html',
+          controller: 'MailsCtrl'
+        }
+      }
+    })
 
   
-  
-  
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

@@ -1,0 +1,10 @@
+<ion-view view-title="List Mails">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail/{{item.id}}">
+        <img ng-src="{{item.face}}">
+        <h2>{{item.name}}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
