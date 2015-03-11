@@ -49,21 +49,6 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('MailsCtrl', function($scope,  MailsSubMenu) {
-  $scope.mailsSubMenu = MailsSubMenu.all();
-})
-
-.controller('MailsListCtrl', function($scope,  MailList) {
-  $scope.mailList = MailList.all();
-})
-
-.controller('MailDetailCtrl', function($scope, $stateParams, MailList) {
-  $scope.mail = MailList.get($stateParams.mailId);
-})
-
-
-
-
 
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
     $scope.data = {};
