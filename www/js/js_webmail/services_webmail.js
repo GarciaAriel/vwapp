@@ -6,7 +6,7 @@ angular.module('starter.webmailservices', [])
  */
 .factory('MailList', function() {
   // Might use a resource here that returns a JSON array
-
+console.log("mierdaaaa1111");
   // Some fake testing data
   // Some fake testing data
   var mailList = [{
@@ -46,8 +46,17 @@ angular.module('starter.webmailservices', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('MailsSubMenu', function() {
+.factory('MailsSubMenu', function($http) {
   // Might use a resource here that returns a JSON array
+  console.log("mierdaaa22222222");
+  //$http.get('https://cors-test.appspot.com/test').then(function(resp) {
+    $http.get('http://127.0.0.1:8080/com.servicios/api/v1/get').then(function(resp) {
+    console.log('Success', resp);
+    // For JSON responses, resp.data contains the result
+  }, function(err) {
+    console.error('ERR', err);
+    // err.status will contain the status code
+  })
 
   // Some fake testing data
   // Some fake testing data
@@ -78,6 +87,7 @@ angular.module('starter.webmailservices', [])
     face: 'img/log-out.png'
   }];
 
+console.log(mailsSubMenu);
 
   return {
     all: function() {
