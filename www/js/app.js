@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices'])
+var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices'])
 
 .run(function($ionicPlatform, $translate) {
   $ionicPlatform.ready(function() {
@@ -127,14 +127,14 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
 
   
 
-    .state('app.contact', {
-    url: "/contact",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_contact/contact.html"
-      }
-    }
-  })
+  //   .state('app.contact', {
+  //   url: "/contact",
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: "templates/views_contact/contact.html"
+  //     }
+  //   }
+  // })
 
   .state('app.scheduler', {
     url: "/scheduler",
@@ -170,7 +170,7 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
       url: '/contacts',
       views: {
         'menuContent': {
-          templateUrl: 'templates/sub-contacts.html',
+          templateUrl: 'templates/views_contact/sub-contacts.html',
           controller: 'ContactsCtrl'
         }
       }
@@ -181,7 +181,7 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
       url: '/contact/:contactId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/contact-detail.html',
+          templateUrl: 'templates/views_contact/contact-detail.html',
           controller: 'ContactDetailCtrl'
         }
       }

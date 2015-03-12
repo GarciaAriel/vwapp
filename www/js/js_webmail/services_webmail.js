@@ -4,33 +4,18 @@ angular.module('starter.webmailservices', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('MailList', function() {
-  // Might use a resource here that returns a JSON array
-console.log("mierdaaaa1111");
-  // Some fake testing data
-  // Some fake testing data
-  var mailList = [{
-    id: 0,
-    name: 'Elmo Mey',
-    notes: 'Enjoys drawing things',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  },{
-    id: 1,
-    name: 'Armando Carpas',
-    notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 2,
-    name: 'Pepe Chino',
-    notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 3,
-    name: 'Armando lios',
-    notes: 'I think he needs to buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-  }];
+.factory('MailList', function($http) {
 
+var mailList;
+  
+    $http.get('http://localhost:8080/com.servicios/api/mail/get').then(function(resp) {
+    mailList = resp.data;
+    console.log('Mails service Success OK', resp.data);
+    // For JSON responses, resp.data contains the result
+  }, function(err) {
+    console.error('Mails services Success ERROR', err);
+    // err.status will contain the status code
+  })
 
   return {
     all: function() {
@@ -46,17 +31,8 @@ console.log("mierdaaaa1111");
 /**
  * A simple example service that returns some data.
  */
-.factory('MailsSubMenu', function($http) {
-  // Might use a resource here that returns a JSON array
-  console.log("mierdaaa22222222");
-  //$http.get('https://cors-test.appspot.com/test').then(function(resp) {
-    $http.get('http://127.0.0.1:8080/com.servicios/api/v1/get').then(function(resp) {
-    console.log('Success', resp);
-    // For JSON responses, resp.data contains the result
-  }, function(err) {
-    console.error('ERR', err);
-    // err.status will contain the status code
-  })
+.factory('MailsSubMenu', function() {
+  
 
   // Some fake testing data
   // Some fake testing data
@@ -86,8 +62,6 @@ console.log("mierdaaaa1111");
     notes: 'Just the nicest guy',
     face: 'img/log-out.png'
   }];
-
-console.log(mailsSubMenu);
 
   return {
     all: function() {
