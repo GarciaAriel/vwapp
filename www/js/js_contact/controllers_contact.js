@@ -1,13 +1,15 @@
 angular.module('starter.contactcontrollers', [])
 
-.controller('ContactsCtrl', function($scope, Contacts) {
-  $scope.contacts = Contacts.all();
-})
-
-// .controller('ContactsCtrl', function($scope, MailList) {
-//   $scope.mailList = MailList.all(); 
-//   console.log("Controller WEBMAIL list mails");
+// .controller('ContactsCtrl', function($scope, Contacts) {
+//   $scope.contacts = Contacts.all();
 // })
+
+.controller('ContactsCtrl', function($scope, Contacts) {
+	console.log("llegaaaaaaaaaaaaaa");	
+  $scope.contacts = Contacts.all(); 
+  console.log("controller despues llamada",Contacts.all());
+  console.log("controller despues llamada",$scope.contacts);
+})
 
 
 

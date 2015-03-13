@@ -1,52 +1,32 @@
 angular.module('starter.contactservices', [])
 
+.factory('Contacts', function($http) {
 
+  var contacts;
+  
+  var url = "http://localhost:8080/com.servicios/api/contacts/get";
+             
+  //request to mailbox OUTBOXITEMS
+  $http.get(url).then(function(resp) {
+      contacts = resp.data;
 
-
-
-// Might use a resource here that returns a JSON array
-
- 
-/**
- * A simple example service that returns some data.
- */
-.factory('Contacts', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  // Some fake testing data
-  var contacts = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    notes: 'Enjoys drawing things',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 2,
-    name: 'Andrew Jostlen',
-    notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
-    face: 'https://pbs.twimg.com/profile_images/491274378181488640/Tti0fFVJ.jpeg'
-  }, {
-    id: 3,
-    name: 'Adam Bradleyson',
-    notes: 'I think he needs to buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 4,
-    name: 'Perry Governor',
-    notes: 'Just the nicest guy',
-    face: 'https://pbs.twimg.com/profile_images/491995398135767040/ie2Z_V6e.jpeg'
-  }];
+      console.log('contacts service OUTBOXITEMS Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('contacts services OUTBOXITEMS Success ERROR', err);
+    // err.status will contain the status code
+    }
+  )
 
 
   return {
     all: function() {
+      console.log("xxxxxxxxxxxcontact GET allllllll services",contacts);
       return contacts;
     },
-    get: function(contactId) {
-      // Simple index lookup
-      return contacts[contactId];
+    get: function(mailId) {
+
+      return contacts[mailId];
     }
   }
 });
-
-

@@ -7,7 +7,7 @@ angular.module('starter.webmailservices', [])
   var mailsboxes = new Array();
   
   var url = "http://localhost:8080/com.servicios/api/mailboxes/";
-  
+             
   //request to mailbox INBOX
   $http.get(url.concat('inbox')).then(function(resp) {
       mailsboxes[0]=resp.data;
