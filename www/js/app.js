@@ -189,7 +189,7 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
 
 
   .state('app.details-mail', {
-      url: '/mail/:mailId',
+      url: '/mail/:folderId/:mailId',
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',

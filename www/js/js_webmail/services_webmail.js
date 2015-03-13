@@ -1,29 +1,85 @@
 angular.module('starter.webmailservices', [])
-
-
 /**
  * A simple example service that returns some data.
  */
 .factory('MailList', function($http) {
 
-var mailList;
+  var mailsboxes = new Array();
   
-    $http.get('http://localhost:8080/com.servicios/api/mail/get').then(function(resp) {
-    mailList = resp.data;
-    console.log('Mails service Success OK', resp.data);
-    // For JSON responses, resp.data contains the result
-  }, function(err) {
-    console.error('Mails services Success ERROR', err);
+  var url = "http://localhost:8080/com.servicios/api/mailboxes/";
+  
+  //request to mailbox INBOX
+  $http.get(url.concat('inbox')).then(function(resp) {
+      mailsboxes[0]=resp.data;
+
+      console.log('Mails service INBOX Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('Mails services INBOX Success ERROR', err);
     // err.status will contain the status code
-  })
+    }
+  )
+  //request to mailbox SENTITEMS
+  $http.get(url.concat('sentItems')).then(function(resp) {
+      mailsboxes[1]=resp.data;
+
+      console.log('Mails service SENTITEMS Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('Mails services SENTITEMS Success ERROR', err);
+    // err.status will contain the status code
+    }
+  )
+  //request to mailbox DRAFTITEMS
+  $http.get(url.concat('draftItems')).then(function(resp) {
+      mailsboxes[2]=resp.data;
+
+      console.log('Mails service DRAFTITEMS Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('Mails services DRAFTITEMS Success ERROR', err);
+    // err.status will contain the status code
+    }
+  )
+  //request to mailbox TRASHITEMS
+  $http.get(url.concat('trashItems')).then(function(resp) {
+      mailsboxes[3]=resp.data;
+
+      console.log('Mails service TRASHITEMS Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('Mails services TRASHITEMS Success ERROR', err);
+    // err.status will contain the status code
+    }
+  )
+  //request to mailbox OUTBOXITEMS
+  $http.get(url.concat('outBoxItems')).then(function(resp) {
+      mailsboxes[4]=resp.data;
+
+      console.log('Mails service OUTBOXITEMS Success OK', resp.data);
+      // For JSON responses, resp.data contains the result
+    }, function(err) {
+      console.error('Mails services OUTBOXITEMS Success ERROR', err);
+    // err.status will contain the status code
+    }
+  )
+
 
   return {
-    all: function() {
-      return mailList;
+    all: function(listId) {
+      console.log("consult get ALL(idList) mails");
+      return mailsboxes[listId];
     },
-    get: function(mailListId) {
-      // Simple index lookup
-      return mailList[mailListId];
+    get: function(listId,mailId) {
+      var as;
+      if (listId=="inbox") {
+        as = 0;
+      };
+      console.log("consult get GET(idMail) mails");
+      console.log("id list",as);
+      console.log("id mail",mailId);
+      var aux = mailsboxes[as];
+      return aux[mailId];
     }
   }
 })
