@@ -71,15 +71,26 @@ angular.module('starter.webmailservices', [])
       return mailsboxes[listId];
     },
     get: function(listId,mailId) {
-      var as;
-      if (listId=="inbox") {
-        as = 0;
-      };
-      console.log("consult get GET(idMail) mails");
-      console.log("id list",as);
-      console.log("id mail",mailId);
-      var aux = mailsboxes[as];
-      return aux[mailId];
+
+    var index;
+      switch (listId) {
+        case "inbox":
+            index = 0;
+            break;
+        case "sentItems":
+            index = 1;
+            break;
+        case "draftItems":
+            index = 2;
+            break;
+        case "trashItems":
+            index = 3;
+            break;
+        case "outBoxItems":
+            index = 4;
+            break;
+      } 
+      return (mailsboxes[index])[mailId];
     }
   }
 })
