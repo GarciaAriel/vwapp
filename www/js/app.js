@@ -137,11 +137,38 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
   //   }
   // })
 
-  .state('app.scheduler', {
-    url: "/scheduler",
+  .state('app.schedulerDay', {
+    url: "/schedulerDay",
     views: {
       'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler.html"
+        templateUrl: "templates/views_schedule/scheduler_day.html"
+      }
+    }
+  })
+
+  .state('app.schedulerWeek', {
+    url: "/schedulerWeek",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/scheduler_week.html"
+      }
+    }
+  })
+
+  .state('app.schedulerMonth', {
+    url: "/schedulerMonth",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/scheduler_month.html"
+      }
+    }
+  })
+
+  .state('app.schedulerYear', {
+    url: "/schedulerYear",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/scheduler_year.html"
       }
     }
   })
@@ -198,6 +225,8 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
         }
       }
     })
+
+
 
    .state('app.mail-items', {
       url: '/listmails/:itemId',
