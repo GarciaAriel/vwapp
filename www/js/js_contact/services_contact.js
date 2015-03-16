@@ -9,11 +9,10 @@ angular.module('starter.contactservices', [])
   //request to mailbox OUTBOXITEMS
   $http.get(url).then(function(resp) {
       contacts = resp.data;
-
-      console.log('contacts service OUTBOXITEMS Success OK', resp.data);
+      console.log('contacts services GET CONTACTS Success OK', resp.data);
       // For JSON responses, resp.data contains the result
     }, function(err) {
-      console.error('contacts services OUTBOXITEMS Success ERROR', err);
+      console.error('contacts services GET CONTACTS Success ERROR', err);
     // err.status will contain the status code
     }
   )
@@ -21,11 +20,11 @@ angular.module('starter.contactservices', [])
 
   return {
     all: function() {
-      console.log("xxxxxxxxxxxcontact GET allllllll services",contacts);
+      console.log("consult SERVICES get ALL contacts");
       return contacts;
     },
     get: function(mailId) {
-
+      console.log("consult SERVICES GET(idContact) contacts");
       return contacts[mailId];
     }
   }

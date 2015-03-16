@@ -1,35 +1,41 @@
+            
+
+
+
 <ion-view view-title="{{mail.name}}">
   <ion-content class="padding">
+    
 
-<ion-slide-box>
-    <ion-slide>
+
+
+    <ion-slide-box active-slide="myActiveSlide">
+      <ion-slide ng-repeat="item in data.slides">
         <div class="list card">
 
-  <div class="item item-avatar">
-    <img src="https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg">
-    <span class="item-note">date:</span>
-    <h2>From: {{mail.from}}</h2>
-    <p>To: {{mail.to}}</p>
-  </div>
+          <div class="item item-avatar">
+            <img src="https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg">
+            <span class="item-note">date:</span>
+            <h2>From: {{item.from}}</h2>
+            <p>To: {{item.to}}</p>
+          </div>
 
-  <div  class="item item-avatar">
-    <h2>Subject: {{mail.subject}}</h2>
-    <p>Cc: {{mail.cc}}</p>
-    <p>Bcc: {{mail.bcc}}</p>
-    <p>Priority: {{mail.priority}}</p>
-  </div>
+          <div  class="item item-avatar">
+            <h2>Subject: {{item.subject}}</h2>
+            <p>Cc: {{item.cc}}</p>
+            <p>Bcc: {{item.bcc}}</p>
+            <p>Priority: {{item.priority}}</p>
+          </div>
 
-  <div class="item item-body">
-    <p>Detail:</p>
-    <p>
-      {{mail.detail}}
-    </p>
-    
-  </div>
-</div>
+          <div class="item item-body">
+            <p>Detail:</p>
+            <p>
+              {{item.detail}}
+            </p>
+          </div>
+        </div>
 
-    </ion-slide>
-</ion-slide-box>
+      </ion-slide>
+    </ion-slide-box>
     
     </ion-content>
 </ion-view>

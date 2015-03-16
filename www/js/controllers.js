@@ -1,11 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,Contacts) {
   // Form data for the login modal
   $scope.loginData = {};
 
+  var asd = Contacts.all();
   var mailList = MailList.all(); 
-  //var nose = Contacts.all();
+
+  
 
 
   // Create the login modal that we will use later

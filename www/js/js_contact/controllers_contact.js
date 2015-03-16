@@ -5,10 +5,8 @@ angular.module('starter.contactcontrollers', [])
 // })
 
 .controller('ContactsCtrl', function($scope, Contacts) {
-	console.log("llegaaaaaaaaaaaaaa");	
   $scope.contacts = Contacts.all(); 
-  console.log("controller despues llamada",Contacts.all());
-  console.log("controller despues llamada",$scope.contacts);
+  console.log("Controller CONTACTS get all",$scope.contacts);
 })
 
 

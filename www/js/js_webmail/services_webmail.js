@@ -67,12 +67,30 @@ angular.module('starter.webmailservices', [])
 
   return {
     all: function(listId) {
-      console.log("consult get ALL(idList) mails");
-      return mailsboxes[listId];
+      var index;
+      switch (listId) {
+        case "inbox":
+            index = 0;
+            break;
+        case "sentItems":
+            index = 1;
+            break;
+        case "draftItems":
+            index = 2;
+            break;
+        case "trashItems":
+            index = 3;
+            break;
+        case "outBoxItems":
+            index = 4;
+            break;
+      }
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaconsult SERVICES get ALL(idList) mails");
+
+      return mailsboxes[index];
     },
     get: function(listId,mailId) {
-
-    var index;
+      var index;
       switch (listId) {
         case "inbox":
             index = 0;
@@ -90,6 +108,7 @@ angular.module('starter.webmailservices', [])
             index = 4;
             break;
       } 
+      console.log("consult SERVICES GET(idMail) mails");
       return (mailsboxes[index])[mailId];
     }
   }
@@ -104,27 +123,27 @@ angular.module('starter.webmailservices', [])
   // Some fake testing data
   // Some fake testing data
   var mailsSubMenu = [{
-    id: 0,
+    id: "inbox",
     name: 'Inbox',
     notes: 'Enjoys drawing things',
     face: 'img/android-archive.png'
   },{
-    id: 1,
+    id: "sentItems",
     name: 'Send Items',
     notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
     face: 'img/paper-airplane.png'
   }, {
-    id: 2,
+    id: "draftItems",
     name: 'Draft Items',
     notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
     face: 'img/android-mail.png'
   }, {
-    id: 3,
+    id: "trashItems",
     name: 'Trash Items',
     notes: 'I think he needs to buy a boat',
     face: 'img/trash-b.png'
   }, {
-    id: 4,
+    id: "outBoxItems",
     name: 'Outbox',
     notes: 'Just the nicest guy',
     face: 'img/log-out.png'
