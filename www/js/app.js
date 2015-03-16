@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices'])
+var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','starter.scheduleroutes'])
 
 
 .run(function($ionicPlatform, $translate) {
@@ -126,53 +126,6 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
     controller: 'AppCtrl'
   })
 
-  
-
-  //   .state('app.contact', {
-  //   url: "/contact",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/views_contact/contact.html"
-  //     }
-  //   }
-  // })
-
-  .state('app.schedulerDay', {
-    url: "/schedulerDay",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_day.html"
-      }
-    }
-  })
-
-  .state('app.schedulerWeek', {
-    url: "/schedulerWeek",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_week.html"
-      }
-    }
-  })
-
-  .state('app.schedulerMonth', {
-    url: "/schedulerMonth",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_month.html"
-      }
-    }
-  })
-
-  .state('app.schedulerYear', {
-    url: "/schedulerYear",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_year.html"
-      }
-    }
-  })
-  
     .state('app.playlists', {
       url: "/playlists",
       views: {
@@ -191,63 +144,6 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
         controller: 'DashCtrl'
   })
   
-  
-  
-  
-  .state('app.contacts', {
-      url: '/contacts',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_contact/sub-contacts.html',
-          controller: 'ContactsCtrl'
-        }
-      }
-    })
-
-  
-     .state('app.contact-detail', {
-      url: '/contact/:contactId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_contact/contact-detail.html',
-          controller: 'ContactDetailCtrl'
-        }
-      }
-    })
-
-
-  .state('app.details-mail', {
-      url: '/mail/:folderId/:mailId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_webmail/mail-detail.html',
-          controller: 'MailDetailCtrl'
-        }
-      }
-    })
-
-
-
-   .state('app.mail-items', {
-      url: '/listmails/:itemId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_webmail/mails-list.html',
-          controller: 'MailsListCtrl'
-        }
-      }
-    })  
-  
-   .state('app.mailboxes', {
-      url: '/mailboxes',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_webmail/sub-menu-mails.html',
-          controller: 'MailsCtrl'
-        }
-      }
-    })
-
   
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
