@@ -1,12 +1,5 @@
-            
-
-
-
 <ion-view view-title="{{mail.name}}">
   <ion-content class="padding">
-    
-
-
 
     <ion-slide-box active-slide="myActiveSlide">
       <ion-slide ng-repeat="item in data.slides">
@@ -16,13 +9,13 @@
             <img src="https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg">
             <span class="item-note">date:</span>
             <h2>From: {{item.from}}</h2>
-            <p>To: {{item.to}}</p>
+            <p>To: {{(item.to)[0]}}</p>
           </div>
 
           <div  class="item item-avatar">
             <h2>Subject: {{item.subject}}</h2>
-            <p>Cc: {{item.cc}}</p>
-            <p>Bcc: {{item.bcc}}</p>
+            <p>Cc: {{(item.cc)[0]}}</p>
+            <p>Bcc: {{(item.bcc)[0]}}</p>
             <p>Priority: {{item.priority}}</p>
           </div>
 

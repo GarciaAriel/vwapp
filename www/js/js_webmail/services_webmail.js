@@ -2,11 +2,11 @@ angular.module('starter.webmailservices', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('MailList', function($http) {
+.factory('MailList', function($http,$localstorage) {
 
   var mailsboxes = new Array();
   
-  var url = "http://localhost:8080/com.servicios/api/mailboxes/";
+  var url = "http://10.0.0.149:8080/com.servicios/api/mailboxes/";
              
   //request to mailbox INBOX
   $http.get(url.concat('inbox')).then(function(resp) {
@@ -64,6 +64,16 @@ angular.module('starter.webmailservices', [])
     }
   )
 
+console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  var i = 0;
+    angular.forEach(mailsboxes[0], function(item) {
+        if (item!=null) {
+          console.log("entraaaaaaaa",item);
+          $localstorage.setObject(i,item);
+          i = i+1;
+        } 
+    });
+
 
   return {
     all: function(listId) {
@@ -85,8 +95,6 @@ angular.module('starter.webmailservices', [])
             index = 4;
             break;
       }
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaconsult SERVICES get ALL(idList) mails");
-
       return mailsboxes[index];
     },
     get: function(listId,mailId) {
@@ -113,6 +121,18 @@ angular.module('starter.webmailservices', [])
     }
   }
 })
+
+
+.factory('$localstorage', ['$window', function($window) {
+  return {
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}])
 
 /**
  * A simple example service that returns some data.
