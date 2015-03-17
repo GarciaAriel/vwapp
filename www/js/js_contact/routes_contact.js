@@ -15,7 +15,7 @@ angular.module('starter.contactroutes', [])
       }
     })
 
-  
+
      .state('app.contact-detail', {
       url: '/contact/:contactId',
       views: {
@@ -25,8 +25,8 @@ angular.module('starter.contactroutes', [])
         }
       }
     })
-  
-  
+
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

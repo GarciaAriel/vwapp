@@ -18,12 +18,12 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-      
-      
-      
-      
+
+
+
+
           if (typeof navigator.globalization !== "undefined"){
-      navigator.globalization.getPreferredLanguage(function(language) { 
+      navigator.globalization.getPreferredLanguage(function(language) {
          //alert((language.value).split("-")[0]);
         $translate.use((language.value).split("-")[0]).then(function(data) {
         //  alert(language.value);
@@ -32,15 +32,15 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
                 }, function(error) {
               console.log("ERROR -> " + error);
                 });
-        },null);                    
-      }  
-      
-      
-      
-      
-      
-      
-      
+        },null);
+      }
+
+
+
+
+
+
+
   });
 })
 
@@ -58,7 +58,7 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
             Scheduler: "Scheduler",
             Webmail: "Webmail",
             Logout: "Log out",
-        
+
         });
     $translateProvider.translations("es", {
             Login: "Ingresar",
@@ -71,9 +71,9 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
             Webmail: "Correo",
             Logout: "Salir",
         });
-            
-    
-    
+
+
+
      $translateProvider.translations("de", {
             Login: "Anmeldung",
             Username: "Benutzername",
@@ -85,9 +85,9 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
             Webmail: "Post",
             Logout: "aussteigen",
         });
-        
-    
-    
+
+
+
      $translateProvider.translations("fr", {
             Login: "Connexion",
             Username: "Utilisateur",
@@ -99,7 +99,7 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
             Webmail: "Courrier",
             Logout: "sortez",
         });
-    
+
     $translateProvider.preferredLanguage("en");
     $translateProvider.fallbackLanguage("en");
 })
@@ -135,16 +135,16 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
         }
       }
     })
-  
-  
+
+
   .state('dash', {
     url: '/dash',
-      
+
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl'
   })
-  
-  
+
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

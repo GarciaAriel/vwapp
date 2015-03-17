@@ -5,9 +5,9 @@ angular.module('starter.webmailservices', [])
 .factory('MailList', function($http,$localstorage) {
 
   var mailsboxes = new Array();
-  
-  var url = "http://10.0.0.149:8080/com.servicios/api/mailboxes/";
-             
+
+  var url = "http://localhost:8080/com.servicios/api/mailboxes/";
+
   //request to mailbox INBOX
   $http.get(url.concat('inbox')).then(function(resp) {
       mailsboxes[0]=resp.data;
@@ -71,7 +71,7 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
           console.log("entraaaaaaaa",item);
           $localstorage.setObject(i,item);
           i = i+1;
-        } 
+        }
     });
 
 
@@ -115,7 +115,7 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         case "outBoxItems":
             index = 4;
             break;
-      } 
+      }
       console.log("consult SERVICES GET(idMail) mails");
       return (mailsboxes[index])[mailId];
     }
@@ -138,7 +138,7 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
  * A simple example service that returns some data.
  */
 .factory('MailsSubMenu', function() {
-  
+
 
   // Some fake testing data
   // Some fake testing data
@@ -179,4 +179,3 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
   }
 });
-

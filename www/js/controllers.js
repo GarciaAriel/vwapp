@@ -5,21 +5,27 @@ angular.module('starter.controllers', [])
   $scope.loginData = {};
 
   var asd = Contacts.all();
-  var mailList = MailList.all(); 
-  if(window.localStorage.getItem('firstTime') == null){ //if first time
-    var alertPopup = $ionicPopup.alert({
-                title: 'primer usoooooooooo',
-                template: 'Please check your credentials!'
-            });
-  }
-  else{
-    var alertPopup = $ionicPopup.alert({
-                title: 'segundo usoooooooooooo',
-                template: 'Please check your credentials!'
-            });
-  }
-    
-  
+  var mailList = MailList.all();
+
+  // $scope.searchcon = function(){
+  //   alert("button searchcon pressed");
+  // };
+
+
+  // if(window.localStorage.getItem('firstTime') == null){ //if first time
+  //   var alertPopup = $ionicPopup.alert({
+  //               title: 'primer usoooooooooo',
+  //               template: 'Please check your credentials!'
+  //           });
+  // }
+  // else{
+  //   var alertPopup = $ionicPopup.alert({
+  //               title: 'segundo usoooooooooooo',
+  //               template: 'Please check your credentials!'
+  //           });
+  // }
+  //
+
 
 
   // Create the login modal that we will use later
@@ -53,6 +59,7 @@ angular.module('starter.controllers', [])
 
 
 
+
 .controller('DashCtrl', function($scope) {})
 
 
@@ -78,7 +85,7 @@ angular.module('starter.controllers', [])
     { title: 'mail2 ', id: 2 },
     { title: 'tarea q', id: 3 },
     { title: 'tares', id: 4 }
-    
+
   ];
 })
 
