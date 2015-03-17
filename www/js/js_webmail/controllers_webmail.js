@@ -2,6 +2,9 @@ angular.module('starter.webmailcontrollers', [])
 
 
 .controller('MailsCtrl', function($scope,  MailsSubMenu) {
+
+  
+
   $scope.mailsSubMenu = MailsSubMenu.all();
   console.log("Controller WEBMAIL mailboxes folders",$scope.mailsSubMenu);
 })
