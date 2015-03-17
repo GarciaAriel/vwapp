@@ -1,26 +1,21 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,Contacts, $ionicPopup) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,Contacts, $ionicPopup,$localstorage) {
   // Form data for the login modal
   $scope.loginData = {};
 
-  var asd = Contacts.all();
-  var mailList = MailList.all(); 
-  if(window.localStorage.getItem('firstTime') == null){ //if first time
-    var alertPopup = $ionicPopup.alert({
-                title: 'primer usoooooooooo',
-                template: 'Please check your credentials!'
-            });
+  Contacts.all();
+  MailList.all(); 
+  var firstUse = $localstorage.get("starter",null);
+  if(firstUse == null){ //if first time
+    // Contacts.all();
+    // MailList.all(); 
+    
   }
   else{
-    var alertPopup = $ionicPopup.alert({
-                title: 'segundo usoooooooooooo',
-                template: 'Please check your credentials!'
-            });
+    
   }
     
-  
-
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {

@@ -2,6 +2,76 @@ angular.module('starter.webmailservices', [])
 /**
  * A simple example service that returns some data.
  */
+
+.factory('MailLoadBD', function($localstorage) {
+
+  var mailsboxes = new Array();
+    
+  var arr = new Array();  
+  for (var i=0; i<3; i++){
+
+    var object = $localstorage.getObject(i)
+    console.log("el objeto extraidooooo", object);
+    arr[i]=object;
+  }
+  mailsboxes[0]=arr;
+  console.log("creo que yaaaaaaaaaaaaaaaaaa BD",mailsboxes[0]);
+  
+
+  
+
+
+  return {
+    all: function(listId) {
+      var index;
+      switch (listId) {
+        case "inbox":
+            index = 0;
+            break;
+        case "sentItems":
+            index = 1;
+            break;
+        case "draftItems":
+            index = 2;
+            break;
+        case "trashItems":
+            index = 3;
+            break;
+        case "outBoxItems":
+            index = 4;
+            break;
+      }
+      return mailsboxes[0];
+      //return mailsboxes[index];
+    },
+    get: function(listId,mailId) {
+      var index;
+      switch (listId) {
+        case "inbox":
+            index = 0;
+            break;
+        case "sentItems":
+            index = 1;
+            break;
+        case "draftItems":
+            index = 2;
+            break;
+        case "trashItems":
+            index = 3;
+            break;
+        case "outBoxItems":
+            index = 4;
+            break;
+      } 
+      console.log("consult SERVICES GET(idMail) mails");
+      return (mailsboxes[index])[mailId];
+    }
+  }
+})
+//================================================================================
+//================================================================================
+//================================================================================
+
 .factory('MailList', function($http,$localstorage) {
 
   var mailsboxes = new Array();
@@ -11,8 +81,17 @@ angular.module('starter.webmailservices', [])
   //request to mailbox INBOX
   $http.get(url.concat('inbox')).then(function(resp) {
       mailsboxes[0]=resp.data;
-
       console.log('Mails service INBOX Success OK', resp.data);
+
+      var i = 0;
+      console.log("guardandnoooooooooooooo",mailsboxes[0]);
+      angular.forEach(mailsboxes[0], function(item) {
+          if (item!=null) {
+            console.log("entraaaaaaaa guardarrrrrrrr",item);
+            $localstorage.setObject(i,item);
+            i = i+1;
+          } 
+      });
       // For JSON responses, resp.data contains the result
     }, function(err) {
       console.error('Mails services INBOX Success ERROR', err);
@@ -76,48 +155,8 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 
   return {
-    all: function(listId) {
-      var index;
-      switch (listId) {
-        case "inbox":
-            index = 0;
-            break;
-        case "sentItems":
-            index = 1;
-            break;
-        case "draftItems":
-            index = 2;
-            break;
-        case "trashItems":
-            index = 3;
-            break;
-        case "outBoxItems":
-            index = 4;
-            break;
-      }
-      return mailsboxes[index];
-    },
-    get: function(listId,mailId) {
-      var index;
-      switch (listId) {
-        case "inbox":
-            index = 0;
-            break;
-        case "sentItems":
-            index = 1;
-            break;
-        case "draftItems":
-            index = 2;
-            break;
-        case "trashItems":
-            index = 3;
-            break;
-        case "outBoxItems":
-            index = 4;
-            break;
-      } 
-      console.log("consult SERVICES GET(idMail) mails");
-      return (mailsboxes[index])[mailId];
+    all: function() {
+      return mailsboxes[0];
     }
   }
 })
@@ -125,6 +164,12 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 .factory('$localstorage', ['$window', function($window) {
   return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
     setObject: function(key, value) {
       $window.localStorage[key] = JSON.stringify(value);
     },
