@@ -1,12 +1,26 @@
-<ion-view view-title="Goooooo ">
+
+
+<ion-view view-title="Contacts">
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-ios7-search" style="border-color: #abadad;"></a>
+    <a class="button button-icon icon ion-person-add">
+      <i style="color: #5e5e5e;"></i></a>
+    <a class="button button-icon icon ion-person-stalker" style="color: red"></a>
+
+
+      <!-- <div class="new">
+        <i class="ion-person-add"></i>
+          </div> -->
+      <!-- <button id="saveButton" class="ion-person-add"></button> -->
+  </ion-nav-buttons>
+
   <ion-content>
     <ion-list>
       <ion-item class="item-avatar" ng-repeat="item in contacts" type="item-text-wrap" href="#/app/contact/{{item.id}}" >
         <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
-        <span class="item-note">Date</span>
         <h2>{{item.name}}</h2>
-        <p>{{item.name}}</p>
-        <p>{{item.name}}</p>
+        <p>{{item.of[0]}}</p>
+        <p>{{item.country}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
