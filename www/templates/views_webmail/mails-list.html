@@ -3,7 +3,15 @@
     <ion-list>
       <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail/{{item.folder}}/{{item.id}}" >
         <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
-        <span class="item-note">Date</span>
+        <span class="item-note">Date
+          <div ng-if="item.see == 'true' ">
+                visto
+          </div>
+          <div ng-if="item.see == 'false' ">
+                no visto
+          </div>
+         
+        </span>
         <h2>{{item.from}}</h2>
         <p>{{item.subject}}</p>
         <p>{{item.detail}}</p>

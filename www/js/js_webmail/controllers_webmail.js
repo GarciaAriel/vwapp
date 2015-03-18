@@ -9,6 +9,18 @@ angular.module('starter.webmailcontrollers', [])
 .controller('MailsListCtrl', function($scope, $stateParams, MailLoadBD) {
   $scope.mailList = MailLoadBD.all($stateParams.itemId); 
   console.log("Controller WEBMAIL list mails",$scope.mailList);
+
+
+})
+
+.controller("indexController", function($scope) {
+    $scope.vm = {
+        caption: 'angular is here',
+        isBlockVisible: false,
+        toggle: function() {
+            this.isBlockVisible = !this.isBlockVisible;
+        }
+    };
 })
 
 .controller('MailDetailCtrl', function($scope, $stateParams, MailLoadBD, $ionicSlideBoxDelegate) {

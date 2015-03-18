@@ -3,7 +3,17 @@
     <ion-list>
       <ion-item class="item-avatar" ng-repeat="item in contacts" type="item-text-wrap" href="#/app/contact/{{item.id}}" >
         <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
-        <span class="item-note">Date</span>
+        <span class="item-note">Date
+          <div ng-if="item.type == 'person' ">
+                person
+          </div>
+          <div ng-if="item.type == 'secret' ">
+                secret
+          </div>
+          <div ng-if="item.type == 'company' ">
+                company
+          </div>
+        </span>
         <h2>{{item.name}}</h2>
         <p>{{item.name}}</p>
         <p>{{item.name}}</p>
