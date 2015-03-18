@@ -111,7 +111,7 @@ angular.module('starter.webmailservices', [])
       mailsboxes[2]=draftItems;
       mailsboxes[3]=trashItems;
       mailsboxes[4]=outBoxItems;
-      console.log('Mails service GET MAILS Success OK', mailsboxes);
+      console.log('Mails service GET M Success OK', mailsboxes);
 
 
       // save data in localstorage
@@ -126,7 +126,7 @@ angular.module('starter.webmailservices', [])
       });
       
     }, function(err) {
-      console.error('Mails services GET MAILS Success ERROR', err);
+      console.error('Mails services INBOX Success ERROR', err);
     // err.status will contain the status code
     }
   )

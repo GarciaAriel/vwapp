@@ -3,9 +3,9 @@ angular.module('starter.contactservices', [])
 .factory('Contacts', function($http) {
 
   var contacts;
-  
+
   var url = "http://localhost:8080/com.servicios/api/contacts/get";
-             
+
   //request to mailbox OUTBOXITEMS
   $http.get(url).then(function(resp) {
       contacts = resp.data;

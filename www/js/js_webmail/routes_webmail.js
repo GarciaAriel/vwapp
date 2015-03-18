@@ -5,7 +5,7 @@ angular.module('starter.webmailroutes', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  
+
   .state('app.details-mail', {
       url: '/mail/:folderId/:mailId',
       views: {
@@ -26,8 +26,8 @@ angular.module('starter.webmailroutes', [])
           controller: 'MailsListCtrl'
         }
       }
-    })  
-  
+    })
+
    .state('app.mailboxes', {
       url: '/mailboxes',
       views: {
@@ -38,7 +38,7 @@ angular.module('starter.webmailroutes', [])
       }
     })
 
-  
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

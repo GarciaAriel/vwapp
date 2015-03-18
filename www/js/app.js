@@ -18,15 +18,14 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap"); 
     db = $cordovaSQLite.openDB({ name: "my.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
     console.log("appppppppppppppppppppppppppppppppppp"); 
-      
-      
-      
+
           if (typeof navigator.globalization !== "undefined"){
-      navigator.globalization.getPreferredLanguage(function(language) { 
+      navigator.globalization.getPreferredLanguage(function(language) {
          //alert((language.value).split("-")[0]);
         $translate.use((language.value).split("-")[0]).then(function(data) {
         //  alert(language.value);
@@ -35,15 +34,15 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
                 }, function(error) {
               console.log("ERROR -> " + error);
                 });
-        },null);                    
-      }  
-      
-      
-      
-      
-      
-      
-      
+        },null);
+      }
+
+
+
+
+
+
+
   });
 })
 
@@ -61,7 +60,7 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
             Scheduler: "Scheduler",
             Webmail: "Webmail",
             Logout: "Log out",
-        
+
         });
     $translateProvider.translations("es", {
             Login: "Ingresar",
@@ -74,9 +73,9 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
             Webmail: "Correo",
             Logout: "Salir",
         });
-            
-    
-    
+
+
+
      $translateProvider.translations("de", {
             Login: "Anmeldung",
             Username: "Benutzername",
@@ -88,9 +87,9 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
             Webmail: "Post",
             Logout: "aussteigen",
         });
-        
-    
-    
+
+
+
      $translateProvider.translations("fr", {
             Login: "Connexion",
             Username: "Utilisateur",
@@ -102,7 +101,7 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
             Webmail: "Courrier",
             Logout: "sortez",
         });
-    
+
     $translateProvider.preferredLanguage("en");
     $translateProvider.fallbackLanguage("en");
 })
@@ -138,16 +137,16 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
         }
       }
     })
-  
-  
+
+
   .state('dash', {
     url: '/dash',
-      
+
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl'
   })
-  
-  
+
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

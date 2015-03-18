@@ -1,4 +1,29 @@
+
+
 <ion-view view-title="Contacts">
+  <ion-nav-buttons side="right">
+    <!-- <a class="button button-icon icon ion-ios7-search" style="color: #B80808"></a>
+    <a class="button button-icon icon ion-person-add" style="color: #B80808"></a>
+
+    <a class="button button-icon icon ion-person-stalker" style="color: #B80808"></a> -->
+    <button class="button" style="border-style: none" data-ng-click="searchcon()">
+    <i class="icon ion-ios7-search" style="color: #B80808"></i>
+
+    </button>
+    <button class="button" style="border-style: none" data-ng-click="addper()">
+    <i class="icon ion-person-add" style="color: #B80808"></i>
+
+    </button>
+    <button class="button"style="border-style: none" data-ng-click="addcom()">
+    <i class="icon ion-person-stalker" style="color: #B80808"></i>
+
+    </button>
+
+      <!-- <div class="new">
+        <i class="ion-person-add"></i>
+          </div> -->
+      <!-- <button id="saveButton" class="ion-person-add"></button> -->
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item class="item-avatar" ng-repeat="item in contacts" type="item-text-wrap" href="#/app/contact/{{item.id}}" >
@@ -15,8 +40,8 @@
           </div>
         </span>
         <h2>{{item.name}}</h2>
-        <p>{{item.name}}</p>
-        <p>{{item.name}}</p>
+        <p>{{item.of[0]}}</p>
+        <p>{{item.country}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
