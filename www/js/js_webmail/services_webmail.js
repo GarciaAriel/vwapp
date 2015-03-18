@@ -76,13 +76,45 @@ angular.module('starter.webmailservices', [])
 
   var mailsboxes = new Array();
   
-  var url = "http://10.0.0.149:8080/com.servicios/api/mailboxes/";
+  var url = "http://localhost:8080/com.servicios/api/mailboxes/idUser";
              
   //request to mailbox INBOX
-  $http.get(url.concat('inbox')).then(function(resp) {
-      mailsboxes[0]=resp.data;
-      console.log('Mails service INBOX Success OK', resp.data);
+  $http.get(url).then(function(resp) {
+      var result = resp.data;
+      var inbox = new Array();
+      var sentItems = new Array();
+      var draftItems = new Array();
+      var trashItems = new Array();
+      var outBoxItems = new Array();
+      angular.forEach(result, function(item){
+        switch (item.folder) {
+        case "inbox":
+            inbox.push(item);
+            break;
+        case "sentItems":
+            sentItems.push(item);
+            break;
+        case "draftItems":
+            draftItems.push(item);
+            break;
+        case "trashItems":
+            trashItems.push(item);
+            break;
+        case "outBoxItems":
+            outBoxItems.push(item);
+            break;
+      }
+      })
 
+      mailsboxes[0]=inbox;
+      mailsboxes[1]=sentItems;
+      mailsboxes[2]=draftItems;
+      mailsboxes[3]=trashItems;
+      mailsboxes[4]=outBoxItems;
+      console.log('Mails service GET MAILS Success OK', mailsboxes);
+
+
+      // save data in localstorage
       var i = 0;
       console.log("guardandnoooooooooooooo",mailsboxes[0]);
       angular.forEach(mailsboxes[0], function(item) {
@@ -92,57 +124,13 @@ angular.module('starter.webmailservices', [])
             i = i+1;
           } 
       });
-      // For JSON responses, resp.data contains the result
+      
     }, function(err) {
-      console.error('Mails services INBOX Success ERROR', err);
+      console.error('Mails services GET MAILS Success ERROR', err);
     // err.status will contain the status code
     }
   )
-  //request to mailbox SENTITEMS
-  $http.get(url.concat('sentItems')).then(function(resp) {
-      mailsboxes[1]=resp.data;
-
-      console.log('Mails service SENTITEMS Success OK', resp.data);
-      // For JSON responses, resp.data contains the result
-    }, function(err) {
-      console.error('Mails services SENTITEMS Success ERROR', err);
-    // err.status will contain the status code
-    }
-  )
-  //request to mailbox DRAFTITEMS
-  $http.get(url.concat('draftItems')).then(function(resp) {
-      mailsboxes[2]=resp.data;
-
-      console.log('Mails service DRAFTITEMS Success OK', resp.data);
-      // For JSON responses, resp.data contains the result
-    }, function(err) {
-      console.error('Mails services DRAFTITEMS Success ERROR', err);
-    // err.status will contain the status code
-    }
-  )
-  //request to mailbox TRASHITEMS
-  $http.get(url.concat('trashItems')).then(function(resp) {
-      mailsboxes[3]=resp.data;
-
-      console.log('Mails service TRASHITEMS Success OK', resp.data);
-      // For JSON responses, resp.data contains the result
-    }, function(err) {
-      console.error('Mails services TRASHITEMS Success ERROR', err);
-    // err.status will contain the status code
-    }
-  )
-  //request to mailbox OUTBOXITEMS
-  $http.get(url.concat('outBoxItems')).then(function(resp) {
-      mailsboxes[4]=resp.data;
-
-      console.log('Mails service OUTBOXITEMS Success OK', resp.data);
-      // For JSON responses, resp.data contains the result
-    }, function(err) {
-      console.error('Mails services OUTBOXITEMS Success ERROR', err);
-    // err.status will contain the status code
-    }
-  )
-
+  
 console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
   var i = 0;
     angular.forEach(mailsboxes[0], function(item) {
@@ -178,6 +166,43 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
   }
 }])
+
+
+// .factory('dataBase', function($scope, $cordovaSQLite) {
+  
+//   return {
+//     insert: function(firstname, lastname) {
+//         console.log("call insert function with: "+firstname+lastname);
+//         var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
+//         $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function(res) {
+//             console.log("INSERT ID -> " + res.insertId);
+//             console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//         }, function (err) {
+//             console.log("nooooooooooooooooooooooooooooooooooooooooooooooo");
+//             console.error(err);
+//         });
+//         return 'o';
+//     },
+ 
+//     select: function(lastname) {
+//         console.log("call select function with: "+ lastname);
+//         var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
+//         $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
+//             if(res.rows.length > 0) {
+                  
+//                 console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);
+//                 console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//             } else {
+//                 console.log("nooooooooooooooooooooooooooooooooooooooooooooooo");
+//                 console.log("No results found");
+//             }
+//         }, function (err) {
+//             console.error(err);
+//         });
+//         return 'o';
+//     }
+//   }
+// })
 
 /**
  * A simple example service that returns some data.

@@ -1,13 +1,13 @@
 // Ionic Starter App
-
+var db = null;
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','starter.scheduleroutes'])
+var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','starter.scheduleroutes'])
 
 
-.run(function($ionicPlatform, $translate) {
+.run(function($ionicPlatform, $translate, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,7 +18,10 @@ var starter = angular.module('starter', ['ionic', 'pascalprecht.translate', 'sta
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-      
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap"); 
+    db = $cordovaSQLite.openDB({ name: "my.db" });
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
+    console.log("appppppppppppppppppppppppppppppppppp"); 
       
       
       
