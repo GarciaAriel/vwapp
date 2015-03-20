@@ -16,7 +16,11 @@ angular.module('starter.webmailservices', [])
     get: function(listId,mailId) {
       var result = mailsboxes[listId];
       console.log("consult SERVICES GET(idMail) mails");
-      return (result[mailId]);
+      var index = parseInt(mailId);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaresultList",result);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaMail",index);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaIDDDD",index);
+      return (result[index]);
     }
   }
 })

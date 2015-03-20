@@ -10,7 +10,8 @@ angular.module('starter.webmailcontrollers', [])
 
 .controller('MailsListCtrl', function($scope, $stateParams, MailLoadBD) {
   $scope.mailList = MailLoadBD.all($stateParams.itemId); 
-
+  $scope.nameList = (($scope.mailList)[0].folder);
+  
 // .controller('MailsListCtrl', function($scope, $stateParams, MailList) {
 //   $scope.mailList = MailList.all($stateParams.itemId);
 
