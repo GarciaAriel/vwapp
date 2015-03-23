@@ -12,33 +12,73 @@
             <p>To: {{(item.to)[0]}}</p>
           </div>
 
-          <div  class="item item-avatar">
-            <h2>Subject: {{item.subject}}</h2>
-            <p>Cc: {{(item.cc)[0]}}</p>
-            <p>Bcc: {{(item.bcc)[0]}}</p>
-            <p>Priority: {{item.priority}}</p>
+          <div  class="item item-body">
+            <div>
+              <h2>Subject: {{item.subject}}</h2>
+            </div>
+
+            <div ng-if="item.cc != '' ">
+              <p> 
+                <!-- div cc -->
+                <div>
+                  <ion-item class="button button-clear button-positive"
+                            ng-click="toggleGroup(item.cc)"
+                            ng-class="{active: isGroupShown(item.cc)}">
+                      <i class="icon" ng-class="isGroupShown(item.cc) ? 'ion-minus' : 'ion-plus'"></i>
+                    &nbsp;
+                    Cc:
+                  </ion-item>
+                  <ion-item class="item-accordion"
+                            ng-repeat="ite in item.cc"
+                            ng-show="isGroupShown(item.cc)">
+                    {{ite}}
+                  </ion-item>
+                </div>  
+                <!-- -->
+              </p>
+            </div>
+
+            <div ng-if="item.bcc != '' ">
+              <p>
+                <!-- div bcc -->
+                <ion-item class="button button-clear button-positive"
+                          ng-click="toggleGroup(item.bcc)"
+                          ng-class="{active: isGroupShown(item.bcc)}">
+                    <i class="icon" ng-class="isGroupShown(item.bcc) ? 'ion-minus' : 'ion-plus'"></i>
+                  &nbsp;
+                  Bcc: 
+                </ion-item>
+                <ion-item class="item-accordion"
+                          ng-repeat="ite in item.bcc"
+                          ng-show="isGroupShown(item.bcc)">
+                  {{ite}}
+                </ion-item>
+              <!--  -->
+              </p>  
+            </div>
+
           </div>
-
-          <div class="item item-body">
-            <p>Detail:</p>
-            <p>
-              {{item.detail}}
-            </p>
-          </div>
-          
-
-
-
-
-
 
         </div>
+
+        <div ng-if="item.detail != '' ">
+              
+              <div class="card">
+                Detail: 
+                <div class="item item-text-wrap">
+
+                  {{item.detail}}  
+                </div>
+              </div>
+            </div>
 
       </ion-slide>
     </ion-slide-box>
 
     </ion-content>
 </ion-view>
+
+
 
 
 
