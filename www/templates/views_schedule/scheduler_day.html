@@ -1,7 +1,57 @@
 <ion-view view-title="scheduler">
   <ion-content>
-    	<div id='calendar'>calendar XD</div> 
-    	<input type="button" value="Capacity Chart" onclick="CapacityChart();">    
+    	myFunction
+    	<!-- dooooooooo -->
+		<button onclick="myFunction()">Click me</button>
+    	<div class="container">
+			<ol class="breadcrumb">
+				<li><a href="calendar">Calendario</a></li>
+				<li><a href="events">Añadir evento</a></li>
+			</ol>
+			<div class="row">
+				<div class="page-header">
+					<div class="pull-right form-inline">
+						<div class="btn-group">
+							<button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
+							<button class="btn" data-calendar-nav="today">Hoy</button>
+							<button class="btn btn-primary" data-calendar-nav="next">Siguiente >></button>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-warning" data-calendar-view="year">Año</button>
+							<button class="btn btn-warning active" data-calendar-view="month">Mes</button>
+							<button class="btn btn-warning" data-calendar-view="week">Semana</button>
+							<button class="btn btn-warning" data-calendar-view="day">Día</button>
+						</div>
+					</div>
+				</div>
+				<label class="checkbox">
+					<input type="checkbox" value="#events-modal" id="events-in-modal"> Abrir eventos en una ventana modal
+				</label>
+			</div><hr>
+			<div class="row">
+				<div id="calendar"></div>
+			</div>
+		<!--ventana modal para el calendario-->
+			<div class="modal fade" id="events-modal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+					<div class="modal-body" style="height: 400px">
+						<p>One fine body&hellip;</p>
+					</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		</div>
+    	<!-- dooooooooo -->
+    	
   </ion-content>
 </ion-view>
 
@@ -26,4 +76,6 @@
 	  </a>
 	</div>
 </div>
+
+
 

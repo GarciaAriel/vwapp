@@ -11,7 +11,7 @@ var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCo
 
 //dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 // enumerate routes that user can see
-  var routesForUser = ["/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
+  var routesForUser = ["/app/contacts","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
 
   // check if current location matches route  
   var routeClean = function (route) {
