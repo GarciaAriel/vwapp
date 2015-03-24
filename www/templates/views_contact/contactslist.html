@@ -25,7 +25,17 @@
       <!-- <button id="saveButton" class="ion-person-add"></button> -->
   </ion-nav-buttons>
   <ion-content>
-    <ion-list>
+
+    <ion-refresher on-refresh="addContact()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact/{{$index}}">
+                <img ng-src="{{contact.picture.thumbnail}}">
+                <h2>{{contact.name.title}}.{{contact.name.last}},{{contact.name.first}}</h2>
+                <p>{{contact.location.city}}</p>
+                </ion-item>
+        </ion-list>
+    <!-- <ion-list>
       <ion-item class="item-avatar" ng-repeat="item in contacts" type="item-text-wrap" href="#/app/contact/{{item.id}}" >
         <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
         <span class="item-note">Date
@@ -43,6 +53,6 @@
         <p>{{item.of[0]}}</p>
         <p>{{item.country}}</p>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
   </ion-content>
 </ion-view>

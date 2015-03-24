@@ -1,0 +1,106 @@
+<ion-view view-title="{{contact.name.first}} {{contact.name.last}}">
+
+
+  <ion-nav-buttons side="right">
+<!--                <button class="button-icon button-full assertive" ng-click="borrarPersona()">Borrar persona</button>-->
+    <button class="button" style="border-style: none" ng-click="borrarPersona()">
+    <i class="icon ion-trash-a" style="color: #B80808"></i>
+
+    </button>
+
+    </ion-nav-buttons>
+
+  <ion-content>
+
+    <div class="list card">
+     <a class="item item-thumbnail-left" href="#">
+       <img src="{{contact.picture.thumbnail}}">
+       <h2>From: {{(contact.location.city)}}</h2>
+           <p>Id : {{contact.registered}}</p>
+           <p>Usermane: {{contact.username}}</p>
+       <!-- <p>{{contact.funtion}}</p> -->
+       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+     </a>
+ </div>
+
+ <div class="list card">
+     <div class="item item-divider">
+       <h2>Address</h2>
+   </div>
+   <a class="item item-thumbnail-right" href="#">
+     <!-- <div class="item item-text-wrap"> -->
+               City: {{contact.location.city}}
+         <br>
+         Country: {{contact.location.state}}
+               <br>
+               Zip: {{contact.location.zip}}
+               <br>
+               Street: {{contact.location.street}}
+         <h1> <span class="badge ion-chevron-right"> </span> </h1>
+     <!-- </div> -->
+   </a>
+ </div>
+
+ <div class="list card">
+     <div class="item item-divider">
+       <h2>Contact</h2>
+   </div>
+   <a class="item item-thumbnail-right" href="#">
+   <!-- <div class="item item-text-wrap"> -->
+       Phone: {{contact.phone}}
+       <br>
+       Cell Phone: {{contact.cell}}
+       <br>
+           email:{{contact.email}}
+       <!-- Mail: {{contact.mail}} -->
+       <!-- <br> -->
+       <!-- Site Web: {{contact.siteWeb}} -->
+       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+   <!-- </div> -->
+   </a>
+ </div>
+
+	<!-- <div class="list card">
+	    <a class="item item-thumbnail-left" href="#">
+	      <img src="{{contact.foto}}">
+	      <h2>Of: {{(contact.of)[0]}}</h2>
+	      <p>{{contact.name}}</p>
+	      <!-- <p>{{contact.funtion}}</p> -->
+	      <!-- <h1> <span class="badge ion-chevron-right"> </span> </h1>
+	    </a>
+	</div>
+
+	<div class="list card">
+	    <div class="item item-divider">
+		    <h2>Address</h2>
+		</div>
+		<a class="item item-thumbnail-right" href="#">
+			<!-- <div class="item item-text-wrap"> -->
+			    <!-- Country: {{contact.country}}
+			    <br>
+			    City: {{contact.city}}
+			    <h1> <span class="badge ion-chevron-right"> </span> </h1>
+			<!-- </div>
+		</a>
+	</div>
+
+	<div class="list card">
+	    <div class="item item-divider">
+		    <h2>Contact</h2>
+		</div>
+		<a class="item item-thumbnail-right" href="#">
+		<div class="item item-text-wrap"> -->
+		    <!-- Phone: {{(contact.numbers)[0]}}
+		    <br>
+		    Cell Phone: {{(contact.numbers)[0]}}
+		    <br>
+		    <!-- Mail: {{contact.mail}} -->
+		    <!-- <br> -->
+		    <!-- Site Web: {{contact.siteWeb}} -->
+		    <!-- <h1> <span class="badge ion-chevron-right"> </span> </h1>
+		</div>
+		</a>
+	</div> -->
+
+  </ion-content>
+</ion-view>
