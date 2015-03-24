@@ -10,7 +10,8 @@ angular.module('starter.scheduleroutes', [])
     url: "/schedulerDay",
     views: {
       'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_day.html"
+        templateUrl: "templates/views_schedule/scheduler_day.html",
+        // controller: "ControlSchedule"
       }
     }
   })
