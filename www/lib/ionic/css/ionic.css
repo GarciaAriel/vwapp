@@ -17,9 +17,6 @@
   https://twitter.com/benjsperry  https://twitter.com/ionicframework
   MIT License: https://github.com/driftyco/ionicons
 */
-
-
-
 @font-face {
   font-family: "Ionicons";
   src: url("../fonts/ionicons.eot?v=1.5.2");
@@ -85,28 +82,6 @@
   -webkit-animation-timing-function: steps(8, start);
   -moz-animation-timing-function: steps(8, start);
   animation-timing-function: steps(8, start); }
-
-
-  body {
-  cursor: url('http://ionicframework.com/img/finger.png'), auto;
-}
-
-/*
- * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
- */
-.list .item.item-accordion {
-  line-height: 38px;
-  padding-top: 0;
-  padding-bottom: 0;
-  transition: 0.09s all linear;
-}
-.list .item.item-accordion.ng-hide {
-  line-height: 0px;
-}
-.list .item.item-accordion.ng-hide-add,
-.list .item.item-accordion.ng-hide-remove {
-  display: block !important;
-}
 
 .ion-alert:before {
   content: "\f101"; }
@@ -5131,7 +5106,7 @@ a.item-content {
   height: 15px;
   text-align: center; }
   .slider-pager .slider-pager-page {
-    display: none;
+    display: inline-block;
     margin: 0px 3px;
     width: 15px;
     color: #000;

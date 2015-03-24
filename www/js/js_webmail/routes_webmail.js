@@ -7,7 +7,7 @@ angular.module('starter.webmailroutes', [])
 
 
   .state('app.details-mail', {
-      url: '/mail/:folderId/:mailId',
+      url: '/mail-detail/:folderId/:mailId',
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',
@@ -19,7 +19,7 @@ angular.module('starter.webmailroutes', [])
 
 
    .state('app.mail-items', {
-      url: '/listmails/:itemId',
+      url: '/mail-list/:itemId',
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mails-list.html',

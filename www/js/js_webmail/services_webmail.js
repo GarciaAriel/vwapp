@@ -43,7 +43,6 @@ angular.module('starter.webmailservices', [])
         } else {
             // Does not exist
             var nombre = item.folder;
-            console.log("nombreeee",nombre);
             var auxiliar = new Array();
             mailsboxes[nombre] = auxiliar;
             (mailsboxes[item.folder]).push(item);

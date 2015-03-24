@@ -75,7 +75,28 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
+//doooooooooooooooooooooooooooooooooooooooooooooo
+.controller('LoginController', function ($scope, AuthenticationService,$state) {
+    'use strict';
 
+    $scope.data = {};
+
+    $scope.login = function() {
+      
+      // this should be replaced with a call to your API for user verification (or you could also do it in the service)
+      AuthenticationService.login({name: $scope.data.username, role: $scope.data.password});    
+      console.log("datos",$scope.data);
+      $state.go('app');
+    }
+    
+})
+
+.controller('logoutController', function($scope, $state,AuthenticationService){
+    'use strict';
+    AuthenticationService.logout();
+})
+
+//dooooooooooooooooooooooooooooooooooooooooooo
 
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
     $scope.data = {};
