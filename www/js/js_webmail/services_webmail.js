@@ -5,66 +5,22 @@ angular.module('starter.webmailservices', [])
 
 .factory('MailLoadBD', function($localstorage) {
 
-  var mailsboxes = new Array();
-    
-  var arr = new Array();  
-  for (var i=0; i<3; i++){
-
-    var object = $localstorage.getObject(i)
-    console.log("el objeto extraidooooo", object);
-    arr[i]=object;
-  }
-  mailsboxes[0]=arr;
-  console.log("creo que yaaaaaaaaaaaaaaaaaa BD",mailsboxes[0]);
+  var mailsboxes = $localstorage.getObject("mBoxes");
   
-
-  
-
-
   return {
     all: function(listId) {
-      var index;
-      switch (listId) {
-        case "inbox":
-            index = 0;
-            break;
-        case "sentItems":
-            index = 1;
-            break;
-        case "draftItems":
-            index = 2;
-            break;
-        case "trashItems":
-            index = 3;
-            break;
-        case "outBoxItems":
-            index = 4;
-            break;
-      }
-      return mailsboxes[0];
+      var result = mailsboxes[listId];
+      return result;
       //return mailsboxes[index];
     },
     get: function(listId,mailId) {
-      var index;
-      switch (listId) {
-        case "inbox":
-            index = 0;
-            break;
-        case "sentItems":
-            index = 1;
-            break;
-        case "draftItems":
-            index = 2;
-            break;
-        case "trashItems":
-            index = 3;
-            break;
-        case "outBoxItems":
-            index = 4;
-            break;
-      } 
+      var result = mailsboxes[listId];
       console.log("consult SERVICES GET(idMail) mails");
-      return (mailsboxes[index])[mailId];
+      var index = parseInt(mailId);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaresultList",result);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaMail",index);
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaIDDDD",index);
+      return (result[index]);
     }
   }
 })
@@ -73,58 +29,33 @@ angular.module('starter.webmailservices', [])
 //================================================================================
 
 .factory('MailList', function($http,$localstorage) {
-
-  var mailsboxes = new Array();
+  var mailsboxes = { };
   
   var url = "http://localhost:8080/com.servicios/api/mailboxes/idUser";
              
   //request to mailbox INBOX
   $http.get(url).then(function(resp) {
       var result = resp.data;
-      var inbox = new Array();
-      var sentItems = new Array();
-      var draftItems = new Array();
-      var trashItems = new Array();
-      var outBoxItems = new Array();
       angular.forEach(result, function(item){
-        switch (item.folder) {
-        case "inbox":
-            inbox.push(item);
-            break;
-        case "sentItems":
-            sentItems.push(item);
-            break;
-        case "draftItems":
-            draftItems.push(item);
-            break;
-        case "trashItems":
-            trashItems.push(item);
-            break;
-        case "outBoxItems":
-            outBoxItems.push(item);
-            break;
-      }
-      })
+        if (mailsboxes[(item.folder)]) {
+          //exists
+          (mailsboxes[item.folder]).push(item);
+        } else {
+            // Does not exist
+            var nombre = item.folder;
+            var auxiliar = new Array();
+            mailsboxes[nombre] = auxiliar;
+            (mailsboxes[item.folder]).push(item);
+        }
+        
+      });
 
-      mailsboxes[0]=inbox;
-      mailsboxes[1]=sentItems;
-      mailsboxes[2]=draftItems;
-      mailsboxes[3]=trashItems;
-      mailsboxes[4]=outBoxItems;
       console.log('Mails service GET M Success OK', mailsboxes);
 
 
       // save data in localstorage
-      var i = 0;
-      console.log("guardandnoooooooooooooo",mailsboxes[0]);
-      angular.forEach(mailsboxes[0], function(item) {
-          if (item!=null) {
-            console.log("entraaaaaaaa guardarrrrrrrr",item);
-            $localstorage.setObject(i,item);
-            i = i+1;
-          } 
-      });
-      
+      console.log("guardandnoooooooooooooo");
+      $localstorage.setObject("mBoxes",mailsboxes);
     }, function(err) {
       console.error('Mails services INBOX Success ERROR', err);
     // err.status will contain the status code
@@ -207,38 +138,42 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 /**
  * A simple example service that returns some data.
  */
-.factory('MailsSubMenu', function() {
+.factory('MailsSubMenu', function($localstorage) {
   
+  var mailsboxes = $localstorage.getObject("mBoxes");
+  console.log("Load folders webmail",mailsboxes);
 
-  // Some fake testing data
-  // Some fake testing data
-  var mailsSubMenu = [{
-    id: "inbox",
-    name: 'Inbox',
-    notes: 'Enjoys drawing things',
-    face: 'img/android-archive.png'
-  },{
-    id: "sentItems",
-    name: 'Send Items',
-    notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
-    face: 'img/paper-airplane.png'
-  }, {
-    id: "draftItems",
-    name: 'Draft Items',
-    notes: 'Wears a sweet leather Jacket. I\'m a bit jealous',
-    face: 'img/android-mail.png'
-  }, {
-    id: "trashItems",
-    name: 'Trash Items',
-    notes: 'I think he needs to buy a boat',
-    face: 'img/trash-b.png'
-  }, {
-    id: "outBoxItems",
-    name: 'Outbox',
-    notes: 'Just the nicest guy',
-    face: 'img/log-out.png'
-  }];
+  var mailsSubMenu = new Array();
+  for (var k in mailsboxes){
+    if (mailsboxes.hasOwnProperty(k)) {
+        //alert("Key is " + k + ", value is" + target[k]);
+        var obj;
+        switch (k) {
+        case "inbox":
+            obj = {id: k,name: k,face:'img/android-archive.png'};
+            break;
+        case "sentItems":
+            obj = {id: k,name: k,face:'img/paper-airplane.png'};
+            break;
+        case "draftItems":
+            obj = {id: k,name: k,face:'img/android-mail.png'};
+            break;
+        case "trashItems":
+            obj = {id: k,name: k,face:'img/trash-b.png'};
+            break;
+        case "outBoxItems":
+            obj = {id: k,name: k,face:'img/log-out.png'};
+            break;
+        default:
+            obj = {id: k,name: k,face:'img/ios7-folder.png'};
+      }
 
+         
+         mailsSubMenu.push(obj);
+    }
+  }
+  console.log("vamos carajooooo",mailsboxes);
+  
   return {
     all: function() {
       return mailsSubMenu;

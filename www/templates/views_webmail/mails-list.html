@@ -1,14 +1,20 @@
-<ion-view view-title="List Mails">
+<ion-view view-title="{{nameList}}">
   <ion-content>
     <ion-list>
-      <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail/{{item.folder}}/{{item.id}}" >
+      <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail-detail/{{item.folder}}/{{item.id}}" >
         <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
-        <span class="item-note">Date
+        <span class="item-note">
+          <div>Date</div>
+          
           <div ng-if="item.see == 'true' ">
-                visto
+            <button class="button button-clear button-positive">
+              <i class="icon ion-checkmark-circled"></i>
+            </button>
           </div>
           <div ng-if="item.see == 'false' ">
-                no visto
+            <button class="button button-clear button-light">
+              <i class="icon ion-checkmark-circled"></i>    
+            </button>
           </div>
          
         </span>

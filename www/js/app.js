@@ -4,10 +4,51 @@ var db = null;
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','starter.scheduleroutes'])
+var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','starter.scheduleroutes'])
 
 
-.run(function($ionicPlatform, $translate, $cordovaSQLite) {
+.run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
+
+//dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+// enumerate routes that user can see
+  var routesForUser = ["/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
+
+  // check if current location matches route  
+  var routeClean = function (route) {
+    // console.log("tamanooooo ",routesThatDontRequireAuth.length);
+    var result = false;
+    for(var i=0;i<routesForUser.length;i++) {
+      console.log("route: routesForUser[i]:",route+" "+routesForUser[i]);
+      if (route.indexOf(routesForUser[i]) > -1) {
+        result = true;
+      };
+    };
+    return result;
+  };
+
+  $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+    // if route requires auth and user is not logged in
+    var authentication = AuthenticationService.isLoggedIn();
+    if ( authentication == false ) {
+      console.log("no authentication");
+      // redirect back to login
+      // ev.preventDefault();
+      $location.path('/login');
+    }
+    else {
+      var rout = routeClean($location.url());
+      var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
+      console.log("authentication true 1.ruta 2.permisos",rout+" "+permisos);
+      console.log("url ",$location.url());
+      if (rout == false) {
+        console.log("no puede ver esta ventana");
+        ev.preventDefault();
+        $location.path('/app');
+      }
+    }  
+  });
+//dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,10 +60,10 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
       StatusBar.styleDefault();
     }
 
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap"); 
-    db = $cordovaSQLite.openDB({ name: "my.db" });
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-    console.log("appppppppppppppppppppppppppppppppppp"); 
+    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap"); 
+    // db = $cordovaSQLite.openDB({ name: "my.db" });
+    // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
+    // console.log("appppppppppppppppppppppppppppppppppp"); 
 
           if (typeof navigator.globalization !== "undefined"){
       navigator.globalization.getPreferredLanguage(function(language) {
@@ -36,11 +77,6 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
                 });
         },null);
       }
-
-
-
-
-
 
 
   });
@@ -118,9 +154,15 @@ var starter = angular.module('starter', ['ionic', 'ngCordova', 'pascalprecht.tra
   .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginController'
   })
 
+  .state('log-out',{
+      url: '/log-out',
+      templateUrl: 'templates/login.html',
+      controller: 'logoutController'
+  })
+  
   .state('app', {
     url: "/app",
     //abstract: true,

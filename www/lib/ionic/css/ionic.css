@@ -17,9 +17,6 @@
   https://twitter.com/benjsperry  https://twitter.com/ionicframework
   MIT License: https://github.com/driftyco/ionicons
 */
-
-
-
 @font-face {
   font-family: "Ionicons";
   src: url("../fonts/ionicons.eot?v=1.5.2");
@@ -5109,7 +5106,7 @@ a.item-content {
   height: 15px;
   text-align: center; }
   .slider-pager .slider-pager-page {
-    display: none;
+    display: inline-block;
     margin: 0px 3px;
     width: 15px;
     color: #000;
