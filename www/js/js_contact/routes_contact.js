@@ -3,28 +3,74 @@ angular.module('starter.contactroutes', [])
 
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
 
-  .state('app.contacts', {
-      url: '/contacts',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_contact/sub-contacts.html',
-          controller: 'ContactsCtrl'
-        }
-      }
+
+  $stateProvider.state('app.contacts', {
+    url: '/contacts',
+    views: {
+         'menuContent': {
+           controller: 'ContactsCtrl',
+           templateUrl: 'templates/views_contact/contactslist.html'
+         }
+       }
+
     })
 
+// $stateProvider.state('app.contact-detail', {
+//     url: '/contact-detail/:index',
+//     views: {
+//     'menuContent': {
+//          templateUrl: 'templates/views_contact/contact-detail.html',
+//          controller: 'ContactDetailCtrl'
+//          resolve: {
+//              persona: function($stateParams, gente){
+//                  return gente.ready.then(function(){
+//                      return gente.list[+$stateParams.index]
+//                      });
+//                  }
+//              }
+//        }
+//      }
+//
+//     });
 
-     .state('app.contact-detail', {
-      url: '/contact/:contactId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/views_contact/contact-detail.html',
-          controller: 'ContactDetailCtrl'
-        }
-      }
-    })
+  // .state('app.contacts', {
+  //     url: '/contacts',
+  //     views: {
+  //       'menuContent': {
+  //         templateUrl: 'templates/views_contact/sub-contacts.html',
+  //         controller: 'ContactsCtrl'
+  //       }
+  //     }
+  //   })
+  //
+  //
+  //    .state('app.contact-detail', {
+  //     url: '/contact/:contactId',
+  //     views: {
+  //       'menuContent': {
+  //         templateUrl: 'templates/views_contact/contact-detail.html',
+  //         controller: 'ContactDetailCtrl'
+  //       }
+  //     }
+  //   })
+
+  $stateProvider.state('app.contact', {
+     url: '/contact/:index',
+     views: {
+       'menuContent': {
+     controller: 'ContactDetailCtrl',
+     templateUrl: 'templates/views_contact/contact.html',
+     resolve: {
+       contact: function($stateParams, contacts){
+             return contacts.ready.then(function(){
+                 return contacts.list[+$stateParams.index]
+                 });
+             }
+         }
+         }
+       }
+     });
 
 
   // if none of the above states are matched, use this as the fallback

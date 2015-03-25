@@ -9,9 +9,9 @@ angular.module('starter.webmailcontrollers', [])
 
 
 .controller('MailsListCtrl', function($scope, $stateParams, MailLoadBD) {
-  $scope.mailList = MailLoadBD.all($stateParams.itemId); 
+  $scope.mailList = MailLoadBD.all($stateParams.itemId);
   $scope.nameList = (($scope.mailList)[0].folder);
-  
+
 // .controller('MailsListCtrl', function($scope, $stateParams, MailList) {
 //   $scope.mailList = MailList.all($stateParams.itemId);
 
@@ -57,17 +57,19 @@ angular.module('starter.webmailcontrollers', [])
 
   $scope.data = [];
   $scope.myActiveSlide = $stateParams.mailId;
-  $scope.data.slides = 	MailLoadBD.all($stateParams.folderId); 
+
+  $scope.data.slides = 	MailLoadBD.all($stateParams.folderId);
+
   $scope.mail = MailLoadBD.get($stateParams.folderId,$stateParams.mailId);
   console.log("Controller WEBMAIL detail mail",$scope.mail);
   $ionicSlideBoxDelegate.update();
-  
+
 });
 
 
 
 // .controller("ExampleController", function($scope, $cordovaSQLite) {
- 
+
 //     $scope.insert = function(firstname, lastname) {
 //         console.log("call insert function with: "+firstname+lastname);
 //         var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
@@ -79,13 +81,13 @@ angular.module('starter.webmailcontrollers', [])
 //             console.error(err);
 //         });
 //     }
- 
+
 //     $scope.select = function(lastname) {
 //         console.log("call select function with: "+ lastname);
 //         var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
 //         $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
 //             if(res.rows.length > 0) {
-                  
+
 //                 console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);
 //                 console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 //             } else {
@@ -96,5 +98,5 @@ angular.module('starter.webmailcontrollers', [])
 //             console.error(err);
 //         });
 //     }
- 
+
 // });

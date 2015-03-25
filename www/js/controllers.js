@@ -1,22 +1,22 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,Contacts, $ionicPopup,$localstorage) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList, $ionicPopup,$localstorage) {
   // Form data for the login modal
   $scope.loginData = {};
 
 
-  Contacts.all();
-  MailList.all(); 
+  // Contacts.all();
+  MailList.all();
   var firstUse = $localstorage.get("starter",null);
   if(firstUse == null){ //if first time
     // Contacts.all();
-    // MailList.all(); 
-    
+    // MailList.all();
+
   }
   else{
-    
+
   }
-    
+
 
   // var asd = Contacts.all();
   // var mailList = MailList.all();
@@ -82,13 +82,13 @@ angular.module('starter.controllers', [])
     $scope.data = {};
 
     $scope.login = function() {
-      
+
       // this should be replaced with a call to your API for user verification (or you could also do it in the service)
-      AuthenticationService.login({name: $scope.data.username, role: $scope.data.password});    
+      AuthenticationService.login({name: $scope.data.username, role: $scope.data.password});
       console.log("datos",$scope.data);
       $state.go('app');
     }
-    
+
 })
 
 .controller('logoutController', function($scope, $state,AuthenticationService){

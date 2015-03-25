@@ -11,9 +11,11 @@ var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCo
 
 //dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 // enumerate routes that user can see
-  var routesForUser = ["/app/contacts","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
 
-  // check if current location matches route  
+  var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
+
+
+  // check if current location matches route
   var routeClean = function (route) {
     // console.log("tamanooooo ",routesThatDontRequireAuth.length);
     var result = false;
@@ -45,7 +47,7 @@ var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCo
         ev.preventDefault();
         $location.path('/app');
       }
-    }  
+    }
   });
 //dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
@@ -60,10 +62,10 @@ var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCo
       StatusBar.styleDefault();
     }
 
-    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap"); 
+    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap");
     // db = $cordovaSQLite.openDB({ name: "my.db" });
     // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-    // console.log("appppppppppppppppppppppppppppppppppp"); 
+    // console.log("appppppppppppppppppppppppppppppppppp");
 
           if (typeof navigator.globalization !== "undefined"){
       navigator.globalization.getPreferredLanguage(function(language) {
@@ -162,7 +164,7 @@ var starter = angular.module('starter', ['ionic','ui.router','underscore', 'ngCo
       templateUrl: 'templates/login.html',
       controller: 'logoutController'
   })
-  
+
   .state('app', {
     url: "/app",
     //abstract: true,
