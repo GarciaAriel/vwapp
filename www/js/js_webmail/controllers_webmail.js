@@ -1,6 +1,18 @@
 angular.module('starter.webmailcontrollers', [])
 
 
+.controller('mierda', function($scope,  MailsSubMenu,$ionicPopup) {
+
+  $scope.showAlert = function() {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Don\'t eat that!',
+            template: 'It might taste good'
+        });
+        return alertPopup;
+    };
+
+})
+
 .controller('MailsCtrl', function($scope,  MailsSubMenu) {
 
   $scope.mailsSubMenu = MailsSubMenu.all();
