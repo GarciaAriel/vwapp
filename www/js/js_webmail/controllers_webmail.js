@@ -57,13 +57,9 @@ angular.module('starter.webmailcontrollers', [])
 
   $scope.data = [];
   $scope.myActiveSlide = $stateParams.mailId;
-
   $scope.data.slides = 	MailLoadBD.all($stateParams.folderId); 
-  
   $scope.mail = MailLoadBD.get($stateParams.folderId,$stateParams.mailId);
-
   console.log("Controller WEBMAIL detail mail",$scope.mail);
-
   $ionicSlideBoxDelegate.update();
   
 });
