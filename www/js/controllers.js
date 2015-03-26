@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
 
   // Contacts.all();
   MailList.all();
-  TaskList.all();
+  // TaskList.all();
 
   var firstUse = $localstorage.get("starter",null);
   if(firstUse == null){ //if first time

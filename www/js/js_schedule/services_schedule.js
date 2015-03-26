@@ -3,7 +3,7 @@ angular.module('starter.scheduleservices', [])
 .factory('TaskList', function($http,$localstorage) {
   var taskList;
   			
-  var url = "http://localhost:8080/com.servicios/api/eventos/get";
+  var url = "http://10.0.0.149:8080/com.servicios/api/eventos/get";
 
    $http.get(url).then(function(resp) {
        taskList = resp.data;
