@@ -1,12 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList, $ionicPopup,$localstorage) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,TaskList, $ionicPopup,$localstorage) {
   // Form data for the login modal
   $scope.loginData = {};
 
 
   // Contacts.all();
   MailList.all();
+  TaskList.all();
+
   var firstUse = $localstorage.get("starter",null);
   if(firstUse == null){ //if first time
     // Contacts.all();

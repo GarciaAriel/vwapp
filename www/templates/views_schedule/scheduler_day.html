@@ -1,45 +1,33 @@
 <ion-view view-title="scheduler">
   <ion-content >
 
-	<div >
+    <div class="container">
 
-	<button ng-click="myFunction()">aaClick meaa</button>
-	
-	<button ng-click="showAlert()">vamos carajo</button>
-    	
-    	<!-- dooooooooo -->
-		
-
-    	<div class="container">
-
-			<div class="row">
-				<!-- <div class="page-header"> -->
-					<div class="pull-right form-inline">
-
-						<div class="btn-group" data-spy="affix" data-offset-top="195">
-							<button class="btn btn-primary" data-calendar-nav="prev"><< Anterior</button>
-							<button class="btn" data-calendar-nav="today">Hoy</button>
-							<button class="btn btn-primary" data-calendar-nav="next">Siguiente >></button>
-						</div>
-
-					</div>
-				<!-- </div> -->
-			</div>
+      <div class="button-bar">
+        <button class="button button-outline button-positive" ng-click="myFunction()">pedoooooo</button>
+        <button class="button button-outline button-positive" data-calendar-nav="prev"><< Anterior</button>
+        <button class="button button-outline button-positive" data-calendar-nav="today">Hoy</button>
+        <button class="button button-outline button-positive" data-calendar-nav="next">Siguiente >></button>
+      </div>
 
 			<hr>
-			<div class="row">
-				<div id="calendar"></div>
-			</div>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <div id="calendar"></div>
+        </div>
+      </div>
+			
 		</div>
     	<!-- dooooooooo -->
 		
-    	<div class="btn-group">
-			<button class="btn btn-warning" data-calendar-view="year">Año</button>
-			<button class="btn btn-warning active" data-calendar-view="month">Mes</button>
-			<button class="btn btn-warning" data-calendar-view="week">Semana</button>
-			<button class="btn btn-warning" data-calendar-view="day">Día</button>
+    <div class="button-bar">
+			<button class="button button-outline button-positive" data-calendar-view="year">Año</button>
+			<button class="button button-outline button-positive" data-calendar-view="month">Mes</button>
+			<button class="button button-outline button-positive" data-calendar-view="week">Semana</button>
+			<button class="button button-outline button-positive" data-calendar-view="day">Día</button>
 		</div>
-	</div>	
+
+	
   </ion-content>
 </ion-view>
 
