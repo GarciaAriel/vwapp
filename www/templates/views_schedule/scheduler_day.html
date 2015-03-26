@@ -1,29 +1,72 @@
 <ion-view view-title="scheduler">
-  <ion-content>
-    	<div id='calendar'>calendar XD</div> 
-    	<input type="button" value="Capacity Chart" onclick="CapacityChart();">    
+  <ion-content >
+
+    <div class="container">
+
+      <div class="button-bar">
+        <button class="button button-outline button-positive" ng-click="myFunction()">pedoooooo</button>
+        <button class="button button-outline button-positive" data-calendar-nav="prev"><< Anterior</button>
+        <button class="button button-outline button-positive" data-calendar-nav="today">Hoy</button>
+        <button class="button button-outline button-positive" data-calendar-nav="next">Siguiente >></button>
+      </div>
+
+			<hr>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <div id="calendar"></div>
+        </div>
+      </div>
+			
+		</div>
+    	<!-- dooooooooo -->
+		
+    <div class="button-bar">
+			<button class="button button-outline button-positive" data-calendar-view="year">Año</button>
+			<button class="button button-outline button-positive" data-calendar-view="month">Mes</button>
+			<button class="button button-outline button-positive" data-calendar-view="week">Semana</button>
+			<button class="button button-outline button-positive" data-calendar-view="day">Día</button>
+		</div>
+
+	
   </ion-content>
 </ion-view>
 
 
-<div class="tabs-striped tabs-color-assertive">
-	<div class="tabs">
-	  <a class="tab-item active" href="#">
-	    <!-- <i class="icon ion-home"></i> -->
-	    Day
-	  </a>
-	  <a class="tab-item" href="#/app/schedulerWeek">
-	    <!-- <i class="icon ion-star"></i> -->
-	    Week
-	  </a>
-	  <a class="tab-item" href="#/app/schedulerMonth">
-	    <!-- <i class="icon ion-gear-a"></i> -->
-	    Month
-	  </a>
-	  <a class="tab-item" href="#/app/schedulerYear">
-	    <!-- <i class="icon ion-gear-a"></i> -->
-	    Year
-	  </a>
-	</div>
-</div>
+
+<!-- <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item active" href="#">
+        <i class="icon ion-home"></i>
+        Test
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-star"></i>
+        Favorites
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-gear-a"></i>
+        Settings
+      </a>
+    </div>
+  </div> -->
+
+
+  <!-- <div class="tabs-striped tabs-color-assertive">
+    <div class="tabs">
+
+      <a class="tab-item active" data-calendar-view="year">
+        <i class="icon ion-home"></i>
+        Test
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-star"></i>
+        Favorites
+      </a>
+      <a class="tab-item" href="#">
+        <i class="icon ion-gear-a"></i>
+        Settings
+      </a>
+    </div>
+  </div> -->
+
 

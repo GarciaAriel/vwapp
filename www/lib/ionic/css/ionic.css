@@ -5106,7 +5106,8 @@ a.item-content {
   height: 15px;
   text-align: center; }
   .slider-pager .slider-pager-page {
-    display: inline-block;
+    display: none;
+    /*inline-block*/
     margin: 0px 3px;
     width: 15px;
     color: #000;

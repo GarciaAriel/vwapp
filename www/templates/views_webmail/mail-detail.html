@@ -24,7 +24,7 @@
                   <ion-item class="button button-clear button-positive"
                             ng-click="toggleGroup(item.cc)"
                             ng-class="{active: isGroupShown(item.cc)}">
-                      <i class="icon" ng-class="isGroupShown(item.cc) ? 'ion-minus' : 'ion-plus'"></i>
+                      <i class="icon" ng-class="isGroupShown(item.cc) ? 'ion-chevron-up' : 'ion-chevron-down'"></i> 
                     &nbsp;
                     Cc
                   </ion-item>
@@ -41,10 +41,12 @@
             <div ng-if="item.bcc != '' ">
               <p>
                 <!-- div bcc -->
+                <!-- ion-arrow-down-b -->
+                <!-- ion-arrow-up-b -->
                 <ion-item class="button button-clear button-positive"
                           ng-click="toggleGroup(item.bcc)"
                           ng-class="{active: isGroupShown(item.bcc)}">
-                    <i class="icon" ng-class="isGroupShown(item.bcc) ? 'ion-minus' : 'ion-plus'"></i>
+                    <i class="icon" ng-class="isGroupShown(item.bcc) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
                   &nbsp;
                   Bcc
                 </ion-item>

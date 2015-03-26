@@ -5,7 +5,6 @@ angular.module('starter.webmailroutes', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-
   .state('app.details-mail', {
       url: '/mail-detail/:folderId/:mailId',
       views: {

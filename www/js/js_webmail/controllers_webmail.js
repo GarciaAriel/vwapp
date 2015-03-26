@@ -1,6 +1,5 @@
 angular.module('starter.webmailcontrollers', [])
 
-
 .controller('MailsCtrl', function($scope,  MailsSubMenu) {
 
   $scope.mailsSubMenu = MailsSubMenu.all();
@@ -61,9 +60,7 @@ angular.module('starter.webmailcontrollers', [])
   $scope.data.slides = 	MailLoadBD.all($stateParams.folderId);
 
   $scope.mail = MailLoadBD.get($stateParams.folderId,$stateParams.mailId);
-
   console.log("Controller WEBMAIL detail mail",$scope.mail);
-
   $ionicSlideBoxDelegate.update();
 
 });
