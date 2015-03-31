@@ -84,7 +84,7 @@ angular.module('starter.controllers', [],function($httpProvider) {
     };
 
     $scope.doLogin = function() {
-      //$state.go('app');
+      $state.go('app');
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
       // Simple POST request
       $http({
