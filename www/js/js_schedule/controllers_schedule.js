@@ -6,10 +6,10 @@ angular.module('starter.schedulecontrollers', [])
         var yyyy = date.getFullYear().toString();
         var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
         var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
-        var items = TaskList.all();
+        //var items = TaskList.all();
     //establecemos los valores del calendario
         var options = {
-            events_source: items,//function () { return [{ "id": 0,"title": "titulo 1","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427401800000"},{ "id": 0,"title": "titulo 2","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427315400000"}]; },
+            events_source:function () { return [{ "id": 0,"title": "titulo 1","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427401800000"},{ "id": 0,"title": "titulo 2","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427315400000"}]; }, //items,//
             view: 'month',
             language: 'es-ES',
             tmpl_path: 'lib/bootstrap-calendar/tmpls/',

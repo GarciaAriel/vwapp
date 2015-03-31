@@ -28,16 +28,16 @@ var starter = angular.module('starter', ['ionic','ui.router','starter.schedulero
     // if route requires auth and user is not logged in
     var authentication = AuthenticationService.isLoggedIn();
     if ( authentication == false ) {
-      console.log("==LOGIN== USER NO AUTHENTICATION");
+      console.log("==VALIDATE ROUTE== USER NO AUTHENTICATION");
       $location.path('/login');
     }
     else {
       var rout = routeClean($location.url());
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
-      console.log("==LOGIN== AUTHENTICATION TRUE");
-      console.log("==LOGIN== URL LOCATION: ",$location.url());
+      console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
+      console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
       if (rout == false) {
-        console.log("==LOGIN== YOU CAN NOT SEE THIS WINDOW");
+        console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
         $location.path('/app');
       }

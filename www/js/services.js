@@ -2,26 +2,28 @@ angular.module('starter.services', [])
 
 .service('LoginService', function($q) {
     return {
-        loginUser: function(name, pw) {
+        loginUser: function(name, company) {
+
+            console.log("==LOGIN== CREATE  "+name+" service "+company+"-");
             var deferred = $q.defer();
             var promise = deferred.promise;
 
-            if (name == "a" && pw == "a") {
+            // if (name == "ariel" && company == "piramide") {
                 deferred.resolve('Welcome ' + name + '!');
-            } else {
-                deferred.reject('Wrong credentials.');
-            }
+            // } else {
+                // deferred.reject('Wrong credentials.');
+            // }
             promise.success = function(fn) {
                 promise.then(fn);
                 return promise;
             }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
+            // promise.error = function(fn) {
+            //     promise.then(null, fn);
+            //     return promise;
+            // }
             return promise;
         }
-    }
+    };
 })
 //dodooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 

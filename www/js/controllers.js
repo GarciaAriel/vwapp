@@ -51,7 +51,7 @@ angular.module('starter.controllers', [],function($httpProvider) {
   
   //call services data
   // Contacts.all();
-  MailList.all();
+  //MailList.all();
   // TaskList.all();
 
   var firstUse = $localstorage.get("starter",null);
@@ -68,7 +68,7 @@ angular.module('starter.controllers', [],function($httpProvider) {
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('LoginController', function ($scope,$ionicModal, AuthenticationService,$state,$http) {
+.controller('LoginController', function (LoginService,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
     'use strict';
 
     $scope.data = {};
@@ -84,21 +84,32 @@ angular.module('starter.controllers', [],function($httpProvider) {
     };
 
     $scope.doLogin = function() {
-        console.log('Doing login XDXDXDXD', $scope.data);
+      //$state.go('app');
+      console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
       // Simple POST request
       $http({
         method: 'POST',
         url: 'http://localhost:8080/bm/bmapp/LogonBMApp.do',
         data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
       }).success(function(data, status, headers, config) {
-        console.log('Login ok');
+        console.log('==LOGIN== REQUEST SUCCESS OK');
+
+        //if( ok )
+        if (config) {};
+        console.log("DATA: ",data);
+        console.log("status: ",status);
+        console.log("headers: ",headers);
+        console.log("CONFIG: ",config);
+
+        AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
         $scope.closeLogin();
+        $state.go('app');
       }).
       error(function(data, status, headers, config) {
-       console.log('Login Error', data);
+       console.log('==LOGIN== ERROR', data);
       });
 
-    }
+    };
 
 })
 
