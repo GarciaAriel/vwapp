@@ -1,23 +1,18 @@
 // Ionic Starter App
-var db = null;
+    // var db = null;
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','ui.router','starter.scheduleroutes','starter.scheduleservices','starter.schedulecontrollers','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
 
-
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 
-//dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-// enumerate routes that user can see
-
+  // enumerate routes that user can see 
   var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
-
 
   // check if current location matches route
   var routeClean = function (route) {
-    // console.log("tamanooooo ",routesThatDontRequireAuth.length);
     var result = false;
     for(var i=0;i<routesForUser.length;i++) {
       console.log("route: routesForUser[i]:",route+" "+routesForUser[i]);
@@ -29,31 +24,28 @@ var starter = angular.module('starter', ['ionic','ui.router','starter.schedulero
   };
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+    
     // if route requires auth and user is not logged in
     var authentication = AuthenticationService.isLoggedIn();
     if ( authentication == false ) {
-      console.log("no authentication");
-      // redirect back to login
-      // ev.preventDefault();
+      console.log("==LOGIN== USER NO AUTHENTICATION");
       $location.path('/login');
     }
     else {
       var rout = routeClean($location.url());
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
-      console.log("authentication true 1.ruta 2.permisos",rout+" "+permisos);
-      console.log("url ",$location.url());
+      console.log("==LOGIN== AUTHENTICATION TRUE");
+      console.log("==LOGIN== URL LOCATION: ",$location.url());
       if (rout == false) {
-        console.log("no puede ver esta ventana");
+        console.log("==LOGIN== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
         $location.path('/app');
       }
     }
   });
-//dooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -61,31 +53,20 @@ var starter = angular.module('starter', ['ionic','ui.router','starter.schedulero
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap");
-    // db = $cordovaSQLite.openDB({ name: "my.db" });
-    // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-    // console.log("appppppppppppppppppppppppppppppppppp");
-
-          if (typeof navigator.globalization !== "undefined"){
+    if (typeof navigator.globalization !== "undefined"){
       navigator.globalization.getPreferredLanguage(function(language) {
-         //alert((language.value).split("-")[0]);
-        $translate.use((language.value).split("-")[0]).then(function(data) {
-        //  alert(language.value);
-         // $translate.use(language.value).then(function(data) {
-              console.log("SUCCESS -> " + data);
-                }, function(error) {
-              console.log("ERROR -> " + error);
-                });
-        },null);
-      }
-
-
+       //alert((language.value).split("-")[0]);
+      $translate.use((language.value).split("-")[0]).then(function(data) {
+      //  alert(language.value);
+       // $translate.use(language.value).then(function(data) {
+            console.log("SUCCESS -> " + data);
+              }, function(error) {
+            console.log("ERROR -> " + error);
+              });
+      },null);
+    }
   });
 })
-
-
-
 
 .config(function($translateProvider) {
     $translateProvider.translations("en", {
@@ -143,12 +124,6 @@ var starter = angular.module('starter', ['ionic','ui.router','starter.schedulero
     $translateProvider.preferredLanguage("en");
     $translateProvider.fallbackLanguage("en");
 })
-
-
-
-
-
-
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider

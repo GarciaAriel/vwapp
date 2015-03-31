@@ -1,10 +1,55 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', [],function($httpProvider) {
+  // Use x-www-form-urlencoded Content-Type
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  $httpProvider.defaults.withCredentials = true;
+  /**
+   * The workhorse; converts an object to x-www-form-urlencoded serialization.
+   * @param {Object} obj
+   * @return {String}
+   */ 
+   var param = function(obj) {
+    var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+
+    for(name in obj) {
+      value = obj[name];
+
+      if(value instanceof Array) {
+        for(i=0; i<value.length; ++i) {
+          subValue = value[i];
+          fullSubName = name + '[' + i + ']';
+          innerObj = {};
+          innerObj[fullSubName] = subValue;
+          query += param(innerObj) + '&';
+        }
+      }
+      else if(value instanceof Object) {
+        for(subName in value) {
+          subValue = value[subName];
+          fullSubName = name + '[' + subName + ']';
+          innerObj = {};
+          innerObj[fullSubName] = subValue;
+          query += param(innerObj) + '&';
+        }
+      }
+      else if(value !== undefined && value !== null)
+        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+    }
+
+    return query.length ? query.substr(0, query.length - 1) : query;
+  };
+
+  // Override $http service's default transformRequest
+  $httpProvider.defaults.transformRequest = [function(data) {
+    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+  }];
+})
+
+
+
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,TaskList, $ionicPopup,$localstorage) {
-  // Form data for the login modal
-  $scope.loginData = {};
-
-
+  
+  //call services data
   // Contacts.all();
   MailList.all();
   // TaskList.all();
@@ -13,82 +58,46 @@ angular.module('starter.controllers', [])
   if(firstUse == null){ //if first time
     // Contacts.all();
     // MailList.all();
-
   }
   else{
 
   }
 
-
-  // var asd = Contacts.all();
-  // var mailList = MailList.all();
-
-  // $scope.searchcon = function(){
-  //   alert("button searchcon pressed");
-  // };
-
-
-  // if(window.localStorage.getItem('firstTime') == null){ //if first time
-  //   var alertPopup = $ionicPopup.alert({
-  //               title: 'primer usoooooooooo',
-  //               template: 'Please check your credentials!'
-  //           });
-  // }
-  // else{
-  //   var alertPopup = $ionicPopup.alert({
-  //               title: 'segundo usoooooooooooo',
-  //               template: 'Please check your credentials!'
-  //           });
-  // }
-  //
-
-
-
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 })
 
 
 .controller('DashCtrl', function($scope) {})
 
-//doooooooooooooooooooooooooooooooooooooooooooooo
-.controller('LoginController', function ($scope, AuthenticationService,$state) {
+.controller('LoginController', function ($scope,$ionicModal, AuthenticationService,$state,$http) {
     'use strict';
 
     $scope.data = {};
 
-    $scope.login = function() {
+    $ionicModal.fromTemplateUrl('templates/login.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
 
-      // this should be replaced with a call to your API for user verification (or you could also do it in the service)
-      AuthenticationService.login({name: $scope.data.username, role: $scope.data.password});
-      console.log("datos",$scope.data);
-      $state.go('app');
+    $scope.closeLogin = function() {
+      $scope.modal.hide();
+    };
+
+    $scope.doLogin = function() {
+        console.log('Doing login XDXDXDXD', $scope.data);
+      // Simple POST request
+      $http({
+        method: 'POST',
+        url: 'http://localhost:8080/bm/bmapp/LogonBMApp.do',
+        data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+      }).success(function(data, status, headers, config) {
+        console.log('Login ok');
+        $scope.closeLogin();
+      }).
+      error(function(data, status, headers, config) {
+       console.log('Login Error', data);
+      });
+
     }
 
 })
@@ -113,17 +122,4 @@ angular.module('starter.controllers', [])
             });
         });
     }
-})
-
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'mail 1', id: 1 },
-    { title: 'mail2 ', id: 2 },
-    { title: 'tarea q', id: 3 },
-    { title: 'tares', id: 4 }
-
-  ];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
 });
