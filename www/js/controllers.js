@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [],function($httpProvider) {
+angular.module('starter.controllers', ['starter.services'],function($httpProvider) {
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.withCredentials = true;
@@ -86,6 +86,7 @@ angular.module('starter.controllers', [],function($httpProvider) {
     $scope.doLogin = function() {
       $state.go('app');
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
+
       // Simple POST request
       $http({
         method: 'POST',
