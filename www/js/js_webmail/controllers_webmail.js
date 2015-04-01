@@ -1,5 +1,31 @@
 angular.module('starter.webmailcontrollers', [])
 
+
+.controller('',function(){
+  $scope.page = 1;
+  $scope.mails = Mail.query({'pageParam(pageNumber)': $scope.page});
+  
+  $scope.doRefresh = function(){
+    $scope.page = 1;
+    $scope.mails = Mail.query({'pageParam(pageParam)':$scope.page});
+    $scope.mails.$promise.them(function(results){
+      $scope.mails = results;
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
+
+  $scope.loadMore = function(){
+    $scope.page = $scope.page +1;
+    $scope.newMails = Mail.query({'pageParam(pageParam)':$scope.page});
+    $scope.newMails.$promise.then(function(results){
+      $scope.mails = $scope.mails.concat(results);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };  
+})
+
+
+
 .controller('MailsCtrl', function($scope,  MailsSubMenu) {
 
   $scope.mailsSubMenu = MailsSubMenu.all();
@@ -11,11 +37,7 @@ angular.module('starter.webmailcontrollers', [])
   $scope.mailList = MailLoadBD.all($stateParams.itemId);
   $scope.nameList = (($scope.mailList)[0].folder);
 
-// .controller('MailsListCtrl', function($scope, $stateParams, MailList) {
-//   $scope.mailList = MailList.all($stateParams.itemId);
-
   console.log("Controller WEBMAIL list mails",$scope.mailList);
-
 
 })
 
