@@ -28,10 +28,11 @@ angular.module('starter.webmailservices', [])
 //================================================================================
 //================================================================================
 
-.factory('MailList', function($http,$localstorage) {
+.factory('MailList', function($http,$localstorage,apiUrl,apiUr) {
   var mailsboxes = { };
   
-  var url = "http://10.0.0.149:8080/com.servicios/api/mailboxes/idUser";
+  var url = apiUrl;
+  console.log("asdfasdfasdfasdfasdfasdfasdf",apiUr);
              
   //request to mailbox INBOX
   $http.get(url).then(function(resp) {
