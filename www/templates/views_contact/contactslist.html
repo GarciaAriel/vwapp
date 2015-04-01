@@ -25,14 +25,21 @@
       <!-- <button id="saveButton" class="ion-person-add"></button> -->
   </ion-nav-buttons>
   <ion-content>
+      
+      <ion-refresher
+pulling-text="Pull to refresh..."
+on-refresh="doRefresh()">
+</ion-refresher>
 
+<!--
     <ion-refresher on-refresh="addContact()">
         </ion-refresher>
-        <ion-list>
-            <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact/{{$index}}">
-                <img ng-src="{{contact.picture.thumbnail}}">
-                <h2>{{contact.name.title}}.{{contact.name.last}},{{contact.name.first}}</h2>
-                <p>{{contact.location.city}}</p>
+-->
+       <ion-list>
+       <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact?contactId={{contact.id}}&addressId={{contact.id}}&addressType={{contact.addressType}}&contactPersonId{{contact.id}}">
+                <img ng-src="">
+                <h2>{{contact.firstname}},{{contact.lastname}}</h2>
+                <p>{{contact.id}}</p>
                 </ion-item>
         </ion-list>
     <!-- <ion-list>
@@ -54,5 +61,8 @@
         <p>{{item.country}}</p>
       </ion-item>
     </ion-list> -->
+      <ion-infinite-scroll
+on-infinite="loadMore()">
+</ion-infinite-scroll>
   </ion-content>
 </ion-view>

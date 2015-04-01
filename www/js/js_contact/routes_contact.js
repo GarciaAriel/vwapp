@@ -7,6 +7,7 @@ angular.module('starter.contactroutes', [])
 
   $stateProvider.state('app.contacts', {
     url: '/contacts',
+      cache: false,
     views: {
          'menuContent': {
            controller: 'ContactsCtrl',

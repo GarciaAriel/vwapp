@@ -1,25 +1,39 @@
-angular.module('starter.contactservices', [])
+//angular.module('starter.contactservices', [])
+//
+//.factory('contacts', function($http, $q){
+//    var contacts = {};
+//    var n=0;
+//    contacts.list = [];
+//    contacts.add = function(){
+//       return $http.get('http://api.randomuser.me?q=' + (n++)).then(function(response) {
+//         contacts.list.push(response.data.results[0].user);
+//       });
+//    };
+//
+//    contacts.ready = $q.all([
+//      contacts.add(),
+//      contacts.add(),
+//      contacts.add(),
+//      contacts.add(),
+//      contacts.add()
+//        ]);
+//    return contacts;
+//});
 
-.factory('contacts', function($http, $q){
-    var contacts = {};
-    var n=0;
-    contacts.list = [];
-    contacts.add = function(){
-       return $http.get('http://api.randomuser.me?q=' + (n++)).then(function(response) {
-         contacts.list.push(response.data.results[0].user);
-       });
-    };
+angular.module('starter.contactservices', ['ngResource'])
 
-    contacts.ready = $q.all([
-      contacts.add(),
-      contacts.add(),
-      contacts.add(),
-      contacts.add(),
-      contacts.add()
-        ]);
-    return contacts;
+.factory('Contact', function ($resource) {
+	return $resource('http://localhost:8080/bm/bmapp/ContactREST.do');
 });
 
+// http://localhost:8080/bm/contacts/ContactPerson/Forward/Update.do?
+// dto(addressId)=106&
+// dto(contactPersonId)=108&
+// contactId=106&
+// dto(addressType)=0&
+// dto(name1)=%C3%84zero&dto(name2)=Pablo&
+// dto(name3)=&
+// tabKey=Contacts.Tab.contactPersons
 
 
 
