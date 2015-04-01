@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','ui.router','starter.scheduleroutes','starter.scheduleservices','starter.schedulecontrollers','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
+var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.scheduleroutes','starter.scheduleservices','starter.schedulecontrollers','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
 
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 

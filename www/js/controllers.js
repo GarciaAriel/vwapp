@@ -86,28 +86,29 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
     $scope.doLogin = function() {
       $state.go('app');
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
-//       Simple POST request
-       $http({
-         method: 'POST',
-         url: 'http://localhost:8080/bm/bmapp/LogonBMApp.do',
-         data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
-       }).success(function(data, status, headers, config) {
-         console.log('==LOGIN== REQUEST SUCCESS OK');
 
-         //if( ok )
-         if (config) {};
-         console.log("DATA: ",data);
-         console.log("status: ",status);
-         console.log("headers: ",headers);
-         console.log("CONFIG: ",config);
+      // Simple POST request
+      $http({
+        method: 'POST',
+        url: 'http://localhost:8080/bm/bmapp/LogonBMApp.do',
+        data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+      }).success(function(data, status, headers, config) {
+        console.log('==LOGIN== REQUEST SUCCESS OK');
 
-         AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
-         $scope.closeLogin();
-         $state.go('app');
-       }).
-       error(function(data, status, headers, config) {
-        console.log('==LOGIN== ERROR', data);
-       });
+        //if( ok )
+        if (config) {};
+        console.log("DATA: ",data);
+        console.log("status: ",status);
+        console.log("headers: ",headers);
+        console.log("CONFIG: ",config);
+
+        AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
+        $scope.closeLogin();
+        $state.go('app');
+      }).
+      error(function(data, status, headers, config) {
+       console.log('==LOGIN== ERROR', data);
+      });
 
     };
 
