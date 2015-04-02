@@ -47,14 +47,15 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
 
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MailList,TaskList, $ionicPopup,$localstorage) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
   
   //call services data
   // Contacts.all();
   //MailList.all();
   // TaskList.all();
 
-  var firstUse = $localstorage.get("starter",null);
+  //var firstUse = $localstorage.get("starter",null);
+  var firstUse = null;
   if(firstUse == null){ //if first time
     // Contacts.all();
     // MailList.all();
@@ -68,7 +69,7 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('LoginController', function (LoginService,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
+.controller('LoginController', function (LoginService,ariel,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
     'use strict';
 
     $scope.data = {};
@@ -84,7 +85,6 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
     };
 
     $scope.doLogin = function() {
-      $state.go('app');
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
 
       // Simple POST request
@@ -97,10 +97,10 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
 
         //if( ok )
         if (config) {};
-        console.log("DATA: ",data);
-        console.log("status: ",status);
-        console.log("headers: ",headers);
-        console.log("CONFIG: ",config);
+        console.log("DATA: ","ini"+data+"fin");
+        // console.log("status: ",status);
+        // console.log("headers: ",headers);
+        // console.log("CONFIG: ",config);
 
         AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
         $scope.closeLogin();

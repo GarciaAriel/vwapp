@@ -1,6 +1,6 @@
 angular.module('starter.schedulecontrollers', [])
 
-.controller('ControlSchedule',function($scope,TaskList){
+.controller('ControlSchedule',function($scope){
 
     var date = new Date();
         var yyyy = date.getFullYear().toString();

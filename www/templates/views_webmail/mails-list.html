@@ -1,27 +1,33 @@
 <ion-view view-title="{{nameList}}">
   <ion-content>
-    <ion-list>
-      <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail-detail/{{item.folder}}/{{item.id}}" >
-        <img ng-src="{{item.foto}}" style="width: 64px; height: 64px">
-        <span class="item-note">
-          <div>Date</div>
-          
-          <div ng-if="item.see == 'true' ">
-            <button class="button button-clear button-positive">
-              <i class="icon ion-checkmark-circled"></i>
-            </button>
-          </div>
-          <div ng-if="item.see == 'false' ">
-            <button class="button button-clear button-light">
-              <i class="icon ion-checkmark-circled"></i>    
-            </button>
-          </div>
-         
-        </span>
-        <h2>{{item.from}}</h2>
-        <p>{{item.subject}}</p>
-        <p>{{item.detail}}</p>
-      </ion-item>
-    </ion-list>
+    <ion-refresher pulling-text="Pull to refresh hola..." on-refresh="doRefresh()">
+    </ion-refresher>
+      <ion-list>
+        <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  >
+          <!-- <img ng-src="{{item.src}}" style="width: 64px; height: 64px"> -->
+          <span class="item-note">
+            <div>Date</div>
+            
+            <!-- <div ng-if="item.see == 'true' ">
+              <button class="button button-clear button-positive">
+                <i class="icon ion-checkmark-circled"></i>
+              </button>
+            </div>
+            <div ng-if="item.see == 'false' ">
+              <button class="button button-clear button-light">
+                <i class="icon ion-checkmark-circled"></i>    
+              </button>
+            </div> -->
+          </span>
+          <h2>from{{item.firstname}}</h2>
+          <p>subject{{item.firstname}}</p>
+          <p>detail{{item.firstname}}</p>
+        </ion-item>
+      </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()">
+    </ion-infinite-scroll>  
   </ion-content>
 </ion-view>
+
+<!-- para ver el detalle de mail por el momento no -->
+<!-- <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail-detail/{{item.folder}}/{{item.id}}" > -->

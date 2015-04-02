@@ -11,8 +11,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   // enumerate routes that user can see 
   var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
 
-  // check if current location matches route
-  var routeClean = function (route) {
+  // VALIDATE THE CURRENT RUOTE
+  var validateRoute = function (route) {
     var result = false;
     for(var i=0;i<routesForUser.length;i++) {
       console.log("route: routesForUser[i]:",route+" "+routesForUser[i]);
@@ -25,17 +25,21 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
     
-    // if route requires auth and user is not logged in
+    // IF AUTHENTICATION IS FALSE GO TO LOGIN
     var authentication = AuthenticationService.isLoggedIn();
     if ( authentication == false ) {
       console.log("==VALIDATE ROUTE== USER NO AUTHENTICATION");
       $location.path('/login');
     }
     else {
-      var rout = routeClean($location.url());
-      var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
       console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
+      //VALIDATE ROUTE
+      var rout = validateRoute($location.url());
       console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
+
+      var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
+      
+      //IF VALIDATE ROUTE FALSE GO TO /app
       if (rout == false) {
         console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
@@ -67,6 +71,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     }
   });
 })
+
+
+
 
 .config(function($translateProvider) {
     $translateProvider.translations("en", {
