@@ -1,8 +1,5 @@
 angular.module('starter.scheduleroutes', [])
 
-
-
-
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
@@ -16,7 +13,6 @@ angular.module('starter.scheduleroutes', [])
     }
   })
 
-  
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

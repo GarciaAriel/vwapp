@@ -18,20 +18,36 @@ angular.module('starter.webmailservices', [])
 /**
 *SERVICES FOLDERS IN WEBMAIL
 */
-.factory('MailsSubMenu', function() {
+.factory('MailsSubMenu', function($q,$timeout) {
   console.log("==SERVICES WEBMAIL== GET FOLDERS OF WEBMAIL TO BM");
   // SERVICIO PIDIENDO LOS FOLDERS QUE TIENE EL USUARIO AL BBBBMMMMMM
 
   //var mailsboxes = $localstorage.getObject("mBoxes");
   //console.log("Load folders webmail",mailsboxes);
 
-  var mailsSubMenu = new Array();
-  obj1 = {id: 'inbox',name: 'inbox',face:'img/android-archive.png'};
-  obj2 = {id: 'sentItems',name: 'sentItems',face:'img/paper-airplane.png'};
-  obj3 = {id: 'draftItems',name: 'draftItems',face:'img/android-mail.png'};
-  mailsSubMenu.push(obj1);
-  mailsSubMenu.push(obj2);
-  mailsSubMenu.push(obj3);
+ 
+var getContacts = function() {
+
+        var deferred = $q.defer();
+
+        $timeout( function(){
+            deferred.resolve([
+                {id: 'inbox',name: 'inbox',face:'img/android-archive.png'},
+                {id: 'sentItems',name: 'sentItems',face:'img/paper-airplane.png'},
+                {id: 'draftItems',name: 'draftItems',face:'img/android-mail.png'},
+            ]);
+
+        }, 1500);
+
+        return deferred.promise;
+    };
+
+    return {
+        getContacts : getContacts
+    }
+
+
+  
   // for (var k in mailsboxes){
   //   if (mailsboxes.hasOwnProperty(k)) {
   //       //alert("Key is " + k + ", value is" + target[k]);
@@ -61,15 +77,10 @@ angular.module('starter.webmailservices', [])
   //   }
   // }
   
-  return {
-    all: function() {
-      return mailsSubMenu;
-    }//,
-    // get: function(mailsSubMenuId) {
-    //   // Simple index lookup
-    //   return mailsSubMenu[mailsSubMenuId];
-    // }
-  }
+  // return {
+  //   all: getContacts
+  // }
+  
 });
 
 // .factory('MailLoadBD', function($localstorage) {

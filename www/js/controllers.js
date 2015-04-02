@@ -69,7 +69,7 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('LoginController', function (LoginService,ariel,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
+.controller('LoginController', function (LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
     'use strict';
 
     $scope.data = {};
@@ -90,7 +90,7 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
       // Simple POST request
       $http({
         method: 'POST',
-        url: 'http://localhost:8080/bm/bmapp/LogonBMApp.do',
+        url: apiUrlLocal+""+pathLogon,
         data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
       }).success(function(data, status, headers, config) {
         console.log('==LOGIN== REQUEST SUCCESS OK');

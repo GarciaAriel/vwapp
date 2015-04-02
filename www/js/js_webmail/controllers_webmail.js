@@ -1,15 +1,42 @@
 angular.module('starter.webmailcontrollers', [])
 
 //FOLDERS WEBMILS 
-.controller('MailsCtrl', function($scope,  MailsSubMenu) {
-  $scope.mailsSubMenu = MailsSubMenu.all();
+.controller('MailsCtrl', function($scope,  MailsSubMenu,$ionicLoading) {
+
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+    animation: 'fade-in',
+    noBackdrop: false
+  })
+
+  MailsSubMenu.getContacts().then(function(result) {
+    $scope.mailsSubMenu = result;
+    console.log("ssss",result);
+    $ionicLoading.hide()
+  })         
+//$scope.mailsSubMenu = MailsSubMenu.all();
   console.log("==CONTROLLER WEBMAIL== GET FOLDERS MAILBOXES",$scope.mailsSubMenu);
 })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout){
+.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading){
+
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+    animation: 'fade-in',
+    noBackdrop: false
+  })
+
   $scope.page = 1;
   $scope.mailList = Mail.query({'pageParam(pageNumber)': $scope.page});
+    
+  $scope.mailList.$promise.then(function (results){
+    $scope.mailList = results;
+    $ionicLoading.hide()
+  });
+
+  
+  
   console.log('==CONTROLLER WEBMAIL== QUERY ITEMS',$scope.mailList);
   
   $scope.doRefresh = function(){

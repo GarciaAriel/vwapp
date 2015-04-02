@@ -27,11 +27,7 @@ angular.module('starter.services', [])
 })
 
 
-.factory('ariel', function ($resource,apiUrlLocal,pathLogon) {
-  var url = apiUrlLocal+""+pathLogon;
-  console.log('==SERVICE LOGON== RESOURCE',url);
-  return $resource(url);
-})
+
 
 //dodooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
