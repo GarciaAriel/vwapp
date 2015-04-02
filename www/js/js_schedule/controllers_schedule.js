@@ -1,6 +1,6 @@
 angular.module('starter.schedulecontrollers', [])
 
-.controller('ControlSchedule',function($scope){
+.controller('ControlSchedule',function($scope,$ionicLoading,$q){
 
         var date = new Date();
         var yyyy = date.getFullYear().toString();
@@ -47,7 +47,19 @@ angular.module('starter.schedulecontrollers', [])
             }
         };
 
-        var calendar = $('#calendar').calendar(options);
+
+    // $ionicLoading.show({
+    //     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+    //     animation: 'fade-in',
+    //     noBackdrop: false
+    // })
+        
+        calendar = $('#calendar').calendar(options);      
+
+        // calendar.$promise.then(function(){
+        //     $ionicLoading.hide();
+        // })
+    
 
     $scope.scheduleNext  = function($scope){
         calendar.navigate('next');

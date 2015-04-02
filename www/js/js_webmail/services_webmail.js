@@ -30,14 +30,14 @@ var getContacts = function() {
 
         var deferred = $q.defer();
 
-        $timeout( function(){
+        // $timeout( function(){
             deferred.resolve([
                 {id: 'inbox',name: 'inbox',face:'img/android-archive.png'},
                 {id: 'sentItems',name: 'sentItems',face:'img/paper-airplane.png'},
                 {id: 'draftItems',name: 'draftItems',face:'img/android-mail.png'},
             ]);
 
-        }, 1500);
+        // }, 1500);
 
         return deferred.promise;
     };
