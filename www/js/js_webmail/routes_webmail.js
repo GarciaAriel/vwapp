@@ -1,5 +1,5 @@
 
-angular.module('starter.webmailroutes', [])
+angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
 
 .config(function($stateProvider, $urlRouterProvider) {

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.scheduleroutes','starter.scheduleservices','starter.schedulecontrollers','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailcontrollers','starter.webmailservices','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
+var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
 
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 
@@ -130,49 +130,30 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
     $translateProvider.preferredLanguage("en");
     $translateProvider.fallbackLanguage("en");
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-
-  .state('login', {
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'LoginController'
-  })
-
-  .state('log-out',{
-      url: '/log-out',
-      templateUrl: 'templates/login.html',
-      controller: 'logoutController'
-  })
-
-  .state('app', {
-    url: "/app",
-    //abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-
-  .state('dash', {
-    url: '/dash',
-
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-  })
-
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
 });
+
+// .config(function($stateProvider, $urlRouterProvider) {
+//   $stateProvider
+
+//   .state('login', {
+//       url: '/login',
+//       templateUrl: 'templates/login.html',
+//       controller: 'LoginController'
+//   })
+
+//   .state('log-out',{
+//       url: '/log-out',
+//       templateUrl: 'templates/login.html',
+//       controller: 'logoutController'
+//   })
+
+//   .state('app', {
+//     url: "/app",
+//     //abstract: true,
+//     templateUrl: "templates/menu.html",
+//     controller: 'AppCtrl'
+//   })
+
+//   // if none of the above states are matched, use this as the fallback
+//   $urlRouterProvider.otherwise('/login');
+// });

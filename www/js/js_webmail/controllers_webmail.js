@@ -1,4 +1,4 @@
-angular.module('starter.webmailcontrollers', [])
+angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
 
 //FOLDERS WEBMILS 
 .controller('MailsCtrl', function($scope,  MailsSubMenu,$ionicLoading) {

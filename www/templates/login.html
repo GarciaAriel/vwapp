@@ -1,28 +1,35 @@
+
 <ion-view view-title="{{ 'Login' | translate}}" name="login-view">
   <ion-content class="padding">
-      <div class="list list-inset">
-          <div class="row">
 
-            <div class="col"></div>
-            <div class="col col-50">
-              <img class="img-responsive" src="img/bm_image.png">
-            </div>
-            <div class="col"></div>
-          </div>
+    <div class="row">
+      <div class="col"></div>
+        <div class="col col-50">
+          <img class="img-responsive" src="img/bm_image.png">
+        </div>
+      <div class="col"></div>
+    </div>
+      
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input">
+            <input type="text" placeholder="{{ 'Username' | translate}}" ng-model="data.username">
+        </label>
 
+        <label class="item item-input">
+            <input type="password" placeholder="{{ 'Password' | translate}}" ng-model="data.password">
+        </label>
 
+        <label class="item item-input">
+            <input type="text" placeholder="{{ 'Company' | translate}}" ng-model="data.company">
+        </label>
 
+        <label class="item">
+          <button class="button button-full button-positive" style="background-color: #B80808;border-color: #B80808"  ng-click="doLogin()">{{ 'Login' | translate}}</button>
+        </label>
 
-          <label class="item item-input">
-              <input type="text" placeholder="{{ 'Username' | translate}}" ng-model="data.username">
-          </label>
-          <label class="item item-input">
-              <input type="password" placeholder="{{ 'Password' | translate}}" ng-model="data.password">
-          </label>
-          <label class="item item-input">
-              <input type="text" placeholder="{{ 'Company' | translate}}" ng-model="data.company">
-          </label>
       </div>
-      <button class="button button-full button-positive" style="background-color: #B80808;border-color: #B80808"  ng-click="doLogin()">{{ 'Login' | translate}}</button>
+    </form>
+
   </ion-content>
 </ion-view>

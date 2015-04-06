@@ -1,4 +1,4 @@
-angular.module('starter.schedulecontrollers', [])
+angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 .controller('ControlSchedule',function($scope,$ionicLoading,$q){
 

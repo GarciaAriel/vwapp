@@ -1,4 +1,4 @@
-angular.module('starter.scheduleroutes', [])
+angular.module('starter.scheduleroutes', ['starter.schedulecontrollers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
