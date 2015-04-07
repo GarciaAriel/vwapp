@@ -8,12 +8,32 @@ angular.module('starter.webmailservices', [])
 /**
  * SERVICES LIST MAILS IN WEBMAIL
  */
- .factory('Mail', function ($resource,apiUrlLocal,pathWebmail) {
+ .factory('Mail', function ($resource,apiUrlLocal,pathWebmail,factoryPage) {
+  
   var url = apiUrlLocal+""+pathWebmail;
   console.log('==SERVICE WEBMAIL== RESOURCE URL',url);
-  return $resource(url,{'pageParam(pageNumber)':1},{'query': { method: 'GET' }});
+  
+  var p = factoryPage.get();
+  console.log('==SERVICE WEBMAIL== page',p);
+  return $resource(url,{'pageParam(pageNumber)':p},{'query': { method: 'GET' }});
 })
 
+
+.factory('factoryPage', function() {
+  
+  var page = 1;
+  return {
+    set: function(value) {
+      page = value;
+      console.log("factoryPage",page);
+    },
+    get: function() {
+      console.log("factoryPage",page);
+      return page;
+    }
+  }
+
+})
 
 /**
 *SERVICES FOLDERS IN WEBMAIL
@@ -81,7 +101,24 @@ var getContacts = function() {
   //   all: getContacts
   // }
   
-});
+})
+
+.factory('$localstorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}]);
 
 // .factory('MailLoadBD', function($localstorage) {
 
