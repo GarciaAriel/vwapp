@@ -71,27 +71,48 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 })
 
 
-.controller('ContactsCtrl', function($scope, Contact,$timeout) {
-  $scope.page = 1;
-  $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
-  
-  $scope.doRefresh = function() {
-    $scope.page = 1;
-    $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+.controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading) {
+
+    
+      $ionicLoading.show({
+    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+    animation: 'fade-in',
+    noBackdrop: false
+  })
+      
+//    $scope.page = 1;
+//  $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
+//  
+//  $scope.doRefresh = function() {
+//    var pagina = $scope.page = 1;
+    $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.info2});
 
     $scope.contacts.$promise.then(function (results){
-      $scope.contacts = results;
-      $scope.$broadcast('scroll.refreshComplete');  
+        console.log("con que manda",$scope.page);
+      $scope.contacts = (results['mainData'])['list'];
+        $scope.info2 = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//        var prueba = (results['mainData'])['pageInfo']['pageNumber'];
+        
+//      $scope.$broadcast('scroll.refreshComplete');  
+        console.log("DATOS",$scope.contacts);
+        console.log("es entero", $scope.info2);
+        
+        $scope.info2=$scope.info2 + 1;
+        console.log("nuevoinfo", $scope.info2);
+        $ionicLoading.hide();
     });
-  };
+//  };
 
+    
   
   $scope.loadMore = function() {
     console.log('Loading more!');
-    $scope.page = $scope.page + 1;
-    $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.info2 = $scope.info2 + 1;
+    $scope.newContacts = Contact.get({'pageParam(pageNumber)':$scope.info2});
     $scope.newContacts.$promise.then(function(results){
-      $scope.contacts = $scope.contacts.concat(results);
+        
+        console.log("summaaaaaaaa", $scope.info2);
+      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
 

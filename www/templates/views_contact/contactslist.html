@@ -38,8 +38,12 @@ on-refresh="doRefresh()">
        <ion-list>
        <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact?contactId={{contact.id}}&addressId={{contact.id}}&addressType={{contact.addressType}}&contactPersonId{{contact.id}}">
                 <img ng-src="">
-                <h2>{{contact.firstname}},{{contact.lastname}}</h2>
-                <p>{{contact.id}}</p>
+                <h2>${{contact.addressId}}</h2>
+                <h2>++{{contact.contactPersonId}}</h2>
+           <h2>--{{contact.cityName}}</h2>
+           
+                <p>=={{contact.addressName}}</p>
+           
                 </ion-item>
         </ion-list>
     <!-- <ion-list>
