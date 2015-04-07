@@ -23,7 +23,7 @@
 angular.module('starter.contactservices', ['ngResource'])
 
 .factory('Contact', function ($resource) {
-	return $resource('http://localhost:8080/bm/bmapp/ContactREST.do');
+	return $resource('http://localhost:8080/bm/bmapp/Contact/REST.do');
 });
 
 // http://localhost:8080/bm/contacts/ContactPerson/Forward/Update.do?
