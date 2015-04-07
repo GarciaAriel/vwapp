@@ -10,8 +10,8 @@ angular.module('starter.webmailservices', [])
  */
  .factory('Mail', function ($resource,apiUrlLocal,pathWebmail) {
   var url = apiUrlLocal+""+pathWebmail;
-  console.log('==SERVICE WEBMAIL== RESOURCE',url);
-  return $resource(url);
+  console.log('==SERVICE WEBMAIL== RESOURCE URL',url);
+  return $resource(url,{'pageParam(pageNumber)':1},{'query': { method: 'GET' }});
 })
 
 

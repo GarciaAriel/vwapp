@@ -39,7 +39,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     $scope.doLogin = function() {
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
-
+      $state.go('app');
       // Simple POST request
       $http({
         method: 'POST',
@@ -71,6 +71,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
                 title: 'Log on, Failed!',
                 template: 'Please check your credentials!'
             });
+          $state.go('/login');
         }
       }).
       error(function(data, status, headers, config) {

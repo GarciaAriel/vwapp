@@ -7,7 +7,7 @@ angular.module('starter.constants',[])
 // .constant('apiUrlLocal', 'http://10.0.0.149:8080/bm')
 
 //path webmail
-.constant('pathWebmail', '/bmapp/ContactREST.do')
+.constant('pathWebmail', '/bmapp/Contact/REST.do')
 
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do');

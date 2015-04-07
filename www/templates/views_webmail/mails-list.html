@@ -4,7 +4,11 @@
     </ion-refresher>
       <ion-list>
         <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  >
-          <!-- <img ng-src="{{item.src}}" style="width: 64px; height: 64px"> -->
+          <!-- IF IMAGE DO NOT EXIST -->
+          <div ng-if="item.firtname != '' ">
+            <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+          </div>
+          
           <span class="item-note">
             <div>Date</div>
             
@@ -19,9 +23,10 @@
               </button>
             </div> -->
           </span>
-          <h2>from{{item.firstname}}</h2>
-          <p>subject{{item.firstname}}</p>
-          <p>detail{{item.firstname}}</p>
+
+          <h2>from{{item.addressName}}</h2>
+          <p>subject:{{item.addressId}}</p>
+          <p>detail{{item.addressName}}</p>
         </ion-item>
       </ion-list>
     <ion-infinite-scroll on-infinite="loadMore()">
