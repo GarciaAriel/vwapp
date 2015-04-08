@@ -19,49 +19,46 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
 })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource,factoryPage){
-  // console.log('==CONTROLLER WEBMAIL== QUERY ITEMS',$scope.mailList);
+.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource){
+  console.log('==CONTROLLER WEBMAIL== STARTING');
+
+  //LOADING IMAGE
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
 
-  // $localstorage.set('page', 1);
-  $scope.page = 1;
-  // $scope.mailList = Mail.query({'pageParam(pageNumber)': $scope.page});
-  $scope.mailList = Mail.query();
-
+  $scope.mailList = Mail.get({'pageParam(pageNumber)': $scope.page});
+  
   $scope.mailList.$promise.then(function (results){
-    factoryPage.set(1);
-    console.log('dataaaaaaaa',(results['mainData'])['list']);
+    console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.mailList = (results['mainData'])['list'];
     $ionicLoading.hide()
   });
   
-  $scope.doRefresh = function(){
+  $scope.doRefresh = function() {
     $scope.page = 1;
-    factoryPage.set($scope.page);
-    $scope.mailList = Mail.query();
+    $scope.mailList = Mail.get({'pageParam(pageNumber)':$scope.page});
 
-    $scope.mailList.$promise.them(function (results){
-      console.log('dataaaaaaaa REFRESH',(results));
+    $scope.mailList.$promise.then(function (results){
       $scope.mailList = (results['mainData'])['list'];
       $scope.$broadcast('scroll.refreshComplete');  
     });
   };
 
-  $scope.loadMore = function(){
+  $scope.loadMore = function() {
+    console.log('==CONTROLLER WEBMAIL== LOAD MORE');
     $scope.page = $scope.page + 1;
-    factoryPage.set($scope.page);
-        
-    $scope.newMails = Mail.query();
+    $scope.newMails = Mail.get({'pageParam(pageNumber)':$scope.page});
+
     $scope.newMails.$promise.then(function(results){
-      console.log('dataaaaaaaa load more',(results));
       $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
-  }; 
+  };
+
 });
 
 
