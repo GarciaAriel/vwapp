@@ -73,14 +73,14 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 
 .controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading) {
 
-    
+
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
 
-  $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
+  $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
   $scope.contacts.$promise.then(function (results){
     console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
@@ -92,28 +92,33 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
   });
 //  };
 
-  $scope.doRefresh = function() {
-    console.log('==CONTROLLER CONTACTS== do refresh');
-    $scope.page = 1;
-    $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
+$scope.doRefresh = function() {
+  console.log('==CONTROLLER CONTACTS== do refresh');
+  $scope.page = 1;
+  $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
-    $scope.contacts.$promise.then(function (results){
-      console.log("page doRefresh", $scope.page);
-      $scope.contacts = (results['mainData'])['list'];
-      $scope.$broadcast('scroll.refreshComplete');  
-    });
-  };  
-  
-  $scope.loadMore = function() {
-    console.log('==CONTROLLER CONTACTS==Loading more');
-    $scope.page = $scope.page + 1;
-    $scope.newContacts = Contact.get({'pageParam(pageNumber)':$scope.page});
-    $scope.newContacts.$promise.then(function(results){
-      console.log("page  loadMore", $scope.page);
-      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    });
-  };
+  $scope.contacts.$promise.then(function (results){
+    console.log("page doRefresh", $scope.page);
+    $scope.contacts = (results['mainData'])['list'];
+    $scope.$broadcast('scroll.refreshComplete');  
+  });
+};  
+
+$scope.loadMore = function() {
+  console.log('==CONTROLLER CONTACTS==Loading more');
+  $scope.page = $scope.page + 1;
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts.$promise.then(function(results){
+    console.log("page  loadMore", $scope.page);
+    $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  });
+};
+
+$scope.getContactUrl = function(item){
+
+  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId={{item.addressId}}&addressId={{item.addressId}}&addressType={{item.addressType}}' : '#/app/contactp?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}';
+};
 
 })
 
@@ -165,43 +170,43 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 
 
 .controller('ContactCtrl', function($scope, $stateParams, Contact) {
- 
-    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactId);
-    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressId);
-    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactPersonId);
-    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressType);
-    
-    
-    $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
-    
-        $scope.contact.$promise.then(function (results){
-        
-      $scope.contact = (results['mainData'])['entity'];
+
+  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactId);
+  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressId);
+  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactPersonId);
+  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressType);
+
+
+  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+
+  $scope.contact.$promise.then(function (results){
+
+    $scope.contact = (results['mainData'])['entity'];
            // console.log("sasasa",((results['mainData'])['entity']).addressId);
 //        $ionicLoading.hide();
-            
-        
-            
-    });
-   
-    
+
+
+
+});
+
+
   
-    
-    console.log("este contacto",$scope.contact);
-    
-    
-    
-        
+
+  console.log("este contacto",$scope.contact);
+
+
+
+
 //      $scope.dcontact = $scope.contact((results['mainData'])['entity']);
 //        $scope.info2 = parseInt((results['mainData'])['pageInfo']['pageNumber']);
 //        var prueba = (results['mainData'])['pageInfo']['pageNumber'];
-        
+
 //      $scope.$broadcast('scroll.refreshComplete');  
 //        console.log("DATOS del contacto",$scope.dcontact);
-        
-    
-    
-    
+
+
+
+
 });
 
 

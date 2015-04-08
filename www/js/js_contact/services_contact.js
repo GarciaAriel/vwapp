@@ -24,7 +24,7 @@ angular.module('starter.contactservices', ['ngResource'])
 
 .factory('Contact', function ($resource,apiUrlLocal,pathContact) {
 	var url = apiUrlLocal+pathContact;
-	return $resource(url);
+	return $resource(url,{},{'query':{method:'GET', isArray:false}});
 });
 
 // http://localhost:8080/bm/contacts/ContactPerson/Forward/Update.do?

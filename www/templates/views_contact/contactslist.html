@@ -1,63 +1,63 @@
 <ion-view view-title="Contacts">
-  <ion-nav-buttons side="right">
-    
-    <button class="button" style="border-style: none" data-ng-click="searchcon()">
-    <i class="icon ion-ios7-search" style="color: #B80808"></i>
+<ion-nav-buttons side="right">
 
-    </button>
-    <button class="button" style="border-style: none" data-ng-click="addper()">
-    <i class="icon ion-person-add" style="color: #B80808"></i>
+<button class="button" style="border-style: none" data-ng-click="searchcon()">
+  <i class="icon ion-ios7-search" style="color: #B80808"></i>
 
-    </button>
-    <button class="button"style="border-style: none" data-ng-click="addcom()">
-    <i class="icon ion-person-stalker" style="color: #B80808"></i>
+</button>
+<button class="button" style="border-style: none" data-ng-click="addper()">
+  <i class="icon ion-person-add" style="color: #B80808"></i>
 
-    </button>
+</button>
+<button class="button"style="border-style: none" data-ng-click="addcom()">
+  <i class="icon ion-person-stalker" style="color: #B80808"></i>
+
+</button>
 
       <!-- <div class="new">
         <i class="ion-person-add"></i>
-          </div> -->
+      </div> -->
       <!-- <button id="saveButton" class="ion-person-add"></button> -->
-  </ion-nav-buttons>
+    </ion-nav-buttons>
 
-  <ion-content>
-      
+    <ion-content>
+
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
-    </ion-refresher>
+  </ion-refresher>
 
-    <ion-list ng-repeat="item in contacts">
+  <ion-list ng-repeat="item in contacts">
 
-      <ion-item ng-if='item.contactPersonAddressId ==""' class="item-avatar"  type="item-text-wrap" ng-href="#/app/contact?contactId={{item.addressId}}&addressId={{item.addressId}}&addressType={{item.addressType}}">
+  <ion-item ng-if='item.contactPersonAddressId ==""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
 
-      <ion-item ng-if='item.contactPersonId !=""' class="item-avatar"  type="item-text-wrap"  ng-href="#/app/contactp?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}">
-        <!-- TYPE OF PERSON -->
-        
-        <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
-        <span class="item-note"><i class="ion-chevron-right"></i></span>
-        <span class="item-note">
-          <div ng-if='item.contactPersonAddressId != ""'>
-              <i class="ion-person" style="color: #0F8E0D"></i>
-               <!-- verde PC -->
-          </div>
-          <div ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"'>
-                <i class="ion-person-stalker" style="color: #2A5FAF"></i>
-                <!-- company -->
-          </div>
-          <div ng-if='item.contactPersonAddressId == "" && item.addressType == "1" '>
-                <i class="ion-person" style="color: #B80808"></i>
-                <!-- rojo pe  -->
-          </div>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-        </span>
+<!--       <ion-item ng-if='item.contactPersonId !=""' class="item-avatar"  type="item-text-wrap"  ng-href="#/app/contactp?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}">
+-->        <!-- TYPE OF PERSON -->
 
-        <!-- <h2 ng-if="item.">{{item.contactPersonId}}</h2> -->
-        <p>{{item.addressName}}</p>
-        <p>{{item.cityName}} {{item.countryCode}} {{item.zip}}</p>
-      </ion-item>
-    </ion-list>
+<img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+<span class="item-note"><i class="ion-chevron-right"></i></span>
+<span class="item-note">
+  <div ng-if='item.contactPersonAddressId != ""'>
+    <i class="ion-person" style="color: #0F8E0D"></i>
+    <!-- verde PC -->
+  </div>
+  <div ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"'>
+    <i class="ion-person-stalker" style="color: #2A5FAF"></i>
+    <!-- company -->
+  </div>
+  <div ng-if='item.contactPersonAddressId == "" && item.addressType == "1" '>
+    <i class="ion-person" style="color: #B80808"></i>
+    <!-- rojo pe  -->
+  </div>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+</span>
 
-    <ion-infinite-scroll on-infinite="loadMore()">
-    </ion-infinite-scroll>
+<!-- <h2 ng-if="item.">{{item.contactPersonId}}</h2> -->
+<p>{{item.addressName}}</p>
+<p>{{item.cityName}} {{item.countryCode}} {{item.zip}}</p>
+</ion-item>
+</ion-list>
 
-  </ion-content>
+<ion-infinite-scroll on-infinite="loadMore()">
+</ion-infinite-scroll>
+
+</ion-content>
 </ion-view>
