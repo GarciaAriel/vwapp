@@ -117,7 +117,7 @@ $scope.loadMore = function() {
 
 $scope.getContactUrl = function(item){
 
-  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId={{item.addressId}}&addressId={{item.addressId}}&addressType={{item.addressType}}' : '#/app/contactp?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}';
+  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contact?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;
 };
 
 })
