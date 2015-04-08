@@ -74,52 +74,46 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 .controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading) {
 
     
-      $ionicLoading.show({
+  $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
-      
-//    $scope.page = 1;
-//  $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
-//  
-//  $scope.doRefresh = function() {
-//    var pagina = $scope.page = 1;
-    $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.info2});
 
-    $scope.contacts.$promise.then(function (results){
-        console.log("con que manda",$scope.page);
-      $scope.contacts = (results['mainData'])['list'];
-        $scope.info2 = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-//        var prueba = (results['mainData'])['pageInfo']['pageNumber'];
-        
-//      $scope.$broadcast('scroll.refreshComplete');  
-        console.log("DATOS",$scope.contacts);
-        console.log("es entero", $scope.info2);
-        
-        $scope.info2=$scope.info2 + 1;
-        console.log("nuevoinfo", $scope.info2);
-        $ionicLoading.hide();
-    });
+  $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
+
+  $scope.contacts.$promise.then(function (results){
+    console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
+    $scope.contacts = (results['mainData'])['list'];
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    $scope.page = $scope.page + 1;
+    console.log("page first", $scope.page);
+    $ionicLoading.hide();
+  });
 //  };
 
-    
+  $scope.doRefresh = function() {
+    console.log('==CONTROLLER CONTACTS== do refresh');
+    $scope.page = 1;
+    $scope.contacts = Contact.get({'pageParam(pageNumber)':$scope.page});
+
+    $scope.contacts.$promise.then(function (results){
+      console.log("page doRefresh", $scope.page);
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.$broadcast('scroll.refreshComplete');  
+    });
+  };  
   
   $scope.loadMore = function() {
-    console.log('Loading more!');
-    $scope.info2 = $scope.info2 + 1;
-    $scope.newContacts = Contact.get({'pageParam(pageNumber)':$scope.info2});
+    console.log('==CONTROLLER CONTACTS==Loading more');
+    $scope.page = $scope.page + 1;
+    $scope.newContacts = Contact.get({'pageParam(pageNumber)':$scope.page});
     $scope.newContacts.$promise.then(function(results){
-        
-        console.log("summaaaaaaaa", $scope.info2);
+      console.log("page  loadMore", $scope.page);
       $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
-
-    
-    
-  }
-
+  };
 
 })
 
@@ -183,7 +177,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
         $scope.contact.$promise.then(function (results){
         
       $scope.contact = (results['mainData'])['entity'];
-            console.log("sasasa",((results['mainData'])['entity']).addressId);
+           // console.log("sasasa",((results['mainData'])['entity']).addressId);
 //        $ionicLoading.hide();
             
         

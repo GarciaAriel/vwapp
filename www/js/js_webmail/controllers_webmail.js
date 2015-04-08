@@ -19,56 +19,46 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
 })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading){
-  // console.log('==CONTROLLER WEBMAIL== QUERY ITEMS',$scope.mailList);
+.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource){
+  console.log('==CONTROLLER WEBMAIL== STARTING');
+
+  //LOADING IMAGE
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
 
+  $scope.mailList = Mail.get({'pageParam(pageNumber)': $scope.page});
   
-//   page = page+1;
-//   console.log("a",page);
-
-  
-
-  $scope.page = 1;
-  // $scope.mailList = Mail.query({'pageParam(pageNumber)': $scope.page});
-  $scope.mailList = Mail.query();
-
-  // console.log("hellllllllllllllllllllllXDXDXD",$scope.mailList);  
-  // console.log("hellllllllllllllllllllllXDXDXD",((resourceObject["$promise"])["$$state"])['status']);  
-
-  // $scope.mailList = ((resourceObject['$promise'])['$$state']);
-
-  // console.log("hellllllllllllllllllllll",$scope.mailList);  
-
   $scope.mailList.$promise.then(function (results){
-    console.log('vamos caaaa',results);
-    console.log('vamos caaaa',results['mainData']);
+    console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.mailList = (results['mainData'])['list'];
     $ionicLoading.hide()
   });
   
-  // $scope.doRefresh = function(){
-  //   $scope.page = 1;
-  //   $scope.mailList = Mail.query({'pageParam(pageParam)':$scope.page});
+  $scope.doRefresh = function() {
+    $scope.page = 1;
+    $scope.mailList = Mail.get({'pageParam(pageNumber)':$scope.page});
 
-  //   $scope.mailList.$promise.them(function (results){
-  //     $scope.mailList = results;
-  //     $scope.$broadcast('scroll.refreshComplete');  
-  //   });
-  // };
+    $scope.mailList.$promise.then(function (results){
+      $scope.mailList = (results['mainData'])['list'];
+      $scope.$broadcast('scroll.refreshComplete');  
+    });
+  };
 
-  // $scope.loadMore = function(){
-  //   $scope.page = $scope.page +1;
-  //   $scope.newMails = Mail.query({'pageParam(pageParam)':$scope.page});
-  //   $scope.newMails.$promise.then(function(results){
-  //     $scope.mailList = $scope.mailList.concat(results);
-  //     $scope.$broadcast('scroll.infiniteScrollComplete');
-  //   });
-  // }; 
+  $scope.loadMore = function() {
+    console.log('==CONTROLLER WEBMAIL== LOAD MORE');
+    $scope.page = $scope.page + 1;
+    $scope.newMails = Mail.get({'pageParam(pageNumber)':$scope.page});
+
+    $scope.newMails.$promise.then(function(results){
+      $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
+
 });
 
 

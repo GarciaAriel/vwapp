@@ -9,9 +9,10 @@ angular.module('starter.webmailservices', [])
  * SERVICES LIST MAILS IN WEBMAIL
  */
  .factory('Mail', function ($resource,apiUrlLocal,pathWebmail) {
-  var url = apiUrlLocal+""+pathWebmail;
-  console.log('==SERVICE WEBMAIL== RESOURCE URL',url);
-  return $resource(url,{'pageParam(pageNumber)':1},{'query': { method: 'GET' }});
+  
+  var url = apiUrlLocal+pathWebmail;
+  console.log('==SERVICE WEBMAIL== URL',url);
+  return $resource(url);
 })
 
 
@@ -82,6 +83,8 @@ var getContacts = function() {
   // }
   
 });
+
+
 
 // .factory('MailLoadBD', function($localstorage) {
 
