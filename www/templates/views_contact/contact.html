@@ -1,4 +1,4 @@
-<ion-view view-title="{{contact.name.first}} {{contact.name.last}}">
+<ion-view view-title="Contacts">
 
 
   <ion-nav-buttons side="right">
@@ -10,17 +10,19 @@
 
     </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content >
 
     <div class="list card">
       <div class="item item-divider">
         <h2>Info</h2>
       </div>
      <a class="item item-thumbnail-left" href="#">
-       <img src="{{contact.picture.thumbnail}}">
-       <h2>From: {{(contact.location.city)}}</h2>
-           <p>Id : {{contact.registered}}</p>
-           <p>Usermane: {{contact.username}}</p>
+<!--       <img src="{{contact.picture.thumbnail}}">-->
+       <h2>Name: {{(contact.name1)}}</h2>
+           <p>{{contact.name2}}</p>
+           <p>{{contact.name3}}</p>
+            <p>{{contacts.name3}}</p>
+            <p>{{contact.funtion}}</p>
        <!-- <p>{{contact.funtion}}</p> -->
        <h1> <span class="badge ion-chevron-right"> </span> </h1>
      </a>
@@ -32,11 +34,11 @@
    </div>
    <a class="item item-thumbnail-right" href="#">
      <!-- <div class="item item-text-wrap"> -->
-               City: {{contact.location.city}}
+               City: {{contact.name1}}
          <br>
-         Country: {{contact.location.state}}
+         Country: {{contact.name2}}
                <br>
-               Zip: {{contact.location.zip}}
+               Zip: {{contact.name3}}
                <br>
                Street: {{contact.location.street}}
          <h1> <span class="badge ion-chevron-right"> </span> </h1>

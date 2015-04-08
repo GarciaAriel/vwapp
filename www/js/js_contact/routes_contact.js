@@ -56,23 +56,34 @@ angular.module('starter.contactroutes', [])
   //     }
   //   })
 
-  $stateProvider.state('app.contact', {
-     url: '/contact/:index',
-     views: {
-       'menuContent': {
-     controller: 'ContactDetailCtrl',
-     templateUrl: 'templates/views_contact/contact.html',
-     resolve: {
-       contact: function($stateParams, contacts){
-             return contacts.ready.then(function(){
-                 return contacts.list[+$stateParams.index]
-                 });
-             }
-         }
-         }
-       }
-     });
+//  $stateProvider.state('app.contact', {
+//     url: '/contact/:index',
+//     views: {
+//       'menuContent': {
+//     controller: 'ContactDetailCtrl',
+//     templateUrl: 'templates/views_contact/contact.html',
+//     resolve: {
+//       contact: function($stateParams, contacts){
+//             return contacts.ready.then(function(){
+//                 return contacts.list[+$stateParams.index]
+//                 });
+//             }
+//         }
+//         }
+//       }
+//     });
 
+  
+  $stateProvider.state('app.contact', {
+    url: "/contact?contactId&addressId&contactPersonId&addressType",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/contact.html",
+        controller: 'ContactCtrl'
+      }
+    }
+  });
+  
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

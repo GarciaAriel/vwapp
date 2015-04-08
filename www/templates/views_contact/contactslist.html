@@ -36,11 +36,13 @@ on-refresh="doRefresh()">
         </ion-refresher>
 -->
        <ion-list>
-       <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact?contactId={{contact.id}}&addressId={{contact.id}}&addressType={{contact.addressType}}&contactPersonId{{contact.id}}">
+       <ion-item class="item-avatar" ng-repeat="contact in contacts" ng-href="#/app/contact?contactId={{contact.contactPersonAddressId}}&addressId={{contact.contactPersonAddressId}}&contactPersonId={{contact.addressId}}&addressType={{contact.addressType2}}">
                 <img ng-src="">
-                <h2>${{contact.addressId}}</h2>
-                <h2>++{{contact.contactPersonId}}</h2>
-           <h2>--{{contact.cityName}}</h2>
+           
+           
+                <h2>${{contact.addressType2}}</h2>
+                <h2>++{{contact.contactPersonAddressId}}</h2>
+           
            
                 <p>=={{contact.addressName}}</p>
            

@@ -150,17 +150,67 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 // })
 
 
-.controller('ContactDetailCtrl', function($scope, contact, contacts, $ionicActionSheet){
-    $scope.contact = contact;
+//.controller('ContactDetailCtrl', function($scope, contact, contacts, $ionicActionSheet){
+//    $scope.contact = contact;
+//        
+////    $scope.borrarPersona = function(){
+////    $ionicActionSheet.show({
+////        destructiveText: 'Delete ' + contact.name.first +" " +contact.name.last,
+////        cancelText: 'Cancel',
+////        destructiveButtonClicked: function(){
+////            contacts.list.splice(contacts.list.indexOf(contact),1);
+////            window.history.back();
+////        }
+////    });
+////    };
+//    
+//    
+//    
+//});
 
-    $scope.borrarPersona = function(){
-    $ionicActionSheet.show({
-        destructiveText: 'Delete ' + contact.name.first +" " +contact.name.last,
-        cancelText: 'Cancel',
-        destructiveButtonClicked: function(){
-            contacts.list.splice(contacts.list.indexOf(contact),1);
-            window.history.back();
-        }
+
+
+.controller('ContactCtrl', function($scope, $stateParams, Contact) {
+ 
+    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactId);
+    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressId);
+    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactPersonId);
+    console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressType);
+    
+    
+    $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+    
+        $scope.contact.$promise.then(function (results){
+        
+      $scope.contact = (results['mainData'])['entity'];
+            console.log("sasasa",((results['mainData'])['entity']).addressId);
+//        $ionicLoading.hide();
+            
+        
+            
     });
-    };
+   
+    
+  
+    
+    console.log("este contacto",$scope.contact);
+    
+    
+    
+        
+//      $scope.dcontact = $scope.contact((results['mainData'])['entity']);
+//        $scope.info2 = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//        var prueba = (results['mainData'])['pageInfo']['pageNumber'];
+        
+//      $scope.$broadcast('scroll.refreshComplete');  
+//        console.log("DATOS del contacto",$scope.dcontact);
+        
+    
+    
+    
 });
+
+
+
+
+
