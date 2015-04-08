@@ -45,20 +45,17 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         method: 'POST',
         url: apiUrlLocal+""+pathLogon,
         data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
-      }).success(function(data, status, headers, config) {
+      }).success(function(data, status, headers, config,$cookies) {
         console.log('==LOGIN== REQUEST SUCCESS OK');
-
-
-        // console.log(headers('UserLastLogin'));
-        
+        console.log("hola cookies", $cookies);
         var auxiliary = "/"+data+"/";
         var size = auxiliary.length;
         if( size>4 )
         {
           console.log(size);
           console.log("DATA: ",data);
-          console.log("status: ",status);
-          console.log("headers: ",headers);
+          console.log("STATUS: ",status);
+          console.log("HEADERS: ",headers);
           console.log("CONFIG: ",config);
 
           AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
@@ -67,10 +64,10 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         }
         else
         {
-          var alertPopup = $ionicPopup.alert({
-                title: 'Log on, Failed!',
-                template: 'Please check your credentials!'
-            });
+          // var alertPopup = $ionicPopup.alert({
+          //       title: 'Log on, Failed!',
+          //       template: 'Please check your credentials!'
+          //   });
           $state.go('/login');
         }
       }).

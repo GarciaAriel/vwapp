@@ -25,8 +25,11 @@
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
     </ion-refresher>
 
-    <ion-list>
-      <ion-item class="item-avatar" ng-repeat="item in contacts" type="item-text-wrap" ng-href="#/app/contact?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}">
+    <ion-list ng-repeat="item in contacts">
+
+      <ion-item ng-if='item.contactPersonAddressId ==""' class="item-avatar"  type="item-text-wrap" ng-href="#/app/contact?contactId={{item.addressId}}&addressId={{item.addressId}}&addressType={{item.addressType}}">
+
+      <ion-item ng-if='item.contactPersonId !=""' class="item-avatar"  type="item-text-wrap"  ng-href="#/app/contactp?contactId={{item.contactPersonAddressId}}&addressId={{item.contactPersonAddressId}}&contactPersonId={{item.addressId}}&addressType={{item.addressType2}}">
         <!-- TYPE OF PERSON -->
         
         <img ng-src="img/user_default.png" style="width: 64px; height: 64px">

@@ -9,5 +9,8 @@ angular.module('starter.constants',[])
 //path webmail
 .constant('pathWebmail', '/bmapp/Contact/REST.do')
 
+//path contact
+.constant('pathContact', '/bmapp/Contact/REST.do')
+
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do');
