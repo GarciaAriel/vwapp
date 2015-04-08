@@ -29,18 +29,19 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
     noBackdrop: false
   })
 
-  $scope.mailList = Mail.get({'pageParam(pageNumber)': $scope.page});
+  $scope.mailList = Mail.get();
   
   $scope.mailList.$promise.then(function (results){
     console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
-    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    // $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.mailList = (results['mainData'])['list'];
     $ionicLoading.hide()
   });
   
   $scope.doRefresh = function() {
     $scope.page = 1;
-    $scope.mailList = Mail.get({'pageParam(pageNumber)':$scope.page});
+    // $scope.mailList = Mail.get({'pageParam(pageNumber)':$scope.page});
+    $scope.mailList = Mail.get();
 
     $scope.mailList.$promise.then(function (results){
       $scope.mailList = (results['mainData'])['list'];
@@ -50,8 +51,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
 
   $scope.loadMore = function() {
     console.log('==CONTROLLER WEBMAIL== LOAD MORE');
-    $scope.page = $scope.page + 1;
-    $scope.newMails = Mail.get({'pageParam(pageNumber)':$scope.page});
+    // $scope.page = $scope.page + 1;
+    // $scope.newMails = Mail.get({'pageParam(pageNumber)':$scope.page});
+    $scope.newMails = Mail.get();
 
     $scope.newMails.$promise.then(function(results){
       $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);

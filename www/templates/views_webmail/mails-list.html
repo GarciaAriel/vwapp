@@ -4,31 +4,31 @@
     </ion-refresher>
       <ion-list>
         <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  >
+          
           <!-- IF IMAGE DO NOT EXIST -->
-          <div ng-if="item.firtname != '' ">
-            <!-- <img ng-src="img/user_default.png" style="width: 64px; height: 64px"> -->
-          </div>
+          <!-- <div ng-if="item.mailId != '' ">
+            <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+          </div> -->
+
+          <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
           
           <span class="item-note">
-            <div>Date</div>
+            <div>{{item.sentDateTime}}</div>
             
-            <!-- <div ng-if="item.see == 'true' ">
+            <div ng-if="item.hasReadState == 'true' ">
               <button class="button button-clear button-positive">
                 <i class="icon ion-checkmark-circled"></i>
               </button>
             </div>
-            <div ng-if="item.see == 'false' ">
+            <div ng-if="item.hasReadState == 'false' ">
               <button class="button button-clear button-light">
                 <i class="icon ion-checkmark-circled"></i>    
               </button>
-            </div> -->
+            </div>
           </span>
 
-          <h2>{{item.addressName}}</h2>
-          <p>{{item.addressId}}</p>
-          <p>{{item.cityName}}</p>
-          <p>{{item.contactPersonOfName}}</p>
-          <p>{{item.zip}}</p>
+          <h2>{{item.mailToFrom}}</h2>
+          <p>{{item.subject}}</p>
         </ion-item>
       </ion-list>
     <ion-infinite-scroll on-infinite="loadMore()">

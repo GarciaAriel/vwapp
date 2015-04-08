@@ -39,7 +39,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     $scope.doLogin = function() {
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
-      $state.go('app');
+      // $state.go('app');
       // Simple POST request
       $http({
         method: 'POST',
