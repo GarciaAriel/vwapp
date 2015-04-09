@@ -18,21 +18,29 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-        <h1 class="title">{{ 'Menu' | translate}}</h1>
+        <h1 class="title" style='{{colo}}'>{{ 'Menu' | translate}}</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <ion-item nav-clear menu-close href="#/app/contacts">
-          {{ 'Contacts' | translate}}
+          <i class="icon ion-person-stalker" style='{{colo}}'>
+            {{ 'Contacts' | translate}}    
+          </i>
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/schedulerDay">
-          {{ 'Scheduler' | translate}}
+          <i class="icon ion-calendar" style='{{colo}}'>
+            {{ 'Scheduler' | translate}}
+          </i>
         </ion-item>
           <ion-item nav-clear menu-close href="#/app/mailboxes">
-          {{ 'Webmail' | translate}}
+            <i class="icon ion-filing" style='{{colo}}'>
+              {{ 'Webmail' | translate}}
+            </i>
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/log-out">
-          {{ 'Logout' | translate}}
+          <i class="icon ion-log-out" style='{{colo}}'>
+            {{ 'Logout' | translate}}
+          </i>
         </ion-item>
       </ion-list>
     </ion-content>

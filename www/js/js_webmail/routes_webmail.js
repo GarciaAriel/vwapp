@@ -4,7 +4,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
+// details mail
   // .state('app.details-mail', {
   //     url: '/mail-detail/:folderId/:mailId',
   //     views: {
@@ -15,6 +15,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
   //     }
   //   })
 
+//mail list in folder
    .state('app.mail-items', {
       url: '/mail-list/:itemId',
       views: {
@@ -25,7 +26,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
       }
     })
 
-   //forders mails route
+   //folders mails route
    .state('app.mailboxes', {
       url: '/mailboxes',
       views: {

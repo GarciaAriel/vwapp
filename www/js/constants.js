@@ -12,5 +12,7 @@ angular.module('starter.constants',[])
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
 
+.constant('colo','color: #B80808')
+
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do');

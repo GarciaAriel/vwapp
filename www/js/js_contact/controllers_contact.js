@@ -73,21 +73,22 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 
 .controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading) {
 
-
+  //LOADING ICON
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
 
-  $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
-
-  $scope.contacts.$promise.then(function (results){
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.contacts = [];
+  
+  $scope.newContacts.$promise.then(function (results){
+    console.log("inicio",(results['mainData']));
     console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
     $scope.contacts = (results['mainData'])['list'];
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.page = $scope.page + 1;
-    console.log("page first", $scope.page);
     $ionicLoading.hide();
   });
 //  };
@@ -95,9 +96,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 $scope.doRefresh = function() {
   console.log('==CONTROLLER CONTACTS== do refresh');
   $scope.page = 1;
-  $scope.contacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
-  $scope.contacts.$promise.then(function (results){
+  $scope.newContacts.$promise.then(function (results){
     console.log("page doRefresh", $scope.page);
     $scope.contacts = (results['mainData'])['list'];
     $scope.$broadcast('scroll.refreshComplete');  
@@ -109,6 +110,7 @@ $scope.loadMore = function() {
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
+    console.log("loadMore",(results['mainData']));
     console.log("page  loadMore", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');

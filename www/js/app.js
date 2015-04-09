@@ -131,29 +131,3 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   $translateProvider.preferredLanguage("en");
   $translateProvider.fallbackLanguage("en");
 });
-
-// .config(function($stateProvider, $urlRouterProvider) {
-//   $stateProvider
-
-//   .state('login', {
-//       url: '/login',
-//       templateUrl: 'templates/login.html',
-//       controller: 'LoginController'
-//   })
-
-//   .state('log-out',{
-//       url: '/log-out',
-//       templateUrl: 'templates/login.html',
-//       controller: 'logoutController'
-//   })
-
-//   .state('app', {
-//     url: "/app",
-//     //abstract: true,
-//     templateUrl: "templates/menu.html",
-//     controller: 'AppCtrl'
-//   })
-
-//   // if none of the above states are matched, use this as the fallback
-//   $urlRouterProvider.otherwise('/login');
-// });

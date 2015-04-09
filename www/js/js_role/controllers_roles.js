@@ -1,7 +1,7 @@
 angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
-  
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,colo) {
+  $scope.colo = colo;
   //call services data
   // Contacts.all();
   //MailList.all();
