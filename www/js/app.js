@@ -9,7 +9,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 
   // enumerate routes that user can see 
-  var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/app/mail-detail","/login","/app/schedulerDay"];
+  var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay"];
 
   // VALIDATE THE CURRENT RUOTE
   var validateRoute = function (route) {

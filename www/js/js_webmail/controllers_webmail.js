@@ -21,13 +21,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
   $scope.getClass = function(item){
     var response = "icon ion-folder";
     var value = item.id;
+    console.log("colorrrrrrr",value);
 
-    if (value == "inbox") 
-      response = "icon ion-filing";
-    if (value == "sentItems") 
-      response = "icon ion-paper-airplane";
-    if (value == "draftItems")
-      response = "icon ion-android-drafts";
+    if (value == "inbox") {
+      response = "icon ion-filing";}
+    if (value == "sentItems") {
+      response = "icon ion-paper-airplane";}
+    if (value == "draftItems"){
+      response = "icon ion-briefcase";}
 
     return response;
     
@@ -46,7 +47,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
     noBackdrop: false
   })
 
-  $scope.newMailList = Mail.get();
+  $scope.newMailList = Mail.query();
   $scope.mailList = [];
   
   
@@ -63,7 +64,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
   $scope.doRefresh = function() {
     
     $scope.page = 1;  
-    $scope.newMailList = Mail.get({'pageParam(pageNumber)':$scope.page});
+    $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page});
 
     $scope.newMailList.$promise.then(function (results){
       console.log("doRefresh",(results['mainData']));
@@ -80,26 +81,33 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
       $scope.page = $scope.page + 1;
       
       console.log("ifff loadMore",$scope.page);
-      $scope.newMails = Mail.get({'pageParam(pageNumber)':$scope.page});
+      $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page});
 
       $scope.newMails.$promise.then(function(results){
         console.log("loadMore",(results['mainData']));
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });  
-  };
+  }
 })
 
-// // DETAILS MAIL
-// .controller('MailDetailCtrl', function($scope, $stateParams, MailLoadBD, $ionicSlideBoxDelegate) {
+// DETAILS MAIL
+.controller('MailDetailCtrl', function($scope, $stateParams,Mail) {
 
-//   $scope.detailMail = Mail.get({'pageParam(pageNumber)':$stateParams.page});
-// // $stateParams.
-//   $scope.detailMail.$promise.then(function (results){
-//     $scope.item = (results['mainData'])['entity'];
+  console.log("==WEBMAIL DETAILS MAIL== start");
+  $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
+  $scope.item = {};
   
-//   });
-// });
+  console.log("bruto",$scope.detail);
+  $scope.detail.$promise.then(function (results){
+    // console.log("inicio",(results['mainData']));
+
+    $scope.item = (results['mainData'])['entity'];
+    
+    // $ionicLoading.hide()
+  });
+
+});
 
 
 //aaaaaaaaaaaaaaaaaaaaaaaaaa lista de mails en un fordel

@@ -12,7 +12,7 @@ angular.module('starter.webmailservices', [])
   
   var url = apiUrlLocal+pathWebmail;
   console.log('==SERVICE WEBMAIL== URL',url);
-  return $resource(url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
 })
 
 
