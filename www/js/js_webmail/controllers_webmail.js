@@ -91,21 +91,59 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices'])
   }
 })
 
-// DETAILS MAIL
-.controller('MailDetailCtrl', function($scope, $stateParams,Mail) {
 
-  console.log("==WEBMAIL DETAILS MAIL== start");
+
+
+
+// DETAILS MAIL
+.controller('MailDetailCtrl', function($scope, $http,$sce, $ionicLoading, $stateParams,Mail,apiUrlLocal,pathWebmail) {
+  
+  
+  //LOADING IMAGE
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+    animation: 'fade-in',
+    noBackdrop: false
+  })
+
+
+
+  console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
   $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
   $scope.item = {};
-  
-  console.log("bruto",$scope.detail);
-  $scope.detail.$promise.then(function (results){
-    // console.log("inicio",(results['mainData']));
 
+  $scope.detail.$promise.then(function (results){
+    console.log("entraaaaaaXD",(results['mainData'])['entity']);
     $scope.item = (results['mainData'])['entity'];
+
+    //SPLIT STRING TO ARRAY CC
+    var cc = ((results['mainData'])['entity'])['cc'];
+    $scope.arrayCC = cc.split(',');
+    console.log("primero",$scope.arrayCC);
+
+    //SPLIT STRING TO ARRAY BCC
+    var bcc = ((results['mainData'])['entity'])['bcc'];
+    $scope.arrayBCC = bcc.split(',');
+    console.log("primero",$scope.arrayBCC);
+
+    //SHOW HTML IN VIEW
+    var codigo = ((results['mainData'])['entity'])['body'];
+    $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(codigo);
     
-    // $ionicLoading.hide()
+    $ionicLoading.hide()
   });
+
+
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
 
 });
 
