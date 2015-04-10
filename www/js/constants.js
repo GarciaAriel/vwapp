@@ -12,6 +12,14 @@ angular.module('starter.constants',[])
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
 
+.constant('SCHEDULE_TYPE_MONTH',3)
+.constant('SCHEDULE_TYPE_WEEK',2)
+.constant('SCHEDULE_TYPE_DAY',1)
+
+//path schedule
+.constant('pathSchedule', '/bmapp/Appointment/REST.do')
+
+//color view
 .constant('colo','color: #B80808')
 
 //path logon
