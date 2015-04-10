@@ -1,4 +1,4 @@
-<ion-view view-title="Contacts">
+<ion-view view-title="Detail">
 
 
   <ion-nav-buttons side="right">
@@ -33,16 +33,16 @@
          
 -->
          
-         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>Person:{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
-    <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>Org: {{contact.mainData.entity.name1}}</h2>
-    <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>Company: {{contact.mainData.entity.organizationName}}
-         <br>Contac person of: {{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:110%">{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p></h2>
+         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '><p style="font-size:120%">{{contact.mainData.entity.name1}}<br>{{contact.mainData.entity.name2}}<br>{{contact.mainData.entity.name3}}</p></h2>
+    <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:130%">{{contact.mainData.entity.organizationName}}</p>
+         <p>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p>
          <br>Funtion: {{contact.mainData.entity.function}}
          </h2>
        
           
        <!-- <p>{{contact.funtion}}</p> -->
-       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+       <h1>  </h1>
      </a>
         
    
@@ -83,14 +83,14 @@
        
 <!--             <div>{{telecom.telecomTypeType}}:</div>-->
            <div ng-repeat="tele in telecom.telecomList">   
-            <div>{{telecom.telecomTypeType}}: {{tele.data}} </div>
+            <div>{{telecom.telecomTypeName}}: {{tele.data}} </div>
            </div>
            
        </div>
        <!-- Mail: {{contact.mail}} -->
        <!-- <br> -->
        <!-- Site Web: {{contact.siteWeb}} -->
-       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+       <h1> </span> </h1>
    <!-- </div> -->
    </a>
  </div>
