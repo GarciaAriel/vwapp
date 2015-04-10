@@ -113,6 +113,9 @@ $scope.doRefresh = function() {
     $scope.contacts = (results['mainData'])['list'];
     $scope.$broadcast('scroll.refreshComplete'); 
       console.log('volvi a la lista de inicio',$scope.pageini);
+      $scope.page=1;
+      
+      console.log('empezar desde',$scope.pageini);
   });
 };  
 
@@ -184,10 +187,10 @@ $scope.getContactUrl = function(item){
 
 .controller('ContactCtrl', function($scope, $stateParams, Contact) {
 
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactPersonId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressType);
+  console.log("param1", $stateParams.contactId);
+  console.log("param2", $stateParams.addressId);
+  console.log("param3", $stateParams.contactPersonId);
+  console.log("param4", $stateParams.addressType);
 
 
   $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
@@ -200,12 +203,8 @@ $scope.getContactUrl = function(item){
 
       
       $scope.telecomss=results.mainData.entity.telecoms;
-      console.log("aaaaaaaaa",$scope.telecomss);
-//      $scope.telecomlists = (results['mainData'])['entity'];
-//      console.log ("conaaaaaaaaaaaaaaaaaaa",$scope.telecomlists);
-//      $scope.aux2=(results['mainData']['entity']['telecoms']['telecomList']);
-      console.log("este aux",$scope.aux);
-        console.log("este aux",$scope.aux2);
+      console.log("list of telecoms",$scope.telecomss);
+
 
 
 });
