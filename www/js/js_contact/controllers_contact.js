@@ -87,6 +87,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
     console.log("inicio",(results['mainData']));
     console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
     $scope.contacts = (results['mainData'])['list'];
+    console.log('lista de contactos',$scope.contacts);
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.page = $scope.page + 1;
     $ionicLoading.hide();
@@ -183,10 +184,18 @@ $scope.getContactUrl = function(item){
 
   $scope.contact.$promise.then(function (results){
 
-    $scope.contact = (results['mainData'])['entity'];
+    $scope.contact = results;
            // console.log("sasasa",((results['mainData'])['entity']).addressId);
 //        $ionicLoading.hide();
 
+      
+      $scope.telecomss=results.mainData.entity.telecoms;
+      console.log("aaaaaaaaa",$scope.telecomss);
+//      $scope.telecomlists = (results['mainData'])['entity'];
+//      console.log ("conaaaaaaaaaaaaaaaaaaa",$scope.telecomlists);
+//      $scope.aux2=(results['mainData']['entity']['telecoms']['telecomList']);
+      console.log("este aux",$scope.aux);
+        console.log("este aux",$scope.aux2);
 
 
 });
@@ -195,6 +204,7 @@ $scope.getContactUrl = function(item){
   
 
   console.log("este contacto",$scope.contact);
+   
 
 
 
