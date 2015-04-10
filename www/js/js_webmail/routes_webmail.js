@@ -5,15 +5,16 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 // details mail
-  // .state('app.details-mail', {
-  //     url: '/mail-detail/:folderId/:mailId',
-  //     views: {
-  //       'menuContent': {
-  //         templateUrl: 'templates/views_webmail/mail-detail.html',
-  //         //controller: 'MailDetailCtrl'
-  //       }
-  //     }
-  //   })
+
+  .state('app.details-mail', {  
+      url: '/mail-detail?mailId&folderId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/views_webmail/mail-detail.html',
+          controller: 'MailDetailCtrl'
+        }
+      }
+    })
 
 //mail list in folder
    .state('app.mail-items', {

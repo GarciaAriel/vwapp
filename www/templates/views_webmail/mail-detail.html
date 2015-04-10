@@ -1,74 +1,70 @@
-<ion-view view-title="{{mail.folder}}">
+<ion-view view-title="Detail">
   <ion-content>
 
     <ion-slide-box active-slide="myActiveSlide">
-      <ion-slide ng-repeat="item in data.slides">
+      <ion-slide>
         <div class="list card">
+            
+          <div ng:bind="customHtml">{{item.body}}  </div>  
 
           <div class="item item-avatar">
             <img src="https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg">
-            <span class="item-note">date: </span>
-            <h2>From: {{item.from}}</h2>
-            <p>To: {{(item.to)[0]}}</p>
+            <span class="item-note">{{item.sentDate}} </span>
+            <h2>From: {{item.mailFrom}}</h2>
+            <p>To: {{item.to}}</p>
           </div>
 
-          <!-- <div  class="item item-body"> -->
+          <div  class="item item-body">
             <div>
-              <p>    Subject: {{item.subject}}  </p>
+              <p>    Subject: {{item.mailSubject}}  </p>
             </div>
 
-            <div ng-if="item.cc != '' ">
+            <div ng-if="arrayCC[0] != '' ">
               <p> 
-                <!-- div cc -->
+                
                 <div>
                   <ion-item class="button button-clear button-positive"
-                            ng-click="toggleGroup(item.cc)"
-                            ng-class="{active: isGroupShown(item.cc)}">
-                      <i class="icon" ng-class="isGroupShown(item.cc) ? 'ion-chevron-up' : 'ion-chevron-down'"></i> 
+                            ng-click="toggleGroup(arrayCC)"
+                            ng-class="{active: isGroupShown(arrayCC)}">
+                      <i class="icon" ng-class="isGroupShown(arrayCC) ? 'ion-chevron-up' : 'ion-chevron-down'"></i> 
                     &nbsp;
                     Cc
                   </ion-item>
                   <ion-item class="item-accordion"
-                            ng-repeat="ite in item.cc"
-                            ng-show="isGroupShown(item.cc)">
+                            ng-repeat="ite in arrayCC"
+                            ng-show="isGroupShown(arrayCC)">
                     {{ite}}
                   </ion-item>
                 </div>  
-                <!-- -->
+                
               </p>
             </div>
 
-            <div ng-if="item.bcc != '' ">
+            <div ng-if="arrayBCC[0] != '' ">
               <p>
-                <!-- div bcc -->
-                <!-- ion-arrow-down-b -->
-                <!-- ion-arrow-up-b -->
                 <ion-item class="button button-clear button-positive"
-                          ng-click="toggleGroup(item.bcc)"
-                          ng-class="{active: isGroupShown(item.bcc)}">
-                    <i class="icon" ng-class="isGroupShown(item.bcc) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+                          ng-click="toggleGroup(arrayBCC)"
+                          ng-class="{active: isGroupShown(arrayBCC)}">
+                    <i class="icon" ng-class="isGroupShown(arrayBCC) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
                   &nbsp;
                   Bcc
                 </ion-item>
                 <ion-item class="item-accordion"
-                          ng-repeat="ite in item.bcc"
-                          ng-show="isGroupShown(item.bcc)">
+                          ng-repeat="ite in arrayBCC"
+                          ng-show="isGroupShown(arrayBCC)">
                   {{ite}}
                 </ion-item>
-              <!--  -->
               </p>  
             </div>
 
-          <!-- </div> -->
+          </div>
 
         </div>
 
         
         <div class="card" ng-if="item.detail != '' ">
           Detail: 
-          <div class="item item-text-wrap">
-            {{item.detail}}  
-          </div>
+          <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
         </div>
         
       </ion-slide>

@@ -9,7 +9,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         //var items = TaskList.all();
     //establecemos los valores del calendario
         var options = {
-            events_source:function () { return [{ "id": 0,"title": "titulo 1","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427401800000"},{ "id": 0,"title": "titulo 2","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427315400000"}]; }, //items,//
+            events_source: function () { return [{ "id": 0,"title": "titulo 1","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427401800000"},{ "id": 0,"title": "titulo 2","body": "body 1 subject1","url": "https://www.youtube.com/","start": "1427304600000","end": "1427315400000"}]; }, //items,//
             view: 'month',
             language: 'es-ES',
             tmpl_path: 'lib/bootstrap-calendar/tmpls/',
