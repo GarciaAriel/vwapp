@@ -1,6 +1,6 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
-.controller('ControlSchedule',function($scope,$ionicLoading,$q,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,scheduleService,$localstorage){
+.controller('ControlSchedule',function($scope,$ionicLoading,scheduleCalculateAnt,scheduleCalculateNext,$q,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,scheduleService,$localstorage){
     //LOADING IMAGE
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
@@ -9,10 +9,27 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   })
 
   var date = new Date();
+
+ 
+    // // Copy date so don't modify original
+    // d = new Date(+d);
+    // d.setHours(0,0,0);
+    // // Set to nearest Thursday: current date + 4 - current day number
+    // // Make Sunday's day number 7
+    // d.setDate(d.getDate() + 4 - (d.getDay()||7));
+    // // Get first day of year
+    // var yearStart = new Date(d.getFullYear(),0,1);
+    // // Calculate full weeks to nearest Thursday
+    // var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+    // // Return array of year and week number
+    // var res = [d.getFullYear(), weekNo];
+    // console.log("wekkkkkkkkkkk",res);
+
+
   var yyyy = date.getFullYear().toString();
   var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
   var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
-  $localstorage.setObject('dataDate',{'yyyy':yyyy,'mm':mm,'dd':dd,'view':'mm'});
+    $localstorage.setObject('dataDate',{'yyyy':yyyy,'mm':mm,'ww':"15",'dd':dd,'yyyyc':yyyy,'mmc':mm,'wwc':"15",'ddc':dd,'data':yyyy+mm, 'type':SCHEDULE_TYPE_MONTH});
   //query to server
   $scope.getAppointments = scheduleService.query({type: SCHEDULE_TYPE_MONTH,calendar: yyyy+mm});
 
@@ -76,39 +93,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     
     
     $scope.scheduleNext  = function(){
-
-        var _data_date = $localstorage.getObject('dataDate');
-        var _data;
-        var _type;
-        switch(_data_date.view) {
-            case 'mm':
-                _type = SCHEDULE_TYPE_MONTH;
-                var _increment = (parseInt(_data_date.mm))+1; 
-                if (_increment<10) {_increment = "0"+_increment};
-                _data = _data_date.yyyy+_increment;
-                break;
-            case 'ww':
-                _type = SCHEDULE_TYPE_WEEK;
-                var _increment = (parseInt(_data_date.ww))+1; 
-                if (_increment<10) {_increment = "0"+_increment};
-                _data = _data_date.yyyy+_increment;
-                break;
-            case 'dd':
-                _type = SCHEDULE_TYPE_DAY;
-                var _increment = (parseInt(_data_date.dd))+1; 
-                if (_increment<10) {_increment = "0"+_increment};
-                _data = _data_date.yyyy+_data_date.mm+_increment;
-                break;    
-            default:
-                _type = SCHEDULE_TYPE_MONTH;
-                var _increment = (parseInt(_data_date.mm))+1; 
-                _data = _data_date.yyyy+_increment;
-        } 
-        ////////////////////
-        //query to server
-        console.log("data date",_data_date);
-        console.log("type data",_type+" "+_data);
-          $scope.getAppointments = scheduleService.query({type: _type,calendar: _data});
+        scheduleCalculateNext.next();
+        var _data_date = $localstorage.getObject('dataDate',_data_date);
+          $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
           $scope.getAppointments.$promise.then(function (results){
             //INTO PROMISE
@@ -120,54 +107,189 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-            console.log("nuevovvvooooooooooo listtt schedule",$scope.appointments);
+console.log("===list       next ----",$scope.appointments);            
+console.log("===getObject  next ----",_data_date);
             //LOAD OPTIONS TO CALENDAR
-            
+            var type;
+            if (_data_date.type == 3) { type = "month";};
+            if (_data_date.type == 2) { type = "week";};
+            if (_data_date.type == 1) { type = "day";};
             var calendar = $("#calendar").calendar(
              {
+                // day: yyyy+"-"+mm+"-"+dd,
+                events_source: $scope.appointments,
+                view: type,
                  tmpl_path: 'lib/bootstrap-calendar/tmpls/',
-                 day: "2015"+"-"+"04"+"-"+"10",
-                 events_source: $scope.appointments
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
              });
-            calendar.navigate('next');
-            // calendar = $('#calendar').calendar(options);      
-            // $ionicLoading.hide()
           });//END PROMISE
         //////////////////////
         
     };
 
-    $scope.schedulePrev  = function($scope){
-        // console.log("prev yyyy="+$scope.year+" mes="+$scope.month+" dia="+$scope.day);
-        calendar.navigate('prev');
+    $scope.schedulePrev  = function(){
+        scheduleCalculateAnt.ant();
+        var _data_date = $localstorage.getObject('dataDate',_data_date);
+        console.log("data date",_data_date);
+        console.log("type data",_data_date.type+" "+_data_date.data);
+          $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+          $scope.getAppointments.$promise.then(function (results){
+            //INTO PROMISE
+            $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            //parse to variables
+
+            $scope.appointments = [];
+            angular.forEach($scope.listAppointments, function (appointment) {
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                $scope.appointments.push(change);
+            });
+            console.log("===list       ant ----",$scope.appointments);            
+console.log("===getObject  ant ----",_data_date);
+            var type;
+            if (_data_date.type == 3) { type = "month";};
+            if (_data_date.type == 2) { type = "week";};
+            if (_data_date.type == 1) { type = "day";};
+            //LOAD OPTIONS TO CALENDAR
+            var calendar = $("#calendar").calendar(
+             {
+                // day: yyyy+"-"+mm+"-"+dd,
+                view: type,
+                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+                 events_source: $scope.appointments
+             });
+          });//END PROMISE
     };
-    $scope.scheduleToday  = function($scope){
-            // console.log("next yyyy="+$scope.year+" mes="+$scope.month+" dia="+$scope.day);
-             calendar.navigate('today');
+    $scope.scheduleToday  = function(){
+        var _data_date = $localstorage.getObject('dataDate');
+        _data_date.yyyyc = _data_date.yyyy;
+        _data_date.mmc = _data_date.mm;
+        _data_date.wwc = _data_date.ww;
+        _data_date.ddc = _data_date.dd;
+        if (_data_date.type == 3) {_data_date.data = _data_date.yyyyc+_data_date.mmc};
+        if (_data_date.type == 2) {_data_date.data = _data_date.yyyyc+_data_date.wwc};
+        if (_data_date.type == 1) {_data_date.data = _data_date.yyyyc+_data_date.mmc+_data_date.ddc};
+
+        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+          $scope.getAppointments.$promise.then(function (results){
+            //INTO PROMISE
+            $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            //parse to variables
+            $scope.appointments = [];
+            angular.forEach($scope.listAppointments, function (appointment) {
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                $scope.appointments.push(change);
+            });
+            console.log("===list       hoy ----",$scope.appointments);            
+console.log("===getObject  hoy ----",_data_date);
+            //LOAD OPTIONS TO CALENDAR
+            var type;
+            if (_data_date.type == 3) { type = "month";};
+            if (_data_date.type == 2) { type = "week";};
+            if (_data_date.type == 1) { type = "day";};
+            var calendar = $("#calendar").calendar(
+             {
+                 view: type,
+                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+                 events_source: $scope.appointments
+             });
+          });//END PROMISE
+        $localstorage.setObject('dataDate',_data_date);    
     };
 
-    $scope.dataScheduleMonth = function($scope){
-        var date = new Date();
-        var yyyy = date.getFullYear().toString();
-        var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-// var listtt = [ { "id" : "3098", "title" : "nuevovvvooooooooooo", "location" : "en la puerta de la U", "color" : "#ff9900", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150409", "start" : "1428613200000", "end" : "1428616800000" } ];
-       var calendar = $('#calendar').calendar({
-          events_source: [],
-          tmpl_path: 'lib/bootstrap-calendar/tmpls/'
-        });
-        // calendar.view('month');
+    $scope.dataScheduleMonth = function(){
+        var _data_date = $localstorage.getObject('dataDate');
+        _data_date.type = SCHEDULE_TYPE_MONTH;
+        _data_date.data =  _data_date.yyyyc+_data_date.mmc;
+        
+        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+          $scope.getAppointments.$promise.then(function (results){
+            //INTO PROMISE
+            $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            //parse to variables
+            $scope.appointments = [];
+            angular.forEach($scope.listAppointments, function (appointment) {
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                $scope.appointments.push(change);
+            });
+            console.log("===list       mes ----",$scope.appointments);            
+console.log("===getObject  mes ----",_data_date);
+            //LOAD OPTIONS TO CALENDAR
+            var calendar = $("#calendar").calendar(
+             {
+                 view: 'month',
+                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+                 events_source: $scope.appointments
+             });
+          });//END PROMISE
+        $localstorage.setObject('dataDate',_data_date);
     };
         
-    $scope.dataScheduleDay = function($scope)    {
-        var date = new Date();
-        var yyyy = date.getFullYear().toString();
-        var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-        var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+    $scope.dataScheduleDay = function()    {
+        var _data_date = $localstorage.getObject('dataDate');
+        _data_date.type = SCHEDULE_TYPE_DAY;
+        _data_date.data =  _data_date.yyyyc+_data_date.mmc+_data_date.ddc;
         
-        calendar.view('day');
+        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+          $scope.getAppointments.$promise.then(function (results){
+            //INTO PROMISE
+            $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            //parse to variables
+            $scope.appointments = [];
+            angular.forEach($scope.listAppointments, function (appointment) {
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                $scope.appointments.push(change);
+            });
+            console.log("===list       day ----",$scope.appointments);            
+console.log("===getObject  day ----",_data_date);
+            //LOAD OPTIONS TO CALENDAR
+            var calendar = $("#calendar").calendar(
+             {
+                 view: 'day',
+                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+                 events_source: $scope.appointments
+             });
+          });//END PROMISE
+        $localstorage.setObject('dataDate',_data_date);
     };
 
-    $scope.dataScheduleWekk = function($scope){
-        calendar.view('week');
+    $scope.dataScheduleWekk = function(){
+        var _data_date = $localstorage.getObject('dataDate');
+        _data_date.type = SCHEDULE_TYPE_WEEK;
+        _data_date.data =  _data_date.yyyyc+_data_date.wwc;
+        $localstorage.setObject('dataDate',_data_date);
+        console.log("set wekkkkkkkkkkk",_data_date);
+        
+        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+          $scope.getAppointments.$promise.then(function (results){
+            //INTO PROMISE
+            $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            //parse to variables
+            $scope.appointments = [];
+            angular.forEach($scope.listAppointments, function (appointment) {
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                $scope.appointments.push(change);
+            });
+            console.log("===list       week ----",$scope.appointments);            
+console.log("===getObject  week ----",_data_date);
+            //LOAD OPTIONS TO CALENDAR
+            console.log("list semana",$scope.appointments);
+            var calendar = $("#calendar").calendar(
+             {
+                 view: 'week',
+                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+                 events_source: $scope.appointments
+             });
+          });//END PROMISE
+        
     };
 });
