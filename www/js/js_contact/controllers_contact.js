@@ -82,26 +82,40 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.contacts = [];
+//    $scope.pagei= $scope.newContacts['mainData'];
+//    console.log("pagina",$scope.pagei);
+    
+    console.log("que esta llenando",$scope.newContacts);
+  $scope.pageini = 1;
   
   $scope.newContacts.$promise.then(function (results){
     console.log("inicio",(results['mainData']));
     console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
     $scope.contacts = (results['mainData'])['list'];
+    
+//      console.log('pagina de llegada',$scope.pagina);
+    console.log('lista de contactos',$scope.contacts);
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    $scope.page = $scope.page + 1;
+      console.log("pagina parseada", $scope.page);
+//    $scope.page = $scope.page + 1;
+      console.log("esta pagina que hace", $scope.page);
     $ionicLoading.hide();
   });
 //  };
 
 $scope.doRefresh = function() {
-  console.log('==CONTROLLER CONTACTS== do refresh');
-  $scope.page = 1;
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  
+//  $scope.page = 1;
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.pageini});
 
   $scope.newContacts.$promise.then(function (results){
     console.log("page doRefresh", $scope.page);
     $scope.contacts = (results['mainData'])['list'];
-    $scope.$broadcast('scroll.refreshComplete');  
+    $scope.$broadcast('scroll.refreshComplete'); 
+      console.log('volvi a la lista de inicio',$scope.pageini);
+      $scope.page=1;
+      
+      console.log('empezar desde',$scope.pageini);
   });
 };  
 
@@ -110,7 +124,7 @@ $scope.loadMore = function() {
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
-    console.log("loadMore",(results['mainData']));
+    console.log("nueva lista de contactos",(results['mainData']));
     console.log("page  loadMore", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -173,19 +187,23 @@ $scope.getContactUrl = function(item){
 
 .controller('ContactCtrl', function($scope, $stateParams, Contact) {
 
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.contactPersonId);
-  console.log("mierdaaaaaaaaaaaaaaaaaaa", $stateParams.addressType);
+  console.log("param1", $stateParams.contactId);
+  console.log("param2", $stateParams.addressId);
+  console.log("param3", $stateParams.contactPersonId);
+  console.log("param4", $stateParams.addressType);
 
 
   $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
 
-    $scope.contact = (results['mainData'])['entity'];
+    $scope.contact = results;
            // console.log("sasasa",((results['mainData'])['entity']).addressId);
 //        $ionicLoading.hide();
+
+      
+      $scope.telecomss=results.mainData.entity.telecoms;
+      console.log("list of telecoms",$scope.telecomss);
 
 
 
@@ -195,6 +213,7 @@ $scope.getContactUrl = function(item){
   
 
   console.log("este contacto",$scope.contact);
+   
 
 
 

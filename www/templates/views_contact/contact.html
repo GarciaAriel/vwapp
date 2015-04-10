@@ -1,4 +1,4 @@
-<ion-view view-title="Contacts">
+<ion-view cache-view="true" view-title="Detail">
 
 
   <ion-nav-buttons side="right">
@@ -10,22 +10,46 @@
 
     </ion-nav-buttons>
 
-  <ion-content >
+  <ion-content>
 
     <div class="list card">
-      <div class="item item-divider">
+      <div class="item item-divider" href="#">
         <h2>Info</h2>
       </div>
-     <a class="item item-thumbnail-left" href="#">
-<!--       <img src="{{contact.picture.thumbnail}}">-->
-       <h2>Name: {{(contact.name1)}}</h2>
-           <p>{{contact.name2}}</p>
-           <p>{{contact.name3}}</p>
-            <p>{{contacts.name3}}</p>
-            <p>{{contact.funtion}}</p>
+     <a class="item item-thumbnail-left" >
+         <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+<!--
+       <h2  ng-if='contact.mainData.entity.addressType=="1"'>
+           Name:{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
+          
+       <h2 ng-if='contact.mainData.entity.addressType=="0"'>
+           Org: {{contact.mainData.entity.name1}}</h2>
+         
+         <p>{{contact.mainData.entity.name2}}</p>
+            <p> {{contact.mainData.entity.name3}}</p>
+         
+         <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType=="1"'>
+             CN: {{contact.mainData.entity.organizationName}}</h2>
+         
+-->
+         
+         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:110%">{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p></h2>
+         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '><p style="font-size:120%">{{contact.mainData.entity.name1}}<br>{{contact.mainData.entity.name2}}<br>{{contact.mainData.entity.name3}}</p></h2>
+    <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:130%">{{contact.mainData.entity.organizationName}}</p>
+         <p>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p>
+         <br>Funtion: {{contact.mainData.entity.function}}
+         </h2>
+       
+          
        <!-- <p>{{contact.funtion}}</p> -->
-       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+       <h1>  </h1>
      </a>
+        
+   
+        
+        
+  
+        
  </div>
 
  <div class="list card">
@@ -34,13 +58,12 @@
    </div>
    <a class="item item-thumbnail-right" href="#">
      <!-- <div class="item item-text-wrap"> -->
-               City: {{contact.name1}}
+               Street: {{contact.mainData.entity.street}}
          <br>
-         Country: {{contact.name2}}
+         Zip Code: {{contact.mainData.entity.zip}}
                <br>
-               Zip: {{contact.name3}}
-               <br>
-               Street: {{contact.location.street}}
+               city: {{contact.mainData.entity.city}}
+               
          <h1> <span class="badge ion-chevron-right"> </span> </h1>
      <!-- </div> -->
    </a>
@@ -52,15 +75,22 @@
    </div>
    <a class="item item-thumbnail-right" href="#">
    <!-- <div class="item item-text-wrap"> -->
-       Phone: {{contact.phone}}
+<!--
        <br>
-       Cell Phone: {{contact.cell}}
-       <br>
-           email:{{contact.email}}
+       {{contact.mainData.entity.telecoms.telecomTypeType}}:{{contact.mainData.entity.telecoms.telecomList.data}}
+-->
+       <div ng-repeat="telecom in telecomss">
+       
+<!--             <div>{{telecom.telecomTypeType}}:</div>-->
+           <div ng-repeat="tele in telecom.telecomList">   
+            <div>{{telecom.telecomTypeName}}: {{tele.data}} </div>
+           </div>
+           
+       </div>
        <!-- Mail: {{contact.mail}} -->
        <!-- <br> -->
        <!-- Site Web: {{contact.siteWeb}} -->
-       <h1> <span class="badge ion-chevron-right"> </span> </h1>
+       <h1> </span> </h1>
    <!-- </div> -->
    </a>
  </div>
