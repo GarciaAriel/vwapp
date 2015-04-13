@@ -43,6 +43,7 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
     return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
   }];
 
+  $httpProvider.interceptors.push('myHttpInterceptor');
 })
 
 
