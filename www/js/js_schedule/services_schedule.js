@@ -6,6 +6,23 @@ angular.module('starter.scheduleservices', [])
   return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
 })
 
+.factory('Load_variable_date', function(SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
+  return{
+    setData: function(){
+      var date = new Date();
+
+      var yyyy = date.getFullYear().toString();
+      var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
+      var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+      var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+        
+      $localstorage.setObject('dataDate',{'yyyy':yyyy,'mm':mm,'ww':ww,'dd':dd,'yyyyc':yyyy,'mmc':mm,'wwc':ww,'ddc':dd,'data':yyyy+mm, 'type':SCHEDULE_TYPE_MONTH,'type_string':SCHEDULE_TYPE_MONTH_STRING});    
+    }
+  }
+  
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
 .factory('scheduleCalculateNext', function($localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY) {
   return{
     next: function() {

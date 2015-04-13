@@ -1,37 +1,29 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
-.controller('ControlSchedule',function($scope,$ionicLoading,scheduleCalculateAnt,scheduleCalculateNext,$q,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,scheduleService,$localstorage){
-    //LOADING IMAGE
+.controller('ControlSchedule',function($scope,Load_variable_date,$ionicLoading,scheduleCalculateAnt,scheduleCalculateNext,$q,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,scheduleService,$localstorage){
+  //ANIMATION LOAD
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
     noBackdrop: false
   })
 
-  var date = new Date();
+  //LOAD OBJECT IN LOCAL STORAGE
+  Load_variable_date.setData();
 
- 
-    // // Copy date so don't modify original
-    // d = new Date(+d);
-    // d.setHours(0,0,0);
-    // // Set to nearest Thursday: current date + 4 - current day number
-    // // Make Sunday's day number 7
-    // d.setDate(d.getDate() + 4 - (d.getDay()||7));
-    // // Get first day of year
-    // var yearStart = new Date(d.getFullYear(),0,1);
-    // // Calculate full weeks to nearest Thursday
-    // var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
-    // // Return array of year and week number
-    // var res = [d.getFullYear(), weekNo];
-    // console.log("wekkkkkkkkkkk",res);
+  //GET OBJECT OF LOCAL STORAGE
+  var _data_date = $localstorage.getObject('dataDate');
+  // var date = new Date();
 
-
-  var yyyy = date.getFullYear().toString();
-  var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-  var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
-    $localstorage.setObject('dataDate',{'yyyy':yyyy,'mm':mm,'ww':"15",'dd':dd,'yyyyc':yyyy,'mmc':mm,'wwc':"15",'ddc':dd,'data':yyyy+mm, 'type':SCHEDULE_TYPE_MONTH});
+  // var yyyy = date.getFullYear().toString();
+  // var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
+  // var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+  // var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+    
+  // $localstorage.setObject('dataDate',{'yyyy':yyyy,'mm':mm,'ww':ww,'dd':dd,'yyyyc':yyyy,'mmc':mm,'wwc':ww,'ddc':dd,'data':yyyy+mm, 'type':SCHEDULE_TYPE_MONTH});
   //query to server
-  $scope.getAppointments = scheduleService.query({type: SCHEDULE_TYPE_MONTH,calendar: yyyy+mm});
+  //CALL SERVICES WITH TYPE AND DATA
+  $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
   $scope.getAppointments.$promise.then(function (results){
     //INTO PROMISE
@@ -51,7 +43,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         language: 'es-ES',
         tmpl_path: 'lib/bootstrap-calendar/tmpls/',
         tmpl_cache: false,
-        day: yyyy+"-"+mm+"-"+dd,
+        day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
         time_start: '07:00',
         time_end: '20:00',
         time_split: '30',
