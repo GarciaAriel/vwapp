@@ -1,23 +1,23 @@
 <ion-view cache-view="true" view-title="Detail">
 
 
-  <ion-nav-buttons side="right">
+<ion-nav-buttons side="right">
 <!--                <button class="button-icon button-full assertive" ng-click="borrarPersona()">Borrar persona</button>-->
-    <button class="button" style="border-style: none" ng-click="borrarPersona()">
-    <i class="icon ion-trash-a" style="color: #B80808"></i>
+<button class="button" style="border-style: none" ng-click="borrarPersona()">
+  <i class="icon ion-trash-a" style="color: #B80808"></i>
 
-    </button>
+</button>
 
-    </ion-nav-buttons>
+</ion-nav-buttons>
 
-  <ion-content>
+<ion-content>
 
-    <div class="list card">
-      <div class="item item-divider" href="#">
-        <h2>Info</h2>
-      </div>
-     <a class="item item-thumbnail-left" >
-         <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+<div class="list card">
+  <div class="item item-divider" href="#">
+    <h2>Info</h2>
+  </div>
+  <a class="item item-thumbnail-left" >
+   <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
 <!--
        <h2  ng-if='contact.mainData.entity.addressType=="1"'>
            Name:{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
@@ -31,69 +31,75 @@
          <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType=="1"'>
              CN: {{contact.mainData.entity.organizationName}}</h2>
          
--->
-         
-         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:110%">{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p></h2>
-         <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '><p style="font-size:120%">{{contact.mainData.entity.name1}}<br>{{contact.mainData.entity.name2}}<br>{{contact.mainData.entity.name3}}</p></h2>
-    <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:130%">{{contact.mainData.entity.organizationName}}</p>
-         <p>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p>
-         <br>Funtion: {{contact.mainData.entity.function}}
-         </h2>
-       
-          
-       <!-- <p>{{contact.funtion}}</p> -->
-       <h1>  </h1>
-     </a>
-        
-   
-        
-        
-  
-        
- </div>
+           -->
 
- <div class="list card">
-     <div class="item item-divider">
-       <h2>Address</h2>
-   </div>
-   <a class="item item-thumbnail-right" href="#">
-     <!-- <div class="item item-text-wrap"> -->
-               Street: {{contact.mainData.entity.street}}
-         <br>
-         Zip Code: {{contact.mainData.entity.zip}}
-               <br>
-               city: {{contact.mainData.entity.city}}
-               
-         <h1> <span class="badge ion-chevron-right"> </span> </h1>
-     <!-- </div> -->
-   </a>
- </div>
+           <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:110%">{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p></h2>
+           <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '><p style="font-size:120%">{{contact.mainData.entity.name1}}<br>{{contact.mainData.entity.name2}}<br>{{contact.mainData.entity.name3}}</p></h2>
+           <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:130%">{{contact.mainData.entity.organizationName}}</p>
+             <p>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p>
+             <br>Funtion: {{contact.mainData.entity.function}}
+           </h2>
 
- <div class="list card">
-     <div class="item item-divider">
-       <h2>Communications</h2>
-   </div>
-   <a class="item item-thumbnail-right" href="#">
-   <!-- <div class="item item-text-wrap"> -->
+
+           <!-- <p>{{contact.funtion}}</p> -->
+           <h1>  </h1>
+         </a>
+
+
+
+
+
+
+       </div>
+
+       <div class="list card">
+         <div class="item item-divider">
+           <h2>Address</h2>
+         </div>
+         <a class="item item-thumbnail-right" href="#">
+           <!-- <div class="item item-text-wrap"> -->
+           Street: {{contact.mainData.entity.street}}
+           <br>
+           Zip Code: {{contact.mainData.entity.zip}}
+           <br>
+           city: {{contact.mainData.entity.city}}
+
+           <h1> <span class="badge ion-chevron-right"> </span> </h1>
+           <!-- </div> -->
+         </a>
+       </div>
+
+       <div class="list card">
+         <div class="item item-divider">
+           <h2>Communications</h2>
+         </div>
+         <!-- <a class="item item-thumbnail-right" href="#"> -->
+         <!-- <div class="item item-text-wrap"> -->
+         <div class="item item-body">
 <!--
        <br>
        {{contact.mainData.entity.telecoms.telecomTypeType}}:{{contact.mainData.entity.telecoms.telecomList.data}}
--->
-       <div ng-repeat="telecom in telecomss">
-       
-<!--             <div>{{telecom.telecomTypeType}}:</div>-->
-           <div ng-repeat="tele in telecom.telecomList">   
-            <div>{{telecom.telecomTypeName}}: {{tele.data}} </div>
-           </div>
-           
-       </div>
-       <!-- Mail: {{contact.mail}} -->
-       <!-- <br> -->
-       <!-- Site Web: {{contact.siteWeb}} -->
-       <h1> </span> </h1>
-   <!-- </div> -->
-   </a>
- </div>
+     -->
+     <div ng-repeat="telecom in telecomss">
+
+      <!--             <div>{{telecom.telecomTypeType}}:</div>-->
+      <div ng-repeat="tele in telecom.telecomList">
+
+        <div ng-if="telecom.telecomTypeName == 'Phonex'">{{telecom.telecomTypeName}}: <a ng-href="tel:{{tele.data}}">{{tele.data}}</a></div>
+        <div ng-if="telecom.telecomTypeName == 'Email'">{{telecom.telecomTypeName}}: <a ng-href="mailto:{{tele.data}}">{{tele.data}}</a></div>
+        <div ng-if="telecom.telecomTypeName != 'Phonex' && telecom.telecomTypeName != 'Email'">{{telecom.telecomTypeName}}: {{tele.data}}</div>
+        <!-- <a ng-href="tel:{{tele.data}}">{{telecom.telecomTypeName}}: {{tele.data}}</a> -->
+      </div>
+
+    </div>
+  </div>
+  <!-- Mail: {{contact.mail}} -->
+  <!-- <br> -->
+  <!-- Site Web: {{contact.siteWeb}} -->
+  <!-- <h1> </span> </h1> -->
+  <!-- </div> -->
+  <!-- </a> -->
+</div>
 
 	<!-- <div class="list card">
 	    <a class="item item-thumbnail-left" href="#">
@@ -124,7 +130,7 @@
 		    <h2>Contact</h2>
 		</div>
 		<a class="item item-thumbnail-right" href="#">
-		<div class="item item-text-wrap"> -->
+      <div class="item item-text-wrap"> -->
 		    <!-- Phone: {{(contact.numbers)[0]}}
 		    <br>
 		    Cell Phone: {{(contact.numbers)[0]}}
@@ -137,5 +143,5 @@
 		</a>
 	</div> -->
 
-  </ion-content>
+</ion-content>
 </ion-view>
