@@ -1,52 +1,42 @@
 angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter.constantsWebmail'])
 
 //FOLDERS WEBMILS 
-.controller('MailsCtrl', function($scope,  MailsSubMenu,$ionicLoading,colo) {
+.controller('MailsCtrl', function($scope,  MailsSubMenu,colo) {
 
   $scope.colo = colo;
-  $ionicLoading.show({
-    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-    animation: 'fade-in',
-    noBackdrop: false
-  })
-
+  
   MailsSubMenu.getContacts().then(function(result) {
     $scope.mailsSubMenu = result;
     console.log("ssss",result);
-    $ionicLoading.hide()
+
   })         
 //$scope.mailsSubMenu = MailsSubMenu.all();
-  console.log("==CONTROLLER WEBMAIL== GET FOLDERS MAILBOXES",$scope.mailsSubMenu);
+console.log("==CONTROLLER WEBMAIL== GET FOLDERS MAILBOXES",$scope.mailsSubMenu);
 
-  $scope.getClass = function(item){
-    var response = "icon ion-folder";
-    var value = item.id;
-    console.log("colorrrrrrr",value);
+$scope.getClass = function(item){
+  var response = "icon ion-folder";
+  var value = item.id;
+  console.log("colorrrrrrr",value);
 
-    if (value == "inbox") {
-      response = "icon ion-filing";}
+  if (value == "inbox") {
+    response = "icon ion-filing";}
     if (value == "sentItems") {
       response = "icon ion-paper-airplane";}
-    if (value == "draftItems"){
-      response = "icon ion-briefcase";}
+      if (value == "draftItems"){
+        response = "icon ion-briefcase";}
 
-    return response;
-    
-  };
+        return response;
+        
+      };
 
-})
+    })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
 .controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource){
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
   //LOADING IMAGE
-  $ionicLoading.show({
-    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-    animation: 'fade-in',
-    noBackdrop: false,
-    duration: 5000
-  })
+  
 
   $scope.newMailList = Mail.query();
   $scope.mailList = [];
@@ -59,7 +49,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     $scope.page = $scope.page + 1;
     $scope.mailList = (results['mainData'])['list'];
     // $scope.pageLimit = parseInt((results['mainData'])['pageInfo']['totalPages']);
-    $ionicLoading.hide()
+    
   });
   
   $scope.doRefresh = function() {
@@ -89,23 +79,17 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });  
-  }
-})
+    }
+  })
 
 
 
 
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($scope, $http,$sce, $ionicLoading, $stateParams,Mail,apiUrlLocal,pathWebmail) {
+.controller('MailDetailCtrl', function($scope, $http,$sce, $stateParams,Mail,apiUrlLocal,pathWebmail) {
   
-  
-  //LOADING IMAGE
-  $ionicLoading.show({
-    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-    animation: 'fade-in',
-    noBackdrop: false
-  })
+
 
 
 
@@ -135,31 +119,31 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     if (results['mainData']['entity']['bodyType'] == '1') {
       var newurl = results['mainData']['entity']['htmlBodyUrl']
       $http.get(apiUrlLocal+newurl).
-        success(function(data, status, headers, config) {
-          $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
+      success(function(data, status, headers, config) {
+        $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
           // when the response is available
         }).
-        error(function(data, status, headers, config) {
+      error(function(data, status, headers, config) {
         // or server returns response with an error status.
-        });
+      });
     }
     else{
     }
     
-    $ionicLoading.hide()
+
   });
 
 
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
-    }
-  };
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === group;
-  };
+$scope.toggleGroup = function(group) {
+  if ($scope.isGroupShown(group)) {
+    $scope.shownGroup = null;
+  } else {
+    $scope.shownGroup = group;
+  }
+};
+$scope.isGroupShown = function(group) {
+  return $scope.shownGroup === group;
+};
 
 });
 

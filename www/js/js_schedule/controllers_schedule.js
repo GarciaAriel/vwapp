@@ -1,13 +1,13 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
-.controller('ControlSchedule',function($scope,Load_variable_date,$ionicLoading,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function($scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   //ANIMATION LOAD
-  $ionicLoading.show({
-    template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-    animation: 'fade-in',
-    noBackdrop: false,
-    duration: 5000
-  })
+  // $ionicLoading.show({
+  //   template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+  //   animation: 'fade-in',
+  //   noBackdrop: false,
+  //   duration: 5000
+  // })
 
   //LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
@@ -75,7 +75,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //LOAD OPTIONS TO CALENDAR
     calendar = $('#calendar').calendar(options);      
 
-    $ionicLoading.hide()
+    
 
   });//END PROMISE
     
