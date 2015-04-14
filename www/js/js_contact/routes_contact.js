@@ -15,7 +15,7 @@ angular.module('starter.contactroutes', [])
      }
    }
 
-<<<<<<< HEAD
+
     })
   
   
@@ -26,9 +26,9 @@ angular.module('starter.contactroutes', [])
 //                templateUrl: 'templates/employee-list.html',
 //                controller: 'EmployeeListCtrl'
             })
-=======
- })
->>>>>>> d9cf3d732357bd12a14cccbf9ecf718156c33d96
+
+
+
 
 // $stateProvider.state('app.contact-detail', {
 //     url: '/contact-detail/:index',
@@ -87,12 +87,6 @@ angular.module('starter.contactroutes', [])
 //     });
   
   
-   $stateProvider.state('search', {
-                url: '/?parameter(contactSearchName)',
-//                templateUrl: 'templates/employee-list.html',
-//                controller: 'EmployeeListCtrl'
-            })
-
 
 $stateProvider.state('app.contact', {
   url: "/contact?contactId&addressId&contactPersonId&addressType",
