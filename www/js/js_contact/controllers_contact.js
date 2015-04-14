@@ -156,6 +156,7 @@ $scope.getContactUrl = function(item){
         }
 
         $scope.search = function () {
+            
             $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
 //            console.log("primer buscado query",$scope.buscados);
             
@@ -165,13 +166,50 @@ $scope.getContactUrl = function(item){
             
              $scope.buscados.$promise.then(function (results){
 
-            $scope.contacts = (results['mainData'])['list'];
+            
+                 $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+                 $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+                
+                 $scope.contacts = (results['mainData'])['list'];
+                  console.log("PRIMERA BUSQUEDA", $scope.contacts);
+                 console.log("INFO 1", results['mainData']);
+             });
+                 
+                     
+                     
+
+//       $scope.contacts = (results['mainData'])['list'];
+      
+      
+      $scope.loadMore = function() {
+          console.log("estoy intentanto cargar mas");
+          if($scope.pag<=$scope.totalpag){    
+            $scope.pag=$scope.pag +1;
+   $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
+  $scope.buscados.$promise.then(function(results){
+    console.log("NUEVA LISTA DE BUSQUEDA",(results['mainData']));
+    $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+      
+  });
+}
+      };
+       
+    
+  
+                    
+     }
+////            $scope.contacts = $scope.contacts.concat($scope.buscados2);
+//            console.log("buscados 2", results);
+//            $scope.$broadcast('scroll.infiniteScrollComplete');
             
             
-            console.log("LOS CONTACTOS DE BUSQUEDA", $scope.contacts);
             
-        }
-        )}
+            
+            
+            
+        
+        
         
 //        $scope.employees = Employees.query();
     
