@@ -86,7 +86,9 @@
               </ion-item>
               
               <ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
-                              <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+                              
+                  <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
+                  <img ng-if='item.imageId ==""' ng-src="img/user_default.png" style="width: 64px; height: 64px">
 <span class="item-note"><i class="ion-chevron-right"></i></span>
 <span class="item-note">
   <div>

@@ -71,7 +71,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 })
 
 
-.controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading) {
+.controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading,apiUrlLocal) {
+    
+    $scope.apiUrlLocal = apiUrlLocal;
 
   //LOADING ICON
   $ionicLoading.show({
