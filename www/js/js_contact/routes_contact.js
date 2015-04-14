@@ -72,6 +72,13 @@ angular.module('starter.contactroutes', [])
 //         }
 //       }
 //     });
+  
+  
+   $stateProvider.state('search', {
+                url: '/?parameter(contactSearchName)',
+//                templateUrl: 'templates/employee-list.html',
+//                controller: 'EmployeeListCtrl'
+            })
 
   
   $stateProvider.state('app.contact', {
