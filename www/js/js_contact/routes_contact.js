@@ -7,14 +7,15 @@ angular.module('starter.contactroutes', [])
 
   $stateProvider.state('app.contacts', {
     url: '/contacts',
-      cache: true,
+    cache: true,
     views: {
-         'menuContent': {
-           controller: 'ContactsCtrl',
-           templateUrl: 'templates/views_contact/contactslist.html'
-         }
-       }
+     'menuContent': {
+       controller: 'ContactsCtrl',
+       templateUrl: 'templates/views_contact/contactslist.html'
+     }
+   }
 
+<<<<<<< HEAD
     })
   
   
@@ -25,6 +26,9 @@ angular.module('starter.contactroutes', [])
                 templateUrl: 'templates/employee-list.html',
                 controller: 'EmployeeListCtrl'
             })
+=======
+ })
+>>>>>>> d9cf3d732357bd12a14cccbf9ecf718156c33d96
 
 // $stateProvider.state('app.contact-detail', {
 //     url: '/contact-detail/:index',
@@ -82,18 +86,18 @@ angular.module('starter.contactroutes', [])
 //       }
 //     });
 
-  
-  $stateProvider.state('app.contact', {
-    url: "/contact?contactId&addressId&contactPersonId&addressType",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/views_contact/contact.html",
-        controller: 'ContactCtrl'
-      }
+
+$stateProvider.state('app.contact', {
+  url: "/contact?contactId&addressId&contactPersonId&addressType",
+  views: {
+    'menuContent': {
+      templateUrl: "templates/views_contact/contact.html",
+      controller: 'ContactCtrl'
     }
-  });
-  
+  }
+});
+
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/app');
 });
