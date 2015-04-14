@@ -1,7 +1,9 @@
 angular.module('starter.constants',[])  
 
 //url server local
+
 .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
+
 
 //url prueba celular
 // .constant('apiUrlLocal', 'http://10.0.0.149:8080/bm')
