@@ -136,6 +136,49 @@ $scope.getContactUrl = function(item){
   return item.contactPersonAddressId ==='' ? '#/app/contact?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contact?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;
 };
 
+    
+    
+//    $scope.searchcon = function(){
+////        
+//     
+//     alert("button searchcon pressed");
+//        $scope.myValue = true;
+//        
+//   }
+//    
+    
+     $scope.searchKey = "";
+//
+        $scope.clearSearch = function () {
+            $scope.searchKey = "";
+            $scope.buscados = Contact.query();
+             console.log("clearrrrrrrrrr",$scope.buscados);
+        }
+
+        $scope.search = function () {
+            $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
+//            console.log("primer buscado query",$scope.buscados);
+            
+//             $scope.contacts = $scope.buscados((['mainData'])['list']);
+            
+        
+            
+             $scope.buscados.$promise.then(function (results){
+
+            $scope.contacts = (results['mainData'])['list'];
+            
+            
+            console.log("LOS CONTACTOS DE BUSQUEDA", $scope.contacts);
+            
+        }
+        )}
+//        $scope.employees = Employees.query();
+    
+                                           
+    
+    
+    
+    
 })
 
 //
@@ -143,9 +186,7 @@ $scope.getContactUrl = function(item){
 //   $scope.contacts = Contacts.all();
 //   console.log("Controller CONTACTS get all",$scope.contacts);
 //
-//   $scope.searchcon = function(){
-//     alert("button searchcon pressed");
-//   };
+   
 //
 //   $scope.addper = function(){
 //     alert("button addper pressed");
