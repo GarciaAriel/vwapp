@@ -42,13 +42,14 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
   $httpProvider.defaults.transformRequest = [function(data) {
     return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
   }];
+
+  $httpProvider.interceptors.push('myHttpInterceptor');
 })
 
 
 
-
 // .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
-  
+
 //   //call services data
 //   // Contacts.all();
 //   //MailList.all();
@@ -97,7 +98,7 @@ angular.module('starter.controllers', ['starter.services'],function($httpProvide
 
 
 //         // console.log(headers('UserLastLogin'));
-        
+
 //         var auxiliary = "/"+data+"/";
 //         var size = auxiliary.length;
 //         if( size>4 )

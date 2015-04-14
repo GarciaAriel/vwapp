@@ -4,12 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes'])
+var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.contactcontrollers','starter.contactservices','starter.webmailroutes','starter.contactroutes','ngResource'])
 
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 
   // enumerate routes that user can see 
-  var routesForUser = ["app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay"];
+  var routesForUser = ["/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay"];
 
   // VALIDATE THE CURRENT RUOTE
   var validateRoute = function (route) {
@@ -24,7 +24,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   };
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-    
+
     // IF AUTHENTICATION IS FALSE GO TO LOGIN
     // var authentication = AuthenticationService.isLoggedIn();
     // if ( authentication == false ) {
