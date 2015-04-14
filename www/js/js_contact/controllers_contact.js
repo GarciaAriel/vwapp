@@ -138,13 +138,13 @@ $scope.getContactUrl = function(item){
 
     
     
-//    $scope.searchcon = function(){
-////        
-//     
-//     alert("button searchcon pressed");
-//        $scope.myValue = true;
+    $scope.searchcon = function(){
 //        
-//   }
+     
+     alert("button searchcon pressed");
+        $scope.myValue = true;
+        
+   }
 //    
     
      $scope.searchKey = "";
@@ -152,7 +152,7 @@ $scope.getContactUrl = function(item){
         $scope.clearSearch = function () {
             $scope.searchKey = "";
             $scope.buscados = Contact.query();
-             console.log("clearrrrrrrrrr",$scope.buscados);
+             console.log("no limpia el texto",$scope.buscados);
         }
 
         $scope.search = function () {
@@ -172,6 +172,7 @@ $scope.getContactUrl = function(item){
             
         }
         )}
+        
 //        $scope.employees = Employees.query();
     
                                            
