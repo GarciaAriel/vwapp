@@ -5,7 +5,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
-    noBackdrop: false
+    noBackdrop: false,
+    duration: 5000
   })
 
   //LOAD OBJECT IN LOCAL STORAGE
@@ -97,7 +98,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-            console.log("no carga datos NEXT",$scope.appointments);
+            console.log("================no carga datos NEXT semana list",$scope.appointments);
+            console.log("================no carga datos ant semana",_data_date);    
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
              {
@@ -127,7 +129,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-                 console.log("no carga datos ant",$scope.appointments);     
+                 console.log("no carga datos ant semana list",$scope.appointments);    
+                  console.log("no carga datos ant semana",_data_date);    
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
              {

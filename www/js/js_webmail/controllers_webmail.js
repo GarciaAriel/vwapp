@@ -44,7 +44,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $ionicLoading.show({
     template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
     animation: 'fade-in',
-    noBackdrop: false
+    noBackdrop: false,
+    duration: 5000
   })
 
   $scope.newMailList = Mail.query();
@@ -130,20 +131,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     // var codigo = ((results['mainData'])['entity'])['body'];
     // $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(codigo);
 
-    //
-    var newurl = results['mainData']['entity']['htmlBodyUrl']
-    $http.get("http://localhost:8080/bm"+newurl).
-  success(function(data, status, headers, config) {
-    console.log("funciona",data);
-    $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
     // this callback will be called asynchronously
-    // when the response is available
-  }).
-  error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  });
-
+    if (results['mainData']['entity']['bodyType'] == '1') {
+      var newurl = results['mainData']['entity']['htmlBodyUrl']
+      $http.get(apiUrlLocal+newurl).
+        success(function(data, status, headers, config) {
+          $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
+          // when the response is available
+        }).
+        error(function(data, status, headers, config) {
+        // or server returns response with an error status.
+        });
+    }
+    else{
+    }
     
     $ionicLoading.hide()
   });

@@ -45,6 +45,17 @@ angular.module('starter.scheduleservices', [])
       var _data;
       var _type;
 
+      var today = new Date();
+      var next_date = new Date();
+      next_date.setDate(today.getDate()+20);
+      
+      console.log("fecha actual",today);
+      console.log("fecha tomorrow",next_date);
+      // var yyyy = date.getFullYear().toString();
+      // var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
+      // var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+      // var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+
       switch(_data_date.type) {
           case SCHEDULE_TYPE_MONTH:
               var _new_value = (parseInt(_data_date.mmc))+tipo; 
@@ -52,11 +63,16 @@ angular.module('starter.scheduleservices', [])
               _data_date.mmc = _new_value;
               _data_date.data = _data_date.yyyy+_new_value;
               break;
-          case SCHEDULE_TYPE_WEEK:
-              var _new_value = (parseInt(_data_date.wwc))+tipo; 
+          case SCHEDULE_TYPE_WEEK: 
+              var _new_value = (parseInt(_data_date.ddc))+(tipo*7); 
               if (_new_value<10) {_new_value = "0"+_new_value};
-              _data_date.wwc = _new_value;
-              _data_date.data = _data_date.yyyy+_new_value;
+              _data_date.ddc = _new_value;
+
+              var _new_value_week = (parseInt(_data_date.wwc))+tipo; 
+              if (_new_value_week<10) {_new_value_week = "0"+_new_value_week};
+              _data_date.wwc = _new_value_week;
+
+              _data_date.data = _data_date.yyyy+_new_value_week;
               break;
           case SCHEDULE_TYPE_DAY:
               var _new_value = (parseInt(_data_date.ddc))+tipo; 
