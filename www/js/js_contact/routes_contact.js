@@ -16,6 +16,15 @@ angular.module('starter.contactroutes', [])
        }
 
     })
+  
+  
+  
+  
+  $stateProvider.state('app.search', {
+                url: '/parameter(contactSearchName)',
+                templateUrl: 'templates/employee-list.html',
+                controller: 'EmployeeListCtrl'
+            })
 
 // $stateProvider.state('app.contact-detail', {
 //     url: '/contact-detail/:index',
