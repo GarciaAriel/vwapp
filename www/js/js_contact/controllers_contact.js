@@ -71,9 +71,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 })
 
 
+
 .controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading,apiUrlLocal) {
     
     $scope.apiUrlLocal = apiUrlLocal;
+
 
   //LOADING ICON
   // $ionicLoading.show({
@@ -81,7 +83,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
   //   animation: 'fade-in',
   //   noBackdrop: false
   // })
-
+$scope.showSearchBar = false;
+$scope.apiUrlLocal = apiUrlLocal;
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 $scope.contacts = [];
 //    $scope.pagei= $scope.newContacts['mainData'];
@@ -94,7 +97,7 @@ $scope.newContacts.$promise.then(function (results){
   console.log("inicio",(results['mainData']));
   console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
   $scope.contacts = (results['mainData'])['list'];
-  
+
 //      console.log('pagina de llegada',$scope.pagina);
 console.log('lista de contactos',$scope.contacts);
 $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
@@ -106,7 +109,7 @@ console.log("esta pagina que hace", $scope.page);
 //  };
 
 $scope.doRefresh = function() {
-  
+
 //  $scope.page = 1;
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.pageini});
 
@@ -116,7 +119,7 @@ $scope.newContacts.$promise.then(function (results){
   $scope.$broadcast('scroll.refreshComplete'); 
   console.log('volvi a la lista de inicio',$scope.pageini);
   $scope.page=1;
-  
+
   console.log('empezar desde',$scope.pageini);
 });
 };  
@@ -140,33 +143,35 @@ $scope.getContactUrl = function(item){
 
 
 
-//$scope.searchcon = function(){
-////        
-//
+$scope.searchcon = function(){
+//        
+
 //alert("button searchcon pressed");
-//$scope.myValue = true;
-//
-//}
-////    
+$scope.showSearchBar = !$scope.showSearchBar;
+
+}   
 
 
-        $scope.search = function () {
-            
-            $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
 
-$scope.searchKey = "";
-//
+
+
+
 $scope.clearSearch = function () {
   $scope.searchKey = "";
   $scope.buscados = Contact.query();
   console.log("no limpia el texto",$scope.buscados);
+  $scope.showSearchBar = !$scope.showSearchBar;
 }
 
 
-            
         
             
-             $scope.buscados.$promise.then(function (results){
+$scope.search = function () {
+            $scope.showSearchBar = !$scope.showSearchBar;
+            $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
+
+
+     $scope.buscados.$promise.then(function (results){
 
             
                  $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
@@ -196,6 +201,9 @@ $scope.clearSearch = function () {
   });
 }
       };
+    
+}
+            
        
     
   
@@ -204,26 +212,10 @@ $scope.clearSearch = function () {
 ////            $scope.contacts = $scope.contacts.concat($scope.buscados2);
 //            console.log("buscados 2", results);
 //            $scope.$broadcast('scroll.infiniteScrollComplete');
-            
-            
-            
-            
-            
-            
-        
-        
-        
 
 
 
-
-
-
-
-
-
-
-})
+)
 
 //
 // .controller('ContactsCtrl', function($scope, Contacts) {
@@ -298,7 +290,7 @@ console.log("list of telecoms",$scope.telecomss);
   
 
   console.log("este contacto",$scope.contact);
-  
+
 
 
 
