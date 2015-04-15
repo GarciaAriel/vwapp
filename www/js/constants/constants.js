@@ -1,9 +1,20 @@
 angular.module('starter.constants',[])  
 
+
+//url server local
+
+//.constant('apiUrlLocal', 'http://localhost:8080/bm')
+
+
+//.constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
+
+
 // .constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
+
 // .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
+
 
 
 //url prueba celular
@@ -34,7 +45,7 @@ angular.module('starter.constants',[])
 //CONSTANTS FOR CONTACTS
 //type of contact
 // Contact person>1
-.constant('PersonType','1')
+.constant('PersonType',1)
 // contact Organiztion or company> 0
-.constant('OrgType','0');
+.constant('OrgType',0);
 

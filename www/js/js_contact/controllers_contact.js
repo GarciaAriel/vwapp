@@ -71,7 +71,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 })
 
 
-.controller('ContactsCtrl', function($scope, Contact,$timeout,apiUrlLocal) {
+
+.controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading,apiUrlLocal) {
+    
+    $scope.apiUrlLocal = apiUrlLocal;
+
 
   //LOADING ICON
   // $ionicLoading.show({
@@ -145,7 +149,12 @@ $scope.searchcon = function(){
 //alert("button searchcon pressed");
 $scope.showSearchBar = !$scope.showSearchBar;
 
-}
+}   
+
+
+
+
+
 
 $scope.clearSearch = function () {
   $scope.searchKey = "";
@@ -154,32 +163,59 @@ $scope.clearSearch = function () {
   $scope.showSearchBar = !$scope.showSearchBar;
 }
 
+
+        
+            
 $scope.search = function () {
-  $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
-//            console.log("primer buscado query",$scope.buscados);
-
-//             $scope.contacts = $scope.buscados((['mainData'])['list']);
+            $scope.showSearchBar = !$scope.showSearchBar;
+            $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
 
 
+     $scope.buscados.$promise.then(function (results){
 
-$scope.buscados.$promise.then(function (results){
+            
+                 $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+                 $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+                
+                 $scope.contacts = (results['mainData'])['list'];
+                  console.log("PRIMERA BUSQUEDA", $scope.contacts);
+                 console.log("INFO 1", results['mainData']);
+             });
+                 
+                     
+                     
 
-  $scope.contacts = (results['mainData'])['list'];
-
-
-  console.log("LOS CONTACTOS DE BUSQUEDA", $scope.contacts);
-
+//       $scope.contacts = (results['mainData'])['list'];
+      
+      
+      $scope.loadMore = function() {
+          console.log("estoy intentanto cargar mas");
+          if($scope.pag<=$scope.totalpag){    
+            $scope.pag=$scope.pag +1;
+   $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
+  $scope.buscados.$promise.then(function(results){
+    console.log("NUEVA LISTA DE BUSQUEDA",(results['mainData']));
+    $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+      
+  });
 }
-)}
+      };
+    
+}
+            
+       
+    
+  
+                    
+     }
+////            $scope.contacts = $scope.contacts.concat($scope.buscados2);
+//            console.log("buscados 2", results);
+//            $scope.$broadcast('scroll.infiniteScrollComplete');
 
-//        $scope.employees = Employees.query();
 
 
-
-
-
-
-})
+)
 
 //
 // .controller('ContactsCtrl', function($scope, Contacts) {
