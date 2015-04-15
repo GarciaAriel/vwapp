@@ -1,7 +1,16 @@
 angular.module('starter.constants',[])  
 
 //url server local
+<<<<<<< HEAD
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
+=======
+
+.constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
+
+
+// .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
+
+>>>>>>> b9f7bdd091c8f9218183b923668366a91b336799
 
 //url prueba celular
 // .constant('apiUrlLocal', 'http://10.0.0.149:8080/bm')
@@ -15,6 +24,10 @@ angular.module('starter.constants',[])
 .constant('SCHEDULE_TYPE_MONTH',3)
 .constant('SCHEDULE_TYPE_WEEK',2)
 .constant('SCHEDULE_TYPE_DAY',1)
+
+.constant('SCHEDULE_TYPE_MONTH_STRING','month')
+.constant('SCHEDULE_TYPE_WEEK_STRING','week')
+.constant('SCHEDULE_TYPE_DAY_STRING','day')
 
 //path schedule
 .constant('pathSchedule', '/bmapp/Appointment/REST.do')
