@@ -1,25 +1,19 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 .controller('ControlSchedule',function($scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
-  //ANIMATION LOAD
-  // $ionicLoading.show({
-  //   template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-  //   animation: 'fade-in',
-  //   noBackdrop: false,
-  //   duration: 5000
-  // })
-
-  //LOAD OBJECT IN LOCAL STORAGE
+  //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
 
-  //GET OBJECT OF LOCAL STORAGE
+  //  GET OBJECT OF LOCAL STORAGE
   var _data_date = $localstorage.getObject('dataDate');
 
-  //CALL SERVICES WITH (TYPE AND DATA)
+  //  CALL SERVICES WITH (TYPE AND DATA)
+  console.log("==CONTROLLER SCHEDULE== get query list appointments first time");
   $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
+  //  PROMISE
   $scope.getAppointments.$promise.then(function (results){
-    //INTO PROMISE
+    console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
     //parse to variables PROVISIONAL
@@ -28,9 +22,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'https://www.youtube.com/'};
         $scope.appointments.push(change);
     });
-
-
-    // var options = Get_options_schedule.getoptions();
 
     //INIT PROPERTIES FOR CALENDAR
     var options = {
@@ -75,31 +66,32 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //LOAD OPTIONS TO CALENDAR
     calendar = $('#calendar').calendar(options);      
 
-    
-
   });//END PROMISE
     
     
     $scope.scheduleNext  = function(){
         //CHANGE OBJECT FOR NEXT OR ANT
         schedule_calculate_Next_Ant.go(1);
+
         //GET OBJECT OF LOCAL STORAGE
         var _data_date = $localstorage.getObject('dataDate',_data_date);
+
         //CALL SERVICES WITH (TYPE AND DATA)
+        console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT function");
         $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-          $scope.getAppointments.$promise.then(function (results){
-            //INTO PROMISE
+        //PROMISE
+        $scope.getAppointments.$promise.then(function (results){
+            //  GET LIST APPOINTMENTS
+            console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            
             //parse to variables
-
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-            console.log("================no carga datos NEXT semana list",$scope.appointments);
-            console.log("================no carga datos ant semana",_data_date);    
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
              {
@@ -108,29 +100,33 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 tmpl_path: 'lib/bootstrap-calendar/tmpls/',
                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
              });
-          });//END PROMISE
+        });
+        //END PROMISE
     };
 
     $scope.schedulePrev  = function(){
         //SERVICE CHANGE NEXT OR ANT
         schedule_calculate_Next_Ant.go(-1);
+
         //GET OBJECT OF LOCAL STORAGE
         var _data_date = $localstorage.getObject('dataDate',_data_date);
+
         //CALL SERVICES WITH (TYPE AND DATA)
-          $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+        console.log("==CONTROLLER SCHEDULE== get query list appointments PREV function");
+        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-          $scope.getAppointments.$promise.then(function (results){
+        $scope.getAppointments.$promise.then(function (results){
             //INTO PROMISE
+            console.log("==CONTROLLER SCHEDULE== get query list appointments PREV success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
+            
             //parse to variables
-
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-                 console.log("no carga datos ant semana list",$scope.appointments);    
-                  console.log("no carga datos ant semana",_data_date);    
+            
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
              {
@@ -140,11 +136,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
                 
              });
-          });//END PROMISE
+          });
+          //END PROMISE
     };
+    
     $scope.scheduleToday  = function(){
-      
-
       //CHANGE OBJECT TODAY
       Load_variable_date.setDataToday();
 
@@ -152,12 +148,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       var _data_date = $localstorage.getObject('dataDate');
       
       //CALL SERVICES WITH (TYPE AND DATA)
+      console.log("==CONTROLLER SCHEDULE== get query list appointments TODAY function");
       $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
       $scope.newAppointments.$promise.then(function (results){
-            //INTO PROMISE
+        //INTO PROMISE
+        console.log("==CONTROLLER SCHEDULE== get query list appointments TODAY success OK");    
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
-            //parse to variables
+
+        //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
@@ -179,14 +178,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       //GET OBJECT OF LOCAL STORAGE
       var _data_date = $localstorage.getObject('dataDate');
         
+      //CHANGE TYPE WITH CONSTANT 'SCHEDULE_TYPE_MONTH'  
       _data_date.type = SCHEDULE_TYPE_MONTH;
       _data_date.type_string = SCHEDULE_TYPE_MONTH_STRING;
       _data_date.data =  _data_date.yyyyc+_data_date.mmc;
         
+      //CALL SERVICES WITH (TYPE AND DATA)
+      console.log("==CONTROLLER SCHEDULE== get query list appointments change view MONTH function");  
       $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
+      //INTO PROMISE
       $scope.newAppointments.$promise.then(function (results){
-            //INTO PROMISE
+            console.log("==CONTROLLER SCHEDULE== get query list appointments change view MONTH success OK");    
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
             //parse to variables
             $scope.appointments = [];
@@ -209,16 +212,19 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         
     $scope.dataScheduleDay = function()    {
         //GET OBJECT OF LOCAL STORAGE
-        var _data_date = $localstorage.getObject('dataDate');
+      var _data_date = $localstorage.getObject('dataDate');
 
-        _data_date.type = SCHEDULE_TYPE_DAY;
-        _data_date.type_string = SCHEDULE_TYPE_DAY_STRING;
-        _data_date.data =  _data_date.yyyyc+_data_date.mmc+_data_date.ddc;
+        //CHANGE TYPE WITH CONSTANT 'SCHEDULE_TYPE_DAY'
+      _data_date.type = SCHEDULE_TYPE_DAY;
+      _data_date.type_string = SCHEDULE_TYPE_DAY_STRING;
+      _data_date.data =  _data_date.yyyyc+_data_date.mmc+_data_date.ddc;
         
+      //CALL SERVICES WITH (TYPE AND DATA)
+      console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY function");  
         $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
-
+          //  PROMISE
           $scope.getAppointments.$promise.then(function (results){
-            //INTO PROMISE
+            console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY success OK");    
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
             //parse to variables
             $scope.appointments = [];
@@ -240,17 +246,22 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     };
 
     $scope.dataScheduleWekk = function(){
-        
+        //GET OBJECT OF LOCAL STORAGE
         var _data_date = $localstorage.getObject('dataDate');
+
+        //CHANGE TYPE WITH CONSTANT 'SCHEDULE_TYPE_DAY'
         _data_date.type = SCHEDULE_TYPE_WEEK;
         _data_date.type_string = SCHEDULE_TYPE_WEEK_STRING;
         _data_date.data =  _data_date.yyyyc+_data_date.wwc;
         $localstorage.setObject('dataDate',_data_date);
         
+        //CALL SERVICES WITH (TYPE AND DATA)
+        console.log("==CONTROLLER SCHEDULE== get query list appointments change view WEEK function");  
         $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
           $scope.getAppointments.$promise.then(function (results){
             //INTO PROMISE
+            console.log("==CONTROLLER SCHEDULE== get query list appointments change view WEEK success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
             //parse to variables
             $scope.appointments = [];
@@ -258,8 +269,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
                 $scope.appointments.push(change);
             });
-            console.log("===list       week ----",$scope.appointments);            
-console.log("===getObject  week ----",_data_date);
+
             //LOAD OPTIONS TO CALENDAR
             console.log("list semana",$scope.appointments);
             var calendar = $("#calendar").calendar(

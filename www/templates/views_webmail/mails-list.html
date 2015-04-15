@@ -41,7 +41,9 @@
           <p>{{item.subject}}</p>
         </ion-item>
       </ion-list>
-      <ion-infinite-scroll on-infinite="loadMore()">
+      <!-- immediate-check="false" -->
+      <!-- ng-if="questions.len" -->
+      <ion-infinite-scroll  on-infinite="loadMore()">
     </ion-infinite-scroll>  
   </ion-content>
 </ion-view>
