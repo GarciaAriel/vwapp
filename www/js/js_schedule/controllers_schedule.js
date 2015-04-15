@@ -6,6 +6,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   //  GET OBJECT OF LOCAL STORAGE
   var _data_date = $localstorage.getObject('dataDate');
+  $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
 
   //  CALL SERVICES WITH (TYPE AND DATA)
   console.log("==CONTROLLER SCHEDULE== get query list appointments first time");
@@ -75,6 +76,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         //GET OBJECT OF LOCAL STORAGE
         var _data_date = $localstorage.getObject('dataDate',_data_date);
+        $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
 
         //CALL SERVICES WITH (TYPE AND DATA)
         console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT function");
@@ -110,6 +112,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         //GET OBJECT OF LOCAL STORAGE
         var _data_date = $localstorage.getObject('dataDate',_data_date);
+        $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
 
         //CALL SERVICES WITH (TYPE AND DATA)
         console.log("==CONTROLLER SCHEDULE== get query list appointments PREV function");
@@ -146,6 +149,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
       //GET OBJECT OF LOCAL STORAGE
       var _data_date = $localstorage.getObject('dataDate');
+      $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
       
       //CALL SERVICES WITH (TYPE AND DATA)
       console.log("==CONTROLLER SCHEDULE== get query list appointments TODAY function");
