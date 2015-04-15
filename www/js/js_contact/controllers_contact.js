@@ -263,7 +263,8 @@ $scope.search = function () {
 
 
 
-.controller('ContactCtrl', function($scope, $stateParams, Contact) {
+.controller('ContactCtrl', function($scope, $stateParams, Contact,apiUrlLocal) {
+    $scope.apiUrlLocal = apiUrlLocal;
 
   console.log("param1", $stateParams.contactId);
   console.log("param2", $stateParams.addressId);
