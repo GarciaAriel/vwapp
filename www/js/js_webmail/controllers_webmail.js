@@ -68,19 +68,17 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 .controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource){
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
-  //LOADING IMAGE
-  
-
   $scope.newMailList = Mail.query();
   $scope.mailList = [];
-  
+  $scope._doRefresh = false;
   
   $scope.newMailList.$promise.then(function (results){
     console.log("inicio",(results['mainData']));
     console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    $scope.page = $scope.page + 1;
+    $scope.page = $scope.page;
     $scope.mailList = (results['mainData'])['list'];
+    $scope._doRefresh = true;
     // $scope.pageLimit = parseInt((results['mainData'])['pageInfo']['totalPages']);
     
   });

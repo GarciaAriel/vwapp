@@ -43,7 +43,7 @@
       </ion-list>
       <!-- immediate-check="false" -->
       <!-- ng-if="questions.len" -->
-      <ion-infinite-scroll  on-infinite="loadMore()">
+      <ion-infinite-scroll ng-if="_doRefresh" immediate-check="false" on-infinite="loadMore()" distance="1%">
     </ion-infinite-scroll>  
   </ion-content>
 </ion-view>
