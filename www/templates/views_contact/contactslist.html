@@ -3,9 +3,9 @@
 
 <button class="button" style="border-style: none" ng-click="searchcon()">
   <i class="icon ion-ios7-search" style="color: #B80808"></i>
-    
-    
-        
+
+
+
 
 <!--
 <div class="bar bar-subheader item-input-inset">
@@ -16,9 +16,9 @@
         </label>
         <button class="button button-clear" ng-click="search()">Search</button>
     </div>
--->
-   
-        
+  -->
+
+
 </button>
 <button class="button" style="border-style: none" data-ng-click="addper()">
   <i class="icon ion-person-add" style="color: #B80808"></i>
@@ -37,67 +37,70 @@
     
     
     
-<div class="bar bar-subheader item-input-inset">
-        <label class="item-input-wrapper">
-            <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" autocorrect="off" >
-            <button class="button button-clear" ng-click="clearSearch()">X</button>
-        </label>
-        <button class="button button-clear" ng-click="search()">Search</button>
+    <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
+      <span class="item-input-wrapper">
+        <i class="icon ion-ios7-search placeholder-icon"></i>
+        <input id="searchKey" type="search" placeholder="Search" ng-model="$parent.searchKey" autocorrect="off" >
+        <button class="button button-clear" ng-click="clearSearch()">X</button>
+      </span>
+      <button class="button button-clear" ng-click="search()">Search</button>
     </div>
 
-                       
-  
-                
-              
 
-    <ion-content class="has-header has-subheader">
-        
+
+
+
+
+    <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
+
 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
   </ion-refresher>
 
   <ion-list ng-repeat="item in contacts" >
-      
-      <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
-          <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
-<span class="item-note"><i class="ion-chevron-right"></i></span>
-<span class="item-note">
-  <div>
-    <i class="ion-home"></i>
-  </div>
+
+  <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+  <img ng-if="item.imageUrl != ''" ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
+  <img ng-if="item.imageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
+  <span class="item-note"><i class="ion-chevron-right"></i></span>
+  <span class="item-note">
+    <div>
+      <i class="ion-home"></i>
+    </div>
     &nbsp;&nbsp;&nbsp;&nbsp;
-</span>
-          <h2>{{item.contactPersonOfName}}</h2>
-          <p>{{item.addressName}} </p>
-      </ion-item>
-          
-          <ion-item ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
-              <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+  </span>
+  <h2>{{item.contactPersonOfName}}</h2>
+  <p>{{item.addressName}} </p>
+</ion-item>
+
+<ion-item ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+<img ng-if="item.imageUrl != ''" ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
+<img ng-if="item.imageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
 <span class="item-note"><i class="ion-chevron-right"></i></span>
 <span class="item-note">
   <div>
     <i class="ion-briefcase"></i>
   </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
 </span>       
-          <h2>{{item.addressName}}</h2>
-              <p>{{item.countryCode}} {{item.cityName}}</p>
-              </ion-item>
-              
-              <ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
-                              <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
+<h2>{{item.addressName}}</h2>
+<p>{{item.countryCode}} {{item.cityName}}</p>
+</ion-item>
+
+<ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+<img ng-if="item.imageUrl != ''" ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
+<img ng-if="item.imageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
 <span class="item-note"><i class="ion-chevron-right"></i></span>
 <span class="item-note">
   <div>
     <i class="ion-person"></i>
   </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
 </span>  
-          <h2>{{item.addressName}}</h2>
-                  <p>{{item.zip}}</p>
-                  </ion-item>
-     
+<h2>{{item.addressName}}</h2>
+<p>{{item.zip}}</p>
+</ion-item>
+
 <!--
 <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
 <span class="item-note"><i class="ion-chevron-right"></i></span>
