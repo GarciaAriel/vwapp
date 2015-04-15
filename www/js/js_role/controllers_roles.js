@@ -1,5 +1,6 @@
 angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
+// CONTROLLER APP
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,colo) {
   $scope.colo = colo;
   //call services data
@@ -19,9 +20,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 })
 
-
-.controller('DashCtrl', function($scope) {})
-
+//  CONTROLLER LOGIN
 .controller('LoginController', function (LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
     'use strict';
 
@@ -39,36 +38,32 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     $scope.doLogin = function() {
       console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
-      // $state.go('app');
+      
       // Simple POST request
       $http({
         method: 'POST',
         url: apiUrlLocal+""+pathLogon,
         data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
-      }).success(function(data, status, headers, config,$cookies) {
+      }).success(function(data, status, headers, config) {
+        
         console.log('==LOGIN== REQUEST SUCCESS OK');
-        console.log("hola cookies", $cookies);
-        var auxiliary = "/"+data+"/";
-        var size = auxiliary.length;
-        if( size>4 )
-        {
-          console.log(size);
-          console.log("DATA: ",data);
-          console.log("STATUS: ",status);
-          console.log("HEADERS: ",headers);
-          console.log("CONFIG: ",config);
+        console.log("dataaaa",data);
 
+        if( data != "KO" )
+        {
           AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
           $scope.closeLogin();
           $state.go('app');
         }
         else
         {
-          // var alertPopup = $ionicPopup.alert({
-          //       title: 'Log on, Failed!',
-          //       template: 'Please check your credentials!'
-          //   });
-          $state.go('/login');
+          console.log("error login");
+          // $state.previous = '/login';
+          var alertPopup = $ionicPopup.alert({
+                title: 'aaaLog on, Failed!',
+                template: 'aaaPlease check your credentials!'
+            });
+
         }
       }).
       error(function(data, status, headers, config) {
@@ -79,24 +74,8 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 })
 
+//  CONTROLLER LOGOUT
 .controller('logoutController', function($scope, $state,AuthenticationService){
     'use strict';
     AuthenticationService.logout();
-})
-
-//dooooooooooooooooooooooooooooooooooooooooooo
-
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
-    $scope.data = {};
-
-    $scope.login = function() {
-        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('app');
-        }).error(function(data) {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Log on, Failed!',
-                template: 'Please check your credentials!'
-            });
-        });
-    }
 });
