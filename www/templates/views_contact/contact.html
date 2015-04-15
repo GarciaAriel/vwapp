@@ -1,4 +1,4 @@
-<ion-view cache-view="true" view-title="Detail">
+<ion-view cache-view="true" view-title="Details">
 
 
 <ion-nav-buttons side="right">
@@ -16,36 +16,54 @@
   <div class="item item-divider" href="#">
     <h2>Info</h2>
   </div>
-  <a class="item item-thumbnail-left" >
-   <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
-<!--
-       <h2  ng-if='contact.mainData.entity.addressType=="1"'>
-           Name:{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
-          
-       <h2 ng-if='contact.mainData.entity.addressType=="0"'>
-           Org: {{contact.mainData.entity.name1}}</h2>
-         
-         <p>{{contact.mainData.entity.name2}}</p>
-            <p> {{contact.mainData.entity.name3}}</p>
-         
-         <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType=="1"'>
-             CN: {{contact.mainData.entity.organizationName}}</h2>
-         
-           -->
+<!--  <a class="" >-->
+      
+<!--      este es person-->
+          <div class="item item-body"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
+              
+    <div class="item item-thumbnail-left">         
+<img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
+<img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+              </div>
+      
+<!--              <div align="middle">-->
+              <div class="item item-text-righ">
+    <h2>{{contact.mainData.entity.name1}} 
+        {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
+                  </div>
+<!--                  </div>-->
+      </div>
+      <!--este es org -->
+      
+<div class="item item-body" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
+    <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/org.png" style="width: 80px; height: 80px">
+    <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+    <div class="item item-text-righ">
+    <h2>{{contact.mainData.entity.name1}}
+        <br>{{contact.mainData.entity.name2}}
+        <br>{{contact.mainData.entity.name3}}</h2>
+    </div>
 
-           <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:110%">{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p></h2>
-           <h2 ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '><p style="font-size:120%">{{contact.mainData.entity.name1}}<br>{{contact.mainData.entity.name2}}<br>{{contact.mainData.entity.name3}}</p></h2>
-           <h2 ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '><p style="font-size:130%">{{contact.mainData.entity.organizationName}}</p>
-             <p>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</p>
-             <br>Funtion: {{contact.mainData.entity.function}}
-           </h2>
+</div>
+      
+      
+      
+<div class="item item-body" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
+    <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
+    <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+    <div class="item item-text-righ">
+    <h2>{{contact.mainData.entity.organizationName}}</h2>
+    <br>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+    <br>Funtion: {{contact.mainData.entity.function}}
+    </div>
+</div>
 
 
            <!-- <p>{{contact.funtion}}</p> -->
-           <h1>  </h1>
-         </a>
+           
+<!--         </a>-->
 
-
+<!--<p style="font-size:130%">-->
 
 
 
