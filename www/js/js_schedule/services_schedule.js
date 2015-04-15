@@ -44,41 +44,87 @@ angular.module('starter.scheduleservices', [])
       var _data_date = $localstorage.getObject('dataDate');
       var _data;
       var _type;
+      //  create Date with current view calendar
+      var _current_date = new Date(parseInt(_data_date.yyyyc),parseInt(_data_date.mmc)-1,parseInt(_data_date.ddc));
+      var _tomorrow = new Date(_current_date);
 
-      var today = new Date();
-      var next_date = new Date();
-      next_date.setDate(today.getDate()+20);
+      // tomorrow.setDate(_current_date.getDate()+20);
+      // console.log("next dayssssss XD",tomorrow);
       
-      console.log("fecha actual",today);
-      console.log("fecha tomorrow",next_date);
-      // var yyyy = date.getFullYear().toString();
-      // var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
-      // var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-      // var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+      
 
       switch(_data_date.type) {
           case SCHEDULE_TYPE_MONTH:
-              var _new_value = (parseInt(_data_date.mmc))+tipo; 
+              //month next or ant
+              _current_date.setMonth(_current_date.getMonth()+tipo);
+              
+              // save year
+              var _new_year = _current_date.getFullYear();
+              _data_date.yyyyc = _new_year;
+              
+              // convert month to String + "0" and save mmc and data
+              var _new_value = _current_date.getMonth()+1;
               if (_new_value<10) {_new_value = "0"+_new_value};
               _data_date.mmc = _new_value;
               _data_date.data = _data_date.yyyy+_new_value;
               break;
           case SCHEDULE_TYPE_WEEK: 
-              var _new_value = (parseInt(_data_date.ddc))+(tipo*7); 
+              //  date current add week or 7 day
+              _tomorrow.setDate(_current_date.getDate()+(7*tipo));
+
+              // save year
+              var _new_year = _tomorrow.getFullYear();
+              console.log("semanaaa yearrrrrr", _new_year);
+              _data_date.yyyyc = _new_year+"";
+
+              // convert month to String + "0" and save mmc
+              var _new_value_month = _tomorrow.getMonth()+1;
+              console.log("semanaaa monthhhhhhh", _new_value_month);
+              if (_new_value_month<10) {_new_value_month = "0"+_new_value_month};
+              _data_date.mmc = _new_value_month;
+              
+              // save week
+              var _new_value = _tomorrow.getWeek();
+              console.log("semanaaa week", _new_value);
               if (_new_value<10) {_new_value = "0"+_new_value};
-              _data_date.ddc = _new_value;
+              _data_date.wwc = _new_value;
 
-              var _new_value_week = (parseInt(_data_date.wwc))+tipo; 
-              if (_new_value_week<10) {_new_value_week = "0"+_new_value_week};
-              _data_date.wwc = _new_value_week;
+              //  save day
+              var _new_value_day = _tomorrow.getUTCDate()// (parseInt(_data_date.wwc))+tipo; 
+              console.log("semanaaa dayyyyyyyy", _new_value_day);
+              if (_new_value_day<10) {_new_value_day = "0"+_new_value_day};
+              _data_date.ddc = _new_value_day;
 
-              _data_date.data = _data_date.yyyy+_new_value_week;
+              _data_date.data = _data_date.yyyyc+_data_date.wwc;
               break;
           case SCHEDULE_TYPE_DAY:
-              var _new_value = (parseInt(_data_date.ddc))+tipo; 
+              //  date current add week or 7 day
+              _tomorrow.setDate(_current_date.getDate()+(7*tipo));
+
+              // save year
+              var _new_year = _tomorrow.getFullYear();
+              console.log("semanaaa yearrrrrr", _new_year);
+              _data_date.yyyyc = _new_year+"";
+
+              // convert month to String + "0" and save mmc
+              var _new_value_month = _tomorrow.getMonth()+1;
+              console.log("semanaaa monthhhhhhh", _new_value_month);
+              if (_new_value_month<10) {_new_value_month = "0"+_new_value_month};
+              _data_date.mmc = _new_value_month;
+              
+              // save week
+              var _new_value = _tomorrow.getWeek();
+              console.log("semanaaa week", _new_value);
               if (_new_value<10) {_new_value = "0"+_new_value};
-              _data_date.ddc = _new_value;
-              _data_date.data = _data_date.yyyy+_data_date.mm+_new_value;
+              _data_date.wwc = _new_value;
+
+              //  save day
+              var _new_value_day = _tomorrow.getUTCDate()// (parseInt(_data_date.wwc))+tipo; 
+              console.log("semanaaa dayyyyyyyy", _new_value_day);
+              if (_new_value_day<10) {_new_value_day = "0"+_new_value_day};
+              _data_date.ddc = _new_value_day;
+              
+              _data_date.data = _data_date.yyyyc+_data_date.mmc+_data_date.ddc;
               break;    
       } 
       $localstorage.setObject('dataDate',_data_date);
