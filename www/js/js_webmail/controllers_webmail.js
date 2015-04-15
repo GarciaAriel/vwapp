@@ -8,14 +8,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   FOLDER_DEFAULT_TYPE) {
   // COLOR DEFAULT
   $scope.colo = colo;
-
+  
   //  CALL SERVICES WEBMAIL FOLDERS
   console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
   $scope.newFolders = Webmal_read_forlders.query();
   $scope.folders = [];
   $scope.newFolders.$promise.then(function (results){
     console.log("==CONTROLLER WEBMAIL== get query list FOLDERS success OK");
-
     var data = ((results['mainData'])['systemFolders']);
 
     // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
@@ -65,50 +64,60 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource){
+.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
-  $scope.newMailList = Mail.query();
+  $scope.page = 1; 
+  $scope.totalPages; 
+
+  $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
   $scope.mailList = [];
   $scope._doRefresh = false;
-  
+
   $scope.newMailList.$promise.then(function (results){
-    console.log("inicio",(results['mainData']));
     console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    
+    $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
+
     $scope.page = $scope.page;
     $scope.mailList = (results['mainData'])['list'];
-    $scope._doRefresh = true;
-    // $scope.pageLimit = parseInt((results['mainData'])['pageInfo']['totalPages']);
-    
+    if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
+      $scope._doRefresh = true;  
+    };
   });
   
   $scope.doRefresh = function() {
     
     $scope.page = 1;  
-    $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
     $scope.newMailList.$promise.then(function (results){
       console.log("doRefresh",(results['mainData']));
       $scope.mailList = ((results['mainData'])['list']).concat($scope.mailList);
       $scope.mailList = (results['mainData'])['list'];
-      $scope.$broadcast('scroll.refreshComplete');    
+      $scope.$broadcast('scroll.refreshComplete');  
+
+      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
+        $scope._doRefresh = true;  
+      };  
     });
   };
 
   $scope.loadMore = function() {
-    // console.log("limite loadMore", $scope.page+"  "+$scope.pageLimit);
-    // if ($scope.page < $scope.pageLimit) {
       console.log('==CONTROLLER WEBMAIL== LOAD MORE');
       $scope.page = $scope.page + 1;
       
       console.log("ifff loadMore",$scope.page);
-      $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page});
+      $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
       $scope.newMails.$promise.then(function(results){
-        console.log("loadMore",(results['mainData']));
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
+        if ($scope.totalPages<=$scope.page+1) {
+          $scope._doRefresh = false;  
+        };
+        console.log("tammmmmmmmmm",$scope.mailList.length);
       });  
     }
   })
