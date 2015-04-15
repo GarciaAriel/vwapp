@@ -118,6 +118,7 @@ $scope.newContacts.$promise.then(function (results){
   $scope.contacts = (results['mainData'])['list'];
   $scope.$broadcast('scroll.refreshComplete'); 
   console.log('volvi a la lista de inicio',$scope.pageini);
+    console.log('con estos datos',$scope.contacts);
   $scope.page=1;
 
   console.log('empezar desde',$scope.pageini);
@@ -277,7 +278,7 @@ $scope.search = function () {
     $scope.contact = results;
            // console.log("sasasa",((results['mainData'])['entity']).addressId);
 //        $ionicLoading.hide();
-
+$scope.auxiliar=
 
 $scope.telecomss=results.mainData.entity.telecoms;
 console.log("list of telecoms",$scope.telecomss);
