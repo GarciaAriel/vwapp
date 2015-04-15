@@ -140,20 +140,20 @@ $scope.getContactUrl = function(item){
 
 
 
-$scope.searchcon = function(){
-//        
+//$scope.searchcon = function(){
+////        
+//
+//alert("button searchcon pressed");
+//$scope.myValue = true;
+//
+//}
+////    
 
-alert("button searchcon pressed");
-$scope.myValue = true;
 
-}
-//    
-
-<<<<<<< HEAD
         $scope.search = function () {
             
             $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
-=======
+
 $scope.searchKey = "";
 //
 $scope.clearSearch = function () {
@@ -162,13 +162,7 @@ $scope.clearSearch = function () {
   console.log("no limpia el texto",$scope.buscados);
 }
 
-$scope.search = function () {
-  $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
->>>>>>> b9f7bdd091c8f9218183b923668366a91b336799
-//            console.log("primer buscado query",$scope.buscados);
 
-//             $scope.contacts = $scope.buscados((['mainData'])['list']);
-<<<<<<< HEAD
             
         
             
@@ -219,22 +213,10 @@ $scope.search = function () {
         
         
         
-=======
 
 
 
-$scope.buscados.$promise.then(function (results){
 
-  $scope.contacts = (results['mainData'])['list'];
-  
-  
-  console.log("LOS CONTACTOS DE BUSQUEDA", $scope.contacts);
-  
-}
-)}
-
->>>>>>> b9f7bdd091c8f9218183b923668366a91b336799
-//        $scope.employees = Employees.query();
 
 
 
