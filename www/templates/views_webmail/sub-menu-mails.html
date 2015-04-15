@@ -7,10 +7,10 @@
 
   <ion-content>
     <ion-list>
-      <ion-item nav-clear ng-repeat="item in mailsSubMenu" type="item-text-wrap" href="#/app/mail-list/{{item.id}}" style='{{colo}}'>
+      <ion-item nav-clear ng-repeat="item in folders" type="item-text-wrap" href="#/app/mail-list/{{item.id}}" style='{{colo}}'>
 
-        <i class="{{getClass(item)}}">
-          {{item.name}}
+        <i class="{{getClassImage(item)}}">
+          {{item.folderName}}
         </i>
       </ion-item>
     </ion-list>

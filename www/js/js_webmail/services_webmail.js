@@ -8,13 +8,23 @@ angular.module('starter.webmailservices', [])
 /**
  * SERVICES LIST MAILS IN WEBMAIL
  */
- .factory('Mail', function ($resource,apiUrlLocal,pathWebmail) {
+ .factory('Mail', function ($resource,apiUrlLocal,PATH_WEBMAIL) {
   
-  var url = apiUrlLocal+pathWebmail;
+  var url = apiUrlLocal+PATH_WEBMAIL;
   console.log('==SERVICE WEBMAIL== URL',url);
   return $resource(url,{},{'query':{method:'GET', isArray:false}});
 })
 
+
+/**
+ * SERVICES READ FORLDERS
+ */
+ .factory('Webmal_read_forlders', function ($resource,apiUrlLocal,PATH_WEBMAIL_READ_FOLDERS) {
+  
+  var url = apiUrlLocal+PATH_WEBMAIL_READ_FOLDERS;
+  console.log('==SERVICE WEBMAIL== read forlders',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
 
 
 /**

@@ -1,9 +1,7 @@
 angular.module('starter.constants',[])  
 
-//url server local
-
-.constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
-
+// .constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
+.constant('apiUrlLocal', 'http://localhost:8080/bm')
 
 // .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
 
@@ -11,8 +9,7 @@ angular.module('starter.constants',[])
 //url prueba celular
 // .constant('apiUrlLocal', 'http://10.0.0.149:8080/bm')
 
-//path webmail
-.constant('pathWebmail', '/bmapp/Webmail/REST.do')
+
 
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
