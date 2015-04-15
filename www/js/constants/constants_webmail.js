@@ -15,19 +15,27 @@ angular.module('starter.constantsWebmail',[])
 //	FOLDER INBOX
 .constant('FOLDER_INBOX_ID','inboxId')
 .constant('FOLDER_INBOX_NAME','inboxName')
+.constant('FOLDER_INBOX_TYPE','inbox')
 
 //	FOLDER SENT
 .constant('FOLDER_SENT_ID','sentId')
 .constant('FOLDER_SENT_NAME','sendName')
+.constant('FOLDER_SENT_TYPE','sent')
 
 //	FOLDER DRAFT
 .constant('FOLDER_DRAFT_ID','draftId')
 .constant('FOLDER_DRAFT_NAME','draftName')
+.constant('FOLDER_DRAFT_TYPE','draft')
 
 //	FOLDER TRASH
 .constant('FOLDER_TRASH_ID','trashId')
 .constant('FOLDER_TRASH_NAME','trashName')
+.constant('FOLDER_TRASH_TYPE','trash')
 
 //	FOLDER OUTBOX
 .constant('FOLDER_OUTBOX_ID','outboxId')
-.constant('FOLDER_OUTBOX_NAME','outboxName');
+.constant('FOLDER_OUTBOX_NAME','outboxName')
+.constant('FOLDER_OUTBOX_TYPE','outbox')
+
+// DEFAULT TYPE OF CUSTOM FOLDER
+.constant('FOLDER_DEFAULT_TYPE','default');
