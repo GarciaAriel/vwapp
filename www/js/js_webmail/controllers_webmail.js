@@ -87,7 +87,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope._doRefresh = true;  
     };
   });
-  
+
   $scope.doRefresh = function() {
     console.log('==CONTROLLER WEBMAIL== do refresh');
     $scope.page = 1;  
@@ -130,26 +130,28 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($scope, $http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function($scope,$cordovaFileTransfer,$http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
   console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
   $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
   $scope.item = {};
 
+  console.log("+++++++++++detail imageFrom","///"+$stateParams.imageFrom+"///");
+  console.log("+++++++++++detail imageFrom",$stateParams.fromImageId);
   $scope.detail.$promise.then(function (results){
     console.log("==CONTROLLER WEBMAIL==  query detail success OK data: ",results['mainData']);
     $scope.item = (results['mainData'])['entity'];
 
     //SPLIT STRING TO ARRAY CC
     var cc = ((results['mainData'])['entity'])['cc'];
-    $scope.arrayCC = cc.split(',');
-    console.log("primero",$scope.arrayCC);
-
+    $scope.arrayCC = [];
+    $scope.arrayCC.push(cc);
+    
     //SPLIT STRING TO ARRAY BCC
     var bcc = ((results['mainData'])['entity'])['bcc'];
-    $scope.arrayBCC = bcc.split(',');
-    console.log("primero",$scope.arrayBCC);
-
+    $scope.arrayBCC = [];
+    $scope.arrayBCC.push(bcc);
+    
     //SHOW HTML IN VIEW
     // var codigo = ((results['mainData'])['entity'])['body'];
     // $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(codigo);
@@ -172,13 +174,36 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   });
 
+$scope.uploadFile = function(){
+    var fileTransfer = new FileTransfer();
+    var uri = encodeURI("https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg");
+    var filePath = "img/algo.jpeg"
+    fileTransfer.download(
+        uri,
+        filePath,
+        function(entry) {
+            console.log("download complete: " + entry.fullPath);
+        },
+        function(error) {
+            console.log("download error source " + error.source);
+            console.log("download error target " + error.target);
+            console.log("upload error code" + error.code);
+        },
+        false,
+        {
+            headers: {
+                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+            }
+        }
+    );
+
+};
 
 $scope.imageF = function(){
   $scope.imageFrom = "img/user_default.png";
 
-  if ($stateParams.imageFrom.length > 2) {
-    console.log("==== llega entra ifff")
-    $scope.imageFrom = $stateParams.imageFrom;
+  if ($stateParams.imageFrom != null) {
+    $scope.imageFrom = apiUrlLocal+$stateParams.imageFrom+'='+$stateParams.fromImageId;
   }
   return $scope.imageFrom;
 };

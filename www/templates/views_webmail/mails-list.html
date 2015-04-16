@@ -4,7 +4,7 @@
     <ion-refresher pulling-text="Pull to refresh hola..." on-refresh="doRefresh()">
     </ion-refresher>
       <ion-list>
-        <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom='{{item.fromImageUrl}}'">
+        <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
   
           <!-- IF IMAGE DO NOT EXIST-->
 

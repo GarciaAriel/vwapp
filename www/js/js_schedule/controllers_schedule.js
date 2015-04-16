@@ -16,6 +16,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.newAppointments.$promise.then(function (results){
     console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
+
+
+    console.log("asdfasdf",results['mainData']);
     
     //parse to variables PROVISIONAL
     $scope.appointments = [];
@@ -32,8 +35,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         tmpl_path: 'lib/bootstrap-calendar/tmpls/',
         tmpl_cache: false,
         day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
-        time_start: '07:00',
-        time_end: '20:00',
+        time_start: '08:00',
+        time_end: '17:30',
         time_split: '30',
         width: '100%',
         onAfterEventsLoad: function(events)
@@ -243,7 +246,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                  view: _data_date.type_string,
                  tmpl_path: 'lib/bootstrap-calendar/tmpls/',
                  day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
-                 events_source: $scope.appointments
+                 events_source: $scope.appointments,
+                 time_start: '08:00',
+        time_end: '17:30',
+        time_split: '30'
              });
           });//END PROMISE
         $localstorage.setObject('dataDate',_data_date);
