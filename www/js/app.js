@@ -43,7 +43,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       if (rout == false) {
         console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
-        $location.path('/contacts');
+        $location.path('/app');
       }
     // }
   });
@@ -128,6 +128,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Logout: "sortez",
   });
 
-  $translateProvider.preferredLanguage("en");
-  $translateProvider.fallbackLanguage("en");
+  $translateProvider.preferredLanguage("es");
+//  $translateProvider.fallbackLanguage("en");
 });
