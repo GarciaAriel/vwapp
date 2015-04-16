@@ -43,7 +43,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       if (rout == false) {
         console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
-        $location.path('/contacts');
+        $location.path('/app');
       }
     // }
   });

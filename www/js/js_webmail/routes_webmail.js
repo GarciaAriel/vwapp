@@ -7,7 +7,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 // details mail
 
   .state('app.details-mail', {  
-      url: '/mail-detail?mailId&folderId',
+      url: '/mail-detail?mailId&folderId&imageFrom',
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',

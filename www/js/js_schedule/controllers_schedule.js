@@ -10,10 +10,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   //  CALL SERVICES WITH (TYPE AND DATA)
   console.log("==CONTROLLER SCHEDULE== get query list appointments first time");
-  $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+  $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
   //  PROMISE
-  $scope.getAppointments.$promise.then(function (results){
+  $scope.newAppointments.$promise.then(function (results){
     console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
@@ -80,10 +80,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         //CALL SERVICES WITH (TYPE AND DATA)
         console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT function");
-        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+        $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
         //PROMISE
-        $scope.getAppointments.$promise.then(function (results){
+        $scope.newAppointments.$promise.then(function (results){
             //  GET LIST APPOINTMENTS
             console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
@@ -116,9 +116,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         //CALL SERVICES WITH (TYPE AND DATA)
         console.log("==CONTROLLER SCHEDULE== get query list appointments PREV function");
-        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+        $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-        $scope.getAppointments.$promise.then(function (results){
+        $scope.newAppointments.$promise.then(function (results){
             //INTO PROMISE
             console.log("==CONTROLLER SCHEDULE== get query list appointments PREV success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
@@ -225,9 +225,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         
       //CALL SERVICES WITH (TYPE AND DATA)
       console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY function");  
-        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+        $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
           //  PROMISE
-          $scope.getAppointments.$promise.then(function (results){
+          $scope.newAppointments.$promise.then(function (results){
             console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY success OK");    
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
             //parse to variables
@@ -261,9 +261,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         
         //CALL SERVICES WITH (TYPE AND DATA)
         console.log("==CONTROLLER SCHEDULE== get query list appointments change view WEEK function");  
-        $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+        $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-          $scope.getAppointments.$promise.then(function (results){
+          $scope.newAppointments.$promise.then(function (results){
             //INTO PROMISE
             console.log("==CONTROLLER SCHEDULE== get query list appointments change view WEEK success OK");
             $scope.listAppointments = (results['mainData'])['appointmentsList'];

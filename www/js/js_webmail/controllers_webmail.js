@@ -64,11 +64,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 //LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function($scope,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
   $scope.page = 1; 
   $scope.totalPages; 
+  $scope.apiUrlLocal = apiUrlLocal;
 
   $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
   $scope.mailList = [];
@@ -77,7 +78,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.newMailList.$promise.then(function (results){
     console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa",results['mainData']['list']);
     $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
 
     $scope.page = $scope.page;
@@ -88,12 +89,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
   
   $scope.doRefresh = function() {
-    
+    console.log('==CONTROLLER WEBMAIL== do refresh');
     $scope.page = 1;  
     $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
     $scope.newMailList.$promise.then(function (results){
-      console.log("doRefresh",(results['mainData']));
+      console.log("==CONTROLLER WEBMAIL==  query doRefresh success OK data: ",results['mainData']);
       $scope.mailList = ((results['mainData'])['list']).concat($scope.mailList);
       $scope.mailList = (results['mainData'])['list'];
       $scope.$broadcast('scroll.refreshComplete');  
@@ -101,23 +102,25 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
         $scope._doRefresh = true;  
       };  
+      console.log("==CONTROLLER WEBMAIL== list length:",$scope.mailList.length);
     });
   };
 
   $scope.loadMore = function() {
-      console.log('==CONTROLLER WEBMAIL== LOAD MORE');
+      console.log('==CONTROLLER WEBMAIL== load more');
       $scope.page = $scope.page + 1;
       
       console.log("ifff loadMore",$scope.page);
       $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
       $scope.newMails.$promise.then(function(results){
+        console.log("==CONTROLLER WEBMAIL==  query loadMore success OK data: ",results['mainData']);
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
         if ($scope.totalPages<=$scope.page+1) {
           $scope._doRefresh = false;  
         };
-        console.log("tammmmmmmmmm",$scope.mailList.length);
+        console.log("==CONTROLLER WEBMAIL== list length:",$scope.mailList.length);
       });  
     }
   })
@@ -129,16 +132,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 // DETAILS MAIL
 .controller('MailDetailCtrl', function($scope, $http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
-
-
-
-
   console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
   $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
   $scope.item = {};
 
   $scope.detail.$promise.then(function (results){
-    console.log("entraaaaaaXD",(results['mainData'])['entity']);
+    console.log("==CONTROLLER WEBMAIL==  query detail success OK data: ",results['mainData']);
     $scope.item = (results['mainData'])['entity'];
 
     //SPLIT STRING TO ARRAY CC
@@ -173,6 +172,16 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   });
 
+
+$scope.imageF = function(){
+  $scope.imageFrom = "img/user_default.png";
+
+  if ($stateParams.imageFrom.length > 2) {
+    console.log("==== llega entra ifff")
+    $scope.imageFrom = $stateParams.imageFrom;
+  }
+  return $scope.imageFrom;
+};
 
 $scope.toggleGroup = function(group) {
   if ($scope.isGroupShown(group)) {
