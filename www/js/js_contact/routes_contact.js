@@ -23,69 +23,13 @@ angular.module('starter.contactroutes', [])
   
   $stateProvider.state('app.search', {
                 url: '/parameter(contactSearchName)',
-//                templateUrl: 'templates/employee-list.html',
-//                controller: 'EmployeeListCtrl'
+
             })
 
 
 
 
-// $stateProvider.state('app.contact-detail', {
-//     url: '/contact-detail/:index',
-//     views: {
-//     'menuContent': {
-//          templateUrl: 'templates/views_contact/contact-detail.html',
-//          controller: 'ContactDetailCtrl'
-//          resolve: {
-//              persona: function($stateParams, gente){
-//                  return gente.ready.then(function(){
-//                      return gente.list[+$stateParams.index]
-//                      });
-//                  }
-//              }
-//        }
-//      }
-//
-//     });
 
-  // .state('app.contacts', {
-  //     url: '/contacts',
-  //     views: {
-  //       'menuContent': {
-  //         templateUrl: 'templates/views_contact/sub-contacts.html',
-  //         controller: 'ContactsCtrl'
-  //       }
-  //     }
-  //   })
-  //
-  //
-  //    .state('app.contact-detail', {
-  //     url: '/contact/:contactId',
-  //     views: {
-  //       'menuContent': {
-  //         templateUrl: 'templates/views_contact/contact-detail.html',
-  //         controller: 'ContactDetailCtrl'
-  //       }
-  //     }
-  //   })
-
-//  $stateProvider.state('app.contact', {
-//     url: '/contact/:index',
-//     views: {
-//       'menuContent': {
-//     controller: 'ContactDetailCtrl',
-//     templateUrl: 'templates/views_contact/contact.html',
-//     resolve: {
-//       contact: function($stateParams, contacts){
-//             return contacts.ready.then(function(){
-//                 return contacts.list[+$stateParams.index]
-//                 });
-//             }
-//         }
-//         }
-//       }
-//     });
-  
   
 
 $stateProvider.state('app.contact', {

@@ -1,8 +1,8 @@
-<ion-view cache-view="true" view-title="Details">
+<ion-view cache-view="true" view-title="{{ 'Detail' | translate}}">
 
 
 <ion-nav-buttons side="right">
-<!--                <button class="button-icon button-full assertive" ng-click="borrarPersona()">Borrar persona</button>-->
+
 <button class="button" style="border-style: none" ng-click="borrarPersona()">
   <i class="icon ion-trash-a" style="color: #B80808"></i>
 
@@ -14,56 +14,33 @@
 
 <div class="list card">
   <div class="item item-divider" href="#">
-    <h2>Info</h2>
+    <h2></h2>
   </div>
-<!--  <a class="" >-->
-      
-<!--      este es person-->
-          <div class="item item-body"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
-              
-    <div class="item item-thumbnail-left">         
-<img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
-<img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-              </div>
-      
-<!--              <div align="middle">-->
-              <div class="item item-text-righ">
-    <h2>{{contact.mainData.entity.name1}} 
-        {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
-                  </div>
-<!--                  </div>-->
-      </div>
-      <!--este es org -->
-      
-<div class="item item-body" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
+<div class="item item-avatar"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
+    <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
+    <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+    <h2>{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
+  </div>
+
+
+  <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
     <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/org.png" style="width: 80px; height: 80px">
     <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-    <div class="item item-text-righ">
     <h2>{{contact.mainData.entity.name1}}
-        <br>{{contact.mainData.entity.name2}}
-        <br>{{contact.mainData.entity.name3}}</h2>
+      <br>{{contact.mainData.entity.name2}}
+      <br>{{contact.mainData.entity.name3}}</h2>
     </div>
 
-</div>
-      
-      
-      
-<div class="item item-body" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
-    <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
-    <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-    <div class="item item-text-righ">
-    <h2>{{contact.mainData.entity.organizationName}}</h2>
-    <br>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
-    <br>Funtion: {{contact.mainData.entity.function}}
+
+
+    <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
+      <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
+      <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+      <h2>{{contact.mainData.entity.organizationName}}</h2>
+      <br>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+      <br>{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
     </div>
 </div>
-
-
-           <!-- <p>{{contact.funtion}}</p> -->
-           
-<!--         </a>-->
-
-<!--<p style="font-size:130%">-->
 
 
 
@@ -72,94 +49,45 @@
 
        <div class="list card">
          <div class="item item-divider">
-           <h2>Address</h2>
+           <h2>{{ 'Address' | translate}}</h2>
          </div>
          <a class="item item-thumbnail-right" href="#">
-           <!-- <div class="item item-text-wrap"> -->
-           Street: {{contact.mainData.entity.street}}
+           
+           {{ 'Street' | translate}}: {{contact.mainData.entity.street}}
            <br>
-           Zip Code: {{contact.mainData.entity.zip}}
+           {{ 'Zip' | translate}}: {{contact.mainData.entity.zip}}
            <br>
-           city: {{contact.mainData.entity.city}}
+           {{ 'City' | translate}}: {{contact.mainData.entity.city}}
 
            <h1> <span class="badge ion-chevron-right"> </span> </h1>
-           <!-- </div> -->
+           
          </a>
        </div>
 
        <div class="list card">
          <div class="item item-divider">
-           <h2>Communications</h2>
+           <h2>{{ 'Communication' | translate}} {{ 'Info' | translate}}</h2>
          </div>
-         <!-- <a class="item item-thumbnail-right" href="#"> -->
-         <!-- <div class="item item-text-wrap"> -->
+         
          <div class="item item-body">
-<!--
-       <br>
-       {{contact.mainData.entity.telecoms.telecomTypeType}}:{{contact.mainData.entity.telecoms.telecomList.data}}
-     -->
+
      <div ng-repeat="telecom in telecomss">
 
-      <!--             <div>{{telecom.telecomTypeType}}:</div>-->
+      
       <div ng-repeat="tele in telecom.telecomList">
 
-        <div ng-if="telecom.telecomTypeName == 'Phonex'">{{telecom.telecomTypeName}}: <a ng-href="tel:{{tele.data}}">{{tele.data}}</a></div>
-        <div ng-if="telecom.telecomTypeName == 'Email'">{{telecom.telecomTypeName}}: <a ng-href="mailto:{{tele.data}}">{{tele.data}}</a></div>
-        <div ng-if="telecom.telecomTypeName != 'Phonex' && telecom.telecomTypeName != 'Email'">{{telecom.telecomTypeName}}: {{tele.data}}</div>
-        <!-- <a ng-href="tel:{{tele.data}}">{{telecom.telecomTypeName}}: {{tele.data}}</a> -->
+        <div ng-if="telecom.telecomTypeType == 'PHONE'">{{telecom.telecomTypeName}}: <a ng-href="tel:{{tele.data}}">{{tele.data}}</a></div>
+        <div ng-if="telecom.telecomTypeType == 'EMAIL'">{{telecom.telecomTypeName}}: <a ng-href="mailto:{{tele.data}}">{{tele.data}}</a></div>
+        <div ng-if="telecom.telecomTypeType != 'PHONE' && telecom.telecomTypeType != 'EMAIL'">{{telecom.telecomTypeName}}: {{tele.data}}</div>
+       
       </div>
 
     </div>
   </div>
-  <!-- Mail: {{contact.mail}} -->
-  <!-- <br> -->
-  <!-- Site Web: {{contact.siteWeb}} -->
-  <!-- <h1> </span> </h1> -->
-  <!-- </div> -->
-  <!-- </a> -->
+  
 </div>
 
-	<!-- <div class="list card">
-	    <a class="item item-thumbnail-left" href="#">
-	      <img src="{{contact.foto}}">
-	      <h2>Of: {{(contact.of)[0]}}</h2>
-	      <p>{{contact.name}}</p>
-	      <!-- <p>{{contact.funtion}}</p> -->
-	      <!-- <h1> <span class="badge ion-chevron-right"> </span> </h1>
-	    </a>
-	</div>
-
-	<div class="list card">
-	    <div class="item item-divider">
-		    <h2>Address</h2>
-		</div>
-		<a class="item item-thumbnail-right" href="#">
-			<!-- <div class="item item-text-wrap"> -->
-			    <!-- Country: {{contact.country}}
-			    <br>
-			    City: {{contact.city}}
-			    <h1> <span class="badge ion-chevron-right"> </span> </h1>
-			<!-- </div>
-		</a>
-	</div>
-
-	<div class="list card">
-	    <div class="item item-divider">
-		    <h2>Contact</h2>
-		</div>
-		<a class="item item-thumbnail-right" href="#">
-      <div class="item item-text-wrap"> -->
-		    <!-- Phone: {{(contact.numbers)[0]}}
-		    <br>
-		    Cell Phone: {{(contact.numbers)[0]}}
-		    <br>
-		    <!-- Mail: {{contact.mail}} -->
-		    <!-- <br> -->
-		    <!-- Site Web: {{contact.siteWeb}} -->
-		    <!-- <h1> <span class="badge ion-chevron-right"> </span> </h1>
-		</div>
-		</a>
-	</div> -->
+	
 
 </ion-content>
 </ion-view>

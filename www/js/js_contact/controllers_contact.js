@@ -1,26 +1,3 @@
-//angular.module('starter.contactcontrollers', [])
-//
-//// .controller('ContactsCtrl', function($scope, Contacts) {
-////   $scope.contacts = Contacts.all();
-//// })
-//
-//.controller('ContactsCtrl', function($scope, contacts, $ionicLoading){
-//    $scope.contacts = contacts.list;
-//
-//    $scope.addContact = function(){
-//        contacts.add().then(function(){
-//            $scope.$broadcast('scroll.refreshComplete');
-//        });
-//    };
-//
-//    $ionicLoading.show({
-//        template: '<i class="ion-load-c"></i><br/>Cargando...'
-//    });
-//    contacts.ready.then(function(){
-//        $ionicLoading.hide();
-//    });
-//
-//})
 
 
 
@@ -77,63 +54,58 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
     $scope.apiUrlLocal = apiUrlLocal;
 
 
-  //LOADING ICON
-  // $ionicLoading.show({
-  //   template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-  //   animation: 'fade-in',
-  //   noBackdrop: false
-  // })
+
 $scope.showSearchBar = false;
 $scope.apiUrlLocal = apiUrlLocal;
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 $scope.contacts = [];
-//    $scope.pagei= $scope.newContacts['mainData'];
-//    console.log("pagina",$scope.pagei);
 
-console.log("que esta llenando",$scope.newContacts);
+console.log("FIRST CALL",$scope.newContacts);
 $scope.pageini = 1;
 
 $scope.newContacts.$promise.then(function (results){
-  console.log("inicio",(results['mainData']));
-  console.log("==CONTROLLER CONTACTS== LOAD CONTACT FIRST TIME");
+  console.log("THIS INFO",(results['mainData']));
+  
   $scope.contacts = (results['mainData'])['list'];
 
-//      console.log('pagina de llegada',$scope.pagina);
-console.log('lista de contactos',$scope.contacts);
+
+console.log('LIST OF THE FIRST CONTACTS',$scope.contacts);
 $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-console.log("pagina parseada", $scope.page);
-//    $scope.page = $scope.page + 1;
-console.log("esta pagina que hace", $scope.page);
-    // $ionicLoading.hide();
+console.log("page integer", $scope.page);
+
+
+    
   });
-//  };
+
 
 $scope.doRefresh = function() {
 
-//  $scope.page = 1;
+
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.pageini});
 
 $scope.newContacts.$promise.then(function (results){
-  console.log("page doRefresh", $scope.page);
-  $scope.contacts = (results['mainData'])['list'];
+  
+$scope.contacts = (results['mainData'])['list'];
   $scope.$broadcast('scroll.refreshComplete'); 
-  console.log('volvi a la lista de inicio',$scope.pageini);
-    console.log('con estos datos',$scope.contacts);
+  
   $scope.page=1;
-
-  console.log('empezar desde',$scope.pageini);
+    
+    console.log('COMEBACK TO THE FIRST LIST',$scope.pageini);
+    console.log('WITH THIS CONTACTS',$scope.contacts);
+  console.log('PAGE #',$scope.pageini);
 });
 };  
 
 $scope.loadMore = function() {
-  console.log('==CONTROLLER CONTACTS==Loading more');
+  console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
-    console.log("nueva lista de contactos",(results['mainData']));
-    console.log("page  loadMore", $scope.page);
+    console.log("new info",(results['mainData']));
+    console.log("new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
+      console.log("new contacts list ", $scope.contacts);
   });
 };
 
@@ -145,9 +117,6 @@ $scope.getContactUrl = function(item){
 
 
 $scope.searchcon = function(){
-//        
-
-//alert("button searchcon pressed");
 $scope.showSearchBar = !$scope.showSearchBar;
 
 }   
@@ -160,7 +129,7 @@ $scope.showSearchBar = !$scope.showSearchBar;
 $scope.clearSearch = function () {
   $scope.searchKey = "";
   $scope.buscados = Contact.query();
-  console.log("no limpia el texto",$scope.buscados);
+  console.log("clean text",$scope.buscados);
   $scope.showSearchBar = !$scope.showSearchBar;
 }
 
@@ -179,26 +148,27 @@ $scope.search = function () {
                  $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
                 
                  $scope.contacts = (results['mainData'])['list'];
-                  console.log("PRIMERA BUSQUEDA", $scope.contacts);
-                 console.log("INFO 1", results['mainData']);
+                console.log("search info", results['mainData']);
+                  console.log("list  of contacts, first search", $scope.contacts);
+                 
              });
                  
                      
                      
 
-//       $scope.contacts = (results['mainData'])['list'];
+
       
       
       $scope.loadMore = function() {
-          console.log("estoy intentanto cargar mas");
+          console.log("trying to load more of the search");
           if($scope.pag<=$scope.totalpag){    
             $scope.pag=$scope.pag +1;
    $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
   $scope.buscados.$promise.then(function(results){
-    console.log("NUEVA LISTA DE BUSQUEDA",(results['mainData']));
+    console.log("new info for search",(results['mainData']));
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
-      
+      console.log("new list of contacts for search",$scope.contacts);
   });
 }
       };
@@ -210,58 +180,10 @@ $scope.search = function () {
   
                     
      }
-////            $scope.contacts = $scope.contacts.concat($scope.buscados2);
-//            console.log("buscados 2", results);
-//            $scope.$broadcast('scroll.infiniteScrollComplete');
 
 
 
 )
-
-//
-// .controller('ContactsCtrl', function($scope, Contacts) {
-//   $scope.contacts = Contacts.all();
-//   console.log("Controller CONTACTS get all",$scope.contacts);
-//
-
-//
-//   $scope.addper = function(){
-//     alert("button addper pressed");
-//   };
-//
-//   $scope.addcom = function(){
-//     alert("button addcom pressed");
-//   };
-//
-// })
-
-
-
-
-// .controller('ContactDetailCtrl', function($scope, $stateParams, Contacts) {
-//   $scope.contact = Contacts.get($stateParams.contactId);
-// })
-
-
-//.controller('ContactDetailCtrl', function($scope, contact, contacts, $ionicActionSheet){
-//    $scope.contact = contact;
-//        
-////    $scope.borrarPersona = function(){
-////    $ionicActionSheet.show({
-////        destructiveText: 'Delete ' + contact.name.first +" " +contact.name.last,
-////        cancelText: 'Cancel',
-////        destructiveButtonClicked: function(){
-////            contacts.list.splice(contacts.list.indexOf(contact),1);
-////            window.history.back();
-////        }
-////    });
-////    };
-//    
-//    
-//    
-//});
-
-
 
 .controller('ContactCtrl', function($scope, $stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
@@ -277,8 +199,6 @@ $scope.search = function () {
   $scope.contact.$promise.then(function (results){
 
     $scope.contact = results;
-           // console.log("sasasa",((results['mainData'])['entity']).addressId);
-//        $ionicLoading.hide();
 $scope.auxiliar=
 
 $scope.telecomss=results.mainData.entity.telecoms;
@@ -291,18 +211,11 @@ console.log("list of telecoms",$scope.telecomss);
 
   
 
-  console.log("este contacto",$scope.contact);
 
 
 
 
 
-//      $scope.dcontact = $scope.contact((results['mainData'])['entity']);
-//        $scope.info2 = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-//        var prueba = (results['mainData'])['pageInfo']['pageNumber'];
-
-//      $scope.$broadcast('scroll.refreshComplete');  
-//        console.log("DATOS del contacto",$scope.dcontact);
 
 
 

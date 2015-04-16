@@ -1,22 +1,10 @@
-<ion-view view-title="Contacts">
+<ion-view view-title="{{ 'Contacts' | translate}}">
 <ion-nav-buttons side="right">
 
 <button class="button" style="border-style: none" ng-click="searchcon()">
   <i class="icon ion-ios7-search" style="color: #B80808"></i>
 
 
-
-
-<!--
-<div class="bar bar-subheader item-input-inset">
-        <label class="item-input-wrapper">
-            <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" autocorrect="off" >
-            <button class="button button-clear" ng-click="clearSearch()">X</button>
-        </label>
-        <button class="button button-clear" ng-click="search()">Search</button>
-    </div>
-  -->
 
 
 </button>
@@ -29,10 +17,7 @@
 
 </button>
 
-      <!-- <div class="new">
-        <i class="ion-person-add"></i>
-      </div> 
-      <!-- <button id="saveButton" class="ion-person-add"></button> -->
+
     </ion-nav-buttons>
     
     
@@ -40,10 +25,10 @@
     <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
       <span class="item-input-wrapper">
         <i class="icon ion-ios7-search placeholder-icon"></i>
-        <input id="searchKey" type="search" placeholder="Search" ng-model="$parent.searchKey" autocorrect="off" >
+        <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" >
         <button class="button button-clear" ng-click="clearSearch()">X</button>
       </span>
-      <button class="button button-clear" ng-click="search()">Search</button>
+      <button class="button button-clear" ng-click="search()">{{ 'Search' | translate}}</button>
     </div>
 
 
@@ -105,35 +90,7 @@
 <p>{{item.zip}} {{item.cityName}}</p>
 </ion-item>
 
-<!--
-<img ng-src="img/user_default.png" style="width: 64px; height: 64px">
-<span class="item-note"><i class="ion-chevron-right"></i></span>
-<span class="item-note">
-  <div ng-if='item.contactPersonAddressId != ""'>
-    <i class="ion-person" style="color: #0F8E0D">verde</i>
-  </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-</span>
-      
-    
-  <div ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"'>
-    <i class="ion-person-stalker" style="color: #2A5FAF">azul</i>
-  </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-</span>
-      
-    
-  <div ng-if='item.contactPersonAddressId == "" && item.addressType == "1" '>
-    <i class="ion-person" style="color: #B80808">rojo</i>
-  </div>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-      </span>
 
-
-<p>{{item.addressName}}</p>
-<p>{{item.cityName}} {{item.countryCode}} {{item.zip}}</p>
-</ion-item>
--->
 </ion-list>
 
 <ion-infinite-scroll on-infinite="loadMore()">
