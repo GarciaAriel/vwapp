@@ -85,12 +85,13 @@ $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.pageini});
 
 $scope.newContacts.$promise.then(function (results){
   
-
+$scope.contacts = (results['mainData'])['list'];
   $scope.$broadcast('scroll.refreshComplete'); 
-  console.log('COMEBACK TO THE FIRST LIST',$scope.pageini);
-    console.log('WITH THIS CONTACTS',$scope.contacts);
+  
   $scope.page=1;
-
+    
+    console.log('COMEBACK TO THE FIRST LIST',$scope.pageini);
+    console.log('WITH THIS CONTACTS',$scope.contacts);
   console.log('PAGE #',$scope.pageini);
 });
 };  
