@@ -18,7 +18,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
 //mail list in folder
    .state('app.mail-items', {
-      url: '/mail-list/:itemId',
+      url: '/mail-list?pageParam&folderId',
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mails-list.html',
