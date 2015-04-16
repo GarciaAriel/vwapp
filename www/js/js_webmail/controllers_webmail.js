@@ -175,28 +175,22 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
 
 $scope.uploadFile = function(){
-    var fileTransfer = new FileTransfer();
-    var uri = encodeURI("https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg");
-    var filePath = "img/algo.jpeg"
-    fileTransfer.download(
-        uri,
-        filePath,
-        function(entry) {
-            console.log("download complete: " + entry.fullPath);
-        },
-        function(error) {
-            console.log("download error source " + error.source);
-            console.log("download error target " + error.target);
-            console.log("upload error code" + error.code);
-        },
-        false,
-        {
-            headers: {
-                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-            }
-        }
-    );
 
+    var url = "http://cdn.wall-pix.net/albums/art-space/00030109.jpg";
+    var targetPath = "img/testImage.png";
+    var trustHosts = true
+    var options = {};
+
+    $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+      .then(function(result) {
+        // Success!
+      }, function(err) {
+        // Error
+      }, function (progress) {
+        $timeout(function () {
+          $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+        })
+      });
 };
 
 $scope.imageF = function(){
