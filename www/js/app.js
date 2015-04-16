@@ -86,18 +86,34 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: "Log out",
+      Detail: "Detail",
+      Address: "Address",
+      Street: "Street",
+      Zip: "Zip",
+      City: "City",
+      Communication: "Communication",
+      Info: "Info",
+      Search: "Search"
 
   });
   $translateProvider.translations("es", {
     Login: "Ingresar",
     Username: "Usuario",
     Password: "Contraseña",
-    Company: "Compania",
+    Company: "Compañia",
     Menu: "Menu",
     Contacts:   "Contactos",
     Scheduler: "Calendario",
-    Webmail: "Correo",
-    Logout: "Salir",
+    Webmail: "Webmail",
+    Logout: "Salir", 
+    Detail: "Detalle",
+      Address: "Direccion",
+      Street: "Calle",
+      Zip: "Zip",
+      City: "Ciudad",
+      Communication: "Comunicacion",
+      Info: "Info",
+      Search: "Buscar"
   });
 
 
@@ -110,8 +126,17 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menü",
     Contacts:   "Kontakte",
     Scheduler: "Scheduler",
-    Webmail: "Post",
-    Logout: "aussteigen",
+    Webmail: "Webmail",
+    Logout: "Abmelden",
+      
+      Detail: "Allgemein",
+      Address: "Anschrift",
+      Street: "Straße",
+      Zip: "PLZ",
+      City: "Ort",
+      Communication: "Kommunikation",
+      Info: "Info",
+      Search: "Suche"
   });
 
 
@@ -124,10 +149,18 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menu",
     Contacts:   "Contacts",
     Scheduler: "Scheduler",
-    Webmail: "Courrier",
-    Logout: "sortez",
+    Webmail: "Webmail",
+    Logout: " Sortir",
+      Detail: "Détail",
+      Address: "Adresse",
+      Street: "Rue",
+      Zip: "Zip",
+      City: "Ville",
+      Communication: "Communication",
+      Info: "Infos",
+      Search: "Rechercher"
   });
 
-  $translateProvider.preferredLanguage("es");
-//  $translateProvider.fallbackLanguage("en");
+  $translateProvider.preferredLanguage("en");
+  $translateProvider.fallbackLanguage("en");
 });

@@ -1,4 +1,4 @@
-<ion-view cache-view="true" view-title="Details">
+<ion-view cache-view="true" view-title="{{ 'Detail' | translate}}">
 
 
 <ion-nav-buttons side="right">
@@ -14,7 +14,7 @@
 
 <div class="list card">
   <div class="item item-divider" href="#">
-    <h2>Info</h2>
+    <h2></h2>
   </div>
 <div class="item item-avatar"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
     <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
@@ -38,7 +38,7 @@
       <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
       <h2>{{contact.mainData.entity.organizationName}}</h2>
       <br>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
-      <br>Funtion: {{contact.mainData.entity.function}}
+      <br>{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
     </div>
 </div>
 
@@ -49,15 +49,15 @@
 
        <div class="list card">
          <div class="item item-divider">
-           <h2>Address</h2>
+           <h2>{{ 'Address' | translate}}</h2>
          </div>
          <a class="item item-thumbnail-right" href="#">
            
-           Street: {{contact.mainData.entity.street}}
+           {{ 'Street' | translate}}: {{contact.mainData.entity.street}}
            <br>
-           Zip Code: {{contact.mainData.entity.zip}}
+           {{ 'Zip' | translate}}: {{contact.mainData.entity.zip}}
            <br>
-           city: {{contact.mainData.entity.city}}
+           {{ 'City' | translate}}: {{contact.mainData.entity.city}}
 
            <h1> <span class="badge ion-chevron-right"> </span> </h1>
            
@@ -66,7 +66,7 @@
 
        <div class="list card">
          <div class="item item-divider">
-           <h2>Communications</h2>
+           <h2>{{ 'Communication' | translate}} {{ 'Info' | translate}}</h2>
          </div>
          
          <div class="item item-body">
