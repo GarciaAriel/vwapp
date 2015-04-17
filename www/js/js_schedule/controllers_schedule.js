@@ -3,7 +3,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function($scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+  // COLOR DEFAULT
+  $scope.colorFont = COLOR_VIEW;
+
+  // change paragraph text colour to green 
+  $('button').css({"color":COLOR_2});
+  $('view-title').css({"color":COLOR_2});
+  // $('button-positive').css({"color":COLOR_2});
+
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
 
@@ -33,15 +41,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //INIT PROPERTIES FOR CALENDAR
       var options = {
           events_source: $scope.appointments,//function () { return [ { "id" : "3098", "title" : "9 de abril reunion", "location" : "en la puerta de la U", "color" : "#ff9900", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150409", "start" : "1428613200000", "end" : "1428616800000" } , { "id" : "3078-1", "title" : "app todos los viernes 22", "location" : "", "color" : "#CCCCCC", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150410", "start" : "1428705000000", "end" : "1428708600000" } ]; }, //items,//
-          view: 'day',
-          time_start: '08:00',
-          time_end: '17:00',
-          time_split: '30',
-          language: 'es-ES',
           tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+          view: 'month',
+          // language: 'es-ES',
           tmpl_cache: false,
           day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
-          width: '90%',
+          time_split: '60',
+          time_start: '07:00',
+          time_end: '17:30',
+          width: '100%',
           onAfterEventsLoad: function(events)
           {
               if(!events)

@@ -1,8 +1,9 @@
 angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 // CONTROLLER APP
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,colo) {
-  $scope.colo = colo;
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
+  $scope.colorFont = COLOR_VIEW;
+  $('ion-nav-bar').css({"color":COLOR_2});
   //call services data
   // Contacts.all();
   //MailList.all();
