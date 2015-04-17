@@ -19,7 +19,10 @@
 
 <ion-content class="has-subheader">
 
-<div id="calendar"></div>
+  <ion-refresher pulling-text="Pull to refresh hola..." on-refresh="doRefresh()">
+  </ion-refresher>
+
+  <div id="calendar"></div>
 
 </ion-content>
 

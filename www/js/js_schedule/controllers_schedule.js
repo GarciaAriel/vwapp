@@ -55,8 +55,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           tmpl_cache: false,
           day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
           time_split: '60',
-          time_start: '07:00',
-          time_end: '17:30',
           width: '100%',
           onAfterEventsLoad: function(events)
           {
@@ -128,6 +126,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           {
             events_source: $scope.appointments,
             view: _data_date.type_string,
+            time_split: '60',
             tmpl_path: 'lib/bootstrap-calendar/tmpls/',
             day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
 
@@ -166,6 +165,7 @@ $scope.schedulePrev  = function(){
             {
               events_source: $scope.appointments,
               view: _data_date.type_string,
+              time_split: '60',
               tmpl_path: 'lib/bootstrap-calendar/tmpls/',
               day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
 
@@ -205,6 +205,7 @@ $scope.scheduleToday  = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
@@ -241,6 +242,7 @@ $scope.dataScheduleMonth = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
@@ -281,11 +283,44 @@ $scope.dataScheduleDay = function()    {
                   tmpl_path: 'lib/bootstrap-calendar/tmpls/',
                   day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
                   events_source: $scope.appointments,
-                  time_start: '08:00',
-                  time_end: '17:30',
-                  time_split: '30'
+                  time_split: '60'
                 });
           });//END PROMISE
+};
+
+$scope.doRefresh = function() {
+    //GET OBJECT OF LOCAL STORAGE
+    var _data_date = $localstorage.getObject('dataDate');
+
+    //CALL SERVICES WITH (TYPE AND DATA)
+    console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
+    $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+    //  PROMISE
+    $scope.newAppointments.$promise.then(function (results){
+      console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
+      $scope.listAppointments = (results['mainData'])['appointmentsList'];
+
+        //parse to variables
+        $scope.appointments = [];
+        angular.forEach($scope.listAppointments, function (appointment) {
+          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+          $scope.appointments.push(change);
+        });
+
+        $scope.$broadcast('scroll.refreshComplete');  
+
+        //LOAD OPTIONS TO CALENDAR
+        console.log("list semana",$scope.appointments);
+        var calendar = $("#calendar").calendar(
+        {
+         view: _data_date.type_string,
+         time_split: '60',
+         tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+         day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+         events_source: $scope.appointments
+       });
+    });//END PROMISE
 };
 
 $scope.dataScheduleWekk = function(){
@@ -319,12 +354,14 @@ $scope.dataScheduleWekk = function(){
             var calendar = $("#calendar").calendar(
             {
              view: 'week',
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
            });
         });//END PROMISE
 };
-}
 
-);
+
+
+});
