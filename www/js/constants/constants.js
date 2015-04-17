@@ -6,7 +6,11 @@ angular.module('starter.constants',[])
 
 //.constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
 
+
 //.constant('apiUrlLocal', 'http://192.168.1.8:8080/bm')
+
+// .constant('apiUrlLocal', 'http://192.168.1.8:8080/bm')
+
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
 // .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
@@ -21,7 +25,9 @@ angular.module('starter.constants',[])
 .constant('pathSchedule', '/bmapp/Appointment/REST.do')
 
 //color view
-.constant('colo','color: #B80808')
+.constant('COLOR_VIEW','color: #2FA71A')
+.constant('COLOR_2','#2FA71A')
+// .constant('COLOR_VIEW','color: #1A36A7')
 
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do')
