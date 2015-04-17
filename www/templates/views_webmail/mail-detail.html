@@ -6,9 +6,10 @@
         <div class="list card">
             
           <div ng:bind="customHtml">{{item.body}}  </div>  
+          
 
           <div class="item item-avatar">
-            <img src="https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg">
+            <img ng-src={{imageF()}} style="width: 64px; height: 64px">
             <span class="item-note">{{item.sentDate}} </span>
             <h2>From: {{item.mailFrom}}</h2>
             <p>To: {{item.to}}</p>
@@ -17,6 +18,11 @@
           <div  class="item item-body">
             <div>
               <p>    Subject: {{item.mailSubject}}  </p>
+
+              <button ng-if="item.attachmentArray.length > '0'" ng-click="downloadFile()" class="button button-clear button-light">
+                <i class="icon ion-paperclip"> {{item.attachmentArray[0].fileName}}</i>  
+              </button>
+
             </div>
 
             <div ng-if="arrayCC[0] != '' ">
@@ -33,7 +39,9 @@
                   <ion-item class="item-accordion"
                             ng-repeat="ite in arrayCC"
                             ng-show="isGroupShown(arrayCC)">
-                    {{ite}}
+                    
+                    <textarea>{{ite}}</textarea>
+  
                   </ion-item>
                 </div>  
                 
@@ -52,7 +60,7 @@
                 <ion-item class="item-accordion"
                           ng-repeat="ite in arrayBCC"
                           ng-show="isGroupShown(arrayBCC)">
-                  {{ite}}
+                  <textarea>{{ite}}</textarea>
                 </ion-item>
               </p>  
             </div>
@@ -62,9 +70,9 @@
 
         
         <div ng-if="item.bodyType != '2' " class="card">
-          Detail: 
-          <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
-          <!-- <div ng-bind-html="item.htmlBodyUrl"></div> -->
+          Detail:
+            <div class="container-fluid" auto-scroll ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
+            
         </div>
         <div ng-if="item.bodyType != '1' " class="card">
           Detail:
