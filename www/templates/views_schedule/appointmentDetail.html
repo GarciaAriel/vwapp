@@ -1,0 +1,57 @@
+<ion-view view-title="appointment">
+<ion-nav-buttons side="right">
+
+<button class="button" style="border-style: none" ng-click="searchcon()">
+  <i class="icon ion-ios7-search" style="color: #B80808"></i>
+
+
+
+
+</button>
+<button class="button" style="border-style: none" data-ng-click="addper()">
+  <i class="icon ion-person-add" style="color: #B80808"></i>
+
+</button>
+<button class="button"style="border-style: none" data-ng-click="addcom()">
+  <i class="icon ion-person-stalker" style="color: #B80808"></i>
+
+</button>
+
+
+    </ion-nav-buttons>
+    
+    
+    
+    
+
+
+
+
+
+
+    <ion-content>
+
+
+    
+
+  <ion-list ng-repeat="item in appointments">
+
+  <ion-item>
+  <h2>{{item.title}}</h2>
+     <p>{{item.start | date:'medium'}}</p>
+       <p>{{item.end | date:'medium'}}</p>
+       <p>{{item.body}}</p>
+  
+</ion-item>
+      
+      
+
+
+</ion-list>
+        
+       <li><% data-event-id="<%= event.id %>" %></data-event-id></li>
+
+
+</ion-content>
+</ion-view>
+

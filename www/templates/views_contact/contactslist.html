@@ -42,7 +42,7 @@
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
   </ion-refresher>
 
-  <ion-list ng-repeat="item in contacts" >
+  <ion-list ng-repeat="item in contacts">
 
   <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
   <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
