@@ -49,10 +49,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices'],function
 
 
 
-.controller('ContactsCtrl', function($scope, Contact,$timeout,$ionicLoading,apiUrlLocal) {
+.controller('ContactsCtrl', function($scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal) {
     
     $scope.apiUrlLocal = apiUrlLocal;
-
+    $scope.colorFont = COLOR_VIEW;
 
 
 $scope.showSearchBar = false;
@@ -191,8 +191,9 @@ $scope.search = function () {
 
 )
 
-.controller('ContactCtrl', function($scope, $stateParams, Contact,apiUrlLocal) {
+.controller('ContactCtrl', function($scope,COLOR_VIEW, $stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
 
   console.log("param1", $stateParams.contactId);
   console.log("param2", $stateParams.addressId);

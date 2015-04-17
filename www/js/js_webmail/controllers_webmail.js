@@ -3,13 +3,15 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 /**
  * CONTROLLER FOLDERS
  */
-.controller('MailsCtrl', function($scope,Webmal_read_forlders,colo,PATH_WEBMAIL_READ_FOLDERS,
+.controller('MailsCtrl', function($scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
   FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,FOLDER_DRAFT_ID,
   FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,FOLDER_OUTBOX_NAME,
   FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE,
   FOLDER_DEFAULT_TYPE) {
+
   // COLOR DEFAULT
-  $scope.colo = colo;
+  $scope.colorFont = COLOR_VIEW;
+  // $('icon').css({"color":COLOR_2});
   
   //  CALL SERVICES WEBMAIL FOLDERS
   console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
@@ -44,6 +46,45 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     });
 
   });
+
+  $scope.doRefresh = function() {
+    $scope.folders = [];
+    //  CALL SERVICES WEBMAIL FOLDERS
+    console.log("==CONTROLLER WEBMAIL== do refresh FOLDERS");
+    $scope.newFolders = Webmal_read_forlders.query();
+
+    // PROMISE
+    $scope.newFolders.$promise.then(function (results){
+      console.log("==CONTROLLER WEBMAIL== get query refresh list FOLDERS success OK",results['mainData']);
+      var data = ((results['mainData'])['systemFolders']);
+
+      // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
+      var object_folder_inbox = {folderId: data[FOLDER_INBOX_ID],folderName:data[FOLDER_INBOX_NAME],type:FOLDER_INBOX_TYPE};
+      var object_folder_sent = {folderId: data[FOLDER_SENT_ID],folderName:data[FOLDER_SENT_NAME],type:FOLDER_SENT_TYPE};
+      var object_folder_draft = {folderId: data[FOLDER_DRAFT_ID],folderName:data[FOLDER_DRAFT_NAME],type:FOLDER_DRAFT_TYPE};
+      var object_folder_trash = {folderId: data[FOLDER_TRASH_ID],folderName:data[FOLDER_TRASH_NAME],type:FOLDER_TRASH_TYPE};
+      var object_folder_outbox = {folderId: data[FOLDER_OUTBOX_ID],folderName:data[FOLDER_OUTBOX_NAME],type:FOLDER_OUTBOX_TYPE};
+      
+      //  PUSH OBJECT
+      $scope.folders.push(object_folder_inbox);
+      $scope.folders.push(object_folder_sent);
+      $scope.folders.push(object_folder_draft);
+      $scope.folders.push(object_folder_trash);
+      $scope.folders.push(object_folder_outbox);
+
+      //  PUSH CUSTOM FOLDERS
+      var custom_folders = ((results['mainData'])['customFolderArray']);    
+      custom_folders.forEach(function(folder) {
+        var custom_folder = folder;
+        custom_folder["type"] = FOLDER_DEFAULT_TYPE;
+        $scope.folders.push(custom_folder);
+      });
+
+      $scope.$broadcast('scroll.refreshComplete');  
+
+    });
+    
+  };
   
   //  RETURN CLASS ICON OF FOLDER
   $scope.getClassImage = function(item){
@@ -74,13 +115,18 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // MAILLISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function($scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+  // COLOR DEFAULT
+  $scope.colorFont = COLOR_VIEW;
+
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
   // NUMBER PAGE EQUAL 1 -- TOTAL PAGES 
   $scope.page = 1; 
   $scope.totalPages; 
   $scope.apiUrlLocal = apiUrlLocal;
+
+
 
   //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
   console.log("==CONTROLLER WEBMAIL== get query list mails first time");
@@ -190,8 +236,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             error(function(data, status, headers, config) {
               // or server returns response with an error status.
             });
-        }
-        else{
         }
     });
 

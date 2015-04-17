@@ -36,7 +36,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function($scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+  // COLOR DEFAULT
+  $scope.colorFont = COLOR_VIEW;
+
+  // change paragraph text colour to green 
+  $('button').css({"color":COLOR_2});
+  $('view-title').css({"color":COLOR_2});
+  // $('button-positive').css({"color":COLOR_2});
+
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
 
@@ -68,15 +76,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //INIT PROPERTIES FOR CALENDAR
     var options = {
           events_source: $scope.appointments,//function () { return [ { "id" : "3098", "title" : "9 de abril reunion", "location" : "en la puerta de la U", "color" : "#ff9900", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150409", "start" : "1428613200000", "end" : "1428616800000" } , { "id" : "3078-1", "title" : "app todos los viernes 22", "location" : "", "color" : "#CCCCCC", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150410", "start" : "1428705000000", "end" : "1428708600000" } ]; }, //items,//
-          view: 'day',
-          time_start: '08:00',
-          time_end: '17:00',
-          time_split: '30',
-          language: 'es-ES',
           tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+          view: 'month',
+          // language: 'es-ES',
           tmpl_cache: false,
           day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
-          width: '90%',
+          time_split: '60',
+          width: '100%',
           onAfterEventsLoad: function(events)
           {
             if(!events)
@@ -147,6 +153,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           {
             events_source: $scope.appointments,
             view: _data_date.type_string,
+            time_split: '60',
             tmpl_path: 'lib/bootstrap-calendar/tmpls/',
             day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
 
@@ -185,6 +192,7 @@ $scope.schedulePrev  = function(){
             {
               events_source: $scope.appointments,
               view: _data_date.type_string,
+              time_split: '60',
               tmpl_path: 'lib/bootstrap-calendar/tmpls/',
               day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
 
@@ -224,6 +232,7 @@ $scope.scheduleToday  = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
@@ -260,6 +269,7 @@ $scope.dataScheduleMonth = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
@@ -300,11 +310,44 @@ $scope.dataScheduleDay = function()    {
                   tmpl_path: 'lib/bootstrap-calendar/tmpls/',
                   day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
                   events_source: $scope.appointments,
-                  time_start: '08:00',
-                  time_end: '17:30',
-                  time_split: '30'
+                  time_split: '60'
                 });
           });//END PROMISE
+};
+
+$scope.doRefresh = function() {
+    //GET OBJECT OF LOCAL STORAGE
+    var _data_date = $localstorage.getObject('dataDate');
+
+    //CALL SERVICES WITH (TYPE AND DATA)
+    console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
+    $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+    //  PROMISE
+    $scope.newAppointments.$promise.then(function (results){
+      console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
+      $scope.listAppointments = (results['mainData'])['appointmentsList'];
+
+        //parse to variables
+        $scope.appointments = [];
+        angular.forEach($scope.listAppointments, function (appointment) {
+          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+          $scope.appointments.push(change);
+        });
+
+        $scope.$broadcast('scroll.refreshComplete');  
+
+        //LOAD OPTIONS TO CALENDAR
+        console.log("list semana",$scope.appointments);
+        var calendar = $("#calendar").calendar(
+        {
+         view: _data_date.type_string,
+         time_split: '60',
+         tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+         day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+         events_source: $scope.appointments
+       });
+    });//END PROMISE
 };
 
 $scope.dataScheduleWekk = function(){
@@ -338,12 +381,14 @@ $scope.dataScheduleWekk = function(){
             var calendar = $("#calendar").calendar(
             {
              view: 'week',
+             time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
              events_source: $scope.appointments
            });
         });//END PROMISE
 };
-}
 
-);
+
+
+});
