@@ -19,7 +19,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   //  PROMISE
 
-  $scope.getAppointments.$promise.then(function (results){
+  $scope.newAppointments.$promise.then(function (results){
     console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
