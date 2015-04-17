@@ -14,11 +14,11 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
   })
   
   .state('app.schedulerDetail', {
-    url: "/schedulerDetail",
+    url: "/schedulerDetail?appointmentId",
     views: {
       'menuContent': {
         templateUrl: "templates/views_schedule/appointmentDetail.html",
-        controller: "ControlSchedule"
+        controller: "ControlScheduleDetail"
       }
     }
   })
