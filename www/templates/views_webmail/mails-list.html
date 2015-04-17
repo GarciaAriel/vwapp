@@ -4,7 +4,7 @@
     <ion-refresher pulling-text="Pull to refresh hola..." on-refresh="doRefresh()">
     </ion-refresher>
       <ion-list>
-        <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}">
+        <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
   
           <!-- IF IMAGE DO NOT EXIST-->
 
@@ -20,33 +20,33 @@
             <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
           </div> -->
 
-          <img ng-src="img/user_default.png" style="width: 64px; height: 64px">
-          
+          <img ng-if="item.fromImageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
+          <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
           <span class="item-note">
-            <div>{{item.sentDateTime}}</div>
-            
-            <div ng-if="item.hasReadState == 'true' ">
-              <button class="button button-clear button-positive">
+              <div>
+                {{item.sentDateTime}}
+              </div>
+              
+              <button ng-if="item.hasReadState == 'true' " class="button button-clear button-positive">
                 <i class="icon ion-checkmark-circled"></i>
               </button>
-            </div>
-            <div ng-if="item.hasReadState == 'false' ">
-              <button class="button button-clear button-light">
+
+              <button ng-if="item.hasReadState == 'false' " class="button button-clear button-light">
                 <i class="icon ion-checkmark-circled"></i>    
               </button>
-            </div>
+
+              <button ng-if="item.hasAttach == '1'" class="button button-clear button-light">
+                <i class="icon ion-paperclip"></i>  
+              </button>
           </span>
 
           <h2>{{item.mailToFrom}}</h2>
           <p>{{item.subject}}</p>
         </ion-item>
       </ion-list>
-      <!-- immediate-check="false" -->
-      <!-- ng-if="questions.len" -->
+      
       <ion-infinite-scroll ng-if="_doRefresh" immediate-check="false" on-infinite="loadMore()" distance="1%">
-    </ion-infinite-scroll>  
+      </ion-infinite-scroll>  
+
   </ion-content>
 </ion-view>
-
-<!-- para ver el detalle de mail por el momento no -->
-<!-- <ion-item class="item-avatar" ng-repeat="item in mailList" type="item-text-wrap" href="#/app/mail-detail/{{item.folder}}/{{item.id}}" > -->

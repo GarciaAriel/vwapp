@@ -1,12 +1,13 @@
 angular.module('starter.scheduleservices', [])
 
+//SERVICE RESOURCE QUERY
 .factory('scheduleService', function($resource,apiUrlLocal,pathSchedule) {
   var url = apiUrlLocal+pathSchedule;
   console.log('==SERVICE SCHEDULE== URL',url);
   return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
 })
 
-//LOAD OBJECT 'dataDate' 
+// SERVICE TO HELP LOAD OBJECT 'dataDate' AND CHANGE DAY TODAY
 .factory('Load_variable_date', function(SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
   return{
     setData: function(){
@@ -32,27 +33,20 @@ angular.module('starter.scheduleservices', [])
       $localstorage.setObject('dataDate',_data_date);    
     }
   }
-  
-  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
 })
 
-
-
+//  HELP SERVICE TO NEXT OR ANT IN DAY, WEEK AND MONTH
 .factory('schedule_calculate_Next_Ant', function($localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY) {
   return{
     go: function(tipo) {
       var _data_date = $localstorage.getObject('dataDate');
       var _data;
       var _type;
-      //  create Date with current view calendar
+      
       var _current_date = new Date(parseInt(_data_date.yyyyc),parseInt(_data_date.mmc)-1,parseInt(_data_date.ddc));
       var _tomorrow = new Date(_current_date);
 
-      // tomorrow.setDate(_current_date.getDate()+20);
-      // console.log("next dayssssss XD",tomorrow);
-      
-      
-
+      // CHECK THE TYPE
       switch(_data_date.type) {
           case SCHEDULE_TYPE_MONTH:
               //month next or ant
@@ -99,7 +93,7 @@ angular.module('starter.scheduleservices', [])
               break;
           case SCHEDULE_TYPE_DAY:
               //  date current add week or 7 day
-              _tomorrow.setDate(_current_date.getDate()+(7*tipo));
+              _tomorrow.setDate(_current_date.getDate()+tipo);
 
               // save year
               var _new_year = _tomorrow.getFullYear();
@@ -132,7 +126,7 @@ angular.module('starter.scheduleservices', [])
   }
 })
 
-
+// HELP SERVICE LOCAL STORAGE
 .factory('$localstorage', ['$window', function($window) {
   return {
     set: function(key, value) {

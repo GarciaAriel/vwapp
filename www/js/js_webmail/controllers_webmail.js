@@ -1,6 +1,8 @@
 angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter.constantsWebmail'])
 
-//FOLDERS WEBMILS 
+/**
+ * CONTROLLER FOLDERS
+ */
 .controller('MailsCtrl', function($scope,Webmal_read_forlders,colo,PATH_WEBMAIL_READ_FOLDERS,
   FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,FOLDER_DRAFT_ID,
   FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,FOLDER_OUTBOX_NAME,
@@ -13,8 +15,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
   $scope.newFolders = Webmal_read_forlders.query();
   $scope.folders = [];
+
+  // PROMISE
   $scope.newFolders.$promise.then(function (results){
-    console.log("==CONTROLLER WEBMAIL== get query list FOLDERS success OK");
+    console.log("==CONTROLLER WEBMAIL== get query list FOLDERS success OK",results['mainData']);
     var data = ((results['mainData'])['systemFolders']);
 
     // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
@@ -43,61 +47,84 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   
   //  RETURN CLASS ICON OF FOLDER
   $scope.getClassImage = function(item){
-    var response = "icon ion-folder";
+    var response;
     var value = item.type;
 
-    if (value == FOLDER_INBOX_TYPE) {
-      response = "icon ion-filing";}
-    if (value == FOLDER_SENT_TYPE) {
-      response = "icon ion-paper-airplane";}
-    if (value == FOLDER_DRAFT_TYPE){
-      response = "icon ion-briefcase";}
-    if (value == FOLDER_TRASH_TYPE){
-      response = "icon ion-trash-b";}  
-    if (value == FOLDER_OUTBOX_TYPE){
-      console.log("entraaaaaaXD");
-      response = "icon ion-ios7-box";}  
-    
+    switch (value) {
+        case FOLDER_INBOX_TYPE:
+            response = "icon ion-filing";
+            break;
+        case FOLDER_SENT_TYPE:
+            response = "icon ion-paper-airplane";;
+            break;
+        case FOLDER_DRAFT_TYPE:
+            response = "icon ion-briefcase";;
+            break;    
+        case FOLDER_TRASH_TYPE:
+            response = "icon ion-trash-b";;
+            break;    
+        case FOLDER_OUTBOX_TYPE:
+            response = "icon ion-ios7-box";;
+            break;            
+        default:
+            response = "icon ion-folder"
+    }
     return response;
   };
-
 })
 
-//LIST MAILS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+// MAILLISTS IN FORDER (REFRESH / LOADMORE)
+.controller('MailsListCtrl',function($scope,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   console.log('==CONTROLLER WEBMAIL== STARTING');
 
+  // NUMBER PAGE EQUAL 1 -- TOTAL PAGES 
   $scope.page = 1; 
   $scope.totalPages; 
+  $scope.apiUrlLocal = apiUrlLocal;
 
+  //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+  console.log("==CONTROLLER WEBMAIL== get query list mails first time");
   $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
   $scope.mailList = [];
+
+  // REFRESH FALSE IF THERE ARE NOT MORE MAILS
   $scope._doRefresh = false;
 
+  // PROMISE
   $scope.newMailList.$promise.then(function (results){
-    console.log('==CONTROLLER WEBMAIL== LOADING FIRST TIME');
-    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    
-    $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
+      console.log('==CONTROLLER WEBMAIL== get query list mails success OK',results['mainData']);
+      
+      //  SAVE PAGE NUMBER
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
 
-    $scope.page = $scope.page;
-    $scope.mailList = (results['mainData'])['list'];
-    if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
-      $scope._doRefresh = true;  
-    };
+      // SAVE TOTAL PAGES
+      $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
+
+      // RECOVER LIST MAIL FOR VIEW
+      $scope.mailList = (results['mainData'])['list'];
+
+      // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
+      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
+          $scope._doRefresh = true;  
+      };
   });
-  
+
   $scope.doRefresh = function() {
-    
-    $scope.page = 1;  
+    $scope.page = 1; 
+
+    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+    console.log('==CONTROLLER WEBMAIL== do refresh');
     $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
+    // PROMISE
     $scope.newMailList.$promise.then(function (results){
-      console.log("doRefresh",(results['mainData']));
-      $scope.mailList = ((results['mainData'])['list']).concat($scope.mailList);
+      console.log("==CONTROLLER WEBMAIL==  query doRefresh success OK data: ",results['mainData']);
+
+      //  MAIL LIST
       $scope.mailList = (results['mainData'])['list'];
       $scope.$broadcast('scroll.refreshComplete');  
 
+      
       if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
         $scope._doRefresh = true;  
       };  
@@ -105,142 +132,97 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   };
 
   $scope.loadMore = function() {
-      console.log('==CONTROLLER WEBMAIL== LOAD MORE');
       $scope.page = $scope.page + 1;
-      
-      console.log("ifff loadMore",$scope.page);
+
+      //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+      console.log('==CONTROLLER WEBMAIL== load more');
       $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
+      // PROMISE
       $scope.newMails.$promise.then(function(results){
+        console.log("==CONTROLLER WEBMAIL==  query loadMore success OK data: ",results['mainData']);
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        // REFRESH = FALSE IF TOTAL PAGES <= PAGE ACTUAL ++
         if ($scope.totalPages<=$scope.page+1) {
           $scope._doRefresh = false;  
         };
-        console.log("tammmmmmmmmm",$scope.mailList.length);
       });  
     }
   })
 
-
-
-
-
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($scope, $http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function($scope,$cordovaFileTransfer,$http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
+    console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
+    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+    $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
+    $scope.item = {};
 
+    // PROMISE
+    $scope.detail.$promise.then(function (results){
+        console.log("==CONTROLLER WEBMAIL==  query detail success OK data: ",results['mainData']);
+        $scope.item = (results['mainData'])['entity'];
 
-
-  console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
-  $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
-  $scope.item = {};
-
-  $scope.detail.$promise.then(function (results){
-    console.log("entraaaaaaXD",(results['mainData'])['entity']);
-    $scope.item = (results['mainData'])['entity'];
-
-    //SPLIT STRING TO ARRAY CC
-    var cc = ((results['mainData'])['entity'])['cc'];
-    $scope.arrayCC = cc.split(',');
-    console.log("primero",$scope.arrayCC);
-
-    //SPLIT STRING TO ARRAY BCC
-    var bcc = ((results['mainData'])['entity'])['bcc'];
-    $scope.arrayBCC = bcc.split(',');
-    console.log("primero",$scope.arrayBCC);
-
-    //SHOW HTML IN VIEW
-    // var codigo = ((results['mainData'])['entity'])['body'];
-    // $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(codigo);
-
-    // this callback will be called asynchronously
-    if (results['mainData']['entity']['bodyType'] == BODY_TYPE_HTML) {
-      var newurl = results['mainData']['entity']['htmlBodyUrl']
-      $http.get(apiUrlLocal+newurl).
-      success(function(data, status, headers, config) {
-        $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
-          // when the response is available
-        }).
-      error(function(data, status, headers, config) {
-        // or server returns response with an error status.
-      });
-    }
-    else{
-    }
+        //SPLIT STRING TO ARRAY CC
+        var cc = ((results['mainData'])['entity'])['cc'];
+        $scope.arrayCC = [];
+        $scope.arrayCC.push(cc);
+      
+        //SPLIT STRING TO ARRAY BCC
+        var bcc = ((results['mainData'])['entity'])['bcc'];
+        $scope.arrayBCC = [];
+        $scope.arrayBCC.push(bcc);
+      
     
+        // this callback will be called asynchronously
+        // CALL HTML BODY
+        if (results['mainData']['entity']['bodyType'] == BODY_TYPE_HTML) {
+            var newurl = results['mainData']['entity']['htmlBodyUrl']
+            $http.get(apiUrlLocal+newurl).
 
-  });
+            success(function(data, status, headers, config) {
+              $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
+                // when the response is available
+              }).
+            error(function(data, status, headers, config) {
+              // or server returns response with an error status.
+            });
+        }
+        else{
+        }
+    });
 
+    // DOWNLOAD FILE
+    $scope.downloadFile = function() {
+      console.log('clicked DOWNLOAD FILE button');
+      var fileTransfer = new FileTransfer();
+    };
 
-$scope.toggleGroup = function(group) {
-  if ($scope.isGroupShown(group)) {
-    $scope.shownGroup = null;
-  } else {
-    $scope.shownGroup = group;
-  }
-};
-$scope.isGroupShown = function(group) {
-  return $scope.shownGroup === group;
-};
+    // URL IMAGE
+    $scope.imageF = function(){
+      $scope.imageFrom = "img/user_default.png";
+
+      if ($stateParams.imageFrom != null) {
+        $scope.imageFrom = apiUrlLocal+$stateParams.imageFrom+'='+$stateParams.fromImageId;
+      }
+      return $scope.imageFrom;
+    };
+
+    // ACORDEON HELP
+    $scope.toggleGroup = function(group) {
+      if ($scope.isGroupShown(group)) {
+        $scope.shownGroup = null;
+      } else {
+        $scope.shownGroup = group;
+      }
+    };
+
+    // ACORDEON HELP
+    $scope.isGroupShown = function(group) {
+      return $scope.shownGroup === group;
+    };
 
 });
-
-
-//aaaaaaaaaaaaaaaaaaaaaaaaaa lista de mails en un fordel
-// .controller('MailsListCtrl', function($scope, $stateParams, MailLoadBD) {
-//   $scope.mailList = MailLoadBD.all($stateParams.itemId);
-//   $scope.nameList = (($scope.mailList)[0].folder);
-
-//   console.log("Controller WEBMAIL list mails",$scope.mailList);
-
-// })
-
-
-
-
-// .controller("indexController", function($scope) {
-//     $scope.vm = {
-//         caption: 'angular is here',
-//         isBlockVisible: false,
-//         toggle: function() {
-//             this.isBlockVisible = !this.isBlockVisible;
-//         }
-//     };
-// });
-
-
-
-// .controller("ExampleController", function($scope, $cordovaSQLite) {
-
-//     $scope.insert = function(firstname, lastname) {
-//         console.log("call insert function with: "+firstname+lastname);
-//         var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
-//         $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function(res) {
-//             console.log("INSERT ID -> " + res.insertId);
-//             console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-//         }, function (err) {
-//             console.log("nooooooooooooooooooooooooooooooooooooooooooooooo");
-//             console.error(err);
-//         });
-//     }
-
-//     $scope.select = function(lastname) {
-//         console.log("call select function with: "+ lastname);
-//         var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
-//         $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
-//             if(res.rows.length > 0) {
-
-//                 console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);
-//                 console.log("siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-//             } else {
-//                 console.log("nooooooooooooooooooooooooooooooooooooooooooooooo");
-//                 console.log("No results found");
-//             }
-//         }, function (err) {
-//             console.error(err);
-//         });
-//     }
-
-// });
