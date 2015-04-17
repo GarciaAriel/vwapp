@@ -4,8 +4,8 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-// details mail
 
+  // ROUTE MAIL DETAIL
   .state('app.details-mail', {  
       url: '/mail-detail?mailId&folderId&imageFrom&fromImageId',
       views: {
@@ -14,10 +14,10 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
           controller: 'MailDetailCtrl'
         }
       }
-    })
+  })
 
-//mail list in folder
-   .state('app.mail-items', {
+  //  ROUTE MAILLIST IN ANY FOLDER
+  .state('app.mail-items', {
       url: '/mail-list?pageParam&folderId',
       views: {
         'menuContent': {
@@ -25,9 +25,9 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
           controller: 'MailsListCtrl'
         }
       }
-    })
+  })
 
-   //folders mails route
+   // ROUTE LIST FOLDERS
    .state('app.mailboxes', {
       url: '/mailboxes',
       views: {
@@ -37,7 +37,6 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
         }
       }
     })
-
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

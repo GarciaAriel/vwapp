@@ -19,7 +19,7 @@
             <div>
               <p>    Subject: {{item.mailSubject}}  </p>
 
-              <button ng-if="item.attachmentArray.length > '0'" ng-click="uploadFile()" class="button button-clear button-light">
+              <button ng-if="item.attachmentArray.length > '0'" ng-click="downloadFile()" class="button button-clear button-light">
                 <i class="icon ion-paperclip"> {{item.attachmentArray[0].fileName}}</i>  
               </button>
 
