@@ -20,8 +20,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //parse to variables PROVISIONAL
     $scope.appointments = [];
     angular.forEach($scope.listAppointments, function (appointment) {
-        var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'https://www.youtube.com/'};
+        var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
         $scope.appointments.push(change);
+        console.log("THIS ARE THE APPOINTMENTS",$scope.appointments);
     });
 
     //INIT PROPERTIES FOR CALENDAR
@@ -91,7 +92,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
             //LOAD OPTIONS TO CALENDAR
@@ -126,7 +127,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
             
@@ -163,7 +164,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
-          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
           $scope.appointments.push(change);
         });
         
@@ -198,7 +199,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
             
@@ -233,7 +234,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
             
@@ -270,7 +271,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
+                var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
 

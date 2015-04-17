@@ -59,6 +59,7 @@ $scope.showSearchBar = false;
 $scope.apiUrlLocal = apiUrlLocal;
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 $scope.contacts = [];
+   
 
 console.log("FIRST CALL",$scope.newContacts);
 $scope.pageini = 1;
@@ -71,8 +72,9 @@ $scope.newContacts.$promise.then(function (results){
 
 console.log('LIST OF THE FIRST CONTACTS',$scope.contacts);
 $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
 console.log("page integer", $scope.page);
-
+console.log("pagesin total", $scope.pagetotal);
 
     
   });
@@ -93,10 +95,12 @@ $scope.contacts = (results['mainData'])['list'];
     console.log('COMEBACK TO THE FIRST LIST',$scope.pageini);
     console.log('WITH THIS CONTACTS',$scope.contacts);
   console.log('PAGE #',$scope.pageini);
+    
 });
 };  
 
 $scope.loadMore = function() {
+    
   console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
@@ -106,8 +110,9 @@ $scope.loadMore = function() {
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
       console.log("new contacts list ", $scope.contacts);
+      
   });
-};
+    };
 
 $scope.getContactUrl = function(item){
 
@@ -169,6 +174,7 @@ $scope.search = function () {
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
       console.log("new list of contacts for search",$scope.contacts);
+      
   });
 }
       };
@@ -199,7 +205,7 @@ $scope.search = function () {
   $scope.contact.$promise.then(function (results){
 
     $scope.contact = results;
-$scope.auxiliar=
+
 
 $scope.telecomss=results.mainData.entity.telecoms;
 console.log("list of telecoms",$scope.telecomss);
