@@ -18,7 +18,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
   //  PROMISE
-<<<<<<< HEAD
+
   $scope.getAppointments.$promise.then(function (results){
     console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
@@ -30,19 +30,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         $scope.appointments.push(change);
         console.log("THIS ARE THE APPOINTMENTS",$scope.appointments);
     });
-=======
-  $scope.newAppointments.$promise.then(function (results){
-      console.log("==CONTROLLER SCHEDULE== get query list appointments success OK",results['mainData']);
-      $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
-      
-      //parse to variables PROVISIONAL
-      $scope.appointments = [];
-      angular.forEach($scope.listAppointments, function (appointment) {
-          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'https://www.youtube.com/'};
-          $scope.appointments.push(change);
-      });
->>>>>>> f637afc1e46861957d6153b269da11082499862d
 
     //INIT PROPERTIES FOR CALENDAR
       var options = {
@@ -190,21 +178,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             console.log("==CONTROLLER SCHEDULE== get query list appointments TODAY success OK",results['mainData']);    
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
-<<<<<<< HEAD
+
         //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
           $scope.appointments.push(change);
         });
-=======
-            //parse to variables
-            $scope.appointments = [];
-            angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
-              $scope.appointments.push(change);
-            });
->>>>>>> f637afc1e46861957d6153b269da11082499862d
+
         
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
@@ -264,7 +245,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         _data_date.data =  _data_date.yyyyc+_data_date.mmc+_data_date.ddc;
         $localstorage.setObject('dataDate',_data_date);
         
-<<<<<<< HEAD
+
       //CALL SERVICES WITH (TYPE AND DATA)
       console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY function");  
         $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
@@ -278,22 +259,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
                 var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'};
                 $scope.appointments.push(change);
             });
-=======
-        //CALL SERVICES WITH (TYPE AND DATA)
-        console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY function");  
-        $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
-            //  PROMISE
-            $scope.newAppointments.$promise.then(function (results){
-                console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY success OK");    
-                $scope.listAppointments = (results['mainData'])['appointmentsList'];
-                
-                //parse to variables
-                $scope.appointments = [];
-                angular.forEach($scope.listAppointments, function (appointment) {
-                    var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location};
-                    $scope.appointments.push(change);
-                });
->>>>>>> f637afc1e46861957d6153b269da11082499862d
+
             
                 //LOAD OPTIONS TO CALENDAR
                 var calendar = $("#calendar").calendar({
