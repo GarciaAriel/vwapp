@@ -1,19 +1,8 @@
-<ion-view view-title="appointment">
+<ion-view view-title="Appointment Detail">
 <ion-nav-buttons side="right">
 
-<button class="button" style="border-style: none" ng-click="searchcon()">
-  <i class="icon ion-ios7-search" style="color: #B80808"></i>
-
-
-
-
-</button>
-<button class="button" style="border-style: none" data-ng-click="addper()">
-  <i class="icon ion-person-add" style="color: #B80808"></i>
-
-</button>
 <button class="button"style="border-style: none" data-ng-click="addcom()">
-  <i class="icon ion-person-stalker" style="color: #B80808"></i>
+  <i class="icon ion-gear-a" style="color: #B80808"></i>
 
 </button>
 
@@ -21,35 +10,33 @@
     </ion-nav-buttons>
     
     
-    
-    
-
-
-
-
-
-
     <ion-content>
 
-
-    
-
-  <ion-list ng-repeat="item in appointments">
-
-  <ion-item>
-  <h2>{{item.title}}</h2>
-     <p>{{item.start | date:'medium'}}</p>
-       <p>{{item.end | date:'medium'}}</p>
-       <p>{{item.body}}</p>
   
-</ion-item>
-      
-      
+         
+ <div class="list card">
+         <div class="item item-divider">
+           <h1>{{tareas.mainData.entity.title}}</h1>
+         </div>
+         <a class="item item-thumbnail-right" href="#">
+             
+             
+             <h2 ng-repeat="t in tipolist" ng-if="t.appointmentTypeId == appoid">Type: {{t.name}}</h2>
+                <br>
+        <h2 ng-repeat="p in prioridades" ng-if="p.priorityId == prid">Priority: {{p.name}}</h2>
+        <br>                                                                                                                    <h2>Start date: {{tareas.mainData.entity.startDateTime | date:'medium'}}</h2>
+           <br>
+           <h2>End Date: {{tareas.mainData.entity.endDateTime | date:'medium'}} </h2>
+             <br>
+             <h2>Location: {{tareas.mainData.entity.location}} </h2>
+           
 
-
-</ion-list>
+<!--           <h1> <span class="badge ion-chevron-right"> </span> </h1>-->
+           
+         </a>
+       </div>
         
-       <li><% data-event-id="<%= event.id %>" %></data-event-id></li>
+<!--       <li><% data-event-id="<%= event.id %>" %></data-event-id></li>-->
 
 
 </ion-content>

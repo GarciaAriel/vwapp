@@ -1,8 +1,35 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 
-.controller('ControlScheduleDetail', function($scope, $stateParams) {
-  console.log("appointmentId", $stateParams.appointmentId);
+.controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule) {
+    $scope.pathSchedule = pathSchedule;
+    
+    console.log("appointmentId", $stateParams.appointmentId);
+    
+    
+    $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
+
+  $scope.taskcall.$promise.then(function (results){
+
+    $scope.tareas = results;
+      $scope.prioridades = (results['mainData'])['priorityArray'];
+      $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
+      $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
+        $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
+      
+      console.log("ALL ABOUT DETAIL, not editable",$scope.tareas);
+//      console.log("priority list",$scope.prioridades);
+//      console.log("priority id",$scope.prid);
+//      console.log("appointmentTypeArray",$scope.tipolist);
+//      console.log("appointmentTypeId",$scope.appoid);
+
+
+
+
+})
+    
+    
+  
   
 
 })
