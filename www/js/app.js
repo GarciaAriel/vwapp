@@ -93,7 +93,25 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       City: "City",
       Communication: "Communication",
       Info: "Info",
-      Search: "Search"
+      Search: "Search",
+      Previous: "Previous",
+      Today: "Today",
+      Next: "Next",
+      Month: "Month",
+      Week: "Week",
+      Day: "Day",
+      AppointmentDetail: "Appointment Detail",
+      Title: "Title",
+      Type: "Type",
+      Priority: "Priority",
+      StartDate: "Start Date",
+    Thisisanalldayappointment: "This is an all day appointment", 
+      EndDate: "End Date",
+      Recurrent: "Recurrent",
+      Location: "Location",
+      Reminder: "Reminder",
+      Private: "Private"
+      
 
   });
   $translateProvider.translations("es", {
@@ -113,7 +131,24 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       City: "Ciudad",
       Communication: "Comunicacion",
       Info: "Info",
-      Search: "Buscar"
+      Search: "Buscar",
+      Previous: "Anterior",
+      Today: "Hoy",
+      Next: "Siguiente",
+      Month: "Mes",
+      Week: "Semana",
+      Day: "Dia",
+      AppointmentDetail: "Detalle de Evento",
+      Title: "Titulo",
+      Type: "Tipo",
+      Priority: "Prioridad",
+      StartDate: "Fecha de inicio",
+    Thisisanalldayappointment: " Evento de todo el día ", 
+      EndDate: "Fecha de finalización",
+      Recurrent: "Recurrente",
+      Location: "Localización",
+      Reminder: "Recordatorio",
+      Private: "Privado"
   });
 
 
@@ -125,10 +160,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Company: "Firma",
     Menu: "Menü",
     Contacts:   "Kontakte",
-    Scheduler: "Scheduler",
+    Scheduler: "Termine",
     Webmail: "Webmail",
-    Logout: "Abmelden",
-      
+    Logout: "Abmelden", 
       Detail: "Allgemein",
       Address: "Anschrift",
       Street: "Straße",
@@ -136,7 +170,24 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       City: "Ort",
       Communication: "Kommunikation",
       Info: "Info",
-      Search: "Suche"
+      Search: "Suche",
+      Previous: "früher",
+      Today: "heute",
+      Next: "nächster",
+      Month: "Monat",
+      Week: "Woche",
+      Day: "Tag",
+      AppointmentDetail: "Termin Allgemein",
+      Title: "Termin",
+      Type: "Terminart",
+      Priority: "Priorität",
+     StartDate: "Beginn",
+    Thisisanalldayappointment: "ganztägig", 
+      EndDate: "Ende",
+      Recurrent: "Wiederkehrender Termin",
+      Location: "Ort",
+      Reminder: "Erinnerung ",
+      Private: "Privat"
   });
 
 
@@ -158,7 +209,26 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       City: "Ville",
       Communication: "Communication",
       Info: "Infos",
-      Search: "Rechercher"
+      Search: "Rechercher",
+      Previous: "précédent",
+      Today: "aujourd'hui",
+      Next: "suivant",
+      Month: "Mois",
+      Week: "Semaine",
+      Day: "Jour",
+      AppointmentDetail: "Événement Détail",
+      Title: "Titre",
+      Type: "Tipy",
+      Priority: "Priorité",
+      StartDate: "Date de début",
+    Thisisanalldayappointment: "Événement de toute la journée", 
+      EndDate: "Fin de date",
+      Recurrent: "Récurrent(e)",
+      Location: "Localisation",
+      Reminder: "Rappel",
+      Private: "Privé"
+      
+      
   });
 
   $translateProvider.preferredLanguage("en");
