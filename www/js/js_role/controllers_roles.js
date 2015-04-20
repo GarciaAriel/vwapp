@@ -54,7 +54,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         {
           AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
           $scope.closeLogin();
-          $state.go('app');
+          $state.go('app.contacts');
         }
         else
         {

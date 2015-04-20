@@ -1,7 +1,7 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 
-.controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule) {
+.controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
     
     console.log("appointmentId", $stateParams.appointmentId);
@@ -28,6 +28,24 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 })
     
+  
+  
+    $scope.conf = function(){
+        
+        
+    $ionicActionSheet.show({
+       buttons: [
+       
+       { text: 'Edit' }
+        ],
+        destructiveText: 'Delete ',
+        cancelText: 'Cancel',
+        destructiveButtonClicked: function(){
+//            contacts.list.splice(contacts.list.indexOf(contact),1);
+//            window.history.back();
+        }
+    });
+    };
     
   
   

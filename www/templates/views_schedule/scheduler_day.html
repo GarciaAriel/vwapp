@@ -7,11 +7,11 @@
 
   <div class="button-bar">
 
-    <button class="button button-outline button-positive" ng-click="schedulePrev()"><< Previous</button>
+    <button class="button button-outline button-positive" ng-click="schedulePrev()">{{ 'Previous' | translate}}</button>
 
-    <button class="button button-outline button-positive" ng-click="scheduleToday()" >Today</button>
+    <button class="button button-outline button-positive" ng-click="scheduleToday()" >{{ 'Today' | translate}}</button>
 
-    <button class="button button-outline button-positive" ng-click="scheduleNext()">Next >></button>
+    <button class="button button-outline button-positive" ng-click="scheduleNext()">{{ 'Next' | translate}}</button>
 
   </div>
 
@@ -28,10 +28,10 @@
 
 <div class="bar bar-footer bar-light">
   <div class="button-bar">
-    <button class="button button-outline button-positive" ng-click="dataScheduleMonth()" >Month</button>
+    <button class="button button-outline button-positive" ng-click="dataScheduleMonth()" >{{ 'Month' | translate}}</button>
     <button class="button button-outline button-positive" ng-click="dataScheduleWekk()" >
-Week</button>
-    <button class="button button-outline button-positive" ng-click="dataScheduleDay()" >Day</button>
+{{ 'Week' | translate}}</button>
+    <button class="button button-outline button-positive" ng-click="dataScheduleDay()" >{{ 'Day' | translate}}</button>
   </div>
 </div>
 
