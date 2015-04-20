@@ -22,7 +22,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 })
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function (LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http) {
+.controller('LoginController', function ($window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     $scope.data = {};
@@ -58,13 +58,16 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         }
         else
         {
-          console.log("error login");
-          // $state.previous = '/login';
+          
           var alertPopup = $ionicPopup.alert({
-                title: 'aaaLog on, Failed!',
-                template: 'aaaPlease check your credentials!'
-            });
-
+             title: 'Log on, Failed!',
+             template: 'Please check your credentials!'
+           });
+          // $state.previous = 'login';
+          // $ionicLoading.hide();
+          
+          $state.go('login');
+          // $window.location.reload(true)
         }
       }).
       error(function(data, status, headers, config) {

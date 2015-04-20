@@ -4,16 +4,11 @@ angular.module('starter.constants',[])
 
 //.constant('apiUrlLocal', 'http://localhost:8080/bm')
 
-//.constant('apiUrlLocal', 'http://192.168.1.3:8080/bm')
-
-
-//.constant('apiUrlLocal', 'http://192.168.1.8:8080/bm')
-
 // .constant('apiUrlLocal', 'http://192.168.1.8:8080/bm')
 
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
-// .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
+// .constant('apiUrlLocal', 'http://10.0.0.101:8080/bm')
 
 //url prueba celular
 // .constant('apiUrlLocal', 'http://10.0.0.149:8080/bm')
