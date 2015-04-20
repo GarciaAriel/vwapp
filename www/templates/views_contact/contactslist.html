@@ -93,7 +93,7 @@
 
 </ion-list>
 
-<ion-infinite-scroll on-infinite="loadMore()">
+<ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
 </ion-infinite-scroll>
 
 </ion-content>
