@@ -17,12 +17,12 @@
 
           <div  class="item item-body">
             <div>
-              <p>    Subject: {{item.mailSubject}}  </p>
-
-              <button ng-if="item.attachmentArray.length > '0'" ng-click="downloadFile()" class="button button-clear button-light">
-                <i class="icon ion-paperclip"> {{item.attachmentArray[0].fileName}}</i>  
-              </button>
-
+              <p> Subject: {{item.mailSubject}} </p>
+              <div ng-repeat="attach in item.attachmentArray">
+                <button ng-click="download(attach.fileName);" class="button button-clear button-light">
+                  <i class="icon ion-paperclip"> {{attach.fileName}}</i>  
+                </button>
+              </div>
             </div>
 
             <div ng-if="arrayCC[0] != '' ">
