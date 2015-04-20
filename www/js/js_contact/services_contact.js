@@ -1,5 +1,5 @@
 
-angular.module('starter.contactservices', ['ngResource'])
+angular.module('starter.contactservices', [])
 
 .factory('Contact', function ($resource,apiUrlLocal,pathContact) {
 	var url = apiUrlLocal+pathContact;

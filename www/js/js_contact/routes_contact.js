@@ -1,5 +1,5 @@
 
-angular.module('starter.contactroutes', [])
+angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
 
 .config(function($stateProvider, $urlRouterProvider) {
