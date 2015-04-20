@@ -21,6 +21,17 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
       controller: 'logoutController'
   })
 
+  
+  // .state('app.dos', {
+  //   url: '/dos',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/startPage.html',
+  //       controller: 'dos'
+  //     }
+  //   }
+  // })
+
   .state('app', {
     url: "/app",
     templateUrl: "templates/menu.html",
