@@ -22,15 +22,15 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
   })
 
   
-  .state('app.dos', {
-    url: '/dos',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/startPage.html',
-        controller: 'dos'
-      }
-    }
-  })
+  // .state('app.dos', {
+  //   url: '/dos',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/startPage.html',
+  //       controller: 'dos'
+  //     }
+  //   }
+  // })
 
   .state('app', {
     url: "/app",

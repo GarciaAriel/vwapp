@@ -9,7 +9,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
 
   // enumerate routes that user can see 
-  var routesForUser = ["/appdos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out"];
+  var routesForUser = ["/dos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out"];
 
   // VALIDATE THE CURRENT RUOTE
   var validateRoute = function (route) {
@@ -43,7 +43,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       if (rout == false) {
         console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
         ev.preventDefault();
-        $location.path('/app');
+        $location.path('/login');
       }
     // }
   });

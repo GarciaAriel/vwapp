@@ -23,9 +23,9 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 
-.controller('dos', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
-  $scope.nada = [];
-})
+// .controller('dos', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
+//   $scope.nada = []
+// })
 
 //  CONTROLLER LOGIN
 .controller('LoginController', function ($window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
@@ -72,7 +72,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           // $state.previous = 'login';
           // $ionicLoading.hide();
           
-          $state.go('/appdos');
+          $state.go('/app.contact');
           // $window.location.reload(true)
         }
       }).
