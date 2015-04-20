@@ -240,9 +240,63 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     });
 
     // DOWNLOAD FILE
-    $scope.downloadFile = function() {
-      console.log('clicked DOWNLOAD FILE button');
-      var fileTransfer = new FileTransfer();
+    $scope.download = function(fileName) {
+      var newItem = fileName;
+        console.log("===================================================");
+        console.log("nombree:","--"+newItem);
+        // $ionicLoading.show({
+        //   template: 'Loading...'
+        // });
+
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs,newItem) {
+            fs.root.getDirectory(
+                "BMapp",
+                {
+                    create: true
+                },
+                function(dirEntry,newItem) {
+                    console.log("1===================================================");
+                    dirEntry.getFile(
+                        newItem.fileName, 
+                        {
+                            create: true, 
+                            exclusive: false
+                        }, 
+                        function gotFileEntry(fe,newItem) {
+                            console.log("2===================================================");
+                            var p = fe.toURL();
+                            fe.remove();
+                            ft = new FileTransfer();
+                            ft.download(
+                                // encodeURI("http://ionicframework.com/img/ionic-logo-blog.png"),
+                                encodeURI(apiUrlLocal+newItem.downloadUrl),
+                                
+                                p,
+                                function(entry) {
+                                    // $ionicLoading.hide();
+                                    $scope.imgFile = entry.toURL();
+                                },
+                                function(error) {
+                                    // $ionicLoading.hide();
+                                    alert("Download Error Source -> " + error.source);
+                                },
+                                false,
+                                null
+                            );
+                        }, 
+                        function() {
+                            // $ionicLoading.hide();
+                            console.log("Get file failed");
+                        }
+                    );
+                }
+            );
+        },
+        function() {
+            // $ionicLoading.hide();
+            console.log("Request for filesystem failed");
+        });
+        //
     };
 
     // URL IMAGE
