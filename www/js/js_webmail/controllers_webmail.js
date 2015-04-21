@@ -198,8 +198,22 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     }
   })
 
+// NEW MAIL 
+.controller('NewMail',function($scope,COLOR_VIEW){
+  $scope.colorFont = COLOR_VIEW;
+
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+
+})
+
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($scope,$cordovaFileTransfer,$http,$sce, $stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function($scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
     console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
@@ -241,9 +255,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // DOWNLOAD FILE
     $scope.download = function(attach) {
-        // $ionicLoading.show({
-        //   template: 'Loading...'
-        // });
+        $ionicLoading.show({
+          template: 'Donwloading...'
+        });
 
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
             fs.root.getDirectory(
@@ -265,16 +279,19 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                             fe.remove();
                             ft = new FileTransfer();
                             ft.download(
-                                // encodeURI("http://ionicframework.com/img/ionic-logo-blog.png"),
                                 encodeURI(apiUrlLocal+attach.downloadUrl),
                                 
                                 p,
                                 function(entry) {
-                                    // $ionicLoading.hide();
+                                    $ionicLoading.hide();
                                     $scope.imgFile = entry.toURL();
+                                    var alertPopup = $ionicPopup.alert({
+                                       title: 'Donwloaded',
+                                       template: 'Please check your folder BMapp!'
+                                     });
                                 },
                                 function(error) {
-                                    // $ionicLoading.hide();
+                                    $ionicLoading.hide();
                                     alert("Download Error Source -> " + error.source);
                                 },
                                 false,

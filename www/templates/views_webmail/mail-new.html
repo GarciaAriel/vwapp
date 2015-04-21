@@ -1,0 +1,54 @@
+<ion-view view-title="New">
+
+  <ion-nav-buttons side="right">
+
+    <button class="button" style="border-style: none" ng-click="searchcon()">
+      <i class="icon ion-paperclip" style="{{colorFont}}"></i>
+    </button>
+
+    <button class="button"style="border-style: none" >
+      <i class="icon ion-android-send" style="{{colorFont}}"></i>
+    </button>  
+    
+
+  </ion-nav-buttons>
+  
+  <ion-content>
+    <form ng-submit="submit()">
+      <div class="list">
+
+        <label class="item item-input">
+          <span class="input-label">From:</span>
+          <input type="text">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">To:</span>
+          <input type="password">
+        </label>
+
+        <label class="item item-input">
+          <input type="text" placeholder="Subject">
+        </label>
+
+        <label class="item item-input">
+          <input type="text" placeholder="Cc">
+        </label>
+
+        <label class="item item-input">
+          <input type="text" placeholder="Bcc">
+        </label>
+        
+        <label class="item item-input">
+          <textarea placeholder="Detail" style="height:200px; width:600px" ></textarea>  
+        </label>
+
+        
+      </div>
+    </form>
+  </ion-content>
+
+</ion-view>
+
+
+
