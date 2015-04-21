@@ -18,11 +18,13 @@
           <div  class="item item-body">
             <div>
               <p> Subject: {{item.mailSubject}} </p>
+
               <div ng-repeat="attach in item.attachmentArray">
-                <button ng-click="download(attach.fileName);" class="button button-clear button-light">
-                  <i class="icon ion-paperclip"> {{attach.fileName}}</i>  
+                <button ng-click="download(attach)" class="button button-clear button-light">
+                  <i class="icon ion-paperclip">{{attach.fileName}}</i>
                 </button>
               </div>
+
             </div>
 
             <div ng-if="arrayCC[0] != '' ">
