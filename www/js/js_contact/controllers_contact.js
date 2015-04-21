@@ -44,6 +44,9 @@ console.log("pages in total", $scope.pagesintotal);
 
 $scope.doRefresh = function() {
     $scope.page=1;
+    $scope.searchKey = "";
+    $scope.pag = 1;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
 
 
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
@@ -53,6 +56,9 @@ $scope.newContacts.$promise.then(function (results){
 $scope.contacts = (results['mainData'])['list'];
     $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
   $scope.$broadcast('scroll.refreshComplete'); 
+    
+     $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
   
   
     

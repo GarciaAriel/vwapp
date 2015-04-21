@@ -3,15 +3,27 @@
 </ion-header-bar> -->
 
 <ion-view view-title="{{real_date_view}}">
-<div class="bar bar-subheader bar-light">
+    
+    <ion-nav-buttons side="right">
+
+<button class="button" style="border-style: none" ng-click="newevent()">
+  <i class="icon ion-edit" style="{{colorFont}}"></i>
+
+
+</button>
+
+    </ion-nav-buttons>
+    
+    
+<div class="bar bar-subheader">
 
   <div class="button-bar">
 
-    <button class="button button-outline button-positive" ng-click="schedulePrev()">{{ 'Previous' | translate}}</button>
+    <button class="button icon-left ion-chevron-left button-clear button-dark" ng-click="schedulePrev()"></button>
 
-    <button class="button button-outline button-positive" ng-click="scheduleToday()" >{{ 'Today' | translate}}</button>
+    <button class="button button-clear button-dark" ng-click="scheduleToday()" >{{ 'Today' | translate}}</button>
 
-    <button class="button button-outline button-positive" ng-click="scheduleNext()">{{ 'Next' | translate}}</button>
+    <button class="button icon-right ion-chevron-right button-clear button-dark" ng-click="scheduleNext()"></button>
 
   </div>
 
@@ -26,12 +38,12 @@
 
 </ion-content>
 
-<div class="bar bar-footer bar-light">
+<div class="bar bar-footer">
   <div class="button-bar">
-    <button class="button button-outline button-positive" ng-click="dataScheduleMonth()" >{{ 'Month' | translate}}</button>
-    <button class="button button-outline button-positive" ng-click="dataScheduleWekk()" >
+    <button class="button button-full button-light" ng-click="dataScheduleMonth()">{{ 'Month' | translate}}</button>
+    <button class="button button-full button-light" ng-click="dataScheduleWekk()" >
 {{ 'Week' | translate}}</button>
-    <button class="button button-outline button-positive" ng-click="dataScheduleDay()" >{{ 'Day' | translate}}</button>
+    <button class="button button-full button-light" ng-click="dataScheduleDay()" >{{ 'Day' | translate}}</button>
   </div>
 </div>
 
