@@ -199,16 +199,17 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   })
 
 // NEW MAIL 
-.controller('NewMail',function($scope,COLOR_VIEW){
+.controller('NewMail',function($stateParams,$scope,COLOR_VIEW){
+  $scope.data = {};
   $scope.colorFont = COLOR_VIEW;
 
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
-    }
-  };
+  $scope.sendMail = function() {
+    console.log('send data', $scope.data);
+    // var mailAccountId = $scope.data.mailAccountId;
+    // var to = $scope.data.to;
+    // console.log("mailAccountId",mailAccountId);
+    // console.log("to",to);
+  }
 
 })
 
@@ -236,7 +237,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope.arrayBCC = [];
         $scope.arrayBCC.push(bcc);
       
-    
         // this callback will be called asynchronously
         // CALL HTML BODY
         if (results['mainData']['entity']['bodyType'] == BODY_TYPE_HTML) {

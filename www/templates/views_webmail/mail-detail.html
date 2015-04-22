@@ -1,8 +1,8 @@
 <ion-view view-title="Detail">
-  <ion-content>
+  <ion-content >
 
-    <ion-slide-box active-slide="myActiveSlide">
-      <ion-slide>
+    <!-- <ion-slide-box active-slide="myActiveSlide"> -->
+      <!-- <ion-slide> -->
         <div class="list card">
             
           <div ng:bind="customHtml">{{item.body}}  </div>  
@@ -73,9 +73,13 @@
         
         <div ng-if="item.bodyType != '2' " class="card">
           Detail:
-            <div class="container-fluid" auto-scroll ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
-            
+          
+          <ion-scroll zooming="true" direction="xy" style="width: 400px; height: 400px">
+            <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
+          </ion-scroll>
+ 
         </div>
+
         <div ng-if="item.bodyType != '1' " class="card">
           Detail:
           <textarea>
@@ -84,8 +88,8 @@
           
         </div>
         
-      </ion-slide>
-    </ion-slide-box>
+      <!-- </ion-slide> -->
+    <!-- </ion-slide-box> -->
 
     </ion-content>
 </ion-view>
