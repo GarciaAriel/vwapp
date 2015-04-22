@@ -1,4 +1,5 @@
 <ion-view view-title="{{ 'Contacts' | translate}}">
+
 <ion-nav-buttons side="right">
 
 <button class="button" style="border-style: none" ng-click="searchcon()">
@@ -8,11 +9,12 @@
 
 
 </button>
-<button class="button" style="border-style: none" ng-click="createp()">
+<!-- createp() -->
+<button class="button disabled" style="border-style: none" ng-click="#">
   <i class="icon ion-person-add" style="{{colorFont}}"></i>
 
 </button>
-<button class="button"style="border-style: none" data-ng-click="addcom()">
+<button class="button disabled"style="border-style: none" data-ng-click="addcom()">
   <i class="icon ion-person-stalker" style="{{colorFont}}"></i>
 
 </button>
