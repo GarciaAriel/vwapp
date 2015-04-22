@@ -1,0 +1,173 @@
+
+<ion-view view-title="new person">
+  <ion-content>
+      
+<!--
+       <ion-list>
+          
+        <div ng-repeat="group in groups">
+          <ion-item class="item-stable" ng-click="toggleGroup(group) "ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            Group {{group.name}}
+          </ion-item>
+          <ion-item class="item-accordion"
+                    ng-repeat="item in group.items"
+                    ng-show="isGroupShown(group)">
+            {{item}}
+          </ion-item>
+        </div>
+      </ion-list>
+-->
+
+    <form >
+        
+      
+        
+        <div class="list">
+<!--            style="height:15px"-->
+          <div class="item item-divider">About</div>
+            
+            <label class="item item-input item-select">
+        <div class="input-label">
+          Salutation
+        </div>
+        <select style="border: solid">
+<!--                        style="border-right-style: solid; border-top-style: solid-->
+          <option>s1</option>
+          <option selected>s2</option>
+          <option>s3</option>
+        </select>
+           
+      </label>
+            <label class="item item-input item-select">
+        <div class="input-label">
+          Tittle
+        </div>
+        <select>
+<!--            style="border-right-style: solid; border-top-style: solid-->
+          <option>t1</option>
+          <option>t2</option>
+          <option selected>t3</option>
+        </select>
+           
+      </label>
+      
+ 
+            
+            <label class="item item-input">
+        <div class="input-label">Last name</div>
+        <input type="text" placeholder="last name" ng-model="data.lastname" name="lastname" required="required" validated>
+        <i class="icon ion-alert-circled error"></i>
+      </label>
+           
+        <label class="item item-input-inset">
+        <div class="input-label">First name</div>
+          <input type="text" placeholder="first name" ng-model="data.firstname">
+        </label>
+               
+
+            <label class="item item-input item-select">
+        <div class="input-label">Country</div>
+        <select>
+          <option>c1</option>
+          <option selected>c2</option>
+          <option>c3</option>
+        </select>
+      </label>
+          
+          <label class="item item-input">
+              <div class="input-label">zip</div>
+            <input type="text" placeholder="zip" ng-model="data.zip">
+        </label>
+            
+            <label class="item item-input item-select">
+        <div class="input-label">City</div>
+        <select>
+          <option>cc1</option>
+          <option selected>cc2</option>
+          <option>cc3</option>
+        </select>
+      </label>
+            
+          <label class="item item-input">
+              <div class="input-label">Street</div>
+            <input type="text" placeholder="Street" ng-model="data.street"><input type="text" placeholder="Number" ng-model="data.number">
+        </label>
+        
+           <label class="item item-input">
+               <div class="input-label">Keywords</div>
+            <input type="text" placeholder="Keywords" ng-model="data.Keywords">
+        </label>
+          <label class="item item-input">
+              <div class="input-label">Education</div>
+            <input type="text" placeholder="Education" ng-model="data.Education">
+        </label>
+          
+          
+           <label class="item item-input item-select">
+        <div class="input-label">Language</div>
+        <select>
+          <option>test1</option>
+          <option>test2</option>
+          <option>test3</option>
+        </select>
+      </label>
+          
+          <label class="item item-input">
+              <div class="input-label">Birthday</div>
+            <input type="text" placeholder="Birthday" ng-model="data.Birthday">
+        </label>
+          
+          
+          
+<!--
+     <label class="item item-input">
+         <div class="input-label">Contact type</div>
+        <input type="checkbox"><div class="input-label">customer</div><input type="checkbox">&nbsp;<div class="input-label">suplier</div>
+     </label>
+--> <div class="item item-divider">customer type</div>
+     
+            <label class="item item-toggle">
+        Customer
+        <label class="toggle toggle-assertive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </label>
+  
+            <label class="item item-toggle">
+        suplier
+        <label class="toggle toggle-assertive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </label>
+          
+           
+         <label class="item item-toggle">
+        Status
+        <label class="toggle toggle-assertive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </label>
+          
+
+<!--
+        <label class="item">
+          <button class="button button-full button-positive" style="background-color: #B80808;border-color: #B80808"  ng-click="doLogin()">{{ 'Login' | translate}}</button>
+        </label>
+-->
+
+      </div>
+    </form>
+
+  </ion-content>
+</ion-view>
