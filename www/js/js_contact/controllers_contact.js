@@ -3,7 +3,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('ContactsCtrl', function($scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal) {
+.controller('ContactsCtrl', function($scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -174,16 +174,27 @@ $scope.search = function () {
       };
     
 }
-            
-       
+
+
+
+
+ $scope.createp = function() {
+      /* $location.path('/tab/newpost'); */   /* this variant doesnt work */
+     
+     
+     
+//      $window.location.href = '/newperson';
     
-  
-                    
-     }
+     console.log("go to create person");
+      $state.go('app.newperson'); 
+    };
+                            
+     })
 
 
 
-)
+
+
 
 .controller('ContactCtrl', function($scope,COLOR_VIEW, $stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
@@ -205,22 +216,101 @@ $scope.search = function () {
 $scope.telecomss=results.mainData.entity.telecoms;
 console.log("list of telecoms",$scope.telecomss);
 
-
-
 });
 
 
-  
+})
 
 
 
+.controller('newpCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
 
-
-
-
-
-
-
+    
+    $scope.groups = [];
+  for (var i=0; i<10; i++) {
+    $scope.groups[i] = {
+      name: i,
+      items: []
+    };
+    for (var j=0; j<3; j++) {
+      $scope.groups[i].items.push(i + '-' + j);
+    }
+  }
+    
+    $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+    
+//     $scope.createp = function() {
+//      /* $location.path('/tab/newpost'); */   /* this variant doesnt work */
+//      $state.go("/app/newperson"); 
+//    };
+    
+//    $scope.data = {};
+//
+//    $ionicModal.fromTemplateUrl('templates/login.html', {
+//      scope: $scope
+//    }).then(function(modal) {
+//      $scope.modal = modal;
+//    });
+//
+//    $scope.closeLogin = function() {
+//      $scope.modal.hide();
+//    };
+//
+//    $scope.doLogin = function() {
+//      console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
+//      
+//      // Simple POST request
+//      $http({
+//        method: 'POST',
+//        url: apiUrlLocal+""+pathLogon,
+//        data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+//      }).success(function(data, status, headers, config) {
+//        
+//        console.log('==LOGIN== REQUEST SUCCESS OK');
+//        console.log("dataaaa",data);
+//
+//        if( data != "KO" )
+//        {
+//          AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
+//          $scope.closeLogin();
+//          $state.go('app.contacts');
+//        }
+//        else
+//        {
+//          
+//          var alertPopup = $ionicPopup.alert({
+//             title: 'Log on, Failed!',
+//             template: 'Please check your credentials!'
+//           });
+//          // $state.previous = 'login';
+//          // $ionicLoading.hide();
+//          
+//          $state.go('/app.contact');
+//          // $window.location.reload(true)
+//        }
+//      }).
+//      error(function(data, status, headers, config) {
+//       console.log('==LOGIN== ERROR', data);
+//      });
+//
+//    };
+//
+//})
+//
+////  CONTROLLER LOGOUT
+//.controller('logoutController', function($scope, $state,AuthenticationService){
+//    'use strict';
+//    AuthenticationService.logout();
+    
 });
 
 

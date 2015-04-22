@@ -40,6 +40,17 @@ $stateProvider.state('app.contact', {
       controller: 'ContactCtrl'
     }
   }
+})
+
+
+$stateProvider.state('app.newperson', {
+  url: "/newperson",
+  views: {
+    'menuContent': {
+      templateUrl: "templates/views_contact/newperson.html",
+      controller: 'newpCtrl'
+    }
+  }
 });
 
 
