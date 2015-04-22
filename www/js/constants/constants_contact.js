@@ -1,8 +1,5 @@
 angular.module('starter.constantscontact',[])  
 
-
-
-
 //CONSTANTS FOR CONTACTS
 //type of contact
 // Contact person>1

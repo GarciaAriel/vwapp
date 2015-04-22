@@ -1,5 +1,20 @@
 <ion-view view-title="{{nameList}}">
 
+  <ion-nav-buttons side="right">
+
+    <button disabled class="button" style="border-style: none" ng-click="searchcon()">
+      <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
+    </button>
+
+<!-- /app/newmail -->
+    <a disabled="disabled" href="#">
+      <button disabled class="button disabled"style="border-style: none" >
+        <i class="icon ion-edit" style="{{colorFont}}"></i>
+      </button>  
+    </a>
+
+  </ion-nav-buttons>
+
   <ion-content> 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
     </ion-refresher>

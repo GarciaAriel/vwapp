@@ -1,9 +1,18 @@
   <ion-view  view-title="Mailboxes" >
 
   <ion-nav-buttons side="right">
-    <button class="button" style="border-style: none" data-ng-click="searchcon()">
-      <i class="icon ion-ios7-search" style='{{colorFont}}'></i>
+
+    <button disabled class="button" style="border-style: none" ng-click="searchcon()">
+      <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
+
+  <!-- /app/newmail -->
+    <a disabled="disabled" href="#">
+      <button disabled class="button"style="border-style: none" >
+        <i class="icon ion-edit" style="{{colorFont}}"></i>
+      </button>  
+    </a>
+
   </ion-nav-buttons>
 
   <ion-content>

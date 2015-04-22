@@ -38,6 +38,17 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
       }
     })
 
+   // ROUTE NEW MAIL
+   .state('app.newmail', {
+      url: '/newmail',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/views_webmail/mail-new.html',
+          controller: 'NewMail'
+        }
+      }
+    })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });
