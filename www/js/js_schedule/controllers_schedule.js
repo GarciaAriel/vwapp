@@ -85,7 +85,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //parse to variables PROVISIONAL
     $scope.appointments = [];
     angular.forEach($scope.listAppointments, function (appointment) {
-      var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+      var str = appointment.virtualAppointmentId;
+      var pos = str.indexOf("-"); 
+      var idAppointment = appointment.virtualAppointmentId;
+      if (pos > -1) {
+        idAppointment = str.substring(0, pos);   
+      };
+      console.log("----pos",pos);
+      console.log("=====id ori",appointment.virtualAppointmentId);
+      console.log("===== nuevo",idAppointment);
+
+      var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
       $scope.appointments.push(change);
       console.log("THIS ARE THE APPOINTMENTS",$scope.appointments);
     });
@@ -161,7 +172,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+              var str = appointment.virtualAppointmentId;
+              var pos = str.indexOf("-"); 
+              var idAppointment = appointment.virtualAppointmentId;
+              if (pos > -1) {
+                idAppointment = str.substring(0, pos);   
+              };
+              console.log("----pos",pos);
+              console.log("=====id ori",appointment.virtualAppointmentId);
+              console.log("===== nuevo",idAppointment);
+
+              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
 
             });
@@ -201,7 +223,18 @@ $scope.schedulePrev  = function(){
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+              var str = appointment.virtualAppointmentId;
+              var pos = str.indexOf("-"); 
+              var idAppointment = appointment.virtualAppointmentId;
+              if (pos > -1) {
+                idAppointment = str.substring(0, pos);   
+              };
+              console.log("----pos",pos);
+              console.log("=====id ori",appointment.virtualAppointmentId);
+              console.log("===== nuevo",idAppointment);
+
+              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
             
@@ -241,7 +274,18 @@ $scope.scheduleToday  = function(){
         //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
-          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+          var str = appointment.virtualAppointmentId;
+          var pos = str.indexOf("-"); 
+          var idAppointment = appointment.virtualAppointmentId;
+          if (pos > -1) {
+            idAppointment = str.substring(0, pos);   
+          };
+          console.log("----pos",pos);
+          console.log("=====id ori",appointment.virtualAppointmentId);
+          console.log("===== nuevo",idAppointment);
+
+          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
           $scope.appointments.push(change);
         });
 
@@ -279,7 +323,18 @@ $scope.dataScheduleMonth = function(){
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+            var str = appointment.virtualAppointmentId;
+            var pos = str.indexOf("-"); 
+            var idAppointment = appointment.virtualAppointmentId;
+            if (pos > -1) {
+              idAppointment = str.substring(0, pos);   
+            };
+            console.log("----pos",pos);
+            console.log("=====id ori",appointment.virtualAppointmentId);
+            console.log("===== nuevo",idAppointment);
+
+              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
             
@@ -317,7 +372,18 @@ $scope.dataScheduleDay = function()    {
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+              var str = appointment.virtualAppointmentId;
+              var pos = str.indexOf("-"); 
+              var idAppointment = appointment.virtualAppointmentId;
+              if (pos > -1) {
+                idAppointment = str.substring(0, pos);   
+              };
+              console.log("----pos",pos);
+              console.log("=====id ori",appointment.virtualAppointmentId);
+              console.log("===== nuevo",idAppointment);
+
+              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
 
@@ -349,7 +415,18 @@ $scope.doRefresh = function() {
         //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
-          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+          var str = appointment.virtualAppointmentId;
+          var pos = str.indexOf("-"); 
+          var idAppointment = appointment.virtualAppointmentId;
+          if (pos > -1) {
+            idAppointment = str.substring(0, pos);   
+          };
+          console.log("----pos",pos);
+          console.log("=====id ori",appointment.virtualAppointmentId);
+          console.log("===== nuevo",idAppointment);
+
+          var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
           $scope.appointments.push(change);
         });
 
@@ -390,7 +467,18 @@ $scope.dataScheduleWekk = function(){
             //parse to variables
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
-              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +appointment.virtualAppointmentId};
+
+              var str = appointment.virtualAppointmentId;
+              var pos = str.indexOf("-"); 
+              var idAppointment = appointment.virtualAppointmentId;
+              if (pos > -1) {
+                idAppointment = str.substring(0, pos);   
+              };
+              console.log("----pos",pos);
+              console.log("=====id ori",appointment.virtualAppointmentId);
+              console.log("===== nuevo",idAppointment);
+
+              var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
 
