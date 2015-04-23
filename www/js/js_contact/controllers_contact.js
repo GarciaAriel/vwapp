@@ -34,13 +34,13 @@ $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
 console.log("page integer", $scope.page);
 console.log("pages in total", $scope.pagesintotal);
     
-     if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
-        $scope.asknext = true;  
-      };
+     
 
     
   });
-
+if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+  $scope.asknext = true;  
+};
 
 $scope.doRefresh = function() {
     $scope.page=1;

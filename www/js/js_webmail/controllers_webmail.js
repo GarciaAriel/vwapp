@@ -126,8 +126,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.totalPages; 
   $scope.apiUrlLocal = apiUrlLocal;
 
-
-
   //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
   console.log("==CONTROLLER WEBMAIL== get query list mails first time");
   $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
@@ -150,11 +148,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope.mailList = (results['mainData'])['list'];
 
       // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
-      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
-          $scope._doRefresh = true;  
-      };
+      
   });
 
+  if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
+      $scope._doRefresh = true;  
+  };
+  
   $scope.doRefresh = function() {
     $scope.page = 1; 
 
