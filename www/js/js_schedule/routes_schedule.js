@@ -6,6 +6,7 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
   
   .state('app.schedulerDay', {
     url: "/schedulerDay",
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_schedule/scheduler_day.html",
@@ -16,6 +17,7 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
   
   .state('app.schedulerDetail', {
     url: "/schedulerDetail?appointmentId",
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_schedule/appointmentDetail.html",

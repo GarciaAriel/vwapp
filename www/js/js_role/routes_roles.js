@@ -12,13 +12,18 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
   //  ROUTE LOGIN
   .state('login', {
       url: '/login',
+      cache: false,
       templateUrl: 'templates/login.html',
-      controller: 'LoginController'
+      controller: 'LoginController',
+      params : {
+          updated : false
+      }
   })
 
   // ROUTE LOGOUT
   .state('logout',{
       url: '/logout',
+      cache: false,
       templateUrl: 'templates/login.html',
       controller: 'logoutController'
   })
@@ -26,6 +31,7 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
   // ROUTE APP
   .state('app', {
     url: "/app",
+    cache: false,
     templateUrl: "templates/menu.html",
     controller: 'AppCtrl'
   })

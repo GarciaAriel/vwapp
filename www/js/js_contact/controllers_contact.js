@@ -3,7 +3,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('ContactsCtrl', function($scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -22,6 +22,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     console.log("FIRST CALL",$scope.newContacts);
 
     $scope.newContacts.$promise.then(function (results){
+        // $state.go('app.contacts', {}, { reload: true });
+        // $state.go('productList', {}, { reload: true });
+
         console.log("THIS INFO",(results['mainData']));
   
         $scope.contacts = (results['mainData'])['list'];
@@ -35,7 +38,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
           $scope.asknext = true;  
         };
+
+        // $window.location.reload();
     });
+
 
 $scope.doRefresh = function() {
     $scope.page=1;

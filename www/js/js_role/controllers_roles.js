@@ -18,7 +18,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function ($window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
@@ -58,6 +58,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           {
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             $scope.closeLogin();
+            
             $state.go('app.contacts');
           }
           else
