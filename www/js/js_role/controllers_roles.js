@@ -21,6 +21,9 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 .controller('LoginController', function ($window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
+    delete $http.defaults.headers.common.Authorization;
+    // Session.destroy();
+
     $scope.data = {};
 
     $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -67,6 +70,9 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             
             $state.go('/app.contact');
             
+            // $state.go('/app.contact', {}, {reload: true});
+            // $window.location.reload(true)
+            
           }
         }).
         error(function(data, status, headers, config) {
@@ -79,7 +85,10 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 })
 
 //  CONTROLLER LOGOUT
-.controller('logoutController', function($scope, $state,AuthenticationService){
+.controller('logoutController', function($rootScope,$http,$scope, $state,AuthenticationService){
     'use strict';
+    
+    delete $http.defaults.headers.common.Authorization;
+    Session.destroy();
     AuthenticationService.logout();
 });

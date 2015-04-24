@@ -17,8 +17,8 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
   })
 
   // ROUTE LOGOUT
-  .state('log-out',{
-      url: '/log-out',
+  .state('logout',{
+      url: '/logout',
       templateUrl: 'templates/login.html',
       controller: 'logoutController'
   })
