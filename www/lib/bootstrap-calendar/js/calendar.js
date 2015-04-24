@@ -943,6 +943,7 @@ if(!String.prototype.formatNum) {
 			self.view(view);
 		});
 		$('.cal-cell').click(function() {
+			console.log("clickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 			var view = $('[data-cal-date]', this).data('cal-view');
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);

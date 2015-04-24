@@ -3,6 +3,7 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
+  
   .state('app.schedulerDay', {
     url: "/schedulerDay",
     views: {

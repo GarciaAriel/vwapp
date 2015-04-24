@@ -1,10 +1,11 @@
 angular.module('starter.rolesservices', [])
 
+// SERVICE LOGIN SERVICE
 .service('LoginService', function($q) {
     return {
         loginUser: function(name, company) {
 
-            console.log("==LOGIN== CREATE  "+name+" service "+company+"-");
+            console.log("==SERVICE ROLE== CREATE  "+name+" service "+company+"-");
             var deferred = $q.defer();
             var promise = deferred.promise;
 
@@ -17,24 +18,17 @@ angular.module('starter.rolesservices', [])
                 promise.then(fn);
                 return promise;
             }
-            // promise.error = function(fn) {
-            //     promise.then(null, fn);
-            //     return promise;
-            // }
+            
             return promise;
         }
     };
 })
 
-
-
-
-//dodooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-
+// SERVICE AUTHENTICATION SERVICE
 .factory('AuthenticationService', function ($http, SessionService) {
-
+  console.log("==SERVICE ROLE== Authentication Service");
   'use strict';
-
+  // FUNTIONS login / isLoggedIn / logout
   return {
 
     login: function (user) {
@@ -51,6 +45,7 @@ angular.module('starter.rolesservices', [])
   };
 })
 
+// SERVICE SESSION SERVICE
 .factory('SessionService', function () {
 
   'use strict';
@@ -60,6 +55,7 @@ angular.module('starter.rolesservices', [])
   };
 })
 
+// SERVICE ROLE SERVICE
 .factory('RoleService', function ($http) {
 
   'use strict';

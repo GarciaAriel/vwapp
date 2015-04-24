@@ -115,7 +115,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // MAILLISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function($ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
 
@@ -148,12 +148,23 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope.mailList = (results['mainData'])['list'];
 
       // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
+      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
+          $scope._doRefresh = true;  
+      };
+
+      // if no exists items show message
+      if ($scope.mailList.length == 0) {
+        // An alert dialog
+        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        var alertPopup = $ionicPopup.alert({
+            title: 'No Items',
+            template: 'Please select another folder'
+        });
+      }
       
   });
 
-  if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
-      $scope._doRefresh = true;  
-  };
+  
   
   $scope.doRefresh = function() {
     $scope.page = 1; 

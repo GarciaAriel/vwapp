@@ -3,53 +3,35 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 .controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
-    
-    console.log("appointmentId", $stateParams.appointmentId);
-    
+    console.log("==CONTROLLER SCHEDULE==", $stateParams.appointmentId);
     
     $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
 
-  $scope.taskcall.$promise.then(function (results){
+    $scope.taskcall.$promise.then(function (results){
 
-    $scope.tareas = results;
-      $scope.prioridades = (results['mainData'])['priorityArray'];
-      $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
-      $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
+        $scope.tareas = results;
+        $scope.prioridades = (results['mainData'])['priorityArray'];
+        $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
+        $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
         $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
-      
-      console.log("ALL ABOUT DETAIL, not editable",$scope.tareas);
-//      console.log("priority list",$scope.prioridades);
-//      console.log("priority id",$scope.prid);
-//      console.log("appointmentTypeArray",$scope.tipolist);
-//      console.log("appointmentTypeId",$scope.appoid);
+          
+        console.log("==CONTROLLER SCHEDULE== results:",$scope.tareas);
 
-
-
-
-})
+    })
     
-  
-  
     $scope.conf = function(){
-        
-        
-    $ionicActionSheet.show({
-       buttons: [
-       
-       { text: 'Edit' }
-        ],
-        destructiveText: 'Delete ',
-        cancelText: 'Cancel',
-        destructiveButtonClicked: function(){
-//            contacts.list.splice(contacts.list.indexOf(contact),1);
-//            window.history.back();
-        }
-    });
+      $ionicActionSheet.show({
+         buttons: [
+         
+         { text: 'Edit' }
+          ],
+          destructiveText: 'Delete ',
+          cancelText: 'Cancel',
+          destructiveButtonClicked: function(){
+          }
+      });
     };
     
-  
-  
-
 })
 // 
 // CONTROLLER SCHEDULE
@@ -61,8 +43,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // change paragraph text colour to green 
   $('button').css({"color":COLOR_2});
   $('view-title').css({"color":COLOR_2});
-  // $('button-positive').css({"color":COLOR_2});
-
+  
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
 
@@ -86,21 +67,22 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.appointments = [];
     angular.forEach($scope.listAppointments, function (appointment) {
 
+      // APPOINTMENT RECURRENT GET ID WITHOUT "-"
       var str = appointment.virtualAppointmentId;
       var pos = str.indexOf("-"); 
       var idAppointment = appointment.virtualAppointmentId;
       if (pos > -1) {
         idAppointment = str.substring(0, pos);   
       };
-      console.log("----pos",pos);
-      console.log("=====id ori",appointment.virtualAppointmentId);
-      console.log("===== nuevo",idAppointment);
-
+      console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
+      
+      // load appointment and push in list
       var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
       $scope.appointments.push(change);
-      console.log("THIS ARE THE APPOINTMENTS",$scope.appointments);
+      
     });
 
+    console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
     //INIT PROPERTIES FOR CALENDAR
     var options = {
@@ -173,20 +155,21 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
 
+              // APPOINTMENT RECURRENT GET ID WITHOUT "-"
               var str = appointment.virtualAppointmentId;
               var pos = str.indexOf("-"); 
               var idAppointment = appointment.virtualAppointmentId;
               if (pos > -1) {
                 idAppointment = str.substring(0, pos);   
               };
-              console.log("----pos",pos);
-              console.log("=====id ori",appointment.virtualAppointmentId);
-              console.log("===== nuevo",idAppointment);
-
+              console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
+              
               var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
 
             });
+
+            console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
           //LOAD OPTIONS TO CALENDAR
           var calendar = $("#calendar").calendar(
@@ -224,20 +207,21 @@ $scope.schedulePrev  = function(){
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
 
+              // APPOINTMENT RECURRENT GET ID WITHOUT "-"
               var str = appointment.virtualAppointmentId;
               var pos = str.indexOf("-"); 
               var idAppointment = appointment.virtualAppointmentId;
               if (pos > -1) {
                 idAppointment = str.substring(0, pos);   
               };
-              console.log("----pos",pos);
-              console.log("=====id ori",appointment.virtualAppointmentId);
-              console.log("===== nuevo",idAppointment);
+              console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
               var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
-            
+            console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+
+
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
             {
@@ -275,20 +259,19 @@ $scope.scheduleToday  = function(){
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
 
+          // APPOINTMENT RECURRENT GET ID WITHOUT "-"
           var str = appointment.virtualAppointmentId;
           var pos = str.indexOf("-"); 
           var idAppointment = appointment.virtualAppointmentId;
           if (pos > -1) {
             idAppointment = str.substring(0, pos);   
           };
-          console.log("----pos",pos);
-          console.log("=====id ori",appointment.virtualAppointmentId);
-          console.log("===== nuevo",idAppointment);
+          console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
           $scope.appointments.push(change);
         });
-
+        console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
         
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
@@ -324,20 +307,20 @@ $scope.dataScheduleMonth = function(){
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
 
+            // APPOINTMENT RECURRENT GET ID WITHOUT "-" 
             var str = appointment.virtualAppointmentId;
             var pos = str.indexOf("-"); 
             var idAppointment = appointment.virtualAppointmentId;
             if (pos > -1) {
               idAppointment = str.substring(0, pos);   
             };
-            console.log("----pos",pos);
-            console.log("=====id ori",appointment.virtualAppointmentId);
-            console.log("===== nuevo",idAppointment);
+            console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
               var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
-            
+            console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+
             //LOAD OPTIONS TO CALENDAR
             var calendar = $("#calendar").calendar(
             {
@@ -373,20 +356,19 @@ $scope.dataScheduleDay = function()    {
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
 
+              // APPOINTMENT RECURRENT GET ID WITHOUT "-"
               var str = appointment.virtualAppointmentId;
               var pos = str.indexOf("-"); 
               var idAppointment = appointment.virtualAppointmentId;
               if (pos > -1) {
                 idAppointment = str.substring(0, pos);   
               };
-              console.log("----pos",pos);
-              console.log("=====id ori",appointment.virtualAppointmentId);
-              console.log("===== nuevo",idAppointment);
+              console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
               var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
-
+            console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
             
                 //LOAD OPTIONS TO CALENDAR
                 var calendar = $("#calendar").calendar({
@@ -416,19 +398,19 @@ $scope.doRefresh = function() {
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
 
+          // APPOINTMENT RECURRENT GET ID WITHOUT "-"
           var str = appointment.virtualAppointmentId;
           var pos = str.indexOf("-"); 
           var idAppointment = appointment.virtualAppointmentId;
           if (pos > -1) {
             idAppointment = str.substring(0, pos);   
           };
-          console.log("----pos",pos);
-          console.log("=====id ori",appointment.virtualAppointmentId);
-          console.log("===== nuevo",idAppointment);
+          console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
           $scope.appointments.push(change);
         });
+        console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
         $scope.$broadcast('scroll.refreshComplete');  
 
@@ -468,19 +450,19 @@ $scope.dataScheduleWekk = function(){
             $scope.appointments = [];
             angular.forEach($scope.listAppointments, function (appointment) {
 
+              // APPOINTMENT RECURRENT GET ID WITHOUT "-"
               var str = appointment.virtualAppointmentId;
               var pos = str.indexOf("-"); 
               var idAppointment = appointment.virtualAppointmentId;
               if (pos > -1) {
                 idAppointment = str.substring(0, pos);   
               };
-              console.log("----pos",pos);
-              console.log("=====id ori",appointment.virtualAppointmentId);
-              console.log("===== nuevo",idAppointment);
+              console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
               var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
               $scope.appointments.push(change);
             });
+            console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
             //LOAD OPTIONS TO CALENDAR
             console.log("list semana",$scope.appointments);

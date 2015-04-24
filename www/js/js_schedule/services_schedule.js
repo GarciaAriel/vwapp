@@ -10,6 +10,7 @@ angular.module('starter.scheduleservices', [])
 // SERVICE TO HELP LOAD OBJECT 'dataDate' AND CHANGE DAY TODAY
 .factory('Load_variable_date', function(SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
   return{
+    
     setData: function(){
       var date = new Date();
 

@@ -4,16 +4,11 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
   $scope.colorFont = COLOR_VIEW;
   $('ion-nav-bar').css({"color":COLOR_2});
-  //call services data
-  // Contacts.all();
-  //MailList.all();
-  // TaskList.all();
-
+  
   //var firstUse = $localstorage.get("starter",null);
   var firstUse = null;
-  if(firstUse == null){ //if first time
-    // Contacts.all();
-    // MailList.all();
+  if(firstUse == null){ 
+  
   }
   else{
 
@@ -21,11 +16,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 })
 
-
-
-// .controller('dos', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
-//   $scope.nada = []
-// })
 
 //  CONTROLLER LOGIN
 .controller('LoginController', function ($window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
@@ -39,47 +29,51 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
       $scope.modal = modal;
     });
 
+    // logout
     $scope.closeLogin = function() {
+      console.log('==CONTROLLER ROLES== logout', $scope.data);
       $scope.modal.hide();
     };
 
+    // login
     $scope.doLogin = function() {
-      console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
+      console.log('==CONTROLLER ROLES== data from UI', $scope.data);
       
-      // Simple POST request
-      $http({
-        method: 'POST',
-        url: apiUrlLocal+""+pathLogon,
-        data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
-      }).success(function(data, status, headers, config) {
+      // do nothing if data es null
+      if ($scope.data.username != null && $scope.data.password != null && $scope.data.company != null) {
         
-        console.log('==LOGIN== REQUEST SUCCESS OK');
-        console.log("dataaaa",data);
-
-        if( data != "KO" )
-        {
-          AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
-          $scope.closeLogin();
-          $state.go('app.contacts');
-        }
-        else
-        {
+        // Simple POST request
+        $http({
+          method: 'POST',
+          url: apiUrlLocal+""+pathLogon,
+          data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+        }).success(function(data, status, headers, config) {
           
-          var alertPopup = $ionicPopup.alert({
-             title: 'Log on, Failed!',
-             template: 'Please check your credentials!'
-           });
-          // $state.previous = 'login';
-          // $ionicLoading.hide();
+          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
           
-          $state.go('/app.contact');
-          // $window.location.reload(true)
-        }
-      }).
-      error(function(data, status, headers, config) {
-       console.log('==LOGIN== ERROR', data);
-      });
-
+          if( data != "KO" )
+          {
+            AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
+            $scope.closeLogin();
+            $state.go('app.contacts');
+          }
+          else
+          {
+            // popup credencial failed
+            var alertPopup = $ionicPopup.alert({
+               title: 'Log on, Failed!',
+               template: 'Please check your credentials!'
+            });
+            
+            $state.go('/app.contact');
+            
+          }
+        }).
+        error(function(data, status, headers, config) {
+         console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
+        });  
+      }
+      
     };
 
 })

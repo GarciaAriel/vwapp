@@ -9,29 +9,21 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+  //  ROUTE LOGIN
   .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
       controller: 'LoginController'
   })
 
+  // ROUTE LOGOUT
   .state('log-out',{
       url: '/log-out',
       templateUrl: 'templates/login.html',
       controller: 'logoutController'
   })
 
-  
-  // .state('app.dos', {
-  //   url: '/dos',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/startPage.html',
-  //       controller: 'dos'
-  //     }
-  //   }
-  // })
-
+  // ROUTE APP
   .state('app', {
     url: "/app",
     templateUrl: "templates/menu.html",
