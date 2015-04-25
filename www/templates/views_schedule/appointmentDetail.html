@@ -1,53 +1,79 @@
 <ion-view view-title="{{ 'AppointmentDetail' | translate}}">
-<ion-nav-buttons side="right">
+  <ion-nav-buttons side="right">
 
-<button class="button disabled"style="border-style: none" ng-click="conf()">
-  <i class="icon ion-gear-a" style="color: #B80808"></i>
+    <button class="button disabled"style="border-style: none" ng-click="conf()">
+      <i class="icon ion-gear-a" style="color: #B80808"></i>
+    </button>
 
-</button>
-
-
-    </ion-nav-buttons>
+  </ion-nav-buttons>
     
     
-    <ion-content>
-
+  <ion-content>
   
+  <div class="list card">
+      <div class="item item-divider">
+          <b>{{tareas.mainData.entity.title}}</b>
+      </div>
          
- <div class="list card">
-         <div class="item item-divider">
-           <h1>{{tareas.mainData.entity.title}}</h1>
-         </div>
-         <a class="item item-thumbnail-right" href="#">
-             
-             
-             <h2 ng-repeat="t in tipolist" ng-if="t.appointmentTypeId == appoid">{{ 'Type' | translate}}: {{t.name}}</h2>
-                <br>
-        <h2 ng-repeat="p in prioridades" ng-if="p.priorityId == prid">{{ 'Priority' | translate}}: {{p.name}}</h2>
-        <br> 
-             <h2>{{ 'Thisisanalldayappointment' | translate}}: <input type="checkbox" ng-checked="{{tareas.mainData.entity.isAllDay}}">   </h2>
-             <h2>{{ 'StartDate' | translate}}: {{tareas.mainData.entity.startDateTime | date:'medium'}}</h2>
-           <br>
-           <h2>{{ 'EndDate' | translate}}: {{tareas.mainData.entity.endDateTime | date:'medium'}} </h2>
-             <br>
-            
-             
-             <h2>{{ 'Recurrent' | translate}} :  <input type="checkbox" ng-checked="{{tareas.mainData.entity.isRecurrence}}"></h2>
-              <br>
-             <h2>{{ 'Location' | translate}}: {{tareas.mainData.entity.location}} </h2>
-             <h2>{{ 'Reminder' | translate}}: <input type="checkbox" ng-checked="{{tareas.mainData.entity.reminder}}"></h2>
-             <br>
-             <h2>{{ 'Private' | translate}}: <input type="checkbox" ng-checked="{{tareas.mainData.entity.isPrivate}}"> </h2>
-             
-             
-             <h2></h2>
+      
+          <h5 ng-repeat="t in tipolist" ng-if="t.appointmentTypeId == appoid">
+            <b>{{ 'Type' | translate}}:</b> {{t.name}}
+          </h5>
 
-<!--           <h1> <span class="badge ion-chevron-right"> </span> </h1>-->
+            
+          <h5 ng-repeat="p in prioridades" ng-if="p.priorityId == prid">
+            <b>{{ 'Priority' | translate}}: </b>{{p.name}}
+          </h5>
+
+          <h5>
+            <b>{{ 'Thisisanalldayappointment' | translate}}: </b>
+
+            
+             <i ng-if="tareas.mainData.entity.isAllDay == 'true'" class="icon ion-checkmark-circled"></i>
+
+            <i ng-if="tareas.mainData.entity.isAllDay == 'false'" class="icon ion-close-circled"></i>
+             
+            <!-- <input type="checkbox" ng-checked="{{tareas.mainData.entity.isAllDay}}">
+            <ion-toggle ng-model="airplaneMode" toggle-class="toggle-calm"> Airplane Mode</ion-toggle>  -->
+          </h5 >
+             
+          <h5 ng-if="tareas.mainData.entity.isAllDay == 'false'">
+            <b>{{ 'StartDate' | translate}}:</b> {{tareas.mainData.entity.startDateTime | date:'medium'}}
+          </h5>
+         
+          <h5 ng-if="tareas.mainData.entity.isAllDay == 'false'">
+            <b>{{ 'EndDate' | translate}}: </b>{{tareas.mainData.entity.endDateTime | date:'medium'}} 
+          </h5>
+                          
+          <h5>
+            <b>{{ 'Recurrent' | translate}} : </b> 
+             <i ng-if="tareas.mainData.entity.isRecurrence == 'true'" class="icon ion-checkmark-circled"></i>
+
+            <i ng-if="tareas.mainData.entity.isRecurrence == 'false'" class="icon ion-close-circled"></i>
            
-         </a>
+          </h5>
+          
+          <h5 ng-if="tareas.mainData.entity.location != '' ">
+           <b> {{ 'Location' | translate}}:</b> {{tareas.mainData.entity.location}} 
+          </h5>
+          
+          <h5>
+            <b>{{ 'Reminder' | translate}}:</b> 
+            <i ng-if="tareas.mainData.entity.reminder == 'true'" class="icon ion-checkmark-circled"></i>
+
+            <i ng-if="tareas.mainData.entity.reminder == 'false'" class="icon ion-close-circled"></i>
+           
+          </h5>
+          
+          <h5>
+           <b> {{ 'Private' | translate}}: </b> 
+               <i ng-if="tareas.mainData.entity.isPrivate == 'true'" class="icon ion-checkmark-circled"></i>
+
+            <i ng-if="tareas.mainData.entity.isPrivate == 'false'" class="icon ion-close-circled"></i>
+          
+          </h5>
        </div>
-        
-<!--       <li><% data-event-id="<%= event.id %>" %></data-event-id></li>-->
+      
 
 
 </ion-content>

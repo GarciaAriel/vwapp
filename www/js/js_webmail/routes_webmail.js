@@ -8,7 +8,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
   // ROUTE MAIL DETAIL
   .state('app.details-mail', {  
       url: '/mail-detail?mailId&folderId&imageFrom&fromImageId',
-      cache: false,
+      cache: true,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',
@@ -19,8 +19,8 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
   //  ROUTE MAILLIST IN ANY FOLDER
   .state('app.mail-items', {
-      url: '/mail-list?pageParam&folderId',
-      cache: false,
+      url: '/mail-list?pageParam&folderId&folderName',
+      cache: true,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mails-list.html',
@@ -44,7 +44,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
    // ROUTE NEW MAIL
    .state('app.newmail', {
       url: '/newmail',
-      cache: false,
+      cache: true,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-new.html',

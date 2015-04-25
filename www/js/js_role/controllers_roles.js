@@ -40,7 +40,8 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     // login
     $scope.doLogin = function() {
-      console.log('==CONTROLLER ROLES== data from UI', $scope.data);
+      console.log('==CONTROLLER ROLES== data from UI:', $scope.data);
+      console.log('====================:', $scope.data.username);
       
       // do nothing if data es null
       if ($scope.data.username != null && $scope.data.password != null && $scope.data.company != null) {

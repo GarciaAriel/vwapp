@@ -21,7 +21,7 @@
     </ion-refresher>
 
     <ion-list>
-      <ion-item nav-clear ng-repeat="item in folders" type="item-text-wrap" href="#/app/mail-list?folderId={{item.folderId}}" style='{{colorFont}}'>
+      <ion-item nav-clear ng-repeat="item in folders" type="item-text-wrap" href="#/app/mail-list?folderId={{item.folderId}}&folderName={{item.folderName}}" style='{{colorFont}}'>
 
         <i class="{{getClassImage(item)}}">
           {{item.folderName}}

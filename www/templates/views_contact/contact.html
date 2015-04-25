@@ -16,30 +16,64 @@
   <div class="item item-divider" href="#">
     <h2></h2>
   </div>
-<div class="item item-avatar"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
+
+  <div class="item item-avatar"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
     <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
     <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-    <h2>{{contact.mainData.entity.name1}} {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}</h2>
+    <textarea ng-if="contact.mainData.entity.name1" disabled style="overflow:hidden">
+      {{contact.mainData.entity.name1}} 
+      {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+    </textarea>
+    
+    <!-- <h2>
+      {{contact.mainData.entity.name1}} 
+      {{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+    </h2> -->
   </div>
 
 
   <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
     <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/org.png" style="width: 80px; height: 80px">
     <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-    <h2>{{contact.mainData.entity.name1}}
+    <textarea ng-if="contact.mainData.entity.name1" disabled style="overflow:hidden">
+      {{contact.mainData.entity.name1}}
+    </textarea>  
+    <textarea ng-if="contact.mainData.entity.name2" disabled style="overflow:hidden">
+      {{contact.mainData.entity.name2}}
+    </textarea>
+    <textarea ng-if="contact.mainData.entity.name3" disabled style="overflow:hidden">
+      {{contact.mainData.entity.name3}}
+    </textarea>
+
+    <!-- <h2>
+      {{contact.mainData.entity.name1}}
       <br>{{contact.mainData.entity.name2}}
-      <br>{{contact.mainData.entity.name3}}</h2>
-    </div>
+      <br>{{contact.mainData.entity.name3}}
+    </h2> -->
+  </div>
 
 
 
-    <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
+  <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
       <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
       <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
-      <h2>{{contact.mainData.entity.organizationName}}</h2>
-      <br>{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
-      <br>{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
-    </div>
+      
+      <textarea ng-if="contact.mainData.entity.organizationName" disabled style="overflow:hidden">
+        {{contact.mainData.entity.organizationName}}
+      </textarea>  
+      <textarea ng-if="contact.mainData.entity.name1" disabled style="overflow:hidden">
+        {{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+      </textarea>
+      {{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
+      
+      
+      <!-- <h2>
+        {{contact.mainData.entity.organizationName}}
+      </h2>
+      <br>
+        {{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+      <br>{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}} -->
+  </div>
 </div>
 
 

@@ -15,7 +15,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
         $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
           
-        console.log("==CONTROLLER SCHEDULE== results:",$scope.tareas);
+        console.log("==CONTROLLER SCHEDULE== results:",(results['mainData'])['entity']);
 
     })
     

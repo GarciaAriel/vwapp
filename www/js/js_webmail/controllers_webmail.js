@@ -126,6 +126,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.totalPages; 
   $scope.apiUrlLocal = apiUrlLocal;
 
+  $scope.folderName = $stateParams.folderName;
+
   //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
   console.log("==CONTROLLER WEBMAIL== get query list mails first time");
   $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
