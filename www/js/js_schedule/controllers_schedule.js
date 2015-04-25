@@ -123,7 +123,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         };
 
       //LOAD OPTIONS TO CALENDAR
-      calendar = $('#calendar').calendar(options);      
+      calendar = $('#calendar').calendar(options);     
+      // console.log("----------------",(date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString()); 
 
   });//END PROMISE
 

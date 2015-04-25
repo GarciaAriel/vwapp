@@ -3,7 +3,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('ContactsCtrl', function($window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -149,6 +149,7 @@ $scope.search = function () {
               template: 'Please pull to refresh...'
           });
         }
+        $ionicScrollDelegate.scrollTop();
                 
     });
       
