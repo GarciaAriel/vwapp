@@ -276,7 +276,7 @@
   z-index: -1;
 }
 #cal-day-box .day-event {
-  max-width: 200px;
+  max-width: 300px;
   overflow: hidden;
 }
 #cal-day-box .day-highlight {
