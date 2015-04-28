@@ -3,6 +3,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 .controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
+
+    
+
     console.log("==CONTROLLER SCHEDULE==", $stateParams.appointmentId);
     
     $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
@@ -39,6 +42,22 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 .controller('ControlSchedule',function($window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
+
+  var userInfo = $localstorage.getObject('userInfo');
+  $scope.languageCalendar = "";
+  switch(userInfo.locale) {
+    case 'es':
+        $scope.languageCalendar = 'es-ES';
+        break;
+    case 'de':
+        $scope.languageCalendar = 'de-DE';
+        break;
+    case 'fr':
+        $scope.languageCalendar = 'fr-FR';
+        break;    
+  } 
+  console.log("-------userInfo",userInfo.locale);
+  console.log("-------res",$scope.languageCalendar);
 
   // change paragraph text colour to green 
   $('button').css({"color":COLOR_2});
@@ -89,7 +108,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           events_source: $scope.appointments,//function () { return [ { "id" : "3098", "title" : "9 de abril reunion", "location" : "en la puerta de la U", "color" : "#ff9900", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150409", "start" : "1428613200000", "end" : "1428616800000" } , { "id" : "3078-1", "title" : "app todos los viernes 22", "location" : "", "color" : "#CCCCCC", "isPublic" : "true", "isAllDay" : "false", "isOwner" : "true", "dateInteger" : "20150410", "start" : "1428705000000", "end" : "1428708600000" } ]; }, //items,//
           tmpl_path: 'lib/bootstrap-calendar/tmpls/',
           view: 'month',
-          // language: 'es-ES',
+          language: $scope.languageCalendar,
           tmpl_cache: false,
           day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
           time_split: '60',
@@ -180,6 +199,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           {
             events_source: $scope.appointments,
             view: _data_date.type_string,
+            language: $scope.languageCalendar,
             time_split: '60',
             tmpl_path: 'lib/bootstrap-calendar/tmpls/',
             day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
@@ -231,6 +251,7 @@ $scope.schedulePrev  = function(){
             {
               events_source: $scope.appointments,
               view: _data_date.type_string,
+              language: $scope.languageCalendar,
               time_split: '60',
               tmpl_path: 'lib/bootstrap-calendar/tmpls/',
               day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc
@@ -281,6 +302,7 @@ $scope.scheduleToday  = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             language: $scope.languageCalendar,
              time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
@@ -329,6 +351,7 @@ $scope.dataScheduleMonth = function(){
             var calendar = $("#calendar").calendar(
             {
              view: _data_date.type_string,
+             language: $scope.languageCalendar,
              time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
@@ -377,6 +400,7 @@ $scope.dataScheduleDay = function()    {
                 //LOAD OPTIONS TO CALENDAR
                 var calendar = $("#calendar").calendar({
                   view: _data_date.type_string,
+                  language: $scope.languageCalendar,
                   tmpl_path: 'lib/bootstrap-calendar/tmpls/',
                   day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
                   events_source: $scope.appointments,
@@ -423,6 +447,7 @@ $scope.doRefresh = function() {
         var calendar = $("#calendar").calendar(
         {
          view: _data_date.type_string,
+         language: $scope.languageCalendar,
          time_split: '60',
          tmpl_path: 'lib/bootstrap-calendar/tmpls/',
          day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
@@ -473,6 +498,7 @@ $scope.dataScheduleWekk = function(){
             var calendar = $("#calendar").calendar(
             {
              view: 'week',
+             language: $scope.languageCalendar,
              time_split: '60',
              tmpl_path: 'lib/bootstrap-calendar/tmpls/',
              day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
