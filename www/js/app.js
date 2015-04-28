@@ -79,6 +79,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
     
+    Description: "Description",
     CheckFolder: "Please check your folder BMapp.",
     Downloaded: "Downloaded",
     SelectAnother: "Please select another folder.",
@@ -136,7 +137,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
 
-
+    Description: "Descripcion",
     CheckFolder: "Por favor revise su carpeta de BMapp.",
     Downloaded: "Descargado",
     SelectAnother: "Por favor, seleccione otra carpeta.",
@@ -196,6 +197,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
 
+    Description: "Beschreibung",
     CheckFolder: "Bitte überprüfen Sie Ihre Ordner BMapp.",
     Downloaded: "Heruntergeladen",
     SelectAnother: "Bitte wählen Sie einen anderen Ordner",
@@ -255,6 +257,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
      
+    Description: "Description",
     CheckFolder: "Se il vous plaît vérifier votre dossier BMapp.", 
     Downloaded: "Téléchargé", 
     SelectAnother: "Se il vous plaît sélectionner un autre dossier", 

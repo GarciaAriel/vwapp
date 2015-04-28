@@ -73,11 +73,9 @@
         
         <div ng-if="item.bodyType != '2' " class="card">
           Detail:
-          
-          <ion-scroll zooming="true" direction="xy" style="width: 400px; height: 200px">
-            <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
+          <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 300px">
+              <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>    
           </ion-scroll>
- 
         </div>
 
         <div ng-if="item.bodyType != '1' " class="card">
