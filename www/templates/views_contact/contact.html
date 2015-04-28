@@ -65,10 +65,12 @@
       <div>
         <textarea ng-if="contact.mainData.entity.organizationName" disabled style="overflow:hidden">{{contact.mainData.entity.organizationName}}</textarea>  
 
-        <textarea ng-if="contact.mainData.entity.name1" disabled style="overflow:hidden">{{contact.mainData.entity.name1}},{{contact.mainData.entity.name2}},{{contact.mainData.entity.name3}}
+        <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}
         </textarea>
-
-        {{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
+        
+        <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
+        </textarea>
+        
       </div>
       
       
