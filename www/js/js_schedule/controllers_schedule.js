@@ -36,7 +36,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function(COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function($window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
 
@@ -123,7 +123,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         };
 
       //LOAD OPTIONS TO CALENDAR
-      calendar = $('#calendar').calendar(options);     
+      $scope.calendar = $('#calendar').calendar(options); 
+      
+
+      // $window.location.reload(true);
       // console.log("----------------",(date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString()); 
 
   });//END PROMISE

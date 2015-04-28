@@ -36,6 +36,17 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
     controller: 'AppCtrl'
   })
 
+  .state('app.startPage', {
+    url: "/startPage",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/startPage.html",
+        controller: "ControlStartPage"
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

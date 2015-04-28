@@ -1,4 +1,4 @@
-  <ion-view  view-title="Mailboxes" >
+  <ion-view  view-title="{{ 'Mailboxes' | translate}}"  >
 
   <ion-nav-buttons side="right">
 
@@ -24,8 +24,9 @@
       <ion-item nav-clear ng-repeat="item in folders" type="item-text-wrap" href="#/app/mail-list?folderId={{item.folderId}}&folderName={{item.folderName}}" style='{{colorFont}}'>
 
         <i class="{{getClassImage(item)}}">
-          {{item.folderName}}
+          {{ item.folderName | translate}}
         </i>
+
       </ion-item>
     </ion-list>
   </ion-content>

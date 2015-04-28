@@ -3,7 +3,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('ContactsCtrl', function($ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -142,11 +142,14 @@ $scope.search = function () {
 
         // if no exists items show message
         if ($scope.contacts.length == 0) {
+
+          var message = $filter('translate')('NoItems');
+          var messageRefresh = $filter('translate')('PulltoRefresh');
           // An alert dialog
           console.log("==CONTROLLER CONTACTS== alert if no exists items");
           var alertPopup = $ionicPopup.alert({
-              title: 'No Items',
-              template: 'Please pull to refresh...'
+              title: message,
+              template: messageRefresh
           });
         }
         $ionicScrollDelegate.scrollTop();
@@ -223,12 +226,12 @@ $scope.search = function () {
   $scope.contact.$promise.then(function (results){
 
     $scope.contact = results;
+    console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
 
+    $scope.telecomss=results.mainData.entity.telecoms;
+    console.log("list of telecoms",$scope.telecomss);
 
-$scope.telecomss=results.mainData.entity.telecoms;
-console.log("list of telecoms",$scope.telecomss);
-
-});
+  });
 
 
 })

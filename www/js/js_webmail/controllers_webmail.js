@@ -24,11 +24,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     var data = ((results['mainData'])['systemFolders']);
 
     // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
-    var object_folder_inbox = {folderId: data[FOLDER_INBOX_ID],folderName:data[FOLDER_INBOX_NAME],type:FOLDER_INBOX_TYPE};
-    var object_folder_sent = {folderId: data[FOLDER_SENT_ID],folderName:data[FOLDER_SENT_NAME],type:FOLDER_SENT_TYPE};
-    var object_folder_draft = {folderId: data[FOLDER_DRAFT_ID],folderName:data[FOLDER_DRAFT_NAME],type:FOLDER_DRAFT_TYPE};
-    var object_folder_trash = {folderId: data[FOLDER_TRASH_ID],folderName:data[FOLDER_TRASH_NAME],type:FOLDER_TRASH_TYPE};
-    var object_folder_outbox = {folderId: data[FOLDER_OUTBOX_ID],folderName:data[FOLDER_OUTBOX_NAME],type:FOLDER_OUTBOX_TYPE};
+    var object_folder_inbox = {folderId: data[FOLDER_INBOX_ID],folderName:'Inbox',type:FOLDER_INBOX_TYPE};
+    var object_folder_sent = {folderId: data[FOLDER_SENT_ID],folderName:'SentItems',type:FOLDER_SENT_TYPE};
+    var object_folder_draft = {folderId: data[FOLDER_DRAFT_ID],folderName:'DraftItems',type:FOLDER_DRAFT_TYPE};
+    var object_folder_trash = {folderId: data[FOLDER_TRASH_ID],folderName:'Trash',type:FOLDER_TRASH_TYPE};
+    var object_folder_outbox = {folderId: data[FOLDER_OUTBOX_ID],folderName:'Outbox',type:FOLDER_OUTBOX_TYPE};
     
     //  PUSH OBJECT
     $scope.folders.push(object_folder_inbox);
@@ -115,7 +115,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // MAILLISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function($filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
 
@@ -127,6 +127,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.apiUrlLocal = apiUrlLocal;
 
   $scope.folderName = $stateParams.folderName;
+  console.log("folderName======== ",$scope.folderName);
 
   //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
   console.log("==CONTROLLER WEBMAIL== get query list mails first time");
@@ -157,10 +158,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       // if no exists items show message
       if ($scope.mailList.length == 0) {
         // An alert dialog
+        var message = $filter('translate')('NoItems');
+        var messageSelect = $filter('translate')('SelectAnother');
+
         console.log("==CONTROLLER CONTACTS== alert if no exists items");
         var alertPopup = $ionicPopup.alert({
-            title: 'No Items',
-            template: 'Please select another folder'
+            title: message,
+            template: messageSelect
         });
       }
       
@@ -227,7 +231,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function($filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
     console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
@@ -298,9 +302,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                                 function(entry) {
                                     $ionicLoading.hide();
                                     $scope.imgFile = entry.toURL();
+
+                                    var message = $filter('translate')('Downloaded');
+                                    var messageCheck = $filter('translate')('CheckFolder');
+
                                     var alertPopup = $ionicPopup.alert({
-                                       title: 'Donwloaded',
-                                       template: 'Please check your folder BMapp!'
+                                       title: message,
+                                       template: messageCheck
                                      });
                                 },
                                 function(error) {

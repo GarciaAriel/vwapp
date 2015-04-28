@@ -62,7 +62,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       navigator.globalization.getPreferredLanguage(function(language) {
        //alert((language.value).split("-")[0]);
        $translate.use((language.value).split("-")[0]).then(function(data) {
-      //  alert(language.value);
+       //  alert(language.value);
        // $translate.use(language.value).then(function(data) {
         console.log("SUCCESS -> " + data);
       }, function(error) {
@@ -78,6 +78,25 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
+    
+    CheckFolder: "Please check your folder BMapp.",
+    Downloaded: "Downloaded",
+    SelectAnother: "Please select another folder.",
+    PulltoRefresh: "Please pull to refresh.",
+    NoItems: "No Items",
+    Messagefailed: "Please check your credentials.",
+    MessageRequired: "Logon credentials invalid session.",
+    Loading: "More features under construccion",
+    Start: "Start",  
+    ReadMail: 'Read mail', 
+    Mailboxes: 'Mailboxes',  
+    Inbox: "Inbox",
+    SentItems: "Sent Items",
+    DraftItems: "Draft Items",
+    Trash: "Trash",
+    Outbox: "Outbox",
+
+
     Login: "Log on",
     Username: "Username",
     Password:   "Password",
@@ -116,15 +135,36 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+
+
+    CheckFolder: "Por favor revise su carpeta de BMapp.",
+    Downloaded: "Descargado",
+    SelectAnother: "Por favor, seleccione otra carpeta.",
+    PulltoRefresh: "Por favor, deslice para refrescar.",
+    NoItems: "No hay artículos",
+    Messagefailed: "Por favor compruebe sus credenciales.",
+    MessageRequired: "Credenciales de inicio de sesión no válidos.",
+    Loading: "Mas funcionalidades en construccion",
+    Start: "Inicio",  
+    ReadMail: 'Leer email', 
+    Mailboxes: 'Carpetas',
+    Inbox: "Bandeja de entrada",
+    SentItems: "Elementos enviados",
+    DraftItems: "Borrador",
+    Trash: "Basurero",
+    Outbox: "Bandeja de salida",
+
     Login: "Ingresar",
     Username: "Usuario",
     Password: "Contraseña",
     Company: "Compañia",
     Menu: "Menu",
+
     Contacts:   "Contactos",
     Scheduler: "Calendario",
     Webmail: "Webmail",
     Logout: "Salir", 
+    
     Detail: "Detalle",
       Address: "Direccion",
       Street: "Calle",
@@ -155,15 +195,35 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+
+    CheckFolder: "Bitte überprüfen Sie Ihre Ordner BMapp.",
+    Downloaded: "Heruntergeladen",
+    SelectAnother: "Bitte wählen Sie einen anderen Ordner",
+    PulltoRefresh: "Bitte ziehen Sie zur Erfrischung.",
+    NoItems: "Keine Einträge",
+    Messagefailed: "Bitte überprüfen Sie Ihre Anmeldeinformationen.",
+    MessageRequired: "Anmeldeinformationen ungültig Sitzung.",
+    Loading: "Mehrere Funktionen unter construccion",
+    Start: "Anfang", 
+    ReadMail: 'eMail lesen', 
+    Mailboxes: 'Mailboxes',
+    Inbox: "Posteingang",
+    SentItems: "Gesendet",
+    DraftItems: "Entwurf",
+    Trash: "Papierkorb",
+    Outbox: "Postausgang",
+
     Login: "Anmeldung",
     Username: "Benutzername",
     Password: "Kennwort",
     Company: "Firma",
     Menu: "Menü",
+
     Contacts:   "Kontakte",
     Scheduler: "Termine",
     Webmail: "Webmail",
     Logout: "Abmelden", 
+
       Detail: "Allgemein",
       Address: "Anschrift",
       Street: "Straße",
@@ -194,15 +254,35 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+     
+    CheckFolder: "Se il vous plaît vérifier votre dossier BMapp.", 
+    Downloaded: "Téléchargé", 
+    SelectAnother: "Se il vous plaît sélectionner un autre dossier", 
+    PulltoRefresh: "Se il vous plaît tirer pour rafraîchir.", 
+    NoItems: "Aucun article", 
+    Messagefailed: "Se il vous plaît vérifier vos informations d'identification.",
+    MessageRequired: "Références de connexion de session valide.",  
+    Loading: "Plusieurs fonctions sous construccion", 
+    Start: "Début", 
+    ReadMail: 'Lire e-mail',         
+    Mailboxes: 'Dossiers',    
+    Inbox: "Plateau d'entrée",
+    SentItems: "Eléments envoyés",
+    DraftItems: "Brouillon",
+    Trash: "Corbeille",
+    Outbox: "Plateau de sortie",
+
     Login: "Connexion",
     Username: "Utilisateur",
     Password: "Mot de passe",
     Company: "Société",
     Menu: "Menu",
+
     Contacts:   "Contacts",
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: " Sortir",
+
       Detail: "Détail",
       Address: "Adresse",
       Street: "Rue",
@@ -228,8 +308,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Location: "Localisation",
       Reminder: "Rappel",
       Private: "Privé"
-      
-      
   });
 
   $translateProvider.preferredLanguage("en");

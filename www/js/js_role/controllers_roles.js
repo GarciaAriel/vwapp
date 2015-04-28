@@ -1,9 +1,16 @@
 angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 // CONTROLLER APP
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
+.controller('AppCtrl', function($localstorage,$scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
   $scope.colorFont = COLOR_VIEW;
   $('ion-nav-bar').css({"color":COLOR_2});
+
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+
+  $scope.accessRightMail = $scope.accessRight.MAIL.VIEW;
+  $scope.accessRightAppointment = $scope.accessRight.APPOINTMENT.VIEW;
+  $scope.accessRightContact = $scope.accessRight.CONTACT.VIEW;
+  $scope.accessRightPerson = $scope.accessRight.CONTACT.VIEW;
   
   //var firstUse = $localstorage.get("starter",null);
   var firstUse = null;
@@ -16,9 +23,18 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 })
 
+.controller('ControlStartPage', function($localstorage,$scope, $ionicModal, $timeout, $ionicPopup,COLOR_VIEW,COLOR_2) {
+  $scope.colorFont = COLOR_VIEW;
+  $('ion-nav-bar').css({"color":COLOR_2});
+
+  
+
+})
+
+
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function ($templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
@@ -31,6 +47,10 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     }).then(function(modal) {
       $scope.modal = modal;
     });
+
+    $scope.ChangeLanguage = function(lang){
+      $translate.use(lang);
+    }
 
     // logout
     $scope.closeLogin = function() {
@@ -54,32 +74,61 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         }).success(function(data, status, headers, config) {
           
           console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
+
           
-          if( data != "KO" )
+          if( data.mainData)
           {
+            $localstorage.setObject('accessRight',data.mainData.accessRight);
+            $localstorage.setObject('userInfo',data.mainData.userInfo);
+
+            var lenguage = data.mainData.userInfo.locale;
+            console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
+            $scope.ChangeLanguage(lenguage);
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             $scope.closeLogin();
             
-            $state.go('app.contacts');
+            if (data.mainData.accessRight.CONTACT.VIEW == "true") {
+              $state.go('app.contacts');
+            }
+            else{
+              if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
+                $state.go('app.schedulerDay');
+              }
+              else{
+                if (data.mainData.accessRight.MAIL.VIEW == "true") {
+                  $state.go('app.mailboxes');
+                }
+                else{
+                  $state.go('app.startPage');      
+                }
+              }
+            }
           }
           else
           {
             // popup credencial failed
+            var message = $filter('translate')('Messagefailed');
             var alertPopup = $ionicPopup.alert({
-               title: 'Log on, Failed!',
-               template: 'Please check your credentials!'
+               title: message
             });
             
-            $state.go('/app.contact');
-            
-            // $state.go('/app.contact', {}, {reload: true});
-            // $window.location.reload(true)
+            $state.go('login');
             
           }
         }).
         error(function(data, status, headers, config) {
          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
         });  
+      }
+      else
+      {
+        // popup credencial failed
+            var message = $filter('translate')('MessageRequired');
+            var alertPopup = $ionicPopup.alert({
+               title: message
+            });
+
+            $state.go('login');
       }
       
     };
