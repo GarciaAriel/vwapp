@@ -10,14 +10,15 @@
 
           <div class="item item-avatar">
             <img ng-src={{imageF()}} style="width: 64px; height: 64px">
+            
+            <h2>{{ "From" | translate}}: {{item.mailFrom}}</h2>
+            <p>{{ "To" | translate}}: {{item.to}}</p><br>
             <span class="item-note">{{item.sentDate}} </span>
-            <h2>From: {{item.mailFrom}}</h2>
-            <p>To: {{item.to}}</p>
           </div>
 
           <div  class="item item-body">
             <div>
-              <p> Subject: {{item.mailSubject}} </p>
+              <p> {{ "Subject" | translate}}: {{item.mailSubject}} </p>
 
               <div ng-repeat="attach in item.attachmentArray">
                 <button ng-click="download(attach)" class="button button-clear button-light">

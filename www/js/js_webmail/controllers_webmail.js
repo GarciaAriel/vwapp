@@ -261,12 +261,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             $http.get(apiUrlLocal+newurl).
 
             success(function(data, status, headers, config) {
-              // var pos = data.indexOf("<img");
-              // console.log("========pos tag image",pos);
-              // var newHtml = data.substr(0, pos+5) + "" + data.substr(pos+5);
-              $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(data);
+              var newHtml = data.split("<img").join(" <img width='100%' ");
+              // var newHtml = data.substr(0, pos+5) + "width='100%'" + data.substr(pos+5);
+              $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
                 // when the response is available
-                console.log("==CONTROLLER WEBMAIL==  html body",data);
+                console.log("==CONTROLLER WEBMAIL== html body",newHtml);
               }).
             error(function(data, status, headers, config) {
               // or server returns response with an error status.

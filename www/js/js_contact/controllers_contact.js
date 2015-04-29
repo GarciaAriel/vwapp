@@ -3,7 +3,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('ContactsCtrl', function($filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -95,8 +95,15 @@ $scope.loadMore = function() {
     };
 
 $scope.getContactUrl = function(item){
+  // GET ACCESS RIGHT FOR CONTACT PERSON
+  var accessRight = $localstorage.getObject('accessRight');
+  accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
 
-  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contact?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;
+  // IF CONTACT PERSON HAVE PERMISSION TO READ
+  if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+    return "#";
+  };
+  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contact?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
 };
 
 

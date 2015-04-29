@@ -78,6 +78,10 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
+    Funtion: "Function",
+    From: "From",
+    To: "To",
+    Subject: "Subject",
     
     Description: "Description",
     CheckFolder: "Please check your folder BMapp.",
@@ -112,7 +116,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Street: "Street",
       Zip: "Zip",
       City: "City",
-      Communication: "Communication",
+      Communication: "Communication Info",
       Info: "Info",
       Search: "Search",
       Previous: "Previous",
@@ -137,6 +141,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
 
+    Funtion: "Funcion",
+    From: "De",
+    To: "A",
+    Subject: "Asunto",
+    
     Description: "Descripcion",
     CheckFolder: "Por favor revise su carpeta de BMapp.",
     Downloaded: "Descargado",
@@ -171,7 +180,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Street: "Calle",
       Zip: "Zip",
       City: "Ciudad",
-      Communication: "Comunicacion",
+      Communication: "Información de comunicaciones",
       Info: "Info",
       Search: "Buscar",
       Previous: "Anterior",
@@ -197,6 +206,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
 
+    Funtion: "Funktion",
+    From: "Von",
+    To: "An",
+    Subject: "Betreff",
+    
     Description: "Beschreibung",
     CheckFolder: "Bitte überprüfen Sie Ihre Ordner BMapp.",
     Downloaded: "Heruntergeladen",
@@ -231,7 +245,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Street: "Straße",
       Zip: "PLZ",
       City: "Ort",
-      Communication: "Kommunikation",
+      Communication: "Kommunikationsnummer/-adresse",
       Info: "Info",
       Search: "Suche",
       Previous: "früher",
@@ -256,7 +270,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
-     
+    Funtion: "Fonction",
+    From: "De",
+    To: "A",
+    Subject: "Affaire", 
+      
     Description: "Description",
     CheckFolder: "Se il vous plaît vérifier votre dossier BMapp.", 
     Downloaded: "Téléchargé", 
@@ -291,7 +309,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Street: "Rue",
       Zip: "Zip",
       City: "Ville",
-      Communication: "Communication",
+      Communication: "Information de communications",
       Info: "Infos",
       Search: "Rechercher",
       Previous: "précédent",

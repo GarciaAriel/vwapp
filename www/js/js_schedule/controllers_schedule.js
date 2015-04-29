@@ -93,7 +93,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       if (pos > -1) {
         idAppointment = str.substring(0, pos);   
       };
-      console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
+      console.log("==CONTROLLER SCHEDULE== id appointment without '-' IN RECURRENT", idAppointment);
       
       // load appointment and push in list
       var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
