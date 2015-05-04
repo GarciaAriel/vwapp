@@ -248,7 +248,7 @@ $scope.search = function () {
 .controller('newpCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
 
     
-    $scope.groups = [];
+  $scope.groups = [];
   for (var i=0; i<10; i++) {
     $scope.groups[i] = {
       name: i,
@@ -269,69 +269,6 @@ $scope.search = function () {
   $scope.isGroupShown = function(group) {
     return $scope.shownGroup === group;
   };
-    
-//     $scope.createp = function() {
-//      /* $location.path('/tab/newpost'); */   /* this variant doesnt work */
-//      $state.go("/app/newperson"); 
-//    };
-    
-//    $scope.data = {};
-//
-//    $ionicModal.fromTemplateUrl('templates/login.html', {
-//      scope: $scope
-//    }).then(function(modal) {
-//      $scope.modal = modal;
-//    });
-//
-//    $scope.closeLogin = function() {
-//      $scope.modal.hide();
-//    };
-//
-//    $scope.doLogin = function() {
-//      console.log('==LOGIN== HTTP POST REQUEST', $scope.data);
-//      
-//      // Simple POST request
-//      $http({
-//        method: 'POST',
-//        url: apiUrlLocal+""+pathLogon,
-//        data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
-//      }).success(function(data, status, headers, config) {
-//        
-//        console.log('==LOGIN== REQUEST SUCCESS OK');
-//        console.log("dataaaa",data);
-//
-//        if( data != "KO" )
-//        {
-//          AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
-//          $scope.closeLogin();
-//          $state.go('app.contacts');
-//        }
-//        else
-//        {
-//          
-//          var alertPopup = $ionicPopup.alert({
-//             title: 'Log on, Failed!',
-//             template: 'Please check your credentials!'
-//           });
-//          // $state.previous = 'login';
-//          // $ionicLoading.hide();
-//          
-//          $state.go('/app.contact');
-//          // $window.location.reload(true)
-//        }
-//      }).
-//      error(function(data, status, headers, config) {
-//       console.log('==LOGIN== ERROR', data);
-//      });
-//
-//    };
-//
-//})
-//
-////  CONTROLLER LOGOUT
-//.controller('logoutController', function($scope, $state,AuthenticationService){
-//    'use strict';
-//    AuthenticationService.logout();
     
 });
 
