@@ -10,19 +10,18 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   
   // enumerate routes that user can see 
-  var routesForUser = ["/logout","/dos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out","/app/newperson"];
+  // var routesForUser = ["/logout","/dos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out","/newperson"];
 
   // VALIDATE THE CURRENT RUOTE
-  var validateRoute = function (route) {
-    var result = false;
-    for(var i=0;i<routesForUser.length;i++) {
-      console.log("route: routesForUser[i]:",route+" "+routesForUser[i]);
-      if (route.indexOf(routesForUser[i]) > -1) {
-        result = true;
-      };
-    };
-    return result;
-  };
+  // var validateRoute = function (route) {
+  //   var result = false;
+  //   for(var i=0;i<routesForUser.length;i++) {
+  //     if (route.indexOf(routesForUser[i]) > -1) {
+  //       result = true;
+  //     };
+  //   };
+  //   return result;
+  // };
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
@@ -35,17 +34,17 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     // else {
       console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
       //VALIDATE ROUTE
-      var rout = validateRoute($location.url());
-      console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
+        // var rout = validateRoute($location.url());
+        // console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
 
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
       
       //IF VALIDATE ROUTE FALSE GO TO /app
-      if (rout == false) {
-        console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
-        ev.preventDefault();
-        $location.path('/login');
-      }
+      // if (rout == false) {
+      //   console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
+      //   ev.preventDefault();
+      //   $location.path('/login');
+      // }
     // }
   });
 

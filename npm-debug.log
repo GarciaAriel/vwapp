@@ -1,0 +1,171 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'cordova@2.8.0sudo',
+1 verbose cli   'apt-get',
+1 verbose cli   'update' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'cordova@2.8.0sudo', null ]
+5 verbose cache add name=undefined spec="cordova@2.8.0sudo" args=["cordova@2.8.0sudo",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'cordova@2.8.0sudo',
+6 verbose parsed url   path: 'cordova@2.8.0sudo',
+6 verbose parsed url   href: 'cordova@2.8.0sudo' }
+7 verbose cache add name="cordova" spec="2.8.0sudo" args=["cordova","2.8.0sudo"]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '2.8.0sudo',
+8 verbose parsed url   path: '2.8.0sudo',
+8 verbose parsed url   href: '2.8.0sudo' }
+9 verbose addNamed [ 'cordova', '2.8.0sudo' ]
+10 verbose addNamed [ null, null ]
+11 verbose cache add [ 'apt-get', null ]
+12 verbose cache add name=undefined spec="apt-get" args=["apt-get",null]
+13 verbose parsed url { protocol: null,
+13 verbose parsed url   slashes: null,
+13 verbose parsed url   auth: null,
+13 verbose parsed url   host: null,
+13 verbose parsed url   port: null,
+13 verbose parsed url   hostname: null,
+13 verbose parsed url   hash: null,
+13 verbose parsed url   search: null,
+13 verbose parsed url   query: null,
+13 verbose parsed url   pathname: 'apt-get',
+13 verbose parsed url   path: 'apt-get',
+13 verbose parsed url   href: 'apt-get' }
+14 verbose cache add [ 'update', null ]
+15 verbose cache add name=undefined spec="update" args=["update",null]
+16 verbose parsed url { protocol: null,
+16 verbose parsed url   slashes: null,
+16 verbose parsed url   auth: null,
+16 verbose parsed url   host: null,
+16 verbose parsed url   port: null,
+16 verbose parsed url   hostname: null,
+16 verbose parsed url   hash: null,
+16 verbose parsed url   search: null,
+16 verbose parsed url   query: null,
+16 verbose parsed url   pathname: 'update',
+16 verbose parsed url   path: 'update',
+16 verbose parsed url   href: 'update' }
+17 silly lockFile a4e96f3d-cordova-2-8-0sudo cordova@2.8.0sudo
+18 verbose lock cordova@2.8.0sudo /home/ariel/.npm/a4e96f3d-cordova-2-8-0sudo.lock
+19 silly lockFile d9ea7dbd-apt-get apt-get
+20 verbose lock apt-get /home/ariel/.npm/d9ea7dbd-apt-get.lock
+21 silly lockFile 0a25ba59-update update
+22 verbose lock update /home/ariel/.npm/0a25ba59-update.lock
+23 verbose url raw cordova/2.8.0-sudo
+24 verbose url resolving [ 'https://registry.npmjs.org/', './cordova/2.8.0-sudo' ]
+25 verbose url resolved https://registry.npmjs.org/cordova/2.8.0-sudo
+26 info trying registry request attempt 1 at 09:45:25
+27 http GET https://registry.npmjs.org/cordova/2.8.0-sudo
+28 silly lockFile d9ea7dbd-apt-get apt-get
+29 silly lockFile d9ea7dbd-apt-get apt-get
+30 silly lockFile 0a25ba59-update update
+31 silly lockFile 0a25ba59-update update
+32 verbose addNamed [ 'apt-get', '' ]
+33 verbose addNamed [ null, '*' ]
+34 silly lockFile 5c95a559-apt-get apt-get@
+35 verbose lock apt-get@ /home/ariel/.npm/5c95a559-apt-get.lock
+36 verbose addNamed [ 'update', '' ]
+37 verbose addNamed [ null, '*' ]
+38 silly lockFile f8258749-update update@
+39 verbose lock update@ /home/ariel/.npm/f8258749-update.lock
+40 silly addNameRange { name: 'apt-get', range: '*', hasData: false }
+41 silly addNameRange { name: 'update', range: '*', hasData: false }
+42 verbose url raw apt-get
+43 verbose url resolving [ 'https://registry.npmjs.org/', './apt-get' ]
+44 verbose url resolved https://registry.npmjs.org/apt-get
+45 info trying registry request attempt 1 at 09:45:25
+46 http GET https://registry.npmjs.org/apt-get
+47 verbose url raw update
+48 verbose url resolving [ 'https://registry.npmjs.org/', './update' ]
+49 verbose url resolved https://registry.npmjs.org/update
+50 info trying registry request attempt 1 at 09:45:25
+51 http GET https://registry.npmjs.org/update
+52 http 200 https://registry.npmjs.org/apt-get
+53 silly registry.get cb [ 200,
+53 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+53 silly registry.get     etag: '"EUP44JL0CM2XQ20KXU688HL6I"',
+53 silly registry.get     'content-type': 'application/json',
+53 silly registry.get     'cache-control': 'max-age=60',
+53 silly registry.get     'content-length': '3794',
+53 silly registry.get     'accept-ranges': 'bytes',
+53 silly registry.get     date: 'Mon, 04 May 2015 13:45:26 GMT',
+53 silly registry.get     via: '1.1 varnish',
+53 silly registry.get     age: '0',
+53 silly registry.get     connection: 'keep-alive',
+53 silly registry.get     'x-served-by': 'cache-jfk1022-JFK',
+53 silly registry.get     'x-cache': 'MISS',
+53 silly registry.get     'x-cache-hits': '0',
+53 silly registry.get     'x-timer': 'S1430747126.610357,VS0,VE23',
+53 silly registry.get     vary: 'Accept' } ]
+54 silly addNameRange number 2 { name: 'apt-get', range: '*', hasData: true }
+55 silly addNameRange versions [ 'apt-get', [ '0.0.1', '0.0.2', '0.1.0' ] ]
+56 verbose addNamed [ 'apt-get', '0.1.0' ]
+57 verbose addNamed [ '0.1.0', '0.1.0' ]
+58 silly lockFile e1f8d580-apt-get-0-1-0 apt-get@0.1.0
+59 verbose lock apt-get@0.1.0 /home/ariel/.npm/e1f8d580-apt-get-0-1-0.lock
+60 silly lockFile 966acecc-js-org-apt-get-apt-get-0-1-0-tgz https://registry.npmjs.org/apt-get/-/apt-get-0.1.0.tgz
+61 verbose lock https://registry.npmjs.org/apt-get/-/apt-get-0.1.0.tgz /home/ariel/.npm/966acecc-js-org-apt-get-apt-get-0-1-0-tgz.lock
+62 verbose addRemoteTarball [ 'https://registry.npmjs.org/apt-get/-/apt-get-0.1.0.tgz',
+62 verbose addRemoteTarball   '6bea420038faca0365097b4eaef0c06b327991ca' ]
+63 info retry fetch attempt 1 at 09:45:26
+64 verbose fetch to= /home/ariel/tmp/npm-3691-VzbYsEva/1430747126794-0.8653670472558588/tmp.tgz
+65 http GET https://registry.npmjs.org/apt-get/-/apt-get-0.1.0.tgz
+66 http 404 https://registry.npmjs.org/cordova/2.8.0-sudo
+67 silly registry.get cb [ 404,
+67 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+67 silly registry.get     etag: '"1IQ1JU3Q251G4VTSAXQW76QJB"',
+67 silly registry.get     'content-type': 'application/json',
+67 silly registry.get     'cache-control': 'max-age=0',
+67 silly registry.get     'content-length': '41',
+67 silly registry.get     'accept-ranges': 'bytes',
+67 silly registry.get     date: 'Mon, 04 May 2015 13:45:27 GMT',
+67 silly registry.get     via: '1.1 varnish',
+67 silly registry.get     age: '0',
+67 silly registry.get     connection: 'keep-alive',
+67 silly registry.get     'x-served-by': 'cache-jfk1029-JFK',
+67 silly registry.get     'x-cache': 'MISS',
+67 silly registry.get     'x-cache-hits': '0',
+67 silly registry.get     'x-timer': 'S1430747126.607371,VS0,VE414',
+67 silly registry.get     vary: 'Accept' } ]
+68 silly lockFile a4e96f3d-cordova-2-8-0sudo cordova@2.8.0sudo
+69 silly lockFile a4e96f3d-cordova-2-8-0sudo cordova@2.8.0sudo
+70 error Error: version not found: 2.8.0-sudo : cordova/2.8.0-sudo
+70 error     at RegClient.<anonymous> (/usr/share/npm/node_modules/npm-registry-client/lib/request.js:272:14)
+70 error     at Request.self.callback (/usr/lib/nodejs/request/index.js:148:22)
+70 error     at Request.EventEmitter.emit (events.js:98:17)
+70 error     at Request.<anonymous> (/usr/lib/nodejs/request/index.js:896:14)
+70 error     at Request.EventEmitter.emit (events.js:117:20)
+70 error     at IncomingMessage.<anonymous> (/usr/lib/nodejs/request/index.js:847:12)
+70 error     at IncomingMessage.EventEmitter.emit (events.js:117:20)
+70 error     at _stream_readable.js:920:16
+70 error     at process._tickCallback (node.js:415:13)
+71 error If you need help, you may report this log at:
+71 error     <http://github.com/isaacs/npm/issues>
+71 error or email it to:
+71 error     <npm-@googlegroups.com>
+72 error System Linux 3.13.0-37-generic
+73 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "cordova@2.8.0sudo" "apt-get" "update"
+74 error cwd /home/ariel/Escritorio/SERVER/jboss-5.1.0.GA/server/default/deploy/ROOT.war/bmapp
+75 error node -v v0.10.25
+76 error npm -v 1.3.10
+77 verbose exit [ 1, true ]

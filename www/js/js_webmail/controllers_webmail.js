@@ -221,7 +221,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.colorFont = COLOR_VIEW;
 
   $scope.sendMail = function() {
-    console.log('send data', $scope.data);
+    console.log('---send data new mail', $scope.data);
     // var mailAccountId = $scope.data.mailAccountId;
     // var to = $scope.data.to;
     // console.log("mailAccountId",mailAccountId);
