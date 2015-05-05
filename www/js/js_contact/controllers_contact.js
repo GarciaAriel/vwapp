@@ -285,8 +285,8 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
-
+.controller('neworganizationCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+  $scope.colorFont = COLOR_VIEW;
 });
 
 
