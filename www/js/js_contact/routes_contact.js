@@ -40,8 +40,18 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
         controller: 'newpCtrl'
       }
     }
-  });
+  })
 
+  $stateProvider.state('app.editPerson', {
+    url: "/editPerson",
+    cache: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/newperson.html",
+        controller: 'editPersonCtrl'
+      }
+    }
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

@@ -3,6 +3,18 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
+
+.controller('editPersonCtrl', function($scope,COLOR_VIEW, $stateParams,apiUrlLocal) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
+
+  console.log("param1", $stateParams.contactId);
+  
+  
+})
+
+
+
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
