@@ -282,8 +282,12 @@ $scope.search = function () {
     return $scope.shownGroup === group;
   };
     
-});
+})
 
+
+.controller('neworganizationCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
+
+});
 
 
 
