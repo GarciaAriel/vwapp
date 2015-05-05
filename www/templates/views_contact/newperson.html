@@ -31,17 +31,14 @@
         </label>
       
         <label class="item item-input">
-          <div class="input-label">Last name</div>
-          <input type="text" placeholder="last name" ng-model="data.lastname" name="lastname" required="required" validated>
-          <i class="icon ion-alert-circled error"></i>
+            <input type="text" required="required" placeholder="Last name" ng-model="data.name1">
+            <i class="icon ion-alert-circled error"></i>
         </label>
-           
-        <label class="item item-input-inset">
-          <div class="input-label">First name</div>
-          <input type="text" placeholder="first name" ng-model="data.firstname">
-        </label>
-               
 
+        <label class="item item-input">
+            <input type="text" placeholder="First name" ng-model="data.firstname">
+        </label>
+        
         <label class="item item-input item-select">
           <div class="input-label">Country</div>
           <select>
@@ -52,8 +49,7 @@
         </label>
           
         <label class="item item-input">
-          <div class="input-label">zip</div>
-          <input type="text" placeholder="zip" ng-model="data.zip">
+            <input type="text" placeholder="zip" ng-model="data.zip">
         </label>
             
         <label class="item item-input item-select">
@@ -64,24 +60,27 @@
             <option>cc3</option>
           </select>
         </label>
+
+        <label class="item item-input">
+            <input type="text" placeholder="Street" ng-model="data.street">
+        </label>
+
+        <label class="item item-input">
+            <input type="text" placeholder="House number" ng-model="data.number">
+        </label>
             
         <label class="item item-input">
-          <div class="input-label">Street</div>
-          <input type="text" placeholder="Street" ng-model="data.street">
-          <input type="text" placeholder="Number" ng-model="data.number">
+            <input type="text" placeholder="Short name" ng-model="data.shortName">
         </label>
-        
+
         <label class="item item-input">
-          <div class="input-label">Keywords</div>
-          <input type="text" placeholder="Keywords" ng-model="data.Keywords">
+            <input type="text" placeholder="Keywords" ng-model="data.keywords">
         </label>
-        
+
         <label class="item item-input">
-          <div class="input-label">Education</div>
-          <input type="text" placeholder="Education" ng-model="data.Education">
+            <input type="text" placeholder="Education" ng-model="data.education">
         </label>
-          
-          
+  
         <label class="item item-input item-select">
           <div class="input-label">Language</div>
           <select>
@@ -90,20 +89,22 @@
             <option>test3</option>
           </select>
         </label>
-          
+
         <label class="item item-input">
-          <div class="input-label">Birthday</div>
-          <input type="text" placeholder="Birthday" ng-model="data.Birthday">
-        </label>
-          
-        <div class="item item-divider">customer type</div>
+            <input type="date" placeholder="Birthday" ng-model="data.birthday">
+        </label>  
+
+        
+
+
+        <div class="item item-divider">Contact type</div>
      
         <label class="item item-toggle">
           Customer
           <label class="toggle toggle-assertive">
             <input type="checkbox">
               <div class="track">
-               <div class="handle"></div>
+                <div class="handle"></div>
               </div>
           </label>
         </label>
