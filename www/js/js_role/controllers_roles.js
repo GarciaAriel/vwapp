@@ -41,7 +41,9 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     // Session.destroy();
 
     $scope.data = {};
-
+    $scope.iframeHeight = $(window).height();
+    $scope.iframeWidth = $(window).width();
+    
     $ionicModal.fromTemplateUrl('templates/login.html', {
       scope: $scope
     }).then(function(modal) {

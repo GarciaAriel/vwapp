@@ -33,7 +33,52 @@
         </label>
 
       </div>
+
     </form>
+    <br>    
+
+    <div class="row">     
+      <div class="col col-20"></div>
+        <div class="col col-80" style="display: inline-block;">
+           <ion-slide-box slide-interval="2000" active-slide="true" show-pager="true" auto-play="true" does-continue="true" on-slide-changed="slideHasChanged($index)">
+            
+            <ion-slide>              
+              <a href="#" onClick="window.open('https://www.facebook.com/jatunsrl','_system');">             
+               <img height="{{iframeHeight / 13}}"  width="{{iframeWidth * 0.20}}" src="img/jatun.gif" />
+              </a>
+               <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/piramide.gif" />
+              <a href="#" onClick="window.open('https://www.facebook.com/camaradecomercio.cbba','_system','location=yes');return false;">                 
+                <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/cadeco.gif" />
+              </a>                    
+            </ion-slide>
+
+            <ion-slide>                           
+               <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/piramide.gif" />
+              <a href="#" onClick="window.open('https://www.facebook.com/camaradecomercio.cbba','_system','location=yes');return false;">                 
+                <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/cadeco.gif" />                
+              </a>            
+              <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/ionic.png" />              
+            </ion-slide>
+
+            <ion-slide>                                     
+              <a href="#" onClick="window.open('https://www.facebook.com/camaradecomercio.cbba','_system','location=yes');return false;">                 
+                <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/cadeco.gif" />                
+              </a>            
+              <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/ionic.png" /> 
+              <a href="#" onClick="window.open('https://www.facebook.com/jatunsrl','_system');">             
+               <img height="{{iframeHeight / 13}}"  width="{{iframeWidth * 0.20}}" src="img/jatun.gif" />
+              </a>             
+            </ion-slide>
+             <ion-slide>                                                       
+              <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/ionic.png" /> 
+              <a href="#" onClick="window.open('https://www.facebook.com/jatunsrl','_system');">             
+              <img height="{{iframeHeight / 13}}"  width="{{iframeWidth * 0.20}}" src="img/jatun.gif" />
+              <img height="{{iframeHeight / 10}}"  width="{{iframeWidth * 0.20}}" src="img/piramide.gif" />
+              </a>             
+            </ion-slide>
+          </ion-slide-box>
+        </div>    
+    </div>
 
   </ion-content>
 </ion-view>
