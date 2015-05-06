@@ -3,6 +3,25 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
+
+.controller('editPersonCtrl', function($scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
+
+    var person = $localstorage.getObject("EditContact");
+    console.log("-----get localstorage", person);
+
+    $scope.data = person.entity;
+    console.log("-----get data", $scope.data);
+
+    // $scope.mata = $stateParams.infor;
+    
+
+  
+})
+
+
+
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
@@ -218,7 +237,7 @@ $scope.search = function () {
 
 
 
-.controller('ContactCtrl', function($scope,COLOR_VIEW, $stateParams, Contact,apiUrlLocal) {
+.controller('ContactCtrl', function($scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -226,7 +245,6 @@ $scope.search = function () {
   console.log("param2", $stateParams.addressId);
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
-
 
   $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
@@ -238,8 +256,9 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
-  });
+    $localstorage.setObject("EditContact",results.mainData);
 
+  });
 
 })
 
