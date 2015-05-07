@@ -202,7 +202,7 @@ $scope.search = function () {
             });
             console.log("==12121212",$scope.totalpag);
             console.log("==12121212",$scope.pag);
-            if ($scope.totalpag<=$scope.pag+1) {
+            if ($scope.totalpag<$scope.pag+1) {
               $scope.asknext = false;  
             };
             

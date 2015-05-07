@@ -2,7 +2,7 @@ angular.module('starter.constants',[])
 
 //url server local
 
- // .constant('apiUrlLocal', 'http://10.0.0.122:8080/bm')
+//.constant('apiUrlLocal', 'http://10.0.0.13:8080/bm')
 
 // .constant('apiUrlLocal', 'http://dev.jatun.net/bm')
 
