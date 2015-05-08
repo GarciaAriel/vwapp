@@ -71,7 +71,6 @@
           </div>
         </div>
 
-        
         <div ng-if="item.bodyType != '2' " class="card">
           Detail:
           <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 300px">
@@ -79,12 +78,11 @@
           </ion-scroll>
         </div>
 
-        <div ng-if="item.bodyType != '1' " class="card">
+        <div ng-if="item.bodyType == '1' " class="card">
           Detail:
-          <textarea>
+          <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 300px">
               {{item.body}}   
-          </textarea>
-          
+          </ion-scroll>
         </div>
         
       <!-- </ion-slide> -->
