@@ -9,8 +9,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.colorFont = COLOR_VIEW;
 
     // get contact for edit
-    var contactData = bridgeService.getContact();
-    console.log("==CONTACTS CONTROLLER==  get contact data:",contactData);
+    var mainData = bridgeService.getContact();
+    $scope.entity = mainData.entity;
+    
+    console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
 
 })
 
@@ -251,6 +253,15 @@ $scope.search = function () {
     console.log("list of telecoms",$scope.telecomss);
 
     $localstorage.setObject("EditContact",results.mainData);
+
+    if (results.mainData.entity.countryId != "") {
+      var countries = results.mainData.countryArray;
+      countries.forEach(function(country) {
+          if (country.countryId == results.mainData.entity.countryId) {
+            $scope.countryName = country.name;
+          }
+      });
+    }
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);

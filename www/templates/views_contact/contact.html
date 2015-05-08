@@ -8,22 +8,22 @@
     </button>
 
 
-    <a ng-href="#/app/editPerson">
+    <!-- <a ng-href="#/app/editPerson">
       <button class="button" style="border-style: none" >
         <i class="icon ion-edit" style="{{colorFont}}"></i>
       </button>  
-    </a>
+    </a> -->
 
   </ion-nav-buttons>
 
   <ion-content>
-
+    
     <div class="list card">
   
     <!-- person -->
-      <div class="item item-avatar"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
-        <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" style="width: 80px; height: 80px">
-        <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+      <div class="item item-thumbnail-left"  ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" '>
+        <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/person.png" width="60px" height= "60px">
+        <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" width=" 80px" height= "70px">
         <div>
 
           <textarea ng-if="contact.mainData.entity.name2 == ''" disabled style="overflow:hidden">{{contact.mainData.entity.name1}}</textarea>
@@ -34,7 +34,7 @@
       </div>
 
     <!-- company -->
-      <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
+      <div class="item item-thumbnail-left" ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0" '>
         <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/org.png" style="width: 80px; height: 80px">
         <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
         <div>
@@ -49,7 +49,7 @@
 
 
     <!-- contact person -->
-      <div class="item item-avatar" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
+      <div class="item item-thumbnail-left" ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
           <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
           <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
           
@@ -74,15 +74,31 @@
        <div class="item item-divider bar bar-header bar-assertive">
          <h2>{{ 'Address' | translate}}</h2>
        </div>
-       <a class="item item-thumbnail-right" href="#">
-         
-         {{ 'Street' | translate}}: {{contact.mainData.entity.street}}
-         <br>
-         {{ 'Zip' | translate}}: {{contact.mainData.entity.zip}}
-         <br>
-         {{ 'City' | translate}}: {{contact.mainData.entity.city}}
+       <!-- <a class="item item-thumbnail-right" href="#"> -->
+       <!-- contact person -->
+       <div ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
+          <div class="item item-body">
+            <div ng-if='contact.mainData.entity.organizationName != ""'>{{contact.mainData.entity.organizationName}} </div>
+            <div ng-if='contact.mainData.entity.orgCity != ""'>{{contact.mainData.entity.orgCity}} {{contact.mainData.entity.orgZip}} </div>
+            <div ng-if='contact.mainData.entity.orgStreet != ""'>{{contact.mainData.entity.orgStreet}} {{contact.mainData.entity.orgHouseNumber}} </div>
+            <div ng-if='contact.mainData.entity.orgCountryName != ""'>{{contact.mainData.entity.orgCountryName}}</div>
 
-         <h1> <span class="badge ion-chevron-right"> </span> </h1>
+          </div>
+           
+            
+       </div>
+
+       <div ng-if='(contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1") || (contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0")'>
+        <div class="item item-body">
+          <div ng-if='contact.mainData.entity.street != ""'>{{contact.mainData.entity.street}} {{contact.mainData.entity.houseNumber}}</div>
+          <div ng-if='contact.mainData.entity.zip != ""'>  {{contact.mainData.entity.city}} {{contact.mainData.entity.zip}}</div>
+          <div ng-if='contact.mainData.entity.countryId != ""'> {{countryName}}</div>
+        </div>   
+       </div>
+
+      
+         
+         <!-- <h1> <span class="badge ion-chevron-right"> </span> </h1> -->
          
        </a>
     </div>
