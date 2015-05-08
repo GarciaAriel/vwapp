@@ -4,20 +4,14 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 
-.controller('editPersonCtrl', function($scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
-    var person = $localstorage.getObject("EditContact");
-    console.log("-----get localstorage", person);
+    // get contact for edit
+    var contactData = bridgeService.getContact();
+    console.log("==CONTACTS CONTROLLER==  get contact data:",contactData);
 
-    $scope.data = person.entity;
-    console.log("-----get data", $scope.data);
-
-    // $scope.mata = $stateParams.infor;
-    
-
-  
 })
 
 
@@ -237,7 +231,7 @@ $scope.search = function () {
 
 
 
-.controller('ContactCtrl', function($scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -258,6 +252,9 @@ $scope.search = function () {
 
     $localstorage.setObject("EditContact",results.mainData);
 
+    // save contact for edit do not call service
+    bridgeService.saveContact($scope.contact.mainData);
+    
   });
 
 })

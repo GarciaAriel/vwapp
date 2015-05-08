@@ -19,6 +19,24 @@ angular.module('starter.contactservices', [])
   }
 }])
 
+.service('bridgeService', function() {
+  var contact = {};
+
+  var saveContact = function(newContact) {
+      contact = newContact;
+  };
+
+  var getContact = function(){
+      return contact;
+  };
+
+  return {
+    saveContact: saveContact,
+    getContact: getContact
+  };
+
+})
+
 .factory('Contact', function ($resource,apiUrlLocal,pathContact) {
 	var url = apiUrlLocal+pathContact;
 	return $resource(url,{},{'query':{method:'GET', isArray:false}});
