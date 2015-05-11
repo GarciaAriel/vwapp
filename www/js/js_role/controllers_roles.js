@@ -123,9 +123,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     // logout
     $scope.closeLogin = function() {
-      console.log('==CONTROLLER ROLES== logout', $scope.data);
-      $ionicHistory.clearCache();
-      $ionicHistory.clearHistory();
+      console.log('==CONTROLLER ROLES== logout', $scope.data);      
       $state.go('login');
       $scope.modal.hide();
     };
