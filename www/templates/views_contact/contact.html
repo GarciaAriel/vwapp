@@ -7,12 +7,21 @@
       <i class="icon ion-trash-a" style="{{colorFont}}"></i>
     </button>
 
+   
+      <a ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1" ' ng-href="#/app/editPerson">
+        <button class="button" style="border-style: none" >
+          <i class="icon ion-edit" style="{{colorFont}}"></i>
+        </button>  
+      </a>
 
-    <!-- <a ng-href="#/app/editPerson">
-      <button class="button" style="border-style: none" >
-        <i class="icon ion-edit" style="{{colorFont}}"></i>
-      </button>  
-    </a> -->
+
+    
+      <a ng-if='contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0"' ng-href="#/app/editOrganization">
+        <button class="button" style="border-style: none" >
+          <i class="icon ion-edit" style="{{colorFont}}"></i>
+        </button>  
+      </a>
+ 
 
   </ion-nav-buttons>
 

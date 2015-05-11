@@ -16,7 +16,40 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
+.controller('editOrganizationCtrl', function(CountryService,LanguageService,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
 
+    // get contact for edit
+    var mainData = bridgeService.getContact();
+    $scope.entity = mainData.entity;
+    
+    console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
+
+    var countryArray = CountryService.getCountry();  
+    $scope.countries = [];    
+    countryArray.forEach(function(country) {           
+        $scope.countries.push({
+          name: country.name,
+          value:country.countryId
+        });       
+        if($scope.entity.countryId == country.countryId) {             
+           $scope.country = $scope.countries[$scope.countries.length-1];  
+        } 
+    });    
+
+    var languageArray = LanguageService.getLanguage();
+    $scope.languages = [];    
+    languageArray.forEach(function(language) {           
+        $scope.languages.push({
+          name: language.name,
+          value:language.languageId
+        });       
+        if($scope.entity.languageId == language.languageId) {             
+           $scope.language = $scope.languages[$scope.languages.length-1];  
+        } 
+    });    
+})
 
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
@@ -233,7 +266,7 @@ $scope.search = function () {
 
 
 
-.controller('ContactCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactCtrl', function(CountryService,LanguageService,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -253,6 +286,9 @@ $scope.search = function () {
     console.log("list of telecoms",$scope.telecomss);
 
     $localstorage.setObject("EditContact",results.mainData);
+
+    CountryService.saveCountry(results.mainData.countryArray);
+    LanguageService.saveLanguage(results.mainData.languageArray);
 
     if (results.mainData.entity.countryId != "") {
       var countries = results.mainData.countryArray;
@@ -302,6 +338,14 @@ $scope.search = function () {
 
 .controller('neworganizationCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
+
+  $scope.countries = [
+    {name:'Vereinigte Arabische Emirate', value:'AE'},
+    {name:'Andorra', value:'AD'},
+  ];
+
+  $scope.country = $scope.countries[0]; 
+
 });
 
 
