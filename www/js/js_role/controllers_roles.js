@@ -34,11 +34,12 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function ($ionicHistory,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function (COLOR_VIEW,$ionicHistory,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
-    // Session.destroy();
+
+    $scope.colorFont = COLOR_VIEW;
 
     console.log('==------------ logout');
     $ionicHistory.clearCache();
@@ -85,24 +86,10 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             var lenguage = data.mainData.userInfo.locale;
             console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
             $scope.ChangeLanguage(lenguage);
-            AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
-            $scope.closeLogin();
+            // AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             
             if (data.mainData.accessRight.CONTACT.VIEW == "true") {
-              $state.go('app.contacts');
-            }
-            else{
-              if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
-                $state.go('app.schedulerDay');
-              }
-              else{
-                if (data.mainData.accessRight.MAIL.VIEW == "true") {
-                  $state.go('app.mailboxes');
-                }
-                else{
-                  $state.go('app.startPage');      
-                }
-              }
+              $state.go('app.contactsCadeco');
             }
           }
           else
@@ -120,8 +107,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         error(function(data, status, headers, config) {
          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
         });
-
-      $state.go('app.contactsCadeco');
     }
 
     // logout
@@ -129,9 +114,12 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
       console.log('==CONTROLLER ROLES== logout', $scope.data);
       $ionicHistory.clearCache();
       $ionicHistory.clearHistory();
-      $state.go('login');
-      $scope.modal.hide();
+      // $state.go('login');
+      // $scope.modal.hide();
     };
+
+    // Session.destroy();
+    $scope.closeLogin();
 
     // login
     $scope.doLogin = function(data) {
@@ -159,7 +147,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
             $scope.ChangeLanguage(lenguage);
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
-            $scope.closeLogin();
             
             if (data.mainData.accessRight.CONTACT.VIEW == "true") {
               $state.go('app.contacts');

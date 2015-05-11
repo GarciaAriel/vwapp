@@ -6,6 +6,8 @@ angular.module('starter.constants',[])
 
 // .constant('apiUrlLocal', 'http://dev.jatun.net/bm')
 
+// https://bm.bm-od.com/bm/bmappweb/index.html#/login
+
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
 // .constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
@@ -20,8 +22,8 @@ angular.module('starter.constants',[])
 .constant('pathLogon','/bmapp/LogonBMApp.do')
 
 //color view
-.constant('COLOR_VIEW','color: #B80808')
-.constant('COLOR_2','#B80808');
+.constant('COLOR_VIEW','color: #ba0808')
+.constant('COLOR_2','#ba0808');
 // .constant('COLOR_VIEW','color: #1A36A7')
 
 
