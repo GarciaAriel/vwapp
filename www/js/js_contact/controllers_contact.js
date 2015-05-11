@@ -49,7 +49,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.entity = mainData.entity;
     
     console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
-
+    
+    
     var countryArray = CountryService.getCountry();  
     $scope.countries = [];    
     countryArray.forEach(function(country) {           
@@ -73,6 +74,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
            $scope.language = $scope.languages[$scope.languages.length-1];  
         } 
     });    
+
 })
 
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
