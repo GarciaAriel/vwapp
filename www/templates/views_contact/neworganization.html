@@ -9,7 +9,7 @@
           
         <label class="item item-input">
           <div class="input-label">Name</div>
-          <input type="text" placeholder="Name" ng-model="data.name" name="name" required="required" validated>
+          <input type="text" ng-model="entity.name1" placeholder="Name" ng-model="data.name" name="name" required="required" validated>
           <i class="icon ion-alert-circled error"></i>
         </label>
             
@@ -17,64 +17,57 @@
           <div class="input-label">
             Country
           </div>
-          <select>
-            <option>Bolivia</option>
-            <option>Brasil</option>
-            <option selected>Alemania</option>
-          </select>
+          <select ng-model="country" ng-options="c.name for c in countries"></select>    
         </label>
-      
+        
  
             
         <label class="item item-input">
           <div class="input-label">Zip</div>
-          <input type="text" placeholder="Zip" ng-model="data.zip" name="zip" required="required" validated>
+          <input type="text" ng-model="entity.zip"placeholder="Zip" ng-model="data.zip" name="zip" required="required" validated>
           <i class="icon ion-alert-circled error"></i>        
         </label>
            
         <label class="item item-input">
           <div class="input-label">City</div>      
-          <input type="text" placeholder="City" ng-model="data.city" name="city" required="required" validated>
+          <input type="text" ng-model="entity.city" placeholder="City" ng-model="data.city" name="city" required="required" validated>
           <i class="icon ion-alert-circled error"></i>
         </label>  
 
         <label class="item item-input">
           <div class="input-label">Street</div>
-          <input type="text" placeholder="Street" ng-model="data.street">
+          <input type="text" ng-model="entity.street" placeholder="Street" ng-model="data.street">
         </label>
 
          <label class="item item-input">
           <div class="input-label">Number</div>
-          <input type="text" placeholder="Number" ng-model="data.number">
+          <input type="text" ng-model="entity.houseNumber" placeholder="Number" ng-model="data.number">
         </label>
 
         <label class="item item-input">
           <div class="input-label">Additional address line</div>
-          <input type="text" placeholder="Additional address line" ng-model="data.Additionaladdress">
+          <input type="text" ng-model="entity.additionalAddressLine" placeholder="Additional address line" ng-model="data.Additionaladdress">
         </label>
 
         <label class="item item-input">
           <div class="input-label"> Short name </div>
-          <input type="text" placeholder=" Short name " ng-model="data.shortname">
+          <input type="text" ng-model="entity.searchName" placeholder=" Short name " ng-model="data.shortname">
         </label>
           <label class="item item-input">
           <div class="input-label">Keywords</div>
-          <input type="text" placeholder="Keywords" ng-model="data.keywords">
+          <input type="text" ng-model="entity.keywords" placeholder="Keywords" ng-model="data.keywords">
         </label>
          
         <label class="item item-input item-select">
           <div class="input-label">
             Language
           </div>
-          <select>
-            <option>Spanish</option>
-            <option>asdfsd</option>
-            <option selected>sadfsdlkl</option>
-          </select>
+          <select ng-model="language" ng-options="c.name for c in languages"></select>    
         </label>
+
         <label class="item item-input">
           <div class="input-label">Foundation</div>
-          <input type="date">
+          <input type="date" >
         </label>
        
 

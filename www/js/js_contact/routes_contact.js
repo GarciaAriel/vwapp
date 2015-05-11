@@ -54,6 +54,17 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
     }
   })
 
+  $stateProvider.state('app.editOrganization', {
+    url: "/editOrganization",
+    cache: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/neworganization.html",
+        controller: 'editOrganizationCtrl'
+      }
+    }
+  })
+
   $stateProvider.state('app.neworganization', {
     url: "/neworganization",
     cache: true,

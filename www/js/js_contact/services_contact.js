@@ -37,6 +37,42 @@ angular.module('starter.contactservices', [])
 
 })
 
+.service('LanguageService', function() {
+  var language = {};
+
+  var saveLanguage = function(newLanguage) {
+      language = newLanguage;
+  };
+
+  var getLanguage = function(){
+      return language;
+  };
+
+  return {
+    saveLanguage: saveLanguage,
+    getLanguage: getLanguage
+  };
+
+})
+
+.service('CountryService', function() {
+  var country = {};
+
+  var saveCountry = function(newCountry) {
+      country = newCountry;
+  };
+
+  var getCountry = function(){
+      return country;
+  };
+
+  return {
+    saveCountry: saveCountry,
+    getCountry: getCountry
+  };
+
+})
+
 .factory('Contact', function ($resource,apiUrlLocal,pathContact) {
 	var url = apiUrlLocal+pathContact;
 	return $resource(url,{},{'query':{method:'GET', isArray:false}});
