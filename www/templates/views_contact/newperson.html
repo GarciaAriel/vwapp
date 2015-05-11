@@ -6,29 +6,22 @@
       <div class="list">
 <!--            style="height:15px"-->
         <div class="item item-divider">New person</div>
-          
+
         <label class="item item-input item-select">
           <div class="input-label">
             Salutation
           </div>
-          <select>
-            <option>s1</option>
-            <option selected>s2</option>
-            <option>s3</option>
-          </select>
-
+          <select ng-model="salutations" ng-options="c.name for c in salutations"></select>
         </label>
-            
+
         <label class="item item-input item-select">
           <div class="input-label">
             Tittle
           </div>
-          <select>
-            <option>t1</option>
-            <option>t2</option>
-            <option selected>t3</option>
-          </select>
+          <select ng-model="tittles" ng-options="c.name for c in tittles"></select>
         </label>
+            
+        
       
         <label class="item item-input">
             <input type="text" required="required" placeholder="Last name" ng-model="entity.name1">

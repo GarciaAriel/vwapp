@@ -12,7 +12,31 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     var mainData = bridgeService.getContact();
     $scope.entity = mainData.entity;
     
-    console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
+    console.log("==CONTACTS CONTROLLER==  get contact data:-----",mainData);
+
+    var salutationArray = mainData.salutationArray;  
+    $scope.salutations = [];    
+    salutationArray.forEach(function(salutation) {           
+        $scope.salutations.push({
+          name: salutation.name,
+          value:salutation.salutationId
+        });       
+        if($scope.entity.salutationId == salutation.salutationId) {             
+           $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
+        } 
+    });
+
+    // var tittleArray = mainData.titleArray;  
+    // $scope.tittles = [];    
+    // tittleArray.forEach(function(tittle) {           
+    //     $scope.tittles.push({
+    //       name: tittle.name,
+    //       value:tittle.salutationId
+    //     });       
+    //     if($scope.entity.salutationId == salutation.salutationId) {             
+    //        $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
+    //     } 
+    // });
 
 })
 

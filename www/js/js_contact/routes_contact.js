@@ -7,11 +7,22 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.contacts', {
     url: '/contacts',
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
        controller: 'ContactsCtrl',
        templateUrl: 'templates/views_contact/contactslist.html'
+      }
+    }
+  })
+
+  $stateProvider.state('app.contactsCadeco', {
+    url: '/contactsCadeco',
+    cache: false,
+    views: {
+      'menuContent': {
+       controller: 'ContactsCtrl',
+       templateUrl: 'templates/views_contact/contactslistCadeco.html'
       }
     }
   })
@@ -22,7 +33,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.contact', {
     url: "/contact?contactId&addressId&contactPersonId&addressType",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/contact.html",
@@ -33,7 +44,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.newperson', {
     url: "/newperson",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/newperson.html",
@@ -45,7 +56,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.editPerson', {
     url: "/editPerson",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/newperson.html",
@@ -56,7 +67,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.editOrganization', {
     url: "/editOrganization",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/neworganization.html",
@@ -67,7 +78,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.neworganization', {
     url: "/neworganization",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/neworganization.html",

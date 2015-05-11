@@ -34,11 +34,16 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function ($filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($ionicHistory,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
     // Session.destroy();
+
+    console.log('==------------ logout');
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
+    // $scope.modal.hide();
 
     $scope.data = {};
     $scope.iframeHeight = $(window).height();
@@ -54,16 +59,83 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
       $translate.use(lang);
     }
 
+    $scope.searchCadeco = function(){
+      console.log("-----cadeco");
+      // $scope.data = {username: "admin" ,password: "administrador", company: "cadeco"}
+      $scope.data = {username: "root" ,password: "piramide", company: "piramide"}
+      // Simple POST request
+        $http({
+          method: 'POST',
+          url: apiUrlLocal+""+pathLogon,
+          data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+        }).success(function(data, status, headers, config) {
+          
+          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
+          
+          if( data.mainData)
+          {
+            // cadeco only see contacts
+            var accessRight = data.mainData.accessRight;
+            accessRight.APPOINTMENT.VIEW = "false";
+            accessRight.MAIL.VIEW = "false";
+
+            $localstorage.setObject('accessRight',accessRight);
+            $localstorage.setObject('userInfo',data.mainData.userInfo);
+
+            var lenguage = data.mainData.userInfo.locale;
+            console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
+            $scope.ChangeLanguage(lenguage);
+            AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
+            $scope.closeLogin();
+            
+            if (data.mainData.accessRight.CONTACT.VIEW == "true") {
+              $state.go('app.contacts');
+            }
+            else{
+              if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
+                $state.go('app.schedulerDay');
+              }
+              else{
+                if (data.mainData.accessRight.MAIL.VIEW == "true") {
+                  $state.go('app.mailboxes');
+                }
+                else{
+                  $state.go('app.startPage');      
+                }
+              }
+            }
+          }
+          else
+          {
+            // popup credencial failed
+            var message = $filter('translate')('Messagefailed');
+            var alertPopup = $ionicPopup.alert({
+               title: message
+            });
+            
+            $state.go('login');
+            
+          }
+        }).
+        error(function(data, status, headers, config) {
+         console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
+        });
+
+      $state.go('app.contactsCadeco');
+    }
+
     // logout
     $scope.closeLogin = function() {
       console.log('==CONTROLLER ROLES== logout', $scope.data);
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
+      $state.go('login');
       $scope.modal.hide();
     };
 
     // login
-    $scope.doLogin = function() {
+    $scope.doLogin = function(data) {
       console.log('==CONTROLLER ROLES== data from UI:', $scope.data);
-      console.log('====================:', $scope.data.username);
       
       // do nothing if data es null
       if ($scope.data.username != null && $scope.data.password != null && $scope.data.company != null) {
@@ -138,10 +210,90 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 })
 
 //  CONTROLLER LOGOUT
-.controller('logoutController', function($rootScope,$http,$scope, $state,AuthenticationService){
-    'use strict';
-    
-    delete $http.defaults.headers.common.Authorization;
-    Session.destroy();
-    AuthenticationService.logout();
+.controller('logoutController', function($translate,$localstorage,apiUrlLocal,pathLogon,$rootScope,$http,$scope, $state,AuthenticationService){
+//     'use strict';
+//     console.log("-------111111111---------");
+//     // delete $http.defaults.headers.common.Authorization;
+//     // Session.destroy();
+//     // AuthenticationService.logout();
+
+// $scope.data = {};
+//     // login
+//     $scope.doLogin = function() {
+//       console.log('==CONTROLLER ROLES== data from UI:', $scope.data);
+//       console.log('====================:', $scope.data.username);
+      
+//       // do nothing if data es null
+//       if ($scope.data.username != null && $scope.data.password != null && $scope.data.company != null) {
+        
+//         // Simple POST request
+//         $http({
+//           method: 'POST',
+//           url: apiUrlLocal+""+pathLogon,
+//           data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+//         }).success(function(data, status, headers, config) {
+          
+//           console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
+
+          
+//           if( data.mainData)
+//           {
+//             $localstorage.setObject('accessRight',data.mainData.accessRight);
+//             $localstorage.setObject('userInfo',data.mainData.userInfo);
+
+//             var lenguage = data.mainData.userInfo.locale;
+//             console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
+//             $scope.ChangeLanguage(lenguage);
+//             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
+//             $scope.closeLogin();
+            
+//             if (data.mainData.accessRight.CONTACT.VIEW == "true") {
+//               $state.go('app.contacts');
+//             }
+//             else{
+//               if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
+//                 $state.go('app.schedulerDay');
+//               }
+//               else{
+//                 if (data.mainData.accessRight.MAIL.VIEW == "true") {
+//                   $state.go('app.mailboxes');
+//                 }
+//                 else{
+//                   $state.go('app.startPage');      
+//                 }
+//               }
+//             }
+//           }
+//           else
+//           {
+//             // popup credencial failed
+//             var message = $filter('translate')('Messagefailed');
+//             var alertPopup = $ionicPopup.alert({
+//                title: message
+//             });
+            
+//             $state.go('login');
+            
+//           }
+//         }).
+//         error(function(data, status, headers, config) {
+//          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
+//         });  
+//       }
+//       else
+//       {
+//         // popup credencial failed
+//             var message = $filter('translate')('MessageRequired');
+//             var alertPopup = $ionicPopup.alert({
+//                title: message
+//             });
+
+//             $state.go('login');
+//       }
+      
+//     };
+
+//     $scope.ChangeLanguage = function(lang){
+//       $translate.use(lang);
+//     }
 });
