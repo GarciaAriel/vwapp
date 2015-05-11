@@ -34,12 +34,14 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function ($filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($ionicViewService,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
     // Session.destroy();
-
+    $ionicViewService.nextViewOptions({
+            disableBack: true
+        });
     $scope.data = {};
     $scope.iframeHeight = $(window).height();
     $scope.iframeWidth = $(window).width();
@@ -61,7 +63,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     };
 
     // login
-    $scope.doLogin = function() {
+    $scope.doLogin = function() {     
       console.log('==CONTROLLER ROLES== data from UI:', $scope.data);
       console.log('====================:', $scope.data.username);
       
