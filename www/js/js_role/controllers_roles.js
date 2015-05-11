@@ -34,17 +34,14 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 
 //  CONTROLLER LOGIN
-.controller('LoginController', function (COLOR_VIEW,$ionicHistory,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+
+.controller('LoginController', function (COLOR_VIEW,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+
     'use strict';
 
     delete $http.defaults.headers.common.Authorization;
 
     $scope.colorFont = COLOR_VIEW;
-
-    console.log('==------------ logout');
-    $ionicHistory.clearCache();
-    $ionicHistory.clearHistory();
-    // $scope.modal.hide();
 
     $scope.data = {};
     $scope.iframeHeight = $(window).height();
@@ -111,18 +108,23 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     // logout
     $scope.closeLogin = function() {
+
       console.log('==CONTROLLER ROLES== logout', $scope.data);
-      $ionicHistory.clearCache();
-      $ionicHistory.clearHistory();
+      
       // $state.go('login');
       // $scope.modal.hide();
+
+      // console.log('==CONTROLLER ROLES== logout', $scope.data);      
+      // $state.go('login');
+      // $scope.modal.hide();
+
     };
 
     // Session.destroy();
     $scope.closeLogin();
 
     // login
-    $scope.doLogin = function(data) {
+    $scope.doLogin = function() {     
       console.log('==CONTROLLER ROLES== data from UI:', $scope.data);
       
       // do nothing if data es null

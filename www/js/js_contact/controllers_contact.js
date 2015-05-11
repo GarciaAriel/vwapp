@@ -43,14 +43,14 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 .controller('editOrganizationCtrl', function(CountryService,LanguageService,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
-
+    $scope.ntitle = "Edit Organization";
     // get contact for edit
     var mainData = bridgeService.getContact();
     $scope.entity = mainData.entity;
     
     console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
-    
-    
+
+
     var countryArray = CountryService.getCountry();  
     $scope.countries = [];    
     countryArray.forEach(function(country) {           
@@ -75,6 +75,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         } 
     });    
 
+    $scope.foundation = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
+    console.log("=========fouendation",$scope.foundation);
 })
 
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
@@ -371,7 +373,7 @@ $scope.search = function () {
   ];
 
   $scope.country = $scope.countries[0]; 
-
+  $scope.ntitle = "New Organization";
 });
 
 

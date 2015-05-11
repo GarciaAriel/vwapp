@@ -1,11 +1,11 @@
 
-<ion-view view-title="New organization">
+<ion-view view-title="{{ntitle}}">
   <ion-content>
 
     <form >
       <div class="list">
 <!--            style="height:15px"-->
-        <div class="item item-divider bar bar-header bar-assertive">New organization</div>
+        <div class="item item-divider bar bar-header bar-assertive">{{ntitle}}</div>
           
         <label class="item item-input">
           <div class="input-label">Name</div>
@@ -45,7 +45,7 @@
         </label>
 
         <label class="item item-input">
-          <div class="input-label">Additional address line</div>
+          <div class="input-label">Additional address</div>
           <input type="text" ng-model="entity.additionalAddressLine" placeholder="Additional address line" ng-model="data.Additionaladdress">
         </label>
 
@@ -67,7 +67,7 @@
 
         <label class="item item-input">
           <div class="input-label">Foundation</div>
-          <input type="date">
+          <input type="date" value="{{ foundation | date: 'shortDate' }}">
         </label>
        
 
@@ -76,7 +76,7 @@
         <label class="item item-toggle">
           Customer
           <label class="toggle toggle-assertive">
-            <input type="checkbox">
+            <input type="checkbox" ng-checked="entity.isCustomer == 'true' ? true : false ">
               <div class="track">
                <div class="handle"></div>
               </div>
@@ -86,7 +86,7 @@
         <label class="item item-toggle">
           Suplier
           <label class="toggle toggle-assertive">
-            <input type="checkbox">
+            <input type="checkbox" ng-checked="entity.isSupplier == 'true' ? true : false ">
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -97,7 +97,7 @@
         <label class="item item-toggle">
           Status
           <label class="toggle toggle-assertive">
-            <input type="checkbox">
+            <input type="checkbox" ng-checked="entity.isActive == 'true' ? true : false ">
             <div class="track">
               <div class="handle"></div>
             </div>
