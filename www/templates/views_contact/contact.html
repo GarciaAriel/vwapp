@@ -88,8 +88,8 @@
        <div ng-if='contact.mainData.entity.contactPersonId != undefined && contact.mainData.entity.addressType == "1" '>
           <div class="item item-body">
             <div ng-if='contact.mainData.entity.organizationName != ""'>{{contact.mainData.entity.organizationName}} </div>
-            <div ng-if='contact.mainData.entity.orgCity != ""'>{{contact.mainData.entity.orgCity}} {{contact.mainData.entity.orgZip}} </div>
             <div ng-if='contact.mainData.entity.orgStreet != ""'>{{contact.mainData.entity.orgStreet}} {{contact.mainData.entity.orgHouseNumber}} </div>
+            <div ng-if='contact.mainData.entity.orgCity != ""'>{{contact.mainData.entity.orgCity}} {{contact.mainData.entity.orgZip}} </div>
             <div ng-if='contact.mainData.entity.orgCountryName != ""'>{{contact.mainData.entity.orgCountryName}}</div>
 
           </div>
@@ -100,7 +100,7 @@
        <div ng-if='(contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "1") || (contact.mainData.entity.contactPersonId == undefined && contact.mainData.entity.addressType == "0")'>
         <div class="item item-body">
           <div ng-if='contact.mainData.entity.street != ""'>{{contact.mainData.entity.street}} {{contact.mainData.entity.houseNumber}}</div>
-          <div ng-if='contact.mainData.entity.zip != ""'>  {{contact.mainData.entity.city}} {{contact.mainData.entity.zip}}</div>
+          <div ng-if='contact.mainData.entity.city != ""'>  {{contact.mainData.entity.city}} {{contact.mainData.entity.zip}}</div>
           <div ng-if='contact.mainData.entity.countryId != ""'> {{countryName}}</div>
         </div>   
        </div>

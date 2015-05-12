@@ -278,8 +278,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $ionicLoading.show({
           template: 'Donwloading...'
         });
-
+        console.log("-----1");
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+          console.log("-----2");
             fs.root.getDirectory(
                 "BMapp",
                 {
