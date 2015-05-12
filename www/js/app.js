@@ -6,8 +6,26 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
-
+.run(function($ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
+  console.log("--ini--1");
+  $ionicPlatform.ready(function() {
+      console.log("--ini--2");
+      if(window.Connection) {
+        console.log("--ini--3");
+          if(navigator.connection.type == Connection.NONE) {
+            console.log("--ini--4");
+              $ionicPopup.confirm({
+                  title: "Internet Disconnected",
+                  content: "The internet is disconnected on your device."
+              })
+              .then(function(result) {
+                  if(!result) {
+                      ionic.Platform.exitApp();
+                  }
+              });
+          }
+      }
+  });
   
   // enumerate routes that user can see 
   // var routesForUser = ["/logout","/dos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out","/newperson"];

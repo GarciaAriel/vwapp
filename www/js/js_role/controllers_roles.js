@@ -66,7 +66,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     $scope.searchCadeco = function(){
       
       // $scope.data = {username: "admin" ,password: "administrador", company: "cadeco"}
-      $scope.data = {username: "root" ,password: "piramide", company: "piramide"}
+      $scope.data = {username: "admin" ,password: "administrador", company: "cadeco"}
       // Simple POST request
         $http({
           method: 'POST',
