@@ -1,5 +1,12 @@
 angular.module('starter.rolesservices', [])
 
+//SERVICE RESOURCE QUERY
+.factory('LogoutService', function($resource,apiUrlLocal,pathLogout) {
+  var url = apiUrlLocal+pathLogout;
+  console.log('==SERVICE SCHEDULE== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
 // SERVICE LOGIN SERVICE
 .service('LoginService', function($q) {
     return {

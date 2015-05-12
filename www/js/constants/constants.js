@@ -21,6 +21,9 @@ angular.module('starter.constants',[])
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do')
 
+//path logout
+.constant('pathLogout','/bmapp/LogoffBMApp.do')
+
 //color view
 .constant('COLOR_VIEW','color: #ba0808')
 .constant('COLOR_2','#ba0808');
