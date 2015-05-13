@@ -40,18 +40,18 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('editOrganizationCtrl', function(CountryService,LanguageService,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editOrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = "Edit Organization";
     // get contact for edit
     var mainData = bridgeService.getContact();
     $scope.entity = mainData.entity;
-    
-    console.log("==CONTACTS CONTROLLER==  get contact data:",$scope.entity);
+    $scope.maindata = mainData;
 
+    console.log("==EDIT ORGANIZATION CONTROLLER==  get maindata:", $scope.maindata);
 
-    var countryArray = CountryService.getCountry();  
+    var countryArray = $scope.maindata.countryArray;
     $scope.countries = [];    
     countryArray.forEach(function(country) {           
         $scope.countries.push({
@@ -63,7 +63,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         } 
     });    
 
-    var languageArray = LanguageService.getLanguage();
+    var languageArray = $scope.maindata.languageArray;
     $scope.languages = [];    
     languageArray.forEach(function(language) {           
         $scope.languages.push({
@@ -77,6 +77,60 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.foundation = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
     console.log("=========fouendation",$scope.foundation);
+})
+
+
+
+.controller('EditContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.colorFont = COLOR_VIEW;
+  $scope.ntitle = "Edit Contact Person";
+   
+  var mainData = bridgeService.getContact();
+  $scope.entity = mainData.entity;
+  $scope.mainData = mainData;
+
+  console.log("==EDIT CONTACT PERSON CONTROLLER==  get maindata:", $scope.mainData);
+
+  var salutationArray = $scope.mainData.salutationArray;  
+    $scope.salutations = [];    
+    salutationArray.forEach(function(salutation) {           
+      $scope.salutations.push({
+        name: salutation.name,
+        value:salutation.salutationId
+      });       
+      if($scope.entity.salutationId == salutation.salutationId) {             
+         $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
+      } 
+  });
+
+  var titleArray = $scope.mainData.titleArray;  
+    $scope.titles = [];    
+    titleArray.forEach(function(title) {           
+      $scope.titles.push({
+        name: title.name,
+        value: title.titleId
+      });       
+      if($scope.entity.titleId == title.titleId) {             
+         $scope.title = $scope.titles[$scope.titles.length-1];  
+      } 
+  });
+
+  var languageArray = $scope.mainData.languageArray;
+  $scope.languages = [];    
+  languageArray.forEach(function(language) {           
+      $scope.languages.push({
+        name: language.name,
+        value:language.languageId
+      });       
+      if($scope.entity.languageId == language.languageId) {             
+         $scope.language = $scope.languages[$scope.languages.length-1];  
+      } 
+  });   
+
+  $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
+  console.log("=========birthday",$scope.birthday);
+  
 })
 
 .controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
@@ -170,16 +224,29 @@ $scope.loadMore = function() {
   });
     };
 
-$scope.getContactUrl = function(item){
-  // GET ACCESS RIGHT FOR CONTACT PERSON
+
+$scope.getContactUrl = function(item,type){  
   var accessRight = $localstorage.getObject('accessRight');
   accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
 
   // IF CONTACT PERSON HAVE PERMISSION TO READ
   if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
     return "#";
-  };
-  return item.contactPersonAddressId ==='' ? '#/app/contact?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contact?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+  }
+
+  switch(type) {
+    case 'contactPerson':
+        return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+        break;
+    case 'organization':
+        return item.contactPersonAddressId ==='' ? '#/app/organization?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/organization?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+        break;
+    case 'person':
+        return item.contactPersonAddressId ==='' ? '#/app/person?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/person?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+        break;        
+    default:
+        return "#";
+  }    
 };
 
 
@@ -291,51 +358,6 @@ $scope.search = function () {
 
 
 
-
-
-
-.controller('ContactCtrl', function(CountryService,LanguageService,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
-    $scope.apiUrlLocal = apiUrlLocal;
-    $scope.colorFont = COLOR_VIEW;
-
-  console.log("param1", $stateParams.contactId);
-  console.log("param2", $stateParams.addressId);
-  console.log("param3", $stateParams.contactPersonId);
-  console.log("param4", $stateParams.addressType);
-
-  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
-
-  $scope.contact.$promise.then(function (results){
-
-    $scope.contact = results;
-    console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
-
-    $scope.telecomss=results.mainData.entity.telecoms;
-    console.log("list of telecoms",$scope.telecomss);
-
-    $localstorage.setObject("EditContact",results.mainData);
-
-    CountryService.saveCountry(results.mainData.countryArray);
-    LanguageService.saveLanguage(results.mainData.languageArray);
-
-    if (results.mainData.entity.countryId != "") {
-      var countries = results.mainData.countryArray;
-      countries.forEach(function(country) {
-          if (country.countryId == results.mainData.entity.countryId) {
-            $scope.countryName = country.name;
-          }
-      });
-    }
-
-    // save contact for edit do not call service
-    bridgeService.saveContact($scope.contact.mainData);
-    
-  });
-
-})
-
-
-
 .controller('newpCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
 
     
@@ -374,7 +396,120 @@ $scope.search = function () {
 
   $scope.country = $scope.countries[0]; 
   $scope.ntitle = "New Organization";
-});
+})
+
+
+.controller('ContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
+
+  console.log("param1", $stateParams.contactId);
+  console.log("param2", $stateParams.addressId);
+  console.log("param3", $stateParams.contactPersonId);
+  console.log("param4", $stateParams.addressType);
+
+  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+
+  $scope.contact.$promise.then(function (results){
+
+    $scope.contact = results;
+    console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
+
+    $scope.telecomss=results.mainData.entity.telecoms;
+    console.log("list of telecoms",$scope.telecomss);
+
+    $localstorage.setObject("EditContact",results.mainData);
+
+    if (results.mainData.entity.countryId != "") {
+      var countries = results.mainData.countryArray;
+      countries.forEach(function(country) {
+          if (country.countryId == results.mainData.entity.countryId) {
+            $scope.countryName = country.name;
+          }
+      });
+    }
+
+    // save contact for edit do not call service
+    bridgeService.saveContact($scope.contact.mainData);
+    
+  });
+
+})
+
+.controller('OrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
+
+  console.log("param1", $stateParams.contactId);
+  console.log("param2", $stateParams.addressId);
+  console.log("param3", $stateParams.contactPersonId);
+  console.log("param4", $stateParams.addressType);
+
+  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+
+  $scope.contact.$promise.then(function (results){
+
+    $scope.contact = results;
+    console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
+
+    $scope.telecomss=results.mainData.entity.telecoms;
+    console.log("list of telecoms",$scope.telecomss);
+
+    $localstorage.setObject("EditContact",results.mainData);
+
+    if (results.mainData.entity.countryId != "") {
+      var countries = results.mainData.countryArray;
+      countries.forEach(function(country) {
+          if (country.countryId == results.mainData.entity.countryId) {
+            $scope.countryName = country.name;
+          }
+      });
+    }
+
+    // save contact for edit do not call service
+    bridgeService.saveContact($scope.contact.mainData);
+    
+  });
+
+})
+
+.controller('PersonCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+    $scope.apiUrlLocal = apiUrlLocal;
+    $scope.colorFont = COLOR_VIEW;
+
+  console.log("param1", $stateParams.contactId);
+  console.log("param2", $stateParams.addressId);
+  console.log("param3", $stateParams.contactPersonId);
+  console.log("param4", $stateParams.addressType);
+
+  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+
+  $scope.contact.$promise.then(function (results){
+
+    $scope.contact = results;
+    console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
+
+    $scope.telecomss=results.mainData.entity.telecoms;
+    console.log("list of telecoms",$scope.telecomss);
+
+    $localstorage.setObject("EditContact",results.mainData);
+
+    if (results.mainData.entity.countryId != "") {
+      var countries = results.mainData.countryArray;
+      countries.forEach(function(country) {
+          if (country.countryId == results.mainData.entity.countryId) {
+            $scope.countryName = country.name;
+          }
+      });
+    }
+
+    // save contact for edit do not call service
+    bridgeService.saveContact($scope.contact.mainData);
+    
+  });
+
+})
+
 
 
 

@@ -29,15 +29,37 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
   
   $stateProvider.state('app.search', {
     url: '/parameter(contactSearchName)',
-  })
+  }) 
 
-  $stateProvider.state('app.contact', {
-    url: "/contact?contactId&addressId&contactPersonId&addressType",
+  $stateProvider.state('app.contactPerson', {
+    url: "/contactPerson?contactId&addressId&contactPersonId&addressType",
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: "templates/views_contact/contact.html",
-        controller: 'ContactCtrl'
+        templateUrl: "templates/views_contact/contactPerson.html",
+        controller: 'ContactPersonCtrl'
+      }
+    }
+  })
+
+  $stateProvider.state('app.organization', {
+    url: "/organization?contactId&addressId&contactPersonId&addressType",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/organization.html",
+        controller: 'OrganizationCtrl'
+      }
+    }
+  })
+
+  $stateProvider.state('app.person', {
+    url: "/person?contactId&addressId&contactPersonId&addressType",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/person.html",
+        controller: 'PersonCtrl'
       }
     }
   })
@@ -61,6 +83,18 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
       'menuContent': {
         templateUrl: "templates/views_contact/newperson.html",
         controller: 'editPersonCtrl'
+      }
+    }
+  })
+
+
+  $stateProvider.state('app.editContactPerson', {
+    url: "/editContactPerson",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/editContactPerson.html",
+        controller: 'EditContactPersonCtrl'
       }
     }
   })
