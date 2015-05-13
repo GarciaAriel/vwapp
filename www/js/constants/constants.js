@@ -8,9 +8,9 @@ angular.module('starter.constants',[])
 
 // https://bm.bm-od.com/bm/bmappweb/index.html#/login
 
-.constant('apiUrlLocal', 'http://localhost:8080/bm')
+// .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
-// .constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
+.constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
 
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
@@ -20,6 +20,9 @@ angular.module('starter.constants',[])
 
 //path logon
 .constant('pathLogon','/bmapp/LogonBMApp.do')
+
+//path logout
+.constant('pathLogout','/bmapp/LogoffBMApp.do')
 
 //color view
 .constant('COLOR_VIEW','color: #ba0808')

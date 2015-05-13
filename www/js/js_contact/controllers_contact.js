@@ -155,6 +155,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         // $state.go('app.contacts', {}, { reload: true });
         // $state.go('productList', {}, { reload: true });
 
+        if (results.mainData == undefined) {
+          $state.go('login');
+        }
+
+
         console.log("THIS INFO",(results['mainData']));
   
         $scope.contacts = (results['mainData'])['list'];
@@ -168,9 +173,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
           $scope.asknext = true;  
         };
-
         // $window.location.reload();
-    });
+    })
 
 
 $scope.doRefresh = function() {
@@ -183,6 +187,10 @@ $scope.doRefresh = function() {
 $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
 $scope.newContacts.$promise.then(function (results){
+
+  if (results.mainData == undefined) {
+    $state.go('login');
+  }
   
 $scope.contacts = (results['mainData'])['list'];
     $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
@@ -211,6 +219,7 @@ $scope.loadMore = function() {
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
+    
     console.log("+++++new info",(results['mainData']));
     console.log("++++new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
