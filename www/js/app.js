@@ -48,6 +48,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     // }
   });
 
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       if (window.cordova && window.cordova.plugins.Keyboard) {

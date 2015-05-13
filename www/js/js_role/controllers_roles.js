@@ -66,12 +66,12 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     $scope.searchCadeco = function(){
       
       // $scope.data = {username: "admin" ,password: "administrador", company: "cadeco"}
-      $scope.data = {username: "admin" ,password: "administrador", company: "cadeco"}
+      $scope.dataa = {username: "admin" ,password: "administrador", company: "cadeco"}
       // Simple POST request
         $http({
           method: 'POST',
           url: apiUrlLocal+""+pathLogon,
-          data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
+          data: {"dto(login)":$scope.dataa.username, "dto(companyLogin)":$scope.dataa.company, "dto(password)":$scope.dataa.password, "dto(language)":"en","dto(rememberInfo)":true}
         }).success(function(data, status, headers, config) {
           
           console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
@@ -109,6 +109,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
         }).
         error(function(data, status, headers, config) {
          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS ERROR', data);
+         
         });
     }
 
