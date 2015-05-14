@@ -26,18 +26,43 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         } 
     });
 
-    // var tittleArray = mainData.titleArray;  
-    // $scope.tittles = [];    
-    // tittleArray.forEach(function(tittle) {           
-    //     $scope.tittles.push({
-    //       name: tittle.name,
-    //       value:tittle.salutationId
-    //     });       
-    //     if($scope.entity.salutationId == salutation.salutationId) {             
-    //        $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
-    //     } 
-    // });
+    var titleArray = mainData.titleArray;  
+    $scope.titles = [];    
+    titleArray.forEach(function(title) {           
+        $scope.titles.push({
+          name: title.name,
+          value:title.titleId
+        });       
+        if($scope.entity.titleId == title.titleId) {             
+           $scope.title = $scope.titles[$scope.titles.length-1];  
+        } 
+    });
 
+    var countryArray = mainData.countryArray;  
+    $scope.countries = [];    
+    countryArray.forEach(function(country) {           
+        $scope.countries.push({
+          name: country.name,
+          value:country.countryId
+        });       
+        if($scope.entity.countryId == country.countryId) {             
+           $scope.country = $scope.countries[$scope.countries.length-1];  
+        } 
+    });
+
+    var languageArray = mainData.languageArray;
+    $scope.languages = [];    
+    languageArray.forEach(function(language) {           
+        $scope.languages.push({
+          name: language.name,
+          value:language.languageId
+        });       
+        if($scope.entity.languageId == language.languageId) {             
+           $scope.language = $scope.languages[$scope.languages.length-1];  
+        } 
+    });    
+
+    $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
 })
 
 .controller('editOrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
@@ -133,7 +158,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(ControlError,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -152,6 +177,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     console.log("FIRST CALL",$scope.newContacts);
 
     $scope.newContacts.$promise.then(function (results){
+      var error = ControlError.set();
+      console.log("==CONTROLLER 000000 error XD==");
         // $state.go('app.contacts', {}, { reload: true });
         // $state.go('productList', {}, { reload: true });
 

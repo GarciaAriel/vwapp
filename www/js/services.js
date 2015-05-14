@@ -1,5 +1,15 @@
 angular.module('starter.services', [])
 
+// HELP SERVICE LOCAL STORAGE
+.factory('ControlError', ['$window', function($window) {
+  return {
+    set: function() {
+      console.log("==Control error== ");
+      return "error";
+    }
+  }
+}])
+
 .factory('myHttpInterceptor', function($q,$location,$injector) {
   return {
 
