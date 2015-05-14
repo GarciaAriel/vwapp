@@ -1,0 +1,77 @@
+<ion-view cache-view="true" view-title="{{ 'Detail' | translate}}">
+
+
+  <ion-nav-buttons side="right">
+
+    <button class="button disabled" style="border-style: none" ng-click="borrarPersona()">
+      <i class="icon ion-trash-a" style="{{colorFont}}"></i>
+    </button>
+
+    <!-- Href to edit Contact Person -->
+    <a ng-href="#/app/editContactPerson">
+      <button class="button" style="border-style: none" >
+        <i class="icon ion-edit" style="{{colorFont}}"></i>
+      </button>  
+    </a>	
+    
+  </ion-nav-buttons>
+
+  <ion-content>
+    
+    <div class="list card">
+
+    <!-- contact person -->
+      	<div class="item item-thumbnail-left">
+          <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
+          <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
+          
+          <div>
+            <textarea ng-if="contact.mainData.entity.organizationName" disabled style="overflow:hidden">{{contact.mainData.entity.organizationName}}</textarea>  
+
+            <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}
+            </textarea>
+            
+            <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
+            </textarea>
+            
+          </div>
+      	</div>
+
+    </div>
+
+  
+    <div class="list card">
+       	<div class="item item-divider bar bar-header bar-assertive">
+         	<h2>{{ 'Address' | translate}}</h2>
+       	</div>
+             
+        <div class="item item-body">
+            <div ng-if='contact.mainData.entity.organizationName != ""'>{{contact.mainData.entity.organizationName}} </div>
+            <div ng-if='contact.mainData.entity.orgStreet != ""'>{{contact.mainData.entity.orgStreet}} {{contact.mainData.entity.orgHouseNumber}} </div>
+            <div ng-if='contact.mainData.entity.orgCity != ""'>{{contact.mainData.entity.orgCity}} {{contact.mainData.entity.orgZip}} </div>         
+            <div ng-if='contact.mainData.entity.orgCountryName != ""'>{{contact.mainData.entity.orgCountryName}}</div>
+        </div>                      
+    </div>
+
+    <div class="list card">
+       <div class="item item-divider bar bar-header bar-assertive">
+         <h2>{{ 'Communication' | translate}}</h2>
+       </div>
+       
+       <div class="item item-body">
+
+        	<div ng-repeat="telecom in telecomss">
+    
+          		<div ng-repeat="tele in telecom.telecomList">
+
+		            <div ng-if="telecom.telecomTypeType == 'PHONE'">{{telecom.telecomTypeName}}: <a ng-href="tel:{{tele.data}}">{{tele.data}}</a></div>
+		            <div ng-if="telecom.telecomTypeType == 'EMAIL'">{{telecom.telecomTypeName}}: <a ng-href="mailto:{{tele.data}}">{{tele.data}}</a></div>
+		            <div ng-if="telecom.telecomTypeType != 'PHONE' && telecom.telecomTypeType != 'EMAIL'">{{telecom.telecomTypeName}}: {{tele.data}}</div>          
+          		</div>
+        	</div>
+      	</div>
+
+    </div>
+
+  </ion-content>
+</ion-view>

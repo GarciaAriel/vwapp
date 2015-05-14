@@ -45,7 +45,7 @@
 
     <ion-list ng-repeat="item in contacts">
 <!-- CONTACT PERSON -->
-        <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+        <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'contactPerson')}}">
             <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
             <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 64px; height: 64px">
             <span class="item-note"><i class="ion-chevron-right"></i></span>
@@ -61,8 +61,8 @@
             <p>{{item.function}}</p>
         </ion-item>
 
-<!-- COMPANY -->
-        <ion-item ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+<!-- Organization -->
+        <ion-item ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'organization')}}">
           <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
           <img ng-if='item.imageId ==""' ng-src="img/org.png" style="width: 64px; height: 64px">
           <span class="item-note"><i class="ion-chevron-right"></i></span>
@@ -78,7 +78,7 @@
         </ion-item>
      
   <!-- PERSON -->
-        <ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item)}}">
+        <ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'person')}}">
                                     
             <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
             <img ng-if='item.imageId ==""' ng-src="img/person.png" style="width: 64px; height: 64px">
