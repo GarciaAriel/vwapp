@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
+.run(function($cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
   
   // enumerate routes that user can see 
@@ -22,6 +22,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   //   };
   //   return result;
   // };
+
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
@@ -50,11 +51,26 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $ionicPlatform.ready(function() {
+      
+    var isOnline = $cordovaNetwork.isOnline()
+    if(!isOnline)
+    {
+      var alertPopup = $ionicPopup.alert({
+        title: 'No Internet Connection',
+        template: 'Sorry, no Internet connectivity detected. Please reconnect and try again.'
+      });
+      alertPopup.then(function(res) {
+        ionic.Platform.exitApp();
+      });    
+    }
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      }
-      if (window.StatusBar) {
+    if (window.cordova && window.cordova.plugins.Keyboard) 
+    {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if (window.StatusBar) 
+    {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
