@@ -4722,7 +4722,7 @@ a.item-content {
 
 .item-body {
   overflow: auto;
-  padding: 16px;
+  padding: 10px;
   text-overflow: inherit;
   white-space: normal; }
   .item-body h1, .item-body h2, .item-body h3, .item-body h4, .item-body h5, .item-body h6, .item-body p {

@@ -23,11 +23,24 @@
         <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/org.png" style="width: 80px; height: 80px">
         <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
         <div>
-          <textarea ng-if="contact.mainData.entity.name1" disabled style="overflow:hidden">{{contact.mainData.entity.name1}}</textarea>  
 
-          <textarea ng-if="contact.mainData.entity.name2" disabled style="overflow:hidden">{{contact.mainData.entity.name2}}</textarea>
+          <div ng-if="contact.mainData.entity.name1" class="card">
+            <div class="item item-body-auto">
+              {{contact.mainData.entity.name1}}
+            </div>
+          </div>
 
-          <textarea ng-if="contact.mainData.entity.name3" disabled style="overflow:hidden">{{contact.mainData.entity.name3}}</textarea>
+          <div ng-if="contact.mainData.entity.name2" class="card">
+            <div class="item item-body-auto">
+              {{contact.mainData.entity.name2}}
+            </div>
+          </div>
+
+          <div ng-if="contact.mainData.entity.name3" class="card">
+            <div class="item item-body-auto">
+              {{contact.mainData.entity.name3}}
+            </div>
+          </div>
 
         </div>
       </div>   

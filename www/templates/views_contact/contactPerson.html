@@ -26,14 +26,25 @@
           <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
           
           <div>
-            <textarea ng-if="contact.mainData.entity.organizationName" disabled style="overflow:hidden">{{contact.mainData.entity.organizationName}}</textarea>  
 
-            <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}
-            </textarea>
-            
-            <textarea ng-if="contact.mainData.entity.name1 != '' " disabled style="overflow:hidden">{{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
-            </textarea>
-            
+            <div ng-if="contact.mainData.entity.organizationName" class="card">
+              <div class="item item-body-auto">
+                {{contact.mainData.entity.organizationName}}
+              </div>
+            </div>
+
+            <div ng-if="contact.mainData.entity.name1 != '' " class="card">
+              <div class="item item-body-auto">
+                {{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}
+              </div>
+            </div>
+
+            <div ng-if="contact.mainData.entity.function != '' " class="card">
+              <div class="item item-body-auto">
+                {{ 'Funtion' | translate}}: {{contact.mainData.entity.function}}
+              </div>
+            </div>
+ 
           </div>
       	</div>
 

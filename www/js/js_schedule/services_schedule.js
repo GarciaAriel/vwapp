@@ -7,6 +7,23 @@ angular.module('starter.scheduleservices', [])
   return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
 })
 
+.factory('scheduleService22', function($http,apiUrlLocal,pathSchedule,$localstorage) {
+  var _data_date = $localstorage.getObject('dataDate');
+  return {
+    getLogData : function(){
+      return $http({
+        url:     apiUrlLocal+pathSchedule,
+        method:  'GET',
+        async:   true,
+        cache:   false,
+        data:{type: _data_date.type,calendar: _data_date.data}
+        // headers: {'Accept': 'application/json', 'Pragma': 'no-cache'},
+        // params:  {'startTime': startTime , 'endTime': endTime}
+      });
+    }
+  };
+})
+
 // SERVICE TO HELP LOAD OBJECT 'dataDate' AND CHANGE DAY TODAY
 .factory('Load_variable_date', function(SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
   return{
@@ -126,6 +143,27 @@ angular.module('starter.scheduleservices', [])
     }
   }
 })
+
+.factory('getAppointments', function($http,apiUrlLocal,pathSchedule) {
+
+    return { 
+      getData:  function(_data_date) {
+
+        return $http({
+          method: 'get',
+          url: apiUrlLocal+""+pathSchedule,
+          async: false,
+          data: {
+            type: _data_date.type,
+            calendar: _data_date.data 
+          }
+      }).then(function(result){
+            return result.data;
+        });
+      }
+    };
+})
+
 
 // HELP SERVICE LOCAL STORAGE
 .factory('$localstorage', ['$window', function($window) {

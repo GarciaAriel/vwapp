@@ -7,75 +7,61 @@
             
           <div ng:bind="customHtml">{{item.body}}  </div>  
           
-
           <div class="item item-avatar">
             <img ng-src={{imageF()}} style="width: 64px; height: 64px">
+            <div class="item item-body-auto">
+              {{ "Subject" | translate}}: {{item.mailSubject}}
+            </div>
+          </div>     
+          
+          <ion-item class="button button-clear button-positive"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon" ng-class="isGroupShown(group) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+            &nbsp;
+          </ion-item>
+
+          <ion-item class="item-accordion"
+                    ng-repeat="ite in group"
+                    ng-show="isGroupShown(group)">
             
-            <h2>{{ "From" | translate}}: {{item.mailFrom}}</h2>
-            <p>{{ "To" | translate}}: {{item.to}}</p><br>
-            <span class="item-note">{{item.sentDate}} </span>
-          </div>
+            <h3>
+              <div class="item-body-auto">
+                {{ "From" | translate}}: {{item.mailFrom}}<br>                  
+                {{ "To" | translate}}: {{item.to}}<br>
+                {{item.sentDate}}<br><br>
 
-          <div  class="item item-body">
-            <div>
-              <p> {{ "Subject" | translate}}: {{item.mailSubject}} </p>
-
-              <div ng-repeat="attach in item.attachmentArray">
-                <button ng-click="download(attach)" class="button button-clear button-light">
-                  <i class="icon ion-paperclip">{{attach.fileName}}</i>
-                </button>
+                <!-- show CC -->
+                <div ng-if="arrayCC[0] != '' " ng-repeat="ite in arrayCC">
+                  CC: {{ite}}
+                </div>
+                <!-- show BCC -->
+                <div ng-if="arrayBCC[0] != '' " ng-repeat="ite in arrayBCC">
+                  BCC: {{ite}}
+                </div>
               </div>
-
+            </h3> 
+            
+            <!-- show adjuntos -->
+            <div ng-repeat="attach in item.attachmentArray">
+              <i class="icon ion-paperclip"></i>
+              <button ng-click="download(attach)" class="button button-clear button-small button-stable">
+                <h4>{{attach.fileName}}</h4>
+              </button>
             </div>
+            
+          </ion-item>
 
-            <div ng-if="arrayCC[0] != '' ">
-              <p> 
-                
-                <div>
-                  <ion-item class="button button-clear button-positive"
-                            ng-click="toggleGroup(arrayCC)"
-                            ng-class="{active: isGroupShown(arrayCC)}">
-                      <i class="icon" ng-class="isGroupShown(arrayCC) ? 'ion-chevron-up' : 'ion-chevron-down'"></i> 
-                    &nbsp;
-                    Cc
-                  </ion-item>
-                  <ion-item class="item-accordion"
-                            ng-repeat="ite in arrayCC"
-                            ng-show="isGroupShown(arrayCC)">
-                    
-                    <textarea>{{ite}}</textarea>
-  
-                  </ion-item>
-                </div>  
-                
-              </p>
-            </div>
-
-            <div ng-if="arrayBCC[0] != '' ">
-              <p>
-                <ion-item class="button button-clear button-positive"
-                          ng-click="toggleGroup(arrayBCC)"
-                          ng-class="{active: isGroupShown(arrayBCC)}">
-                    <i class="icon" ng-class="isGroupShown(arrayBCC) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
-                  &nbsp;
-                  Bcc
-                </ion-item>
-                <ion-item class="item-accordion"
-                          ng-repeat="ite in arrayBCC"
-                          ng-show="isGroupShown(arrayBCC)">
-                  <textarea>{{ite}}</textarea>
-                </ion-item>
-              </p>  
-            </div>
-
-          </div>
+          
         </div>
 
         <div ng-if="item.bodyType != '2' " class="card">
           Detail:
-          <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 400px">
+          <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
+          <!-- <ion-scroll  direction="xy" style="overflow: auto;">
+           style="width: 100%; height: 400px" 
               <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>    
-          </ion-scroll>
+          </ion-scroll> -->
         </div>
 
         <div ng-if="item.bodyType != '1' " class="card">

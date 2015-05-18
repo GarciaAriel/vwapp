@@ -40,7 +40,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function(ControlError,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(getAppointments,$http,apiUrlLocal,pathSchedule,scheduleService22,ControlError,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
@@ -73,59 +73,78 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   //  HELP TO SEE DATE IN VIEW
   $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
 
-  
-
+ 
   // $scope.calendar;
 
   //INIT PROPERTIES FOR CALENDAR
+
+  var getAppo = function(_data_date){
+     $scope.appointments = [];
+      var myAppointments = getAppointments.getData(_data_date);
+        myAppointments.then(function(result) {  
+           $scope.appointments = result;
+           console.log("12111111",$scope.appointments);
+           return $scope.appointments;
+        });
+    }; 
+
+  $scope.oooo= getAppo(_data_date);
+
   var options = {
     events_source: function () { 
-      console.log("000000");
       
-      console.log("==CONTROLLER SCHEDULE== get query list appointments first time");
-      $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
-
-      $scope.appointments = [];
-      //  PROMISE
-      $scope.newAppointments.$promise.then(function (results){
-
-      var error = ControlError.set();
-      console.log("==CONTROLLER 000000 error XD==");
+        // scheduleService22.getLogData().success(function(data){
+        //   return data;
+        // }).error(function(e){
+        //   //show error message
+        // });
         
-          if (results.mainData == undefined) {
-            $state.go('login');
-          }
+        //return [];
 
-          console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
-          $scope.listAppointments = (results['mainData'])['appointmentsList'];
-          
-          //parse to variables PROVISIONAL
-          
-          angular.forEach($scope.listAppointments, function (appointment) {
+       
 
-            // APPOINTMENT RECURRENT GET ID WITHOUT "-"
-            var str = appointment.virtualAppointmentId;
-            var pos = str.indexOf("-"); 
-            var idAppointment = appointment.virtualAppointmentId;
-            if (pos > -1) {
-              idAppointment = str.substring(0, pos);   
-            };
-            console.log("==CONTROLLER SCHEDULE== id appointment without '-' IN RECURRENT", idAppointment);
+
+        // $http({
+        //   method: 'get',
+        //   url: apiUrlLocal+""+pathSchedule,
+        //   async: false,
+        //   data: {
+        //     type: _data_date.type,
+        //     calendar: _data_date.data 
+        //   }
+        //   }).success(function(data, status, headers, config) {
+
+        //     $scope.listAppointments = (data['mainData'])['appointmentsList'];
+
+        //     angular.forEach($scope.listAppointments, function (appointment) {
+       
+        //     var str = appointment.virtualAppointmentId;
+        //     var pos = str.indexOf("-"); 
+        //     var idAppointment = appointment.virtualAppointmentId;
+        //     if (pos > -1) {
+        //       idAppointment = str.substring(0, pos);   
+        //     };
+        //     var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
+        //     $scope.appointments.push(change);
             
-            // load appointment and push in list
-            var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
-            $scope.appointments.push(change);
-            
-          });
+        //   });
 
-          console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
-          return $scope.appointments;
-            // $window.location.reload(true);
-            // console.log("----------------",(date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString()); 
-            
-        });//END PROMISE   
-      return $scope.appointments;
+        //     console.log("1111" , $scope.appointments); 
+        //     return $scope.appointments;
+           
+        //   }
+        // ).error(function(data, status, headers, config) {
+        
+         
+        // });
 
+       
+        // var myAppointments= getAppo(_data_date);
+
+         console.log("22222222",$scope.oooo);
+        return 
+        
+   
     }, //items,//$scope.appointments,
     tmpl_path: 'lib/bootstrap-calendar/tmpls/',
     view: 'month',

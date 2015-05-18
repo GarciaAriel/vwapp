@@ -1,21 +1,24 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-
-
-
-
-.controller('editPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function(apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
     // get contact for edit
     var mainData = bridgeService.getContact();
+    // $scope.entity = mainData.entity;
+
     $scope.entity = mainData.entity;
-    
+
+    // $scope.entity = { 'dto(name1)': aux.name1};
+
+    $scope.description = "Edit person"
+
+
     console.log("==CONTACTS CONTROLLER==  get contact data:-----",mainData);
 
     var salutationArray = mainData.salutationArray;  
-    $scope.salutations = [];    
+    $scope.salutations = []; 
     salutationArray.forEach(function(salutation) {           
         $scope.salutations.push({
           name: salutation.name,
@@ -62,7 +65,75 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         } 
     });    
 
-    $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
+    $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/",$scope.entity.birthday.slice(4,6),"/",$scope.entity.birthday.slice(6)].join('') ).getTime();
+
+    
+    $scope.updateSalutation = function (nsalutation)
+    {
+      $scope.salutation = nsalutation;     
+    }
+
+    $scope.updateTitle = function (ntitle)
+    {
+      $scope.title = ntitle;     
+    }
+
+    $scope.updateCountry = function (ncountry)
+    {
+      $scope.country = ncountry;     
+    }
+
+    $scope.updateLanguage = function (nlanguage)
+    {
+      $scope.language = nlanguage;     
+    }
+
+    $scope.saveChangePerson = function() {
+  
+       console.log("==CONTROLLER CONTACT== save changes person, data:",$scope.entity);
+
+       var aux = $scope.entity;
+
+       var newEntity = {'dto(version)': aux.recordUserId, 
+                        'dto(recordUserId)': aux.version,
+                        'dto(addressId)': aux.addressId, 
+                        'dto(salutationId)': $scope.salutation.value, 
+                        'dto(titleId)': $scope.title.value,
+                        'dto(name1)': aux.name1,
+                        'dto(name2)':aux.name2,
+                        'dto(street)':aux.street,
+                        'dto(houseNumber)':aux.houseNumber,
+                        'dto(additionalAddressLine)':aux.additionalAddressLine,
+                        'dto(searchName)':aux.searchName,
+                        'dto(keywords)':aux.keywords,
+                        'dto(education)':aux.education,
+                        'dto(languageId)':$scope.language.value,
+                        'dto(birthday)':"",
+                        'dto(isCustomer)':aux.isCustomer,
+                        'dto(isSupplier)':aux.isSupplier,
+                        'dto(isActive)':aux.isActive,
+                        'countryId':$scope.country.value};
+      
+      console.log("---------9089887867",newEntity);                  ;
+// ,'cityNameId':''
+// ,'zip':''
+
+      var request = $http({
+        method: "post",
+        
+        url: apiUrlLocal+"/bmapp/Address/Update.do",
+        // url: "http://localhost:8080/bm/bmapp/Contact/REST.do",
+        transformRequest: transformRequestAsFormPost,
+        data: newEntity
+      });
+      // Store the data-dump of the FORM scope.
+      request.success(
+        function( html ) {
+        $scope.cfdump = html;
+        }
+      ); 
+    };
+
 })
 
 .controller('editOrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {

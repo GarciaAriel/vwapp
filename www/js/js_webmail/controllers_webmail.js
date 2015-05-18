@@ -282,7 +282,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
           template: 'Donwloading...'
         });
         console.log("-----1");
-
+      $scope.$on('$ionicView.enter', function(event, data) {
+          
+      
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
           console.log("-----2");
             fs.root.getDirectory(
@@ -340,6 +342,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             console.log("Request for filesystem failed");
         });
         //
+      });  
     }
 
     // URL IMAGE
@@ -351,6 +354,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       }
       return $scope.imageFrom;
     };
+
+    $scope.group =[1];// {name: "hola"}
 
     // ACORDEON HELP
     $scope.toggleGroup = function(group) {
