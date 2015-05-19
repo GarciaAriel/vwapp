@@ -261,7 +261,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Street: "Straße",
       Zip: "PLZ",
       City: "Ort",
-      Communication: "Kommunikationsnummer/-adresse",
+      Communication: "Kontakt",
       Info: "Info",
       Search: "Suche",
       Previous: "früher",

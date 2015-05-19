@@ -525,6 +525,20 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
+    $scope.firstGruoup = [];
+    $scope.secondGruoup = [];
+    $scope.telecomss.forEach(function(telecom) {
+      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
+      {
+        $scope.firstGruoup.push(telecom);
+      }
+      else
+      {
+        $scope.secondGruoup.push(telecom);
+      }
+    });
+
+
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {
@@ -535,6 +549,16 @@ $scope.search = function () {
           }
       });
     }
+
+    if (results.mainData.entity.titleId != "") {
+      var titles = results.mainData.titleArray;
+      titles.forEach(function(title) {
+          if (title.titleId == results.mainData.entity.titleId) {
+            $scope.titleperson = title.name;
+          }
+      });
+    }
+
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
@@ -561,6 +585,19 @@ $scope.search = function () {
 
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
+
+    $scope.firstGruoup = [];
+    $scope.secondGruoup = [];
+    $scope.telecomss.forEach(function(telecom) {
+      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
+      {
+        $scope.firstGruoup.push(telecom);
+      }
+      else
+      {
+        $scope.secondGruoup.push(telecom);
+      }
+    });
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -599,6 +636,19 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
+    $scope.firstGruoup = [];
+    $scope.secondGruoup = [];
+    $scope.telecomss.forEach(function(telecom) {
+      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
+      {
+        $scope.firstGruoup.push(telecom);
+      }
+      else
+      {
+        $scope.secondGruoup.push(telecom);
+      }
+    });
+    
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {
@@ -606,6 +656,15 @@ $scope.search = function () {
       countries.forEach(function(country) {
           if (country.countryId == results.mainData.entity.countryId) {
             $scope.countryName = country.name;
+          }
+      });
+    }    
+
+    if (results.mainData.entity.titleId != "") {
+      var titles = results.mainData.titleArray;
+      titles.forEach(function(title) {
+          if (title.titleId == results.mainData.entity.titleId) {
+            $scope.titleperson = title.name;
           }
       });
     }
