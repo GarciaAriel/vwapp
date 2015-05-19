@@ -26,13 +26,13 @@
 
             <div ng-if="contact.mainData.entity.name2 == ''" class="card">
               <div class="item item-body-auto">
-                {{contact.mainData.entity.name1}}
+                {{titleperson}} {{contact.mainData.entity.name1}}
               </div>
             </div>
 
             <div ng-if="contact.mainData.entity.name2 != ''" class="card">
               <div class="item item-body-auto">
-                {{contact.mainData.entity.name1}}, {{contact.mainData.entity.name2}}
+               {{titleperson}} {{contact.mainData.entity.name1}}, {{contact.mainData.entity.name2}}
               </div>
             </div>
             
@@ -41,7 +41,8 @@
     </div>
 
     <div class="list card">
-       <div class="item item-divider bar bar-header bar-assertive">
+       <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">
          <h2>{{ 'Address' | translate}}</h2>
        </div>     
        
@@ -53,23 +54,45 @@
     </div>
 
     <div class="list card">
-       <div class="item item-divider bar bar-header bar-assertive">
+       <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">
          <h2>{{ 'Communication' | translate}}</h2>
        </div>
        
        <div class="item item-body">
 
-	        <div ng-repeat="telecom in telecomss">
-	    
-		        <div ng-repeat="tele in telecom.telecomList">
-
-		            <div ng-if="telecom.telecomTypeType == 'PHONE'">{{telecom.telecomTypeName}}: <a ng-href="tel:{{tele.data}}">{{tele.data}}</a></div>
-		            <div ng-if="telecom.telecomTypeType == 'EMAIL'">{{telecom.telecomTypeName}}: <a ng-href="mailto:{{tele.data}}">{{tele.data}}</a></div>
-		            <div ng-if="telecom.telecomTypeType != 'PHONE' && telecom.telecomTypeType != 'EMAIL'">{{telecom.telecomTypeName}}: {{tele.data}}</div>
-		           
-		        </div>
-
-	        </div>
+	       <div ng-if="firstGruoup.length != 0" class="card">
+            <div class="item item-body-auto">
+              <div class="item item-text-wrap">
+                <div ng-repeat="telecom in firstGruoup">
+                  <div ng-repeat="tele in telecom.telecomList">
+                    <table style="width:100%">
+                      <tr>
+                        <td style="width:50%;">{{telecom.telecomTypeName}}:</td>                                            
+                        <td style="width:50%;"><a ng-href="tel:{{tele.data}}">{{tele.data}}</a></td>                    
+                      </tr>                    
+                    </table>                           
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="secondGruoup.length != 0" class="card">
+            <div class="item item-body-auto">
+              <div class="item item-text-wrap">
+                <div ng-repeat="telecom in secondGruoup">
+                  <div ng-repeat="tele in telecom.telecomList">
+                    <table style="width:100%">
+                      <tr>
+                        <td style="width:50%;">{{telecom.telecomTypeName}}:</td>                                            
+                        <td style="width:50%;"><a ng-href="tel:{{tele.data}}">{{tele.data}}</a></td>                    
+                      </tr>                    
+                    </table> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       	</div>
     </div>
 
