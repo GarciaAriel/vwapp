@@ -13,7 +13,12 @@
   overflow: auto;
   padding: 3px;
   text-overflow: inherit;
-  white-space: normal; }
+  white-space: normal; 
+  padding-left: 15px;}
+
+.item-large-text {
+  padding-left: 15px;
+  }  
 
 
 /*

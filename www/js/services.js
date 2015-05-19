@@ -1,14 +1,55 @@
 angular.module('starter.services', [])
 
 // HELP SERVICE LOCAL STORAGE
-.factory('ControlError', ['$window', function($window) {
+.factory('ControlError', ['$window', function($ionicPopup, $window) {
+  
   return {
-    set: function() {
-      console.log("==Control error== ");
-      return "error";
+    review: function(result) {
+
+      if (result.errorsArray != undefined) {
+
+        var message = result.errorsArray[0].error;
+        console.log("aaaaaaaaa----",message);
+        
+        var alertPopup = $ionicPopup.alert({
+          title: 'Don\'t eat that!',
+          template: 'It might taste good'
+        });
+
+        return alertPopup;
+      }
+      
+      
     }
   }
 }])
+
+.factory("PopupFactory", function ($ionicPopup) {
+  
+   function getPopup(scope,result) {
+    var message = result.errorsArray[0].error;
+    for (var i = 1; i < result.errorsArray.length; i++) {
+      message=message+"<br>"+result.errorsArray[i].error ;
+    };
+    return $ionicPopup.show({
+     
+     title: 'Error',
+     template: message,
+     scope: scope,
+     buttons: [
+       { text: '<b>OK</b>',
+       type: 'button-positive'
+     },
+       
+     ]
+   })
+   }
+       
+   return {
+       getPopup: getPopup
+   };  
+
+})
 
 .factory('myHttpInterceptor', function($q,$location,$injector) {
   return {

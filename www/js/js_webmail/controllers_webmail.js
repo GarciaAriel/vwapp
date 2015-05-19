@@ -3,7 +3,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 /**
  * CONTROLLER FOLDERS
  */
-.controller('MailsCtrl', function($state,$scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
+.controller('MailsCtrl', function(ControlError,$state,$scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
   FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,FOLDER_DRAFT_ID,
   FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,FOLDER_OUTBOX_NAME,
   FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE,
@@ -20,6 +20,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   // PROMISE
   $scope.newFolders.$promise.then(function (results){
+
+    ControlError.review(results);
+
     if (results.mainData == undefined) {
       $state.go('login');
     }
@@ -371,4 +374,23 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       return $scope.shownGroup === group;
     };
 
+    
+
+    $scope.updateEditor = function() {
+      var element = document.getElementById("page_content");
+      element.style.height = element.scrollHeight + "px";
+    };
+
 });
+
+
+// angular.module('MyModule', [])
+//     .controller('MyController', function ($scope) {
+//     $scope.myfunction = function (data) {
+//         alert("---" + data);
+//     };
+// });
+
+window.onload = function () {
+    angular.element(document.getElementById('page_content')).scope().updateEditor();
+}
