@@ -463,31 +463,61 @@ $scope.search = function () {
 
 
 
-.controller('newpCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window) {
+.controller('newpCtrl', function (apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
 
-    
-  $scope.groups = [];
-  for (var i=0; i<10; i++) {
-    $scope.groups[i] = {
-      name: i,
-      items: []
-    };
-    for (var j=0; j<3; j++) {
-      $scope.groups[i].items.push(i + '-' + j);
-    }
+  $scope.description = "New person"
+  $scope.entity = {};
+
+  $scope.saveChangePerson = function(){
+
+    // console.log("==CONTROLLER CONTACT== save new person, data:",$scope.entity);
+
+       // var aux = $scope.entity;
+
+       // var newEntity = {'dto(version)': aux.recordUserId, 
+       //                  'dto(recordUserId)': aux.version,
+       //                  'dto(addressId)': aux.addressId, 
+       //                  'dto(salutationId)': $scope.salutation.value, 
+       //                  'dto(titleId)': $scope.title.value,
+       //                  'dto(name1)': aux.name1,
+       //                  'dto(name2)':aux.name2,
+       //                  'dto(street)':aux.street,
+       //                  'dto(houseNumber)':aux.houseNumber,
+       //                  'dto(additionalAddressLine)':aux.additionalAddressLine,
+       //                  'dto(searchName)':aux.searchName,
+       //                  'dto(keywords)':aux.keywords,
+       //                  'dto(education)':aux.education,
+       //                  'dto(languageId)':$scope.language.value,
+       //                  'dto(birthday)':"",
+       //                  'dto(isCustomer)':aux.isCustomer,
+       //                  'dto(isSupplier)':aux.isSupplier,
+       //                  'dto(isActive)':aux.isActive,
+       //                  'countryId':$scope.country.value};
+      
+      // console.log("---------9089887867",newEntity);                  ;
+// ,'cityNameId':''
+// ,'zip':''
+
+      var newEntity = {'dto(name1)': "0009988",
+                      'dto(name2)': "",
+                      'dto(name3)': "",
+                      'dto(addressType)':"1"};
+
+      var request = $http({
+        method: "post",
+        
+        url: apiUrlLocal+"/bmapp/Address/Create.do",
+        transformRequest: transformRequestAsFormPost,
+        data: newEntity
+      });
+      // Store the data-dump of the FORM scope.
+      request.success(
+        function(data, status, headers, config) {
+          PopupFactory.getPopup($scope,data);
+          
+        }
+      );
   }
-    
-    $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
-    }
-  };
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === group;
-  };
-    
 })
 
 
