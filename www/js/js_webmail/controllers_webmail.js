@@ -374,8 +374,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       return $scope.shownGroup === group;
     };
 
-    
-
     $scope.updateEditor = function() {
       var element = document.getElementById("page_content");
       element.style.height = element.scrollHeight + "px";

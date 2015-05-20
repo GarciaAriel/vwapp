@@ -59,7 +59,8 @@
           Detail text:
           <!-- <textarea ng-keypress="updateEditor()" ng-model="bar"> </textarea> -->
           <!-- data-ng-init="updateEditor()" -->
-            <textarea ng-view id="page_content" ng-model="item.body" disabled="disabled" class="item-large-text">
+            <textarea id="page_content" ng-model="item.body" data-ng-init="updateEditor()" disabled="disabled" class="item-large-text">
+
               
             </textarea>
                      
