@@ -3,16 +3,16 @@
 
   <ion-nav-buttons side="right">
 
-    <button class="button disabled" style="border-style: none" ng-click="borrarPersona()">
+   <!--  <button class="button disabled" style="border-style: none" ng-click="borrarPersona()">
       <i class="icon ion-trash-a" style="{{colorFont}}"></i>
-    </button>
+    </button> -->
 
     <!-- Href to edit Contact Person -->
-    <a ng-href="#/app/editContactPerson">
+   <!--  <a ng-href="#/app/editContactPerson">
       <button class="button" style="border-style: none" >
         <i class="icon ion-edit" style="{{colorFont}}"></i>
       </button>  
-    </a>	
+    </a>	 -->
     
   </ion-nav-buttons>
 
@@ -29,22 +29,12 @@
 
             <div ng-if="contact.mainData.entity.organizationName" class="card">
               <div class="item item-body-auto">
-                 123XD {{contact.mainData.entity.organizationName}}
-              </div>
-            </div>
-
-            <div ng-if="contact.mainData.entity.name1 != '' " class="card">
-              <div class="item item-body-auto">
-                {{titleperson}} {{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}
-              </div>
-            </div>
-
-            <div ng-if="contact.mainData.entity.function != '' " class="card">
-              <div class="item item-body-auto">
+                {{contact.mainData.entity.organizationName}} <br>
+                {{titleperson}} {{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}<br>
                 {{contact.mainData.entity.function}}
               </div>
-            </div>
- 
+            </div>          
+
           </div>
       	</div>
 
@@ -71,9 +61,7 @@
          <h2>{{ 'Communication' | translate}}</h2>
        </div>
        <div class="item item-body">
-          <div ng-if="firstGruoup.length != 0" class="card">
-            <div class="item item-body-auto">
-              <div class="item item-text-wrap">
+          <div ng-if="firstGruoup.length != 0">
                 <div ng-repeat="telecom in firstGruoup">
                   <div ng-repeat="tele in telecom.telecomList">
                     <table style="width:100%">
@@ -83,13 +71,10 @@
                       </tr>                    
                     </table>                           
                   </div>
-                </div>
-              </div>
             </div>
           </div>
-          <div ng-if="secondGruoup.length != 0" class="card">
-            <div class="item item-body-auto">
-              <div class="item item-text-wrap">
+          <br>
+          <div ng-if="secondGruoup.length != 0">            
                 <div ng-repeat="telecom in secondGruoup">
                   <div ng-repeat="tele in telecom.telecomList">
                     <table style="width:100%">
@@ -99,9 +84,7 @@
                       </tr>                    
                     </table> 
                   </div>
-                </div>
-              </div>
-            </div>
+                </div>              
           </div>
       	</div>
     </div>

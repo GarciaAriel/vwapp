@@ -137,7 +137,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('editOrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editOrganizationCtrl', function($cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = "Edit Organization";
@@ -146,34 +146,54 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.entity = mainData.entity;
     $scope.maindata = mainData;
 
+    $scope.takePicture = function() {
+        var options = { 
+            quality : 75, 
+            destinationType : Camera.DestinationType.DATA_URL, 
+            sourceType : Camera.PictureSourceType.CAMERA, 
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+ 
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+            // An error occured. Show a message to the user
+        });
+    }
+
     console.log("==EDIT ORGANIZATION CONTROLLER==  get maindata:", $scope.maindata);
 
-    var countryArray = $scope.maindata.countryArray;
-    $scope.countries = [];    
-    countryArray.forEach(function(country) {           
-        $scope.countries.push({
-          name: country.name,
-          value:country.countryId
-        });       
-        if($scope.entity.countryId == country.countryId) {             
-           $scope.country = $scope.countries[$scope.countries.length-1];  
-        } 
-    });    
+    // var countryArray = $scope.maindata.countryArray;
+    // $scope.countries = [];    
+    // countryArray.forEach(function(country) {           
+    //     $scope.countries.push({
+    //       name: country.name,
+    //       value:country.countryId
+    //     });       
+    //     if($scope.entity.countryId == country.countryId) {             
+    //        $scope.country = $scope.countries[$scope.countries.length-1];  
+    //     } 
+    // });    
 
-    var languageArray = $scope.maindata.languageArray;
-    $scope.languages = [];    
-    languageArray.forEach(function(language) {           
-        $scope.languages.push({
-          name: language.name,
-          value:language.languageId
-        });       
-        if($scope.entity.languageId == language.languageId) {             
-           $scope.language = $scope.languages[$scope.languages.length-1];  
-        } 
-    });    
+    // var languageArray = $scope.maindata.languageArray;
+    // $scope.languages = [];    
+    // languageArray.forEach(function(language) {           
+    //     $scope.languages.push({
+    //       name: language.name,
+    //       value:language.languageId
+    //     });       
+    //     if($scope.entity.languageId == language.languageId) {             
+    //        $scope.language = $scope.languages[$scope.languages.length-1];  
+    //     } 
+    // });    
 
-    $scope.foundation = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
-    console.log("=========fouendation",$scope.foundation);
+    // $scope.foundation = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
+    // console.log("=========fouendation",$scope.foundation);
 })
 
 
@@ -446,7 +466,7 @@ $scope.search = function () {
 
 
 
-.controller('newpCtrl', function (apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
+.controller('newpCtrl', function (PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
 
   $scope.description = "New person"
   $scope.entity = {};
@@ -496,43 +516,102 @@ $scope.search = function () {
       // Store the data-dump of the FORM scope.
       request.success(
         function(data, status, headers, config) {
-          PopupFactory.getPopup($scope,data);
-          
+          if(data.forward == "Success")
+          {
+            console.log("person creation succesfull");          
+            $state.go('app.contacts'); 
+          }
+          else
+          {           
+             PopupFactory.getPopup($scope,data);
+          }            
         }
       );
   }
 })
 
 
-.controller('neworganizationCtrl', function (PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function ($cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
-  $scope.countries = [
-    {name:'Vereinigte Arabische Emirate', value:'AE'},
-    {name:'Andorra', value:'AD'},
-  ];
-
-  $scope.country = $scope.countries[0]; 
   $scope.ntitle = "New Organization";
 
+  $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
+  
+  $scope.addNewChoice = function() {
+    var newItemNo = $scope.choices.length+1;
+    $scope.choices.push({'id':'choice'+newItemNo});
+  };
+    
+  $scope.removeChoice = function() {
+    var lastItem = $scope.choices.length-1;
+    $scope.choices.splice(lastItem);
+  };
+
+  $scope.pickerImage= function ()
+  {
+    var options = {
+    maximumImagesCount: 1,
+    width: 300,
+    height: 300,
+    quality: 75
+    };
+
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {        
+          $scope.imgURI = results[0];
+      }, function(error) {
+        // error getting photos
+      })
+  };
+  
+  $scope.takePicture = function() {
+    var options = { 
+        quality : 75, 
+        destinationType : Camera.DestinationType.DATA_URL, 
+        sourceType : Camera.PictureSourceType.CAMERA, 
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+        // An error occured. Show a message to the user
+    });
+  }
+
   $scope.saveOrganization = function() {
-    console.log("Save organization");
+    console.log("Save organization", $scope.imgURI);
 
     var request = $http({
       method: "post",
-      
       url: apiUrlLocal+"/bmapp/Address/Create.do",
-      // url: "http://localhost:8080/bm/bmapp/Contact/REST.do",
+      headers: {'Content-Type': 'multipart/form-data'},
       transformRequest: transformRequestAsFormPost,
       data: {
         'dto(addressType)': "0",
-       
+        'dto(name1)': "121212",
+        'dto(name2)': "sdfsd",
+        'dto(name3)': "gggg",
+        // 'imageFile' : $scope.imgURI,
       }
-    });
-    // Store the data-dump of the FORM scope.
+    });  
     request.success(
       function(data, status, headers, config) {
-        PopupFactory.getPopup($scope,data);
+        if(data.forward == "Success")
+        {
+          console.log("organization creation succesfull");          
+          $state.go('app.contacts'); 
+        }
+        else
+        {           
+           PopupFactory.getPopup($scope,data);
+        }
         
       }
     );
@@ -560,19 +639,24 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
-    $scope.firstGruoup = [];
+   $scope.firstGruoup = [];
     $scope.secondGruoup = [];
+    $scope.auxEmail = [];
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
-      {
+      if (telecom.telecomTypeType == 'PHONE') 
+      {      
         $scope.firstGruoup.push(telecom);
       }
       else
       {
-        $scope.secondGruoup.push(telecom);
+        if(telecom.telecomTypeType == 'EMAIL')
+          $scope.auxEmail.push(telecom);
+        else
+          $scope.secondGruoup.push(telecom);
       }
     });
 
+    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -623,16 +707,22 @@ $scope.search = function () {
 
     $scope.firstGruoup = [];
     $scope.secondGruoup = [];
+    $scope.auxEmail = [];
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
-      {
+      if (telecom.telecomTypeType == 'PHONE') 
+      {      
         $scope.firstGruoup.push(telecom);
       }
       else
       {
-        $scope.secondGruoup.push(telecom);
+        if(telecom.telecomTypeType == 'EMAIL')
+          $scope.auxEmail.push(telecom);
+        else
+          $scope.secondGruoup.push(telecom);
       }
     });
+
+    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -673,16 +763,22 @@ $scope.search = function () {
 
     $scope.firstGruoup = [];
     $scope.secondGruoup = [];
+    $scope.auxEmail = [];
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE' || telecom.telecomTypeType == 'EMAIL') 
-      {
+      if (telecom.telecomTypeType == 'PHONE') 
+      {      
         $scope.firstGruoup.push(telecom);
       }
       else
       {
-        $scope.secondGruoup.push(telecom);
+        if(telecom.telecomTypeType == 'EMAIL')
+          $scope.auxEmail.push(telecom);
+        else
+          $scope.secondGruoup.push(telecom);
       }
     });
+
+    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
     
     $localstorage.setObject("EditContact",results.mainData);
 

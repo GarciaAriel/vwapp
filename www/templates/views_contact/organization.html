@@ -3,15 +3,15 @@
 
   <ion-nav-buttons side="right">
 
-    <button class="button disabled" style="border-style: none" ng-click="borrarPersona()">
+   <!--  <button class="button disabled" style="border-style: none" ng-click="borrarPersona()">
       <i class="icon ion-trash-a" style="{{colorFont}}"></i>
-    </button>
+    </button> -->
 
-    <a ng-href="#/app/editOrganization">
+   <!--  <a ng-href="#/app/editOrganization">
     	<button class="button" style="border-style: none" >
     	        	<i class="icon ion-edit" style="{{colorFont}}"></i>
         </button>  
-    </a>
+    </a> -->
 
   </ion-nav-buttons>
 
@@ -56,9 +56,7 @@
   
        	<div class="item item-body">
 
-        	<div ng-if="firstGruoup.length != 0" class="card">
-            <div class="item item-body-auto">
-              <div class="item item-text-wrap">
+        	<div ng-if="firstGruoup.length != 0">
                 <div ng-repeat="telecom in firstGruoup">
                   <div ng-repeat="tele in telecom.telecomList">
                     <table style="width:100%">
@@ -68,14 +66,10 @@
                       </tr>                    
                     </table>                           
                   </div>
-                </div>
-              </div>
             </div>
           </div>
-
-          <div ng-if="secondGruoup.length != 0" class="card">
-            <div class="item item-body-auto">
-              <div class="item item-text-wrap">
+          <br>
+          <div ng-if="secondGruoup.length != 0">            
                 <div ng-repeat="telecom in secondGruoup">
                   <div ng-repeat="tele in telecom.telecomList">
                     <table style="width:100%">
@@ -85,9 +79,7 @@
                       </tr>                    
                     </table> 
                   </div>
-                </div>
-              </div>
-            </div>
+                </div>              
           </div>
       	</div>
     </div>
