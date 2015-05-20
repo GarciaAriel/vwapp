@@ -413,11 +413,7 @@ $scope.search = function () {
       
     $scope.loadMore = function() {
         console.log("trying to load more of the search",$scope.pag);
-        // if($scope.pag<=$scope.totalpag){
-//              $scope.asknext=true;
-            $scope.pag = $scope.pag +1;
-            // $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
-
+            $scope.pag = $scope.pag +1;        
             $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
             $scope.buscados.$promise.then(function(results){
 
@@ -433,14 +429,7 @@ $scope.search = function () {
             console.log("==12121212",$scope.pag);
             if ($scope.totalpag<$scope.pag+1) {
               $scope.asknext = false;  
-            };
-            
-        // }
-//          if ($scope.totalpag<=$scope.pag+1) {
-//            $scope.asknext = false;  
-//              console.log("end of search");
-//        };
-           
+            };              
       };
     
 }
@@ -449,17 +438,11 @@ $scope.search = function () {
 
 
  $scope.createp = function() {
-      /* $location.path('/tab/newpost'); */   /* this variant doesnt work */
-     
-     
-     
-//      $window.location.href = '/newperson';
-    
      console.log("go to create person");
       $state.go('app.newperson'); 
     };
                             
-     })
+})
 
 
 
@@ -491,7 +474,7 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function ($scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function (PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
   $scope.countries = [
@@ -501,6 +484,30 @@ $scope.search = function () {
 
   $scope.country = $scope.countries[0]; 
   $scope.ntitle = "New Organization";
+
+  $scope.saveOrganization = function() {
+    console.log("Save organization");
+
+    var request = $http({
+      method: "post",
+      
+      url: apiUrlLocal+"/bmapp/Address/Create.do",
+      // url: "http://localhost:8080/bm/bmapp/Contact/REST.do",
+      transformRequest: transformRequestAsFormPost,
+      data: {
+        'dto(addressType)': "0",
+       
+      }
+    });
+    // Store the data-dump of the FORM scope.
+    request.success(
+      function(data, status, headers, config) {
+        PopupFactory.getPopup($scope,data);
+        
+      }
+    );
+
+  };
 })
 
 
@@ -606,7 +613,7 @@ $scope.search = function () {
             $scope.countryName = country.name;
           }
       });
-    }
+    }   
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);

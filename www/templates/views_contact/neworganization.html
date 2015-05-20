@@ -1,5 +1,14 @@
 
 <ion-view view-title="{{ntitle}}">
+
+  <ion-nav-buttons side="right">
+
+    <button class="button" style="border-style: none" ng-click="saveOrganization()">
+      <i class="icon ion-checkmark" style="{{colorFont}}"></i>
+    </button>
+
+  </ion-nav-buttons>
+  
   <ion-content>
 
     <form >
@@ -9,10 +18,20 @@
           
         <label class="item item-input">
           <div class="input-label">Name</div>
-          <input type="text" ng-model="entity.name1" placeholder="Name" maxlength="60" name="dto(name1)" required="required" validated>
+          <input type="text" ng-model="entity.name1" placeholder="Name" maxlength="60" name="dto(name1)" required="required" validated>          
           <i class="icon ion-alert-circled error"></i>
         </label>
-            
+
+        <label class="item item-input">
+          <div class="input-label"></div>
+          <input type="text" ng-model="entity.name2" placeholder="Name" maxlength="60" name="dto(name2)" required="required" validated>
+        </label>
+
+        <label class="item item-input">
+          <div class="input-label"></div>
+          <input type="text" ng-model="entity.name3" placeholder="Name" maxlength="60" name="dto(name3)" required="required" validated>          
+        </label>
+
         <label class="item item-input item-select">
           <div class="input-label">
             Country
