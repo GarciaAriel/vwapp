@@ -1,6 +1,6 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function(apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function(PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -128,8 +128,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       });
       // Store the data-dump of the FORM scope.
       request.success(
-        function( html ) {
-        $scope.cfdump = html;
+        function(data, status, headers, config) {
+          PopupFactory.getPopup($scope,data);
+          
         }
       ); 
     };
@@ -229,7 +230,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function(ControlError,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -248,11 +249,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     console.log("FIRST CALL",$scope.newContacts);
 
     $scope.newContacts.$promise.then(function (results){
-      var error = ControlError.set();
-      console.log("==CONTROLLER 000000 error XD==");
-        // $state.go('app.contacts', {}, { reload: true });
-        // $state.go('productList', {}, { reload: true });
-
+        
+        
         if (results.mainData == undefined) {
           $state.go('login');
         }
