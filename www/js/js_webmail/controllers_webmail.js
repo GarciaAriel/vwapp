@@ -283,7 +283,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
           var element = document.getElementById("page_content");
           element.style.height = element.scrollHeight + "px";
         });
-        
+
+        $scope.iframeHeight = $(window).height();
+        $scope.iframeWidth = $(window).width();
+
     });
 
     // DOWNLOAD FILE
