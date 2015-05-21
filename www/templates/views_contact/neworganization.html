@@ -18,8 +18,7 @@
           
         <label class="item item-input">
           <div class="input-label">Name</div>
-          <input type="text" ng-model="entity.name1" placeholder="Name" maxlength="60" name="dto(name1)" required="required" validated>          
-          <i class="icon ion-alert-circled error"></i>
+          <input type="text" ng-model="entity.name1" placeholder="Name" maxlength="60" name="dto(name1)" required="required" validated>                    
         </label>
 
         <label class="item item-input">
@@ -37,29 +36,53 @@
           <input type="text" name="dto(street)" maxlength="40" ng-model="entity.street" placeholder="Street" ng-model="data.street">
         </label>
 
-        <div class="item item-divider bar bar-header bar-assertive">Contact type</div>
+        <label class="item item-input item-select">
+          <div class="input-label">Country</div>
+          <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"></select>
+        </label>
+    
+        <label class="item item-input item-select">
+          <div class="input-label">City</div>      
+          <select ng-model="city" ng-change="updateCity(city)" id="cityId" name="cityId" ng-options="c.name for c in cities"></select>       
+        </label>        
      
+        <label class="item item-input item-select">
+          <div class="input-label">Language</div>
+          <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages"></select>    
+        </label>
 
-        <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-        <img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
-        <button class="button" ng-click="takePicture()">Take Picture</button>
-        
-        <button class="button" ng-click="pickerImage()">Picker Image</button>
+        <div class="item item-divider bar bar-header bar-assertive">Comunication Info</div>
 
-        <fieldset  data-ng-repeat="choice in choices">
-      <select>
-         <option>Mobile</option>
-         <option>Office</option>
-         <option>Home</option>
-      </select>
-      <input type="text" ng-model="choice.name" name="" placeholder="Enter mobile number">
-      <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
-   </fieldset>
-   <button class="addfields" ng-click="addNewChoice()">Add fields</button>
-       
-   <div id="choicesDisplay">
-      {{ choices }}
-   </div>
+          <div class="item item-input item-select" data-ng-repeat="choice in choices">
+            <button class="button" style="border-style: none" ng-click="removeChoice(choice)">
+              <i class="ion-minus-circled" style="{{colorFont}}"></i>
+            </button>           
+            <input type="text" ng-model="choice.value">            
+            <select ng-model="comunication" ng-change="updateComunication(comunication)" ng-options="c.name for c in comunications"></select>  
+          </div>       
+  
+          <div class="item item-input item-select">
+            <button class="button" style="border-style: none" ng-click="addNewChoice(auxvalue); auxvalue = ''">
+              <i class="ion-plus-circled" style="{{colorFont}}"></i>
+            </button>            
+            <input type="text" ng-model="auxvalue">            
+            <select ng-model="comunication" ng-change="updateComunication(comunication)" ng-options="c.name for c in comunications"></select>  
+          </div>          
+                     
+        <div class="item item-divider bar bar-header bar-assertive">Additional info</div>            
+            <div class="list card">
+
+              <div class="button-bar">
+                <a class="button" ng-click="takePicture()">Take Picture</a>
+                <a class="button" ng-click="pickerImage()">Picker Image</a>               
+              </div>
+
+              <div class="item item-body">
+                <img width="{{iframeWidth * 0.90}}"ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+                <img width="{{iframeWidth * 0.90}}" ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">  
+              </div>
+              
+            </div>          
 
       </div>
     </form>

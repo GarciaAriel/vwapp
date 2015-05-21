@@ -536,16 +536,18 @@ $scope.search = function () {
 
   $scope.ntitle = "New Organization";
 
-  $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
+  $scope.choices = [];
+  $scope.iframeWidth = $(window).width();
   
-  $scope.addNewChoice = function() {
+  $scope.addNewChoice = function(value) {
     var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':'choice'+newItemNo});
+    $scope.choices.push({'id':newItemNo, value:value});    
   };
     
-  $scope.removeChoice = function() {
-    var lastItem = $scope.choices.length-1;
-    $scope.choices.splice(lastItem);
+  $scope.removeChoice = function(choice) {
+    var index = $scope.choices.indexOf(choice);
+    console.log(index);
+    $scope.choices.splice(index,1);
   };
 
   $scope.pickerImage= function ()
@@ -639,24 +641,35 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
-   $scope.firstGruoup = [];
+    $scope.firstGruoup = [];
     $scope.secondGruoup = [];
     $scope.auxEmail = [];
+    $scope.auxFax = [];
+    $scope.auxLink = [];    
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE') 
-      {      
-        $scope.firstGruoup.push(telecom);
-      }
-      else
-      {
-        if(telecom.telecomTypeType == 'EMAIL')
-          $scope.auxEmail.push(telecom);
-        else
-          $scope.secondGruoup.push(telecom);
-      }
+
+      switch(telecom.telecomTypeType) {
+          case 'PHONE':
+              $scope.firstGruoup.push(telecom);
+              break;
+          case 'EMAIL':
+              $scope.auxEmail.push(telecom);
+              break;
+          case 'OTHER':
+              $scope.secondGruoup.push(telecom);
+              break;
+          case 'FAX':
+              $scope.auxFax.push(telecom);
+              break;         
+          case 'LINK':
+              $scope.auxLink.push(telecom);
+              break;
+      }     
     });
 
     $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -708,21 +721,32 @@ $scope.search = function () {
     $scope.firstGruoup = [];
     $scope.secondGruoup = [];
     $scope.auxEmail = [];
+    $scope.auxFax = [];
+    $scope.auxLink = [];    
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE') 
-      {      
-        $scope.firstGruoup.push(telecom);
-      }
-      else
-      {
-        if(telecom.telecomTypeType == 'EMAIL')
-          $scope.auxEmail.push(telecom);
-        else
-          $scope.secondGruoup.push(telecom);
-      }
+
+      switch(telecom.telecomTypeType) {
+          case 'PHONE':
+              $scope.firstGruoup.push(telecom);
+              break;
+          case 'EMAIL':
+              $scope.auxEmail.push(telecom);
+              break;
+          case 'OTHER':
+              $scope.secondGruoup.push(telecom);
+              break;
+          case 'FAX':
+              $scope.auxFax.push(telecom);
+              break;         
+          case 'LINK':
+              $scope.auxLink.push(telecom);
+              break;
+      }     
     });
 
     $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -764,22 +788,34 @@ $scope.search = function () {
     $scope.firstGruoup = [];
     $scope.secondGruoup = [];
     $scope.auxEmail = [];
+    $scope.auxFax = [];
+    $scope.auxLink = [];    
     $scope.telecomss.forEach(function(telecom) {
-      if (telecom.telecomTypeType == 'PHONE') 
-      {      
-        $scope.firstGruoup.push(telecom);
-      }
-      else
-      {
-        if(telecom.telecomTypeType == 'EMAIL')
-          $scope.auxEmail.push(telecom);
-        else
-          $scope.secondGruoup.push(telecom);
-      }
+
+      switch(telecom.telecomTypeType) {
+          case 'PHONE':
+              $scope.firstGruoup.push(telecom);
+              break;
+          case 'EMAIL':
+              $scope.auxEmail.push(telecom);
+              break;
+          case 'OTHER':
+              $scope.secondGruoup.push(telecom);
+              break;
+          case 'FAX':
+              $scope.auxFax.push(telecom);
+              break;         
+          case 'LINK':
+              $scope.auxLink.push(telecom);
+              break;
+      }     
     });
 
     $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
-    
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
+    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink);  
+
+
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {
