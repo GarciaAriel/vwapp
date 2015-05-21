@@ -18,6 +18,7 @@
 
 .item-large-text {
   padding-left: 15px;
+  overflow-y: scroll;
   }  
 
 
