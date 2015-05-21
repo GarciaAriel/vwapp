@@ -56,9 +56,6 @@
           
         </div>
 <!-- ng-if="item.bodyType != '1' " -->
-        <!-- <div ng-if="item.bodyType != '1' " class="card"> -->
-          <!-- Detail text: -->
-          <!-- <textarea ng-keypress="updateEditor()" ng-model="item.body"> </textarea> -->
           <!-- data-ng-init="updateEditor()" -->
             <!-- <textarea id="page_content" row="15" data-ng-init="updateEditor()" disabled="disabled" class="item-large-text">
               {{item.body}}
@@ -75,12 +72,7 @@
         <!-- </div> -->
 
         <div ng-if="item.bodyType != '2' " class="card">
-          
           <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
-          <!-- <ion-scroll  direction="xy" style="overflow: auto;">
-           style="width: 100%; height: 400px" 
-              <div  ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>    
-          </ion-scroll> -->
         </div>
 
       <!-- </ion-slide> -->
