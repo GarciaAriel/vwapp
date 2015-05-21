@@ -9,6 +9,12 @@
   *zoom: 1;
 }
 
+.img-class {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
 .item-body-auto {
   overflow: auto;
   padding: 3px;

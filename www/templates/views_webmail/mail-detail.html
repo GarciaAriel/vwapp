@@ -29,7 +29,7 @@
               <div class="item-body-auto">
                 {{ "From" | translate}}: {{item.mailFrom}}<br>                  
                 {{ "To" | translate}}: {{item.to}}<br>
-                {{item.sentDate}}<br><br>
+                {{ "DateMail" | translate}}: {{item.sentDate}}<br><br>
 
                 <!-- show CC -->
                 <div ng-if="arrayCC[0] != '' " ng-repeat="ite in arrayCC">
@@ -55,24 +55,15 @@
 
           
         </div>
-<!-- ng-if="item.bodyType != '1' " -->
-          <!-- data-ng-init="updateEditor()" -->
-            <!-- <textarea id="page_content" row="15" data-ng-init="updateEditor()" disabled="disabled" class="item-large-text">
-              {{item.body}}
-            </textarea> -->
-        <div ng-if="item.bodyType != '1'" class="card">
-          <div class="item item-text-wrap">
-            {{item.body}}
-          </div>
-        </div>
-                     
-          <!-- <ion-scroll zooming="true" direction="xy" style="height: 100%"> -->
-              <!-- <textarea ng-if="item.bodyType != '1' " rows="15" class="item-large-text" data-role="none" ng-init="updateEditor()">{{item.body}}</textarea> -->
-          <!-- </ion-scroll> -->
-        <!-- </div> -->
+
+            <div class="card" ng-if="item.bodyType != '1'">
+              <textarea id="page_content" ng-init="updateEditor()" class="item-large-text" disabled="true">{{item.body}}</textarea>            
+            </div>
 
         <div ng-if="item.bodyType != '2' " class="card">
-          <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>
+          <!-- <ion-scroll zooming="true" locking="true"  direction="xy"> -->
+            <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div>          
+          <!-- </ion-scroll> -->
         </div>
 
       <!-- </ion-slide> -->
@@ -80,10 +71,6 @@
 
     </ion-content>
 </ion-view>
-
-
-
-
 
 <!-- <div class="tabs tabs-icon-top">
 

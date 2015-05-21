@@ -267,7 +267,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             $http.get(apiUrlLocal+newurl).
 
             success(function(data, status, headers, config) {
-              var newHtml = data.split("<img").join(" <img width='100%' ");
+              var newHtml = data.split("<img").join(" <img class='img-class' ");
               // var newHtml = data.substr(0, pos+5) + "width='100%'" + data.substr(pos+5);
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
                 // when the response is available
@@ -277,6 +277,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               // or server returns response with an error status.
             });
         }
+
+        angular.element(document).ready(function () {
+          console.log('page loading completed');
+          var element = document.getElementById("page_content");
+          element.style.height = element.scrollHeight + "px";
+        });
+        
     });
 
     // DOWNLOAD FILE
@@ -375,8 +382,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     };
 
     $scope.updateEditor = function() {
-      var element = document.getElementById("page_content");
-      element.style.height = element.scrollHeight + "px";
+      angular.element(document).ready(function () {
+          console.log('page loading completed');
+      });
+      // var element = document.getElementById("page_content");
+      // element.style.height = element.scrollHeight + "px";
     };
 
 });

@@ -97,6 +97,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Funtion: "Function",
     From: "From",
     To: "To",
+    DateMail: "Date",
     Subject: "Subject",
     
     Description: "Description",
@@ -160,6 +161,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Funtion: "Funcion",
     From: "De",
     To: "A",
+    DateMail: "Fecha",
     Subject: "Asunto",
     
     Description: "Descripcion",
@@ -225,6 +227,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Funtion: "Funktion",
     From: "Von",
     To: "An",
+    DateMail: "Datum",
     Subject: "Betreff",
     
     Description: "Beschreibung",
@@ -289,6 +292,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Funtion: "Fonction",
     From: "De",
     To: "A",
+    DateMail: "Date",
     Subject: "Affaire", 
       
     Description: "Description",
