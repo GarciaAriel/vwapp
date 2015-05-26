@@ -40,7 +40,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     'use strict';
 
     $scope.callResult = LogoutService.query({});
-
+     
     $scope.callResult.$promise.then(function (results){
       console.log("==CONTROLLER ROLES== logout",results);
     })
@@ -49,7 +49,12 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
     $scope.colorFont = COLOR_VIEW;
 
-    $scope.data = {};
+
+    if(typeof $localstorage.getObject("rememberUsername") == "string")
+      $scope.data = {username: $localstorage.getObject("rememberUsername") ,password: "", company: $localstorage.getObject("rememberCompany")};
+    else
+      $scope.data= {};
+         
     $scope.iframeHeight = $(window).height();
     $scope.iframeWidth = $(window).width();
     
@@ -151,6 +156,8 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           {
             $localstorage.setObject('accessRight',data.mainData.accessRight);
             $localstorage.setObject('userInfo',data.mainData.userInfo);
+            $localstorage.setObject('rememberUsername',$scope.data.username);
+            $localstorage.setObject('rememberCompany',$scope.data.company);
 
             var lenguage = data.mainData.userInfo.locale;
             console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
