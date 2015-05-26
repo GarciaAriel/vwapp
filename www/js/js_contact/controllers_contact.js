@@ -531,22 +531,21 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function ($cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function ($ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
   $scope.ntitle = "New Organization";
 
   $scope.choices = [];
   $scope.iframeWidth = $(window).width();
-  
-  $scope.addNewChoice = function(value) {
+
+  $scope.addNewChoice = function(value,telecom) {
     var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value});    
+    $scope.choices.push({'id':newItemNo, value:value,telecomvalue:telecom.name});    
   };
     
   $scope.removeChoice = function(choice) {
-    var index = $scope.choices.indexOf(choice);
-    console.log(index);
+    var index = $scope.choices.indexOf(choice);    
     $scope.choices.splice(index,1);
   };
 
@@ -587,37 +586,135 @@ $scope.search = function () {
     });
   }
 
-  $scope.saveOrganization = function() {
-    console.log("Save organization", $scope.imgURI);
 
-    var request = $http({
-      method: "post",
-      url: apiUrlLocal+"/bmapp/Address/Create.do",
-      headers: {'Content-Type': 'multipart/form-data'},
-      transformRequest: transformRequestAsFormPost,
-      data: {
-        'dto(addressType)': "0",
-        'dto(name1)': "121212",
-        'dto(name2)': "sdfsd",
-        'dto(name3)': "gggg",
-        // 'imageFile' : $scope.imgURI,
+  $scope.showPopup = function() {
+  $scope.data = [];
+  $scope.data.push({'id':1, value:true, name:"1"},{'id':2, value:false, name:"2"},{'id':3, value:true, name:"3"},{'id':4, value:false, name:"4"});    
+  // An elaborate, custom popup
+  var myPopup = $ionicPopup.show({
+    template: '<div data-ng-repeat="d in data"><ion-toggle  ng-model="d.value" toggle-class="toggle-calm">{{d.name}}</ion-toggle></div>',
+    title: 'Data access security',
+    subTitle: 'Allowed user groups',
+    scope: $scope,
+    buttons: [      
+      {
+        text: '<b>OK</b>',
+        type: 'button-positive',
+        onTap: function(e) {
+          // if (!$scope.data.wifi) {
+          //   //don't allow the user to close unless he enters wifi password
+          //   e.preventDefault();
+          // } else {
+            return $scope.data;
+          // }
+        }
       }
-    });  
+    ]
+  });
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);      
+  });  
+ };
+
+ 
+  var request = $http({
+        method: "get",        
+        url: apiUrlLocal+"/bmapp/Address/Forward/Create.do",      
+      });
     request.success(
-      function(data, status, headers, config) {
-        if(data.forward == "Success")
-        {
-          console.log("organization creation succesfull");          
-          $state.go('app.contacts'); 
-        }
-        else
-        {           
-           PopupFactory.getPopup($scope,data);
-        }
-        
-      }
-    );
+      function(data, status, headers, config) {        
 
+         var countryArray = data.mainData.countryArray;  
+          $scope.countries = [];    
+          countryArray.forEach(function(country) {           
+              $scope.countries.push({
+                name: country.name,
+                value:country.countryId
+              });                     
+          });
+
+          var languageArray = data.mainData.languageArray;
+          $scope.languages = [];    
+          languageArray.forEach(function(language) {           
+              $scope.languages.push({
+                name: language.name,
+                value:language.languageId
+              });                     
+          }); 
+
+          var telecomTypeArray = data.mainData.telecomTypeArray;
+          $scope.telecoms = [];    
+          telecomTypeArray.forEach(function(telecom) {           
+              $scope.telecoms.push({
+                name: telecom.telecomTypeName,
+                value:telecom.telecomTypeId,
+              });                     
+          });    
+
+      });
+
+     
+    
+
+    $scope.updateCountry = function (ncountry)
+    {
+      $scope.country = ncountry;  
+      var cityRequest = $http({
+        method: "post",        
+        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        data: {
+            'countryId' : ncountry.value
+         }
+      });
+      cityRequest.success(
+        function(data, status, headers, config) {        
+          var cityArray = data.mainData.cityArray;
+          $scope.cities = [];    
+          cityArray.forEach(function(city) {           
+              $scope.cities.push({
+                name: city.cityName,
+                value:city.cityId, 
+                zip: city.zip,             
+              });                     
+          });    
+      });
+   
+    }
+
+  $scope.saveOrganization = function() {
+    // console.log("Save organization", $scope.imgURI);
+
+    // var request = $http({
+    //   method: "post",
+    //   url: apiUrlLocal+"/bmapp/Address/Create.do",
+    //   headers: {'Content-Type': 'multipart/form-data'},
+    //   transformRequest: transformRequestAsFormPost,
+    //   data: {
+    //     'dto(addressType)': "0",
+    //     'dto(name1)': "121212",
+    //     'dto(name2)': "sdfsd",
+    //     'dto(name3)': "gggg",
+    //     // 'imageFile' : $scope.imgURI,
+    //   }
+    // });  
+    // request.success(
+    //   function(data, status, headers, config) {
+    //     if(data.forward == "Success")
+    //     {
+    //       console.log("organization creation succesfull");          
+    //       $state.go('app.contacts'); 
+    //     }
+    //     else
+    //     {           
+    //        PopupFactory.getPopup($scope,data);
+    //     }
+        
+    //   }
+    // );
+  
+  
+   
+   
   };
 })
 
