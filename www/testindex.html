@@ -6,16 +6,17 @@
     <title></title>
 
     <script src="cordova.js"></script>
-	<!-- <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" /> -->
+
     <script type="text/javascript">
     	document.addEventListener("deviceready", onDeviceReady(), false);
 
 		function onDeviceReady() {
-		    alert("ready");
+		    // alert("ready");
 		    checkConnection();
 		}
 		function checkConnection()
-		{   alert("connection");
+		{   
+			// alert("connection");
 		    // networkState = navigator.network.connection.type;
 		    console.log(navigator);
 		    console.log(navigator.connection.type);
@@ -32,11 +33,18 @@
 		    // alert('Connection type: ' + states[networkState]);
 		}
     </script>
-
+    
+    <meta http-equiv="refresh" content="4; url=https://bm.bm-od.com/bm/bmappweb/index.html" />
   </head>
 
   <body>
-    test index
+   	<img style=" position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;" height="10%" width="10%" src="img/loading.gif">
   </body>
 
 
