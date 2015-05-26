@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <script src="cordova.js"></script>
+	<!-- <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" /> -->
+    <script type="text/javascript">
+    	document.addEventListener("deviceready", onDeviceReady(), false);
+
+		function onDeviceReady() {
+		    alert("ready");
+		    checkConnection();
+		}
+		function checkConnection()
+		{   alert("connection");
+		    // networkState = navigator.network.connection.type;
+		    console.log(navigator);
+		    console.log(navigator.connection.type);
+		    // console.log(navigator.CordovaNavigator.network);
+		    // console.log(navigator.network.onLine);
+		    // var states = {};
+		    // states[Connection.UNKNOWN]  = 'Unknown connection';
+		    // states[Connection.ETHERNET] = 'Ethernet connection';
+		    // states[Connection.WIFI]     = 'WiFi connection';
+		    // states[Connection.CELL_2G]  = 'Cell 2G connection';
+		    // states[Connection.CELL_3G]  = 'Cell 3G connection';
+		    // states[Connection.CELL_4G]  = 'Cell 4G connection';
+		    // states[Connection.NONE]     = 'No network connection';
+		    // alert('Connection type: ' + states[networkState]);
+		}
+    </script>
+
+  </head>
+
+  <body>
+    test index
+  </body>
+
+
+
+</html>
+
