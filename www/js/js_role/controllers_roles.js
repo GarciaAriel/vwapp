@@ -42,7 +42,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     $scope.callResult = LogoutService.query({});
 
     $scope.callResult.$promise.then(function (results){
-      console.log("==aaaa=======logout==",results);
+      console.log("==CONTROLLER ROLES== logout",results);
     })
 
     delete $http.defaults.headers.common.Authorization;
@@ -147,7 +147,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
 
           
-          if( data.mainData)
+          if( data.forward != "Fail")
           {
             $localstorage.setObject('accessRight',data.mainData.accessRight);
             $localstorage.setObject('userInfo',data.mainData.userInfo);

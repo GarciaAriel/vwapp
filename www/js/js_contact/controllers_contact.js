@@ -250,7 +250,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -270,7 +270,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.newContacts.$promise.then(function (results){
         
-        
+        PopupFactory.getPopup($scope,results);
+        // PopupFactory.getPopup(results);
+
         if (results.mainData == undefined) {
           $state.go('login');
         }
@@ -300,33 +302,31 @@ $scope.doRefresh = function() {
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
 
-$scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
-$scope.newContacts.$promise.then(function (results){
+  $scope.newContacts.$promise.then(function (results){
 
-  if (results.mainData == undefined) {
-    $state.go('login');
-  }
-  
-$scope.contacts = (results['mainData'])['list'];
-    $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
-  $scope.$broadcast('scroll.refreshComplete'); 
-    
-     $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+
+    PopupFactory.getPopup($scope,results);
+
+    if (results['forward'] == "") {
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.$broadcast('scroll.refreshComplete'); 
+        
+      $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
-  
-  
-    
-        console.log('COMEBACK TO THE FIRST LIST',$scope.page);
-        console.log('WITH THIS CONTACTS',$scope.contacts);
-        console.log('PAGE #',$scope.page);
-    console.log("pages in total on refresh", $scope.pagesintotal);
-    
-    if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+      
+      console.log('COMEBACK TO THE FIRST LIST',$scope.page);
+      console.log('WITH THIS CONTACTS',$scope.contacts);
+      console.log('PAGE #',$scope.page);
+      console.log("pages in total on refresh", $scope.pagesintotal);
+      
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
         $scope.asknext = true;
       };
-    
-});
+    }
+  });
 };  
 
 $scope.loadMore = function() {
