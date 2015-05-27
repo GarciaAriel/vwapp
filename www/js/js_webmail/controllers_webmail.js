@@ -294,12 +294,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               // or server returns response with an error status.
             });
         }
-
-        angular.element(document).ready(function () {
-          console.log('page loading completed');
-          var element = document.getElementById("page_content");
-          element.style.height = element.scrollHeight + "px";
-        });
+        else{
+          angular.element(document).ready(function () {
+            console.log('page loading completed');
+            var element = document.getElementById("page_content");
+            element.style.height = element.scrollHeight + "px";
+          });
+        }
+        
 
         $scope.iframeHeight = $(window).height();
         $scope.iframeWidth = $(window).width();
@@ -308,15 +310,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // DOWNLOAD FILE
     $scope.download = function(attach) {
-        $ionicLoading.show({
-          template: 'Donwloading...'
-        });
-        console.log("-----1");
-      $scope.$on('$ionicView.enter', function(event, data) {
-          
-      
+        // $ionicLoading.show({
+        //   template: 'Loading...'
+        // });
+  console.log("1111111");
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
-          console.log("-----2");
             fs.root.getDirectory(
                 "BMapp",
                 {
@@ -336,23 +334,16 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                             fe.remove();
                             ft = new FileTransfer();
                             ft.download(
+                                // encodeURI("http://ionicframework.com/img/ionic-logo-blog.png"),
                                 encodeURI(apiUrlLocal+attach.downloadUrl),
                                 
                                 p,
                                 function(entry) {
-                                    $ionicLoading.hide();
+                                    // $ionicLoading.hide();
                                     $scope.imgFile = entry.toURL();
-
-                                    var message = $filter('translate')('Downloaded');
-                                    var messageCheck = $filter('translate')('CheckFolder');
-
-                                    var alertPopup = $ionicPopup.alert({
-                                       title: message,
-                                       template: messageCheck
-                                     });
                                 },
                                 function(error) {
-                                    $ionicLoading.hide();
+                                    // $ionicLoading.hide();
                                     alert("Download Error Source -> " + error.source);
                                 },
                                 false,
@@ -372,8 +363,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             console.log("Request for filesystem failed");
         });
         //
-      });  
     }
+
 
     // URL IMAGE
     $scope.imageF = function(){
