@@ -1,7 +1,7 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 
-.controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
+.controller('ControlScheduleDetail', function(PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
 
     
@@ -12,6 +12,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
     $scope.taskcall.$promise.then(function (results){
 
+        // call factory 
+        PopupFactory.getPopup($scope,results);
 
         $scope.tareas = results;
         $scope.prioridades = (results['mainData'])['priorityArray'];
@@ -40,7 +42,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function($ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(PopupFactory,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
 
@@ -80,10 +82,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   //  PROMISE
   $scope.newAppointments.$promise.then(function (results){
 
-    if (results.mainData == undefined) {
-      $state.go('login');
-    }
-
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+    
     console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
     $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
@@ -178,9 +179,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       //PROMISE
       $scope.newAppointments.$promise.then(function (results){
 
-        if (results.mainData == undefined) {
-          $state.go('login');
-        }
+        // call factory 
+        PopupFactory.getPopup($scope,results);
           //  GET LIST APPOINTMENTS
           console.log("==CONTROLLER SCHEDULE== get query list appointments NEXT success OK",results['mainData']);
           $scope.listAppointments = (results['mainData'])['appointmentsList'];
@@ -236,9 +236,10 @@ $scope.schedulePrev  = function(){
 
         //  PROMISE
         $scope.newAppointments.$promise.then(function (results){
-          if (results.mainData == undefined) {
-            $state.go('login');
-          }
+          
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+
           console.log("==CONTROLLER SCHEDULE== get query list appointments PREV success OK",results['mainData']);
           $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
@@ -291,9 +292,10 @@ $scope.scheduleToday  = function(){
 
         //  PROMISE
         $scope.newAppointments.$promise.then(function (results){
-          if (results.mainData == undefined) {
-            $state.go('login');
-          }
+
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+          
           console.log("==CONTROLLER SCHEDULE== get query list appointments TODAY success OK",results['mainData']);    
           $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
@@ -344,9 +346,10 @@ $scope.dataScheduleMonth = function(){
 
         // PROMISE
         $scope.newAppointments.$promise.then(function (results){
-          if (results.mainData == undefined) {
-            $state.go('login');
-          }
+
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+
           console.log("==CONTROLLER SCHEDULE== get query list appointments change view MONTH success OK",results['mainData']);    
           $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
@@ -398,9 +401,10 @@ $scope.dataScheduleDay = function()    {
       $scope.getAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
           //  PROMISE
           $scope.getAppointments.$promise.then(function (results){
-            if (results.mainData == undefined) {
-              $state.go('login');
-            }
+
+            // call factory 
+            PopupFactory.getPopup($scope,results);
+            
             console.log("==CONTROLLER SCHEDULE== get query list appointments change view DAY success OK");    
             $scope.listAppointments = (results['mainData'])['appointmentsList'];
             //parse to variables
@@ -443,9 +447,10 @@ $scope.doRefresh = function() {
 
     //  PROMISE
     $scope.newAppointments.$promise.then(function (results){
-      if (results.mainData == undefined) {
-        $state.go('login');
-      }
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+      
       console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
       $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
@@ -499,9 +504,10 @@ $scope.dataScheduleWekk = function(){
 
         //  PROMISE
         $scope.newAppointments.$promise.then(function (results){
-          if (results.mainData == undefined) {
-            $state.go('login');
-          }
+
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+          
           console.log("==CONTROLLER SCHEDULE== get query list appointments change view WEEK success OK",results['mainData']);
           $scope.listAppointments = (results['mainData'])['appointmentsList'];
 

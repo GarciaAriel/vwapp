@@ -129,6 +129,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       // Store the data-dump of the FORM scope.
       request.success(
         function(data, status, headers, config) {
+          // call factory 
           PopupFactory.getPopup($scope,data);
           
         }
@@ -270,14 +271,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.newContacts.$promise.then(function (results){
         
+        // call factory 
         PopupFactory.getPopup($scope,results);
-        // PopupFactory.getPopup(results);
-
-        if (results.mainData == undefined) {
-          $state.go('login');
-        }
-
-
+        
         console.log("THIS INFO",(results['mainData']));
   
         $scope.contacts = (results['mainData'])['list'];
@@ -306,7 +302,7 @@ $scope.doRefresh = function() {
 
   $scope.newContacts.$promise.then(function (results){
 
-
+    // call factory 
     PopupFactory.getPopup($scope,results);
 
     if (results['forward'] == "") {
@@ -336,6 +332,9 @@ $scope.loadMore = function() {
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
     
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     console.log("+++++new info",(results['mainData']));
     console.log("++++new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
@@ -403,7 +402,10 @@ $scope.search = function () {
     $scope.asknext = false;
 
     $scope.buscados.$promise.then(function (results){
-            
+        
+        // call factory 
+        PopupFactory.getPopup($scope,results);    
+
         $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
         $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
                 
@@ -436,6 +438,9 @@ $scope.search = function () {
             $scope.pag = $scope.pag +1;        
             $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
             $scope.buscados.$promise.then(function(results){
+
+                // call factory 
+                PopupFactory.getPopup($scope,results);
 
                 $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
 
@@ -516,15 +521,15 @@ $scope.search = function () {
       // Store the data-dump of the FORM scope.
       request.success(
         function(data, status, headers, config) {
+
+          // call factory
+          PopupFactory.getPopup($scope,data);
+
           if(data.forward == "Success")
           {
             console.log("person creation succesfull");          
             $state.go('app.contacts'); 
           }
-          else
-          {           
-             PopupFactory.getPopup($scope,data);
-          }            
         }
       );
   }
@@ -732,6 +737,9 @@ $scope.search = function () {
 
   $scope.contact.$promise.then(function (results){
 
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
 
@@ -809,6 +817,9 @@ $scope.search = function () {
 
   $scope.contact.$promise.then(function (results){
 
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
 
@@ -875,6 +886,9 @@ $scope.search = function () {
   $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
+
+    // call factory 
+    PopupFactory.getPopup($scope,results);
 
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);

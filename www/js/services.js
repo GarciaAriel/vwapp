@@ -4,30 +4,31 @@ angular.module('starter.services', [])
   
   function getPopup(scope,result) {
 
+
       // if session Expired
       if (result.forward == "SessionExpired") {
-        console.log("==SERVICE== session expired:",result);
+        console.log("==SERVICE ERROR== session expired:",result);
         
         return $ionicPopup.show({
          
-         title: "popopop",
-         template: "message",
-         scope: scope,
-         buttons: [
-           { text: '<b>close</b>',
-           type: 'button-positive',
-           onTap: function(e) {
-              $state.go('login');  
-           }
-         },
-           
-         ]
+          title: "Error",
+          template: "Session Expired",
+          scope: scope,
+          buttons: [
+            { text: '<b>close</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $state.go('login');  
+              }
+            },
+          ]
         })
 
         
       };
       
       if (result.errorsArray) {
+        console.log("==SERVICE ERROR== errors array:",result);
         var message = result.errorsArray[0].error;
         for (var i = 1; i < result.errorsArray.length; i++) {
           message=message+"<br>"+result.errorsArray[i].error ;
@@ -45,9 +46,7 @@ angular.module('starter.services', [])
          ]
         })  
       };
-
-      
-    
+      console.log("==SERVICE ERROR== all good:",result);
   }
        
    return {
