@@ -649,7 +649,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   var _data_date = $localstorage.getObject('dataDate');
 
   //  HELP TO SEE DATE IN VIEW
-  $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
+  $scope.real_date_view = "";
 
  
   // $scope.calendar;
@@ -731,40 +731,54 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
     time_split: '60',
     width: '100%',
-    onAfterEventsLoad: function(events)
-    {
-      if(!events)
-      {
-        return;
-      }
-      var list = $('#eventlist');
-      list.html('');
-      $.each(events, function(key, val)
-      {
-        $(document.createElement('li'))
-        .html('<a href="' + val.url + '">' + val.title + '</a>')
-        .appendTo(list);
-      });
-    },
-    onClickADate: function(event) {
-        //When anywhere in a cell is clicked to select a specific date           
+    // onAfterEventsLoad: function(events)
+    // {
+    //   if(!events)
+    //   {
+    //     return;
+    //   }
+    //   var list = $('#eventlist');
+    //   list.html('');
+    //   $.each(events, function(key, val)
+    //   {
+    //     $(document.createElement('li'))
+    //     .html('<a href="' + val.url + '">' + val.title + '</a>')
+    //     .appendTo(list);
+    //   });
+    // },
+    // onClickADate: function(event) {
+    //     //When anywhere in a cell is clicked to select a specific date           
+  		// console.log("11111",$scope.real_date_view);
   		// $scope.real_date_view = "stringDate";
+  		// console.log("22222",$scope.real_date_view);
 
-    	// console.log("funciona",this.getElementsByClassName("pull-right"));
-
-    	//$scope.real_date_view = stringDate;
-    },
+    // 	//$scope.real_date_view = stringDate;
+    // },
     onAfterViewLoad: function(view)
-    {
-      $('.page-header h3').text(this.Title);
-      $('.btn-group button').removeClass('active');
-      $('button[data-calendar-view="' + view + '"]').addClass('active');
+    {      
+    	// $scope.real_date_view = "stringDate";
+    	// console.log("asfdss");
+     //  $('.page-header h3').text(this.Title);
+     //  $('.btn-group button').removeClass('active');
+     //  $('button[data-calendar-view="' + view + '"]').addClass('active');
+     console.log("11111",$scope.real_date_view);
+  		$scope.real_date_view = "stringDate";
+  		console.log("22222",$scope.real_date_view);
+  		$scope.triggerChangeWithApply = function () {
+			setTimeout(function(){
+				console.log('First name being reset');
+					$scope.$apply(function(){
+						$scope.real_date_view = "stringDate";
+						}
+					)
+				}, 1000);
+			};
     },
-    classes: {
-      months: {
-        general: 'label'
-      }
-    }
+    // classes: {
+    //   months: {
+    //     general: 'label'
+    //   }
+    // }
   };
 
   //LOAD OPTIONS TO CALENDAR
