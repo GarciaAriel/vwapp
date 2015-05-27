@@ -124,6 +124,9 @@ if(!String.prototype.formatNum) {
 		onAfterModalHidden: function(events) {
 			// Inside this function 'this' is the calendar instance
 		},
+		onClickADate: function(event) {
+            //When anywhere in a cell is clicked to select a specific date           
+        },
 		// -------------------------------------------------------------
 		// INTERNAL USE ONLY. DO NOT ASSIGN IT WILL BE OVERRIDDEN ANYWAY
 		// -------------------------------------------------------------
@@ -1100,6 +1103,7 @@ if(!String.prototype.formatNum) {
 				downbox.hide();
 			})
 			.on('click', function(event) {
+				self.options.onClickADate.call(this);
 				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
 				showEventsList(event, downbox, slider, self);
