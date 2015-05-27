@@ -649,7 +649,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   var _data_date = $localstorage.getObject('dataDate');
 
   //  HELP TO SEE DATE IN VIEW
-  $scope.real_date_view = _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc;
+  $scope.real_date_view = "";
 
  
   // $scope.calendar;
@@ -746,34 +746,44 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     //     .appendTo(list);
     //   });
     // },
-    onAfterViewLoad: function(view)
-    {
-      
-      $('.page-header h3').text(this.Title);
-      $('.btn-group button').removeClass('active');
-      $('button[data-calendar-view="' + view + '"]').addClass('active');
-    }
-    ,
+
     onClickADate: function(event) {
         //When anywhere in a cell is clicked to select a specific date           
-      $scope.real_date_view = "stringDate";
-      var aux = this.innerHTML;
+  
 
+    	var aux = this.innerHTML;
+      	var pos = aux.indexOf("data-cal-date=");
+      	var res = aux.substring(pos+15, pos+25); 
+      	console.log("funciona",res);
 
+      	
+  		
+		setTimeout(function(){
+		console.log('First name being reset');
+			$scope.$apply(function(){
+				$scope.real_date_view = res;
+				}
+			)
+		}, 0);
+    },
+    onAfterViewLoad: function(view)
+    {      
+    	// $scope.real_date_view = "stringDate";
+    	// console.log("asfdss");
+     //  $('.page-header h3').text(this.Title);
+     //  $('.btn-group button').removeClass('active');
+     //  $('button[data-calendar-view="' + view + '"]').addClass('active');
+  
 
-      var pos = aux.indexOf("data-cal-date=");
-      var res = aux.substring(pos+15, pos+25); 
-      console.log("funciona",res);
-
-      $scope.real_date_view = res;
-    }
-    ,
-    classes: {
-      months: {
-        general: 'label'
-      }
-    }
+    },
+    // classes: {
+    //   months: {
+    //     general: 'label'
+    //   }
+    // }
   };
+
+ 
 
   //LOAD OPTIONS TO CALENDAR
   $scope.calendar = $('#calendar').calendar(options);    
