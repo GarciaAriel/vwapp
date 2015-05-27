@@ -642,31 +642,40 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $('button').css({"color":COLOR_2});
   $('view-title').css({"color":COLOR_2});
   
-  //  LOAD OBJECT IN LOCAL STORAGE
-  Load_variable_date.setData();
+  // //  LOAD OBJECT IN LOCAL STORAGE
+  // Load_variable_date.setData();
 
-  //  GET OBJECT OF LOCAL STORAGE
-  var _data_date = $localstorage.getObject('dataDate');
+  // //  GET OBJECT OF LOCAL STORAGE
+  // var _data_date = $localstorage.getObject('dataDate');
+
+  var date = new Date();
+
+      var yyyy = date.getFullYear().toString();
+      var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
+      var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+      var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+
+console.log("lololo",yyyy+"-"+mm+"-"+dd);
 
   //  HELP TO SEE DATE IN VIEW
-  $scope.real_date_view = "";
+  $scope.real_date_view = yyyy+"-"+mm+"-"+dd;
 
  
   // $scope.calendar;
 
   //INIT PROPERTIES FOR CALENDAR
 
-  var getAppo = function(_data_date){
-     $scope.appointments = [];
-      var myAppointments = getAppointments.getData(_data_date);
-        myAppointments.then(function(result) {  
-           $scope.appointments = result;
-           console.log("12111111",$scope.appointments);
-           return $scope.appointments;
-        });
-    }; 
+  // var getAppo = function(_data_date){
+  //    $scope.appointments = [];
+  //     var myAppointments = getAppointments.getData(_data_date);
+  //       myAppointments.then(function(result) {  
+  //          $scope.appointments = result;
+  //          console.log("12111111",$scope.appointments);
+  //          return $scope.appointments;
+  //       });
+  //   }; 
 
-  $scope.oooo= getAppo(_data_date);
+  // $scope.oooo= getAppo(_data_date);
 
   var options = {
     events_source: function () { 
@@ -728,7 +737,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     view: 'month',
     language: $scope.languageCalendar,
     tmpl_cache: false,
-    day: _data_date.yyyy+"-"+_data_date.mm+"-"+_data_date.dd,
+    day: yyyy+"-"+mm+"-"+dd,
     time_split: '60',
     width: '100%',
     // onAfterEventsLoad: function(events)
@@ -788,8 +797,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   //LOAD OPTIONS TO CALENDAR
   $scope.calendar = $('#calendar').calendar(options);    
 
-  var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
-  $scope.real_date_view = stringDate;
+  // var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+($scope.calendar.options.position.start.getMonth()+1)+"/"+$scope.calendar.options.position.start.getDate();
+  // $scope.real_date_view = stringDate;
 
 
   // FUNCTION NEXT FOR DAY WEEK AND MONTH  
@@ -800,89 +809,112 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // FUNCTION NEXT FOR DAY WEEK AND MONTH  
   $scope.scheduleNext  = function(){
     $scope.calendar.navigate('next');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
     
   };
 
   $scope.schedulePrev  = function(){
     $scope.calendar.navigate('prev');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
-
   };
 
   $scope.scheduleToday  = function(){
     $scope.calendar.navigate('today');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleMonth = function(){
     $scope.calendar.view('month');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleDay = function()    {
     $scope.calendar.view('day');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleWekk = function(){
     $scope.calendar.view('week');
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
+    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    var ddd = ($scope.calendar.options.position.start.getDate());  
+    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+mm+"/"+dd;
     $scope.real_date_view = stringDate;
   };
 
   $scope.doRefresh = function() {
       //GET OBJECT OF LOCAL STORAGE
-      var _data_date = $localstorage.getObject('dataDate');
+      // var _data_date = $localstorage.getObject('dataDate');
 
-      //CALL SERVICES WITH (TYPE AND DATA)
-      console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
-      $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+      // //CALL SERVICES WITH (TYPE AND DATA)
+      // console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
+      // $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-      //  PROMISE
-      $scope.newAppointments.$promise.then(function (results){
-        if (results.mainData == undefined) {
-          $state.go('login');
-        }
-        console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
-        $scope.listAppointments = (results['mainData'])['appointmentsList'];
+      // //  PROMISE
+      // $scope.newAppointments.$promise.then(function (results){
+      //   if (results.mainData == undefined) {
+      //     $state.go('login');
+      //   }
+      //   console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
+      //   $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
-          //parse to variables
-          $scope.appointments = [];
-          angular.forEach($scope.listAppointments, function (appointment) {
+      //     //parse to variables
+      //     $scope.appointments = [];
+      //     angular.forEach($scope.listAppointments, function (appointment) {
 
-            // APPOINTMENT RECURRENT GET ID WITHOUT "-"
-            var str = appointment.virtualAppointmentId;
-            var pos = str.indexOf("-"); 
-            var idAppointment = appointment.virtualAppointmentId;
-            if (pos > -1) {
-              idAppointment = str.substring(0, pos);   
-            };
-            console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
+      //       // APPOINTMENT RECURRENT GET ID WITHOUT "-"
+      //       var str = appointment.virtualAppointmentId;
+      //       var pos = str.indexOf("-"); 
+      //       var idAppointment = appointment.virtualAppointmentId;
+      //       if (pos > -1) {
+      //         idAppointment = str.substring(0, pos);   
+      //       };
+      //       console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
-            var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
-            $scope.appointments.push(change);
-          });
-          console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+      //       var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
+      //       $scope.appointments.push(change);
+      //     });
+      //     console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
-          $scope.$broadcast('scroll.refreshComplete');  
+      //     $scope.$broadcast('scroll.refreshComplete');  
 
-          //LOAD OPTIONS TO CALENDAR
-          console.log("list semana",$scope.appointments);
-          var calendar = $("#calendar").calendar(
-          {
-           view: _data_date.type_string,
-           language: $scope.languageCalendar,
-           time_split: '60',
-           tmpl_path: 'lib/bootstrap-calendar/tmpls/',
-           day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
-           events_source: $scope.appointments
-         });
-      });//END PROMISE
+      //     //LOAD OPTIONS TO CALENDAR
+      //     console.log("list semana",$scope.appointments);
+      //     var calendar = $("#calendar").calendar(
+      //     {
+      //      view: _data_date.type_string,
+      //      language: $scope.languageCalendar,
+      //      time_split: '60',
+      //      tmpl_path: 'lib/bootstrap-calendar/tmpls/',
+      //      day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
+      //      events_source: $scope.appointments
+      //    });
+      // });//END PROMISE
   };
 });
