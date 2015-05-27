@@ -46,7 +46,7 @@
             <div ng-repeat="attach in item.attachmentArray">
               <i class="icon ion-paperclip"></i>
               <!-- download(attach) -->
-              <button ng-click="" class="button button-clear button-small button-stable">
+              <button ng-click="download(attach)" class="button button-clear button-small button-stable">
                 <h4>{{attach.fileName}}</h4>
               </button>
             </div>

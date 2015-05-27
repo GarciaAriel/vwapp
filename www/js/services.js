@@ -1,49 +1,53 @@
 angular.module('starter.services', [])
 
-// HELP SERVICE LOCAL STORAGE
-.factory('ControlError', ['$window', function($ionicPopup, $window) {
+.factory("PopupFactory", function ($ionicPopup,$state) {
   
-  return {
-    review: function(result) {
+  function getPopup(scope,result) {
 
-      if (result.errorsArray != undefined) {
 
-        var message = result.errorsArray[0].error;
-        console.log("aaaaaaaaa----",message);
+      // if session Expired
+      if (result.forward == "SessionExpired") {
+        console.log("==SERVICE ERROR== session expired:",result);
         
-        var alertPopup = $ionicPopup.alert({
-          title: 'Don\'t eat that!',
-          template: 'It might taste good'
-        });
+        return $ionicPopup.show({
+         
+          title: "Error",
+          template: "Session Expired",
+          scope: scope,
+          buttons: [
+            { text: '<b>close</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $state.go('login');  
+              }
+            },
+          ]
+        })
 
-        return alertPopup;
-      }
+        
+      };
       
-      
-    }
+      if (result.errorsArray) {
+        console.log("==SERVICE ERROR== errors array:",result);
+        var message = result.errorsArray[0].error;
+        for (var i = 1; i < result.errorsArray.length; i++) {
+          message=message+"<br>"+result.errorsArray[i].error ;
+        };
+        return $ionicPopup.show({
+         
+         title: 'Error',
+         template: message,
+         scope: scope,
+         buttons: [
+           { text: '<b>OK</b>',
+           type: 'button-positive'
+         },
+           
+         ]
+        })  
+      };
+      console.log("==SERVICE ERROR== all good:",result);
   }
-}])
-
-.factory("PopupFactory", function ($ionicPopup) {
-  
-   function getPopup(scope,result) {
-    var message = result.errorsArray[0].error;
-    for (var i = 1; i < result.errorsArray.length; i++) {
-      message=message+"<br>"+result.errorsArray[i].error ;
-    };
-    return $ionicPopup.show({
-     
-     title: 'Error',
-     template: message,
-     scope: scope,
-     buttons: [
-       { text: '<b>OK</b>',
-       type: 'button-positive'
-     },
-       
-     ]
-   })
-   }
        
    return {
        getPopup: getPopup

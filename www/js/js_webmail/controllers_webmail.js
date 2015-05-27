@@ -3,7 +3,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 /**
  * CONTROLLER FOLDERS
  */
-.controller('MailsCtrl', function(ControlError,$state,$scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
+.controller('MailsCtrl', function(PopupFactory,$state,$scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
   FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,FOLDER_DRAFT_ID,
   FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,FOLDER_OUTBOX_NAME,
   FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE,
@@ -21,11 +21,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   // PROMISE
   $scope.newFolders.$promise.then(function (results){
 
-    ControlError.review(results);
+    // call factory 
+    PopupFactory.getPopup($scope,results);
 
-    if (results.mainData == undefined) {
-      $state.go('login');
-    }
     console.log("==CONTROLLER WEBMAIL== get query list FOLDERS success OK",results['mainData']);
     var data = ((results['mainData'])['systemFolders']);
 
@@ -61,6 +59,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // PROMISE
     $scope.newFolders.$promise.then(function (results){
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+
       console.log("==CONTROLLER WEBMAIL== get query refresh list FOLDERS success OK",results['mainData']);
       var data = ((results['mainData'])['systemFolders']);
 
@@ -121,7 +123,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // MAILLISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function(PopupFactory,$filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
 
@@ -145,6 +147,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   // PROMISE
   $scope.newMailList.$promise.then(function (results){
+
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
       console.log('==CONTROLLER WEBMAIL== get query list mails success OK',results['mainData']);
       
       //  SAVE PAGE NUMBER
@@ -187,6 +193,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // PROMISE
     $scope.newMailList.$promise.then(function (results){
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+
       console.log("==CONTROLLER WEBMAIL==  query doRefresh success OK data: ",results['mainData']);
 
       //  MAIL LIST
@@ -209,6 +219,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
       // PROMISE
       $scope.newMails.$promise.then(function(results){
+        // call factory 
+        PopupFactory.getPopup($scope,results);
+
         console.log("==CONTROLLER WEBMAIL==  query loadMore success OK data: ",results['mainData']);
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -237,7 +250,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function(PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   
     console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
@@ -247,6 +260,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // PROMISE
     $scope.detail.$promise.then(function (results){
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+
         console.log("==CONTROLLER WEBMAIL==  query detail success OK data: ",results['mainData']);
         $scope.item = (results['mainData'])['entity'];
 
@@ -277,12 +294,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               // or server returns response with an error status.
             });
         }
-
-        angular.element(document).ready(function () {
-          console.log('page loading completed');
-          var element = document.getElementById("page_content");
-          element.style.height = element.scrollHeight + "px";
-        });
+        else{
+          angular.element(document).ready(function () {
+            console.log('page loading completed');
+            var element = document.getElementById("page_content");
+            element.style.height = element.scrollHeight + "px";
+          });
+        }
+        
 
         $scope.iframeHeight = $(window).height();
         $scope.iframeWidth = $(window).width();
@@ -291,15 +310,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // DOWNLOAD FILE
     $scope.download = function(attach) {
-        $ionicLoading.show({
-          template: 'Donwloading...'
-        });
-        console.log("-----1");
-      $scope.$on('$ionicView.enter', function(event, data) {
-          
-      
+        // $ionicLoading.show({
+        //   template: 'Loading...'
+        // });
+  console.log("1111111");
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
-          console.log("-----2");
             fs.root.getDirectory(
                 "BMapp",
                 {
@@ -319,23 +334,16 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                             fe.remove();
                             ft = new FileTransfer();
                             ft.download(
+                                // encodeURI("http://ionicframework.com/img/ionic-logo-blog.png"),
                                 encodeURI(apiUrlLocal+attach.downloadUrl),
                                 
                                 p,
                                 function(entry) {
-                                    $ionicLoading.hide();
+                                    // $ionicLoading.hide();
                                     $scope.imgFile = entry.toURL();
-
-                                    var message = $filter('translate')('Downloaded');
-                                    var messageCheck = $filter('translate')('CheckFolder');
-
-                                    var alertPopup = $ionicPopup.alert({
-                                       title: message,
-                                       template: messageCheck
-                                     });
                                 },
                                 function(error) {
-                                    $ionicLoading.hide();
+                                    // $ionicLoading.hide();
                                     alert("Download Error Source -> " + error.source);
                                 },
                                 false,
@@ -355,8 +363,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             console.log("Request for filesystem failed");
         });
         //
-      });  
     }
+
 
     // URL IMAGE
     $scope.imageF = function(){

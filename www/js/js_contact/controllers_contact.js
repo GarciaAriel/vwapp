@@ -129,6 +129,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       // Store the data-dump of the FORM scope.
       request.success(
         function(data, status, headers, config) {
+          // call factory 
           PopupFactory.getPopup($scope,data);
           
         }
@@ -250,7 +251,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function($localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -270,12 +271,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.newContacts.$promise.then(function (results){
         
+        // call factory 
+        PopupFactory.getPopup($scope,results);
         
-        if (results.mainData == undefined) {
-          $state.go('login');
-        }
-
-
         console.log("THIS INFO",(results['mainData']));
   
         $scope.contacts = (results['mainData'])['list'];
@@ -300,33 +298,31 @@ $scope.doRefresh = function() {
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
 
-$scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
-$scope.newContacts.$promise.then(function (results){
+  $scope.newContacts.$promise.then(function (results){
 
-  if (results.mainData == undefined) {
-    $state.go('login');
-  }
-  
-$scope.contacts = (results['mainData'])['list'];
-    $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
-  $scope.$broadcast('scroll.refreshComplete'); 
-    
-     $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
+    if (results['forward'] == "") {
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.$broadcast('scroll.refreshComplete'); 
+        
+      $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
-  
-  
-    
-        console.log('COMEBACK TO THE FIRST LIST',$scope.page);
-        console.log('WITH THIS CONTACTS',$scope.contacts);
-        console.log('PAGE #',$scope.page);
-    console.log("pages in total on refresh", $scope.pagesintotal);
-    
-    if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+      
+      console.log('COMEBACK TO THE FIRST LIST',$scope.page);
+      console.log('WITH THIS CONTACTS',$scope.contacts);
+      console.log('PAGE #',$scope.page);
+      console.log("pages in total on refresh", $scope.pagesintotal);
+      
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
         $scope.asknext = true;
       };
-    
-});
+    }
+  });
 };  
 
 $scope.loadMore = function() {
@@ -336,6 +332,9 @@ $scope.loadMore = function() {
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
     
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     console.log("+++++new info",(results['mainData']));
     console.log("++++new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
@@ -403,7 +402,10 @@ $scope.search = function () {
     $scope.asknext = false;
 
     $scope.buscados.$promise.then(function (results){
-            
+        
+        // call factory 
+        PopupFactory.getPopup($scope,results);    
+
         $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
         $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
                 
@@ -436,6 +438,9 @@ $scope.search = function () {
             $scope.pag = $scope.pag +1;        
             $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
             $scope.buscados.$promise.then(function(results){
+
+                // call factory 
+                PopupFactory.getPopup($scope,results);
 
                 $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
 
@@ -516,15 +521,15 @@ $scope.search = function () {
       // Store the data-dump of the FORM scope.
       request.success(
         function(data, status, headers, config) {
+
+          // call factory
+          PopupFactory.getPopup($scope,data);
+
           if(data.forward == "Success")
           {
             console.log("person creation succesfull");          
             $state.go('app.contacts'); 
           }
-          else
-          {           
-             PopupFactory.getPopup($scope,data);
-          }            
         }
       );
   }
@@ -732,6 +737,9 @@ $scope.search = function () {
 
   $scope.contact.$promise.then(function (results){
 
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
 
@@ -809,6 +817,9 @@ $scope.search = function () {
 
   $scope.contact.$promise.then(function (results){
 
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
 
@@ -875,6 +886,9 @@ $scope.search = function () {
   $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
+
+    // call factory 
+    PopupFactory.getPopup($scope,results);
 
     $scope.contact = results;
     console.log("==CONTROLLER CONTACTS== result detail contact:", $scope.contact);
