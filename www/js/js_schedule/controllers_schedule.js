@@ -656,17 +656,17 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   //INIT PROPERTIES FOR CALENDAR
 
-  var getAppo = function(_data_date){
-     $scope.appointments = [];
-      var myAppointments = getAppointments.getData(_data_date);
-        myAppointments.then(function(result) {  
-           $scope.appointments = result;
-           console.log("12111111",$scope.appointments);
-           return $scope.appointments;
-        });
-    }; 
+  // var getAppo = function(_data_date){
+  //    $scope.appointments = [];
+  //     var myAppointments = getAppointments.getData(_data_date);
+  //       myAppointments.then(function(result) {  
+  //          $scope.appointments = result;
+  //          console.log("12111111",$scope.appointments);
+  //          return $scope.appointments;
+  //       });
+  //   }; 
 
-  $scope.oooo= getAppo(_data_date);
+  // $scope.oooo= getAppo(_data_date);
 
   var options = {
     events_source: function () { 
@@ -767,6 +767,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     },
     onAfterViewLoad: function(view)
     {      
+console.log( $scope.calendar);
     	// $scope.real_date_view = "stringDate";
     	// console.log("asfdss");
      //  $('.page-header h3').text(this.Title);
@@ -786,6 +787,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   //LOAD OPTIONS TO CALENDAR
   $scope.calendar = $('#calendar').calendar(options);    
+
 
   var stringDate = $scope.calendar.options.position.start.getFullYear()+"/"+$scope.calendar.options.position.start.getMonth()+"/"+$scope.calendar.options.position.start.getDate();
   $scope.real_date_view = stringDate;
