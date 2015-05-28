@@ -6,7 +6,7 @@
       <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
 
-    <a href="#/app/newperson">
+   <!--  <a href="#/app/newperson">
       <button class="button" style="border-style: none" ng-click="">
         <i class="icon ion-person-add" style="{{colorFont}}"></i>
       </button>
@@ -16,7 +16,7 @@
       <button class="button"style="border-style: none" ng-click="">
         <i class="icon ion-person-stalker" style="{{colorFont}}"></i>
       </button>
-    </a>
+    </a> -->
   </ion-nav-buttons>
     
     
@@ -45,54 +45,33 @@
 
     <ion-list ng-repeat="item in contacts">
 <!-- CONTACT PERSON -->
-        <ion-item ng-if='item.contactPersonAddressId != ""' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'contactPerson')}}">
-            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
-            <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 64px; height: 64px">
-            <span class="item-note"><i class="ion-chevron-right"></i></span>
-            <span class="item-note">
-              <div>
-                <i class="ion-home"></i>
-              </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            </span>
+        <a ng-if='item.contactPersonAddressId != ""' class="item item-thumbnail-left"  ng-href="{{getContactUrl(item,'contactPerson')}}" style="padding-left: 75px;">
+            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px; height: 60px">
+            <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 60px; height: 60px">                      
 
             <h2>{{item.contactPersonOfName}}</h2>
             <p>{{item.addressName}} </p>
             <p>{{item.function}}</p>
-        </ion-item>
+        </a>
 
 <!-- Organization -->
-        <ion-item ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'organization')}}">
-          <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
-          <img ng-if='item.imageId ==""' ng-src="img/org.png" style="width: 64px; height: 64px">
-          <span class="item-note"><i class="ion-chevron-right"></i></span>
-          <span class="item-note">
-            <div>
-              <i class="ion-briefcase"></i>
-            </div>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          </span>       
-
+        <a ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item item-thumbnail-left"  style="padding-left: 75px;" ng-href="{{getContactUrl(item,'organization')}}">
+          <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px; height: 60px">
+          <img ng-if='item.imageId ==""' ng-src="img/org.png" style="width: 60px; height: 60px">
+                          
           <h2>{{item.addressName}}</h2>
           <p>{{item.zip}} {{item.cityName}}</p>
-        </ion-item>
+        </a>
      
   <!-- PERSON -->
-        <ion-item ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item-avatar"  type="item-text-wrap" ng-href="{{getContactUrl(item,'person')}}">
+        <a ng-if='item.contactPersonAddressId == "" && item.addressType == "1"' class="item item-thumbnail-left"  style="padding-left: 75px;" ng-href="{{getContactUrl(item,'person')}}">
                                     
-            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 64px; height: 64px">
-            <img ng-if='item.imageId ==""' ng-src="img/person.png" style="width: 64px; height: 64px">
-
-            <span class="item-note"><i class="ion-chevron-right"></i></span>
-            <span class="item-note">
-              <div>
-                <i class="ion-person"></i>
-              </div>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-            </span>  
+            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px; height: 60px">
+            <img ng-if='item.imageId ==""' ng-src="img/person.png" style="width: 60px; height: 60px">          
+           
             <h2>{{item.addressName}}</h2>
             <p>{{item.zip}} {{item.cityName}}</p>
-        </ion-item>
+        </a>
     </ion-list>
 
     <ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
