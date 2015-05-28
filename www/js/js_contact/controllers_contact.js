@@ -840,6 +840,13 @@ $scope.search = function () {
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
+
+    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
+    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
+
+    function compare(a,b) {     
+      return a.telecomTypePosition - b.telecomTypePosition        
+    }
     
   });
 
@@ -925,7 +932,7 @@ $scope.search = function () {
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
-    
+
     $scope.firstGruoup = $scope.firstGruoup.sort(compare);
     $scope.secondGruoup = $scope.secondGruoup.sort(compare);
 
@@ -1019,6 +1026,13 @@ $scope.search = function () {
 
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
+
+    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
+    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
+
+    function compare(a,b) {     
+      return a.telecomTypePosition - b.telecomTypePosition        
+    }
     
   });
 
