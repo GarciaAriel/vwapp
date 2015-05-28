@@ -5,7 +5,8 @@
     <div class="row">
       <div class="col"></div>
         <div class="col col-50">
-          <img class="img-responsive" src="img/bm_image.png">
+          <img ng-if="imageUrlCompany == undefined" class="img-responsive" src="img/bm_image.png">
+          <img ng-if="imageUrlCompany != undefined" class="img-responsive" ng-src="{{imageUrlCompany}}">
         </div>
       <div class="col"></div>
     </div>

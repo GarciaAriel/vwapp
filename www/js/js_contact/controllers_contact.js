@@ -390,6 +390,38 @@ $scope.clearSearch = function () {
   $scope.buscados = Contact.query();
   console.log("clean text",$scope.buscados);
   $scope.showSearchBar = !$scope.showSearchBar;
+
+  $scope.page=1;
+    $scope.searchKey = "";
+    $scope.pag = 1;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+
+
+  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+
+  $scope.newContacts.$promise.then(function (results){
+
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
+    if (results['forward'] == "") {
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.$broadcast('scroll.refreshComplete'); 
+        
+      $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      console.log('COMEBACK TO THE FIRST LIST',$scope.page);
+      console.log('WITH THIS CONTACTS',$scope.contacts);
+      console.log('PAGE #',$scope.page);
+      console.log("pages in total on refresh", $scope.pagesintotal);
+      
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+        $scope.asknext = true;
+      };
+    }
+  });
 }
 
 
@@ -628,7 +660,7 @@ $scope.search = function () {
       });
     request.success(
       function(data, status, headers, config) {        
-
+        console.log(data);
          var countryArray = data.mainData.countryArray;  
           $scope.countries = [];    
           countryArray.forEach(function(country) {           
@@ -724,7 +756,7 @@ $scope.search = function () {
 })
 
 
-.controller('ContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactPersonCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -775,6 +807,15 @@ $scope.search = function () {
     $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
+
+    $scope.writeEmail = function(email)
+    {      
+        $state.go('app.newmail',{'to': email }); 
+    }
+    $scope.go_to = function(link)
+    {      
+       window.open('http://'+link, '_system', 'location=yes'); return false;
+    } 
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -804,7 +845,7 @@ $scope.search = function () {
 
 })
 
-.controller('OrganizationCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('OrganizationCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -852,9 +893,24 @@ $scope.search = function () {
       }     
     });
 
+    
+
+
+
     $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
+   
+
+    $scope.writeEmail = function(email)
+    {      
+        $state.go('app.newmail',{'to': email}); 
+    }
+
+    $scope.go_to = function(link)
+    {      
+       window.open('http://'+link, '_system', 'location=yes'); return false;
+    }    
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -870,11 +926,17 @@ $scope.search = function () {
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
     
+    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
+    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
+
+    function compare(a,b) {     
+      return a.telecomTypePosition - b.telecomTypePosition        
+    }
   });
 
 })
 
-.controller('PersonCtrl', function(bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('PersonCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -926,7 +988,15 @@ $scope.search = function () {
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink);  
 
+    $scope.writeEmail = function(email)
+    {      
+        $state.go('app.newmail',{'to': email }); 
+    }
 
+    $scope.go_to = function(link)
+    {      
+       window.open('http://'+link, '_system', 'location=yes'); return false;
+    } 
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {

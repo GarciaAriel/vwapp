@@ -25,16 +25,12 @@
     <span class="item-input-wrapper">
       <i class="icon ion-ios7-search placeholder-icon"></i>
 
-      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" >
+      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="search()">
       <button class="button button-clear" ng-click="clearSearch()">X</button>
     </span>
 
     <button class="button button-clear" ng-click="search()">{{ 'Search' | translate}}</button>
   </div>
-
-
-
-
 
 
   <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
@@ -58,7 +54,7 @@
         <a ng-if='item.contactPersonAddressId == "" &&  item.addressType == "0"' class="item item-thumbnail-left"  style="padding-left: 75px;" ng-href="{{getContactUrl(item,'organization')}}">
           <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px; height: 60px">
           <img ng-if='item.imageId ==""' ng-src="img/org.png" style="width: 60px; height: 60px">
-                          
+
           <h2>{{item.addressName}}</h2>
           <p>{{item.zip}} {{item.cityName}}</p>
         </a>
