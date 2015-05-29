@@ -21,7 +21,7 @@
     <div class="list card">
 
     <!-- contact person -->
-      	<div class="item item-thumbnail-left">
+      	<div class="item item-thumbnail-left" style="padding-top: 0px;">
           <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 80px; height: 80px">
           <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 80px; height: 80px">
           
@@ -67,7 +67,10 @@
                     <table style="width:100%">
                       <tr>
                         <td style="width:35%;">{{telecom.telecomTypeName}}:</td>                                            
-                        <td style="width:65%;"><a ng-href="tel:{{tele.data}}">{{tele.data}}</a></td>                    
+                        <td style="width:65%;">  
+                         <a ng-if="telecom.telecomTypeType == 'PHONE'" ng-href="tel:{{tele.data}}">{{tele.data}}</a>   
+                        <a ng-click="writeEmail(tele.data)" ng-if="telecom.telecomTypeType == 'EMAIL'">{{tele.data}}</a>
+                        </td>                    
                       </tr>                    
                     </table>                           
                   </div>
@@ -80,7 +83,10 @@
                     <table style="width:100%">
                       <tr>
                         <td style="width:35%;">{{telecom.telecomTypeName}}:</td>                                            
-                        <td style="width:65%;"><a ng-href="tel:{{tele.data}}">{{tele.data}}</a></td>                    
+                       <td style="width:65%;">
+                          <a ng-if="telecom.telecomTypeType == 'LINK'"  href="#" ng-click="go_to(tele.data)">{{tele.data}}</a>
+                          <a ng-if="telecom.telecomTypeType != 'LINK'" >{{tele.data}}</a>
+                          </td>                    
                       </tr>                    
                     </table> 
                   </div>

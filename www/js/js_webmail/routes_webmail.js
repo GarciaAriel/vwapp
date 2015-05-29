@@ -43,11 +43,11 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
    // ROUTE NEW MAIL
    .state('app.newmail', {
-      url: '/newmail',
+      url: '/newmail?to',
       cache: true,
       views: {
         'menuContent': {
-          templateUrl: 'templates/views_webmail/mail-new.html',
+          templateUrl: 'templates/views_webmail/mail-new.html',          
           controller: 'NewMail'
         }
       }
