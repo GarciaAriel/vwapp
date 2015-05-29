@@ -110,7 +110,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     onAfterViewLoad: function(view)
     {     
       if ($scope.calendar != undefined) {
-        
+        console.log("calendar",$scope.calendar);
+
         var yyyy = $scope.calendar.options.position.start.getFullYear();
         var mmm = ($scope.calendar.options.position.start.getMonth()+1);
         var ddd = ($scope.calendar.options.position.start.getDate());  
@@ -124,7 +125,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         var realDate = $scope.calendar.options.day;
         $scope.real_date_view = realDate;
 
-        Load_variable_date.newValue(yyyy,mm,ww,dd);
+        Load_variable_date.newValue(yyyy,mm,ww,dd,$scope.calendar.options.view);
 
         var _data_date = $localstorage.getObject('dataDate');
       };

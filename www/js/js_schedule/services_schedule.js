@@ -8,21 +8,24 @@ angular.module('starter.scheduleservices', [])
 })
 
 // SERVICE TO HELP LOAD OBJECT 'dataDate' AND CHANGE DAY TODAY
-.factory('Load_variable_date', function(SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
+.factory('Load_variable_date', function(SCHEDULE_TYPE_DAY_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_MONTH_STRING,$localstorage) {
   return{
 
-    newValue: function(yyyy,mm,ww,dd){
+    newValue: function(yyyy,mm,ww,dd,view){      
       var _data_date = $localstorage.getObject('dataDate');
-      switch(_data_date.type) {
-          case SCHEDULE_TYPE_MONTH:
+      switch(view) {
+          case SCHEDULE_TYPE_MONTH_STRING:
+              _data_date.type = SCHEDULE_TYPE_MONTH;
               _data_date.data = yyyy+""+mm;
               console.log("SERVICE====mes",_data_date.data)
               break;
-          case SCHEDULE_TYPE_WEEK: 
+          case SCHEDULE_TYPE_WEEK_STRING: 
+              _data_date.type = SCHEDULE_TYPE_WEEK;
               _data_date.data = _data_date.yyyyc+""+ww;
               console.log("SERVICE====semanaaa",_data_date.data)
               break;
-          case SCHEDULE_TYPE_DAY:
+          case SCHEDULE_TYPE_DAY_STRING:
+              _data_date.type = SCHEDULE_TYPE_DAY;
               _data_date.data = yyyy+""+mm+""+dd;
               console.log("SERVICE====dia",_data_date.data)
               break;    
