@@ -120,6 +120,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
         var ww = (www).toString().length == 1 ? "0"+(www).toString() : (www).toString();
 
+        // load date in calendar view
+        var realDate = $scope.calendar.options.day;
+        $scope.real_date_view = realDate;
+
         Load_variable_date.newValue(yyyy,mm,ww,dd);
 
         var _data_date = $localstorage.getObject('dataDate');
@@ -127,9 +131,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       
       $scope.appointments =[];
       var _data_date = $localstorage.getObject('dataDate');
-      console.log("http----",_data_date.data);
-      console.log("http----",_data_date.type);
-
+      
       // -------------------------------------
       $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
@@ -162,7 +164,16 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         $scope.calendar.options.events = $scope.appointments;
         $scope.calendar._render();
-      
+
+        // get month string to show in view
+        var realDate = $scope.calendar.options.day;
+        var res = realDate.substring(5, 7); 
+        var resInt = parseInt(res);
+
+        var monthString = $scope.calendar.locale['m'+(resInt-1)];
+        console.log("0000-0-0---",monthString);
+        $scope.realMonth = monthString;
+        
     });//END PROMISE
     
     },
@@ -196,33 +207,33 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // FUNCTION NEXT FOR DAY WEEK AND MONTH  
   $scope.scheduleNext  = function(){
     $scope.calendar.navigate('next');
-    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    var ddd = ($scope.calendar.options.position.start.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
+    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    // var ddd = ($scope.calendar.options.position.start.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
   };
 
   $scope.schedulePrev  = function(){
     $scope.calendar.navigate('prev');
-    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    var ddd = ($scope.calendar.options.position.start.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
+    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    // var ddd = ($scope.calendar.options.position.start.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
   };
 
   $scope.scheduleToday  = function(){
     $scope.calendar.navigate('today');
-    var date = new Date();
-    var mmm = (date.getMonth()+1);
-    var ddd = (date.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = date.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
+    // var date = new Date();
+    // var mmm = (date.getMonth()+1);
+    // var ddd = (date.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = date.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleMonth = function(){
@@ -231,12 +242,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $localstorage.setObject('dataDate',_data_date);    
 
     $scope.calendar.view('month');
-    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    var ddd = ($scope.calendar.options.position.start.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
+    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    // var ddd = ($scope.calendar.options.position.start.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
 
 
   };
@@ -247,12 +258,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $localstorage.setObject('dataDate',_data_date);    
 
     $scope.calendar.view('day');
-    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    var ddd = ($scope.calendar.options.position.start.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
+    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    // var ddd = ($scope.calendar.options.position.start.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleWekk = function(){
@@ -261,13 +272,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $localstorage.setObject('dataDate',_data_date);    
     
     $scope.calendar.view('week');
-    var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    var ddd = ($scope.calendar.options.position.start.getDate());  
-    var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    $scope.real_date_view = stringDate;
-    $ionicScrollDelegate.scrollTop();
+    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
+    // var ddd = ($scope.calendar.options.position.start.getDate());  
+    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
+    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
+    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
+    // $scope.real_date_view = stringDate;
+    // $ionicScrollDelegate.scrollTop();
   };
 
   $scope.doRefresh = function() {

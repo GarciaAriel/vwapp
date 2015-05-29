@@ -19,7 +19,8 @@
 
       <button class="button icon-left ion-chevron-left button-clear button-dark" ng-click="schedulePrev()"></button>
 
-      <button class="button button-clear button-dark" ng-click="scheduleToday()" >{{ 'Today' | translate}}</button>
+      <button class="button button-clear button-dark" ng-model="realMonth" ng-click="scheduleToday()" >{{realMonth}}</button>
+      <!-- {{ 'Today' | translate}} -->
 
       <button class="button icon-right ion-chevron-right button-clear button-dark" ng-click="scheduleNext()"></button>
 
