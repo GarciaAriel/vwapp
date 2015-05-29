@@ -27,7 +27,7 @@
           <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
           <span class="item-note">
               <div>
-                {{item.sentDateTime}}
+                {{getDate(item.sentDateTime)}}
               </div>
               <!-- ng-if="item.hasReadState == 'true' " -->
               <!-- <button ng-if="item.hasReadState == 'true' " class="button button-clear button-positive">

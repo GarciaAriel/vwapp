@@ -145,6 +145,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   // REFRESH FALSE IF THERE ARE NOT MORE MAILS
   $scope._doRefresh = false;
 
+  $scope.realDate = 
+
   // PROMISE
   $scope.newMailList.$promise.then(function (results){
 
@@ -183,6 +185,49 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
 
   
+  $scope.getDate = function(stringDate){
+    
+    var dd = parseInt(stringDate.substring(0,2));
+    var mm = parseInt(stringDate.substring(3,5));
+    var yy = parseInt(stringDate.substring(6,10));
+    
+    var date = new Date();
+
+    if ( (dd == date.getDate()) && (mm == (date.getMonth()+1)) && (yy == date.getFullYear()) ) {
+      return (""+stringDate.substring(11,16)+"");  
+    }
+    else {
+      var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+      var firstDate = new Date(date.getFullYear(),date.getMonth()+1,date.getDate());
+      var secondDate = new Date(yy,mm,dd);
+
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+      // return diffDays;
+      if ( diffDays <= 6  ) {
+
+        var weekdays = new Array(7);
+        weekdays[0] = "Thursday";
+        weekdays[1] = "Friday";
+        weekdays[2] = "Saturday";
+        weekdays[3] = "Sunday";
+        weekdays[4] = "Monday";
+        weekdays[5] = "Tuesday";
+        weekdays[6] = "Wednesday";
+        
+        var day = secondDate.getDay();
+        
+        return weekdays[day];
+      }
+      else{// "28/05/2015 23:25"
+        return (stringDate.substring(0,6)+""+stringDate.substring(8,10));
+      }
+    }
+
+
+    
+    
+    // return date.getDate();
+  }
   
   $scope.doRefresh = function() {
     $scope.page = 1; 
@@ -208,7 +253,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope._doRefresh = true;  
       };  
     });
-  };
+  }
 
   $scope.loadMore = function() {
       $scope.page = $scope.page + 1;
