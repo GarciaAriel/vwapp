@@ -251,7 +251,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function(PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
@@ -292,6 +292,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 $scope.doRefresh = function() {
+    console.log("------------------1 do refresh principal");
     $scope.page=1;
     $scope.searchKey = "";
     $scope.pag = 1;
@@ -321,12 +322,14 @@ $scope.doRefresh = function() {
       if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
         $scope.asknext = true;
       };
+      $ionicScrollDelegate.scrollTop();
     }
   });
 };  
 
 $scope.loadMore = function() {
     
+    console.log("------------------1 loadMore principal");
   console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
@@ -373,30 +376,19 @@ $scope.getContactUrl = function(item,type){
   }    
 };
 
-
-
 $scope.searchcon = function(){
-$scope.showSearchBar = !$scope.showSearchBar;
-
+  $scope.showSearchBar = !$scope.showSearchBar;
 }   
 
-
-
-
-
-
 $scope.clearSearch = function () {
+  
   $scope.searchKey = "";
-  $scope.buscados = Contact.query();
-  console.log("clean text",$scope.buscados);
   $scope.showSearchBar = !$scope.showSearchBar;
 
   $scope.page=1;
-    $scope.searchKey = "";
-    $scope.pag = 1;
-    $scope.$broadcast('scroll.infiniteScrollComplete');
-
-
+  $scope.searchKey = "";
+  $scope.pag = 1;
+  
   $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
 
   $scope.newContacts.$promise.then(function (results){
@@ -428,9 +420,10 @@ $scope.clearSearch = function () {
         
             
 $scope.search = function () {
+  console.log("------------------1 search function");
     $scope.contacts = [];
     $scope.showSearchBar = !$scope.showSearchBar;
-    $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey});
+    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey});
     $scope.asknext = false;
 
     $scope.buscados.$promise.then(function (results){
@@ -466,29 +459,28 @@ $scope.search = function () {
     });
       
     $scope.loadMore = function() {
-        console.log("trying to load more of the search",$scope.pag);
-            $scope.pag = $scope.pag +1;        
-            $scope.buscados = Contact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
-            $scope.buscados.$promise.then(function(results){
+      console.log("------------------1 loadMore dentro search");
+      console.log("trying to load more of the search",$scope.pag);
+      $scope.pag = $scope.pag +1;        
+      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
+      $scope.buscados.$promise.then(function(results){
 
                 // call factory 
-                PopupFactory.getPopup($scope,results);
+          PopupFactory.getPopup($scope,results);
 
-                $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+          $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
 
-                console.log("===== 000new info for search",(results['mainData']));
-                $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-                $scope.$broadcast('scroll.infiniteScrollComplete');
-                console.log("======0000new list of contacts for search",$scope.contacts);
+          console.log("===== 000new info for search",(results['mainData']));
+          $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          console.log("======0000new list of contacts for search",$scope.contacts);
                 
-            });
-            console.log("==12121212",$scope.totalpag);
-            console.log("==12121212",$scope.pag);
-            if ($scope.totalpag<$scope.pag+1) {
-              $scope.asknext = false;  
-            };              
-      };
-    
+      });
+            
+      if ($scope.totalpag<$scope.pag+1) {
+        $scope.asknext = false;  
+      };              
+    };
 }
 
 
@@ -756,7 +748,7 @@ $scope.search = function () {
 })
 
 
-.controller('ContactPersonCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactPersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -765,7 +757,7 @@ $scope.search = function () {
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
 
-  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+  $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
 
@@ -852,7 +844,7 @@ $scope.search = function () {
 
 })
 
-.controller('OrganizationCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('OrganizationCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -861,7 +853,7 @@ $scope.search = function () {
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
 
-  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+  $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
 
@@ -943,7 +935,7 @@ $scope.search = function () {
 
 })
 
-.controller('PersonCtrl', function($state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('PersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -952,7 +944,7 @@ $scope.search = function () {
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
 
-  $scope.contact = Contact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+  $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
   $scope.contact.$promise.then(function (results){
 

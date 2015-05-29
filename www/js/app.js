@@ -89,9 +89,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 })
 
-
-
-
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
     Funtion: "Function",
@@ -351,6 +348,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Private: "Privé"
   });
 
-  $translateProvider.preferredLanguage("en");
-  $translateProvider.fallbackLanguage("en");
+  $translateProvider.preferredLanguage("de");
+  $translateProvider.fallbackLanguage("de");
 });
