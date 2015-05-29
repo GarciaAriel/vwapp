@@ -53,9 +53,21 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     if(typeof $localstorage.getObject("rememberUsername") == "string")
     {
       $scope.data = {username: $localstorage.getObject("rememberUsername") ,password: "", company: $localstorage.getObject("rememberCompany")};
-      $scope.imageUrlCompany= "/bmapp/Logon/Company/DownloadLogoImage.do?dto(companyLogin)="+$localstorage.getObject("rememberCompany")+"&isCompanyLogo=true";
-      $scope.imageUrlCompany=apiUrlLocal+$scope.imageUrlCompany;
-      console.log($scope.imageUrlCompany);
+
+      var request = $http({
+        method: "get",        
+        url: apiUrlLocal+"/bmapp/Logon/Company/DownloadLogoImage.do?dto(companyLogin)="+$localstorage.getObject("rememberCompany")+"&isCompanyLogo=true",                        
+      });      
+      request.success(
+        function(data, status, headers, config) {          
+          if(data.forward != "Fail")
+          {
+            $scope.imageUrlCompany= "/bmapp/Logon/Company/DownloadLogoImage.do?dto(companyLogin)="+$localstorage.getObject("rememberCompany")+"&isCompanyLogo=true";
+            $scope.imageUrlCompany=apiUrlLocal+$scope.imageUrlCompany;            
+          }
+          
+        }
+      );      
     }
     else
       $scope.data= {};
