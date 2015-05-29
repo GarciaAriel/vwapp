@@ -32,11 +32,25 @@
 			</div>
 		</div>
 	<% }; %>
-	<div id="cal-day-panel" class="clearfix">
-		
+	<div id="cal-day-panel" class="clearfix">				
+
+		<% arr = [];%>
 		<% for(i = 0; i < by_hour.length; i++){ %>
-			<!-- pull-left -->
+			<!-- pull-left -->			
+
 			<% event = by_hour[i]; %>
+
+			<% same_hour = false;%>
+			<% if(arr.length == 0) {%>
+					<% arr.push(event.start_hour);%>
+			<% }else{ %>
+				<% for(j = 0; j < arr.length; j++){ %>
+					<% if(arr[j]== event.start_hour ){%>
+						<% same_hour = true;%>
+					<% }; %>
+				<% }; %>
+			<% }; %>
+
 
 			<% firstt = 0; %>
 			<% if(i > 0) {%>
@@ -48,9 +62,12 @@
 				<% secondd = (by_hour[i-1]).lines; %>
 			<% }; %>
 			
-			<div class=" day-event day-highlight dh-<%= event.class %>" style="clear: both; float: left; display: block; position: relative; margin-top: <%= (event.top * 30)-(firstt*30)-(secondd * 30) %>px; height: <%= (event.lines * 30) %>px">
-					
-					<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
+			<% if(same_hour){ %>
+				<div class=" day-event day-highlight dh-<%= event.class %>" style="clear: both; float: left; display: block; position: relative; margin-top: <%= (event.top * 30)-(firstt*30)-(secondd * 30) %>px; height: <%= (event.lines * 30) %>px;left: 136px;bottom: 2px;">				
+			<% }else{ %>
+				<div class=" day-event day-highlight dh-<%= event.class %>" style="clear: both; float: left; display: block; position: relative; margin-top: <%= (event.top * 30)-(firstt*30)-(secondd * 30) %>px; height: <%= (event.lines * 30) %>px;">					
+			<% }; %>
+					<!-- <span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span> -->					
 					<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
 					   data-event-class="<%= event['class'] %>" class="event-item">
 						<%= event.title %></a>
