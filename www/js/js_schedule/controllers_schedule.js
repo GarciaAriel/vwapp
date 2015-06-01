@@ -1,7 +1,7 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 
-.controller('ControlScheduleDetail', function($scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
+.controller('ControlScheduleDetail', function(PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
 
     
