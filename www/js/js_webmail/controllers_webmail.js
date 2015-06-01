@@ -444,7 +444,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       return $scope.imageFrom;
     };
 
-    $scope.group =[1];// {name: "hola"}
+    $scope.group = {name: "grupo1"};
+    $scope.group2 = {name: "grupo2"};
+    $scope.group3 = {name: "grupo3"};
 
     // ACORDEON HELP
     $scope.toggleGroup = function(group) {
