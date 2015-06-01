@@ -364,6 +364,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             $http.get(apiUrlLocal+newurl).
 
             success(function(data, status, headers, config) {
+
+              // call factory 
+              PopupFactory.getPopup($scope,data);
+
               var newHtml = data.split("<img").join(" <img class='img-class' ");
               // var newHtml = data.substr(0, pos+5) + "width='100%'" + data.substr(pos+5);
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
@@ -393,7 +397,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         // $ionicLoading.show({
         //   template: 'Loading...'
         // });
-  console.log("1111111");
+        console.log("1111111");
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
             fs.root.getDirectory(
                 "BMapp",
