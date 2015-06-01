@@ -184,23 +184,22 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       
   });
 
+  $scope.getDateMilli22 = function(milliseconds){
+    // var offset = -4;
+    // var aaaa = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString().replace( / GMT$/, "" )
+
+    // console.log("-----asdf",aaaa);
   
+    var daa = new Date(+milliseconds);
+
+    console.log("------tz.name()",daa.getTimezoneOffset()); 
+    return daa;
+  }
+
   $scope.getDateMilli = function(milliseconds){
     
     var day_Send = new Date(+milliseconds);
-
-    // 
     
-    // 
-
-    console.log("timezone", day_Send);
-    
-
-    // 1432598400000 lunes 25
-    // 1432771200000 miercoles 27
-    // 1432915200000 viernes 29
-    // 1432310400000 viernes 22
-
     var dd = day_Send.getDate();
     var mm = day_Send.getMonth();
     var yy = day_Send.getFullYear();
@@ -214,7 +213,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       
       var mmm = (mmmm).length < 2 ? "0"+mmmm : mmmm;
       // var item.contactPersonAddressId ==='' ?  : ;
-      return (""+hhh+":"+mmm+"");  
+      return (hhh+":"+mmm);  
     }
     else {
       var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -224,23 +223,36 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       var diffDays = Math.round(Math.abs((date.getTime() - day_Send.getTime())/(oneDay)));
       // return diffDays;
       if ( diffDays <= 6  ) {
-        
+
+        var Monday = $filter('translate')('Monday');
+        var Tuesday = $filter('translate')('Tuesday');
+        var Wednesday = $filter('translate')('Wednesday');
+        var Thursday = $filter('translate')('Thursday');
+        var Friday = $filter('translate')('Friday');
+        var Saturday = $filter('translate')('Saturday');
+        var Sunday = $filter('translate')('Sunday');
+
+                
         var weekdays = new Array(7);
-        weekdays[4] = "Thursday";
-        weekdays[5] = "Friday";
-        weekdays[6] = "Saturday";
-        weekdays[0] = "Sunday";
-        weekdays[1] = "Monday";
-        weekdays[2] = "Tuesday";
-        weekdays[3] = "Wednesday";
+        weekdays[4] = Thursday;
+        weekdays[5] = Friday;
+        weekdays[6] = Saturday;
+        weekdays[0] = Sunday;
+        weekdays[1] = Monday;
+        weekdays[2] = Tuesday;
+        weekdays[3] = Wednesday;
+
+        console.log("00000-=-=-",weekdays);
         
         var day = day_Send.getDay();
         
         return weekdays[day];
       }
       else{// "28/05/2015 23:25"
+        var d = (dd.toString()).length < 2 ? "0"+dd : dd;
+        var m = (mm.toString()).length < 2 ? "0"+mm : mm;
         
-      var ddddd = dd+"-"+mm+"-"+yy;
+        var ddddd = d+"-"+m+"-"+(yy.toString()).substring(2, 4);
         return ddddd;
       }
     }

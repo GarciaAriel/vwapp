@@ -94,6 +94,15 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
+    Monday: "Monday",
+    Tuesday: "Tuesday",
+    Wednesday: "Wednesday",
+    Thursday: "Thursday",
+    Friday: "Friday",
+    Saturday: "Saturday",
+    Sunday: "Sunday",
+    
+    
     Funtion: "Function",
     From: "From",
     To: "To",
@@ -157,6 +166,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+    Monday: "Lunes",
+    Tuesday: "Martes",
+    Wednesday: "Miércoles",
+    Thursday: "Jueves",
+    Friday: "Viernes",
+    Saturday: "Sábado",
+    Sunday: "Domingo",
 
     Funtion: "Funcion",
     From: "De",
@@ -223,6 +239,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+    Monday: "Montag",
+    Tuesday: "Dienstag",
+    Wednesday: "Mittwoch",
+    Thursday: "Donnerstag",
+    Friday: "Freitag",
+    Saturday: "Samstag",
+    Sunday: "Sonntag",
 
     Funtion: "Funktion",
     From: "Von",
@@ -289,6 +312,14 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+    Monday: "Lundi",
+    Tuesday: "Mardi",
+    Wednesday: "Mercredi",
+    Thursday: "Jeudi",
+    Friday: "Vendredi",
+    Saturday: "Samedi",
+    Sunday: "Dimanche",
+
     Funtion: "Fonction",
     From: "De",
     To: "A",
