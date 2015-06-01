@@ -184,12 +184,22 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       
   });
 
+  $scope.getDateMilli22 = function(milliseconds){
+    // var offset = -4;
+    // var aaaa = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString().replace( / GMT$/, "" )
+
+    // console.log("-----asdf",aaaa);
   
-  $scope.getDate = function(milliseconds){
+    var daa = new Date(+milliseconds);
+
+    console.log("------tz.name()",daa.getTimezoneOffset()); 
+    return daa;
+  }
+
+  $scope.getDateMilli = function(milliseconds){
     
-    var day_Send = new Date(1432598400000);
-
-
+    var day_Send = new Date(+milliseconds);
+    
     var dd = day_Send.getDate();
     var mm = day_Send.getMonth();
     var yy = day_Send.getFullYear();
@@ -197,9 +207,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     var date = new Date();
     
     if ( (dd == date.getDate()) && (mm == (date.getMonth())) && (yy == date.getFullYear()) ) {
-      console.log("1111");
+      
       var hhh = day_Send.getHours();
-      return (""+hhh+"");  
+      var mmmm = (day_Send.getMinutes()).toString();
+      
+      var mmm = (mmmm).length < 2 ? "0"+mmmm : mmmm;
+      // var item.contactPersonAddressId ==='' ?  : ;
+      return (hhh+":"+mmm);  
     }
     else {
       var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -209,23 +223,36 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       var diffDays = Math.round(Math.abs((date.getTime() - day_Send.getTime())/(oneDay)));
       // return diffDays;
       if ( diffDays <= 6  ) {
-        console.log("22222");
+
+        var Monday = $filter('translate')('Monday');
+        var Tuesday = $filter('translate')('Tuesday');
+        var Wednesday = $filter('translate')('Wednesday');
+        var Thursday = $filter('translate')('Thursday');
+        var Friday = $filter('translate')('Friday');
+        var Saturday = $filter('translate')('Saturday');
+        var Sunday = $filter('translate')('Sunday');
+
+                
         var weekdays = new Array(7);
-        weekdays[0] = "Thursday";
-        weekdays[1] = "Friday";
-        weekdays[2] = "Saturday";
-        weekdays[3] = "Sunday";
-        weekdays[4] = "Monday";
-        weekdays[5] = "Tuesday";
-        weekdays[6] = "Wednesday";
+        weekdays[4] = Thursday;
+        weekdays[5] = Friday;
+        weekdays[6] = Saturday;
+        weekdays[0] = Sunday;
+        weekdays[1] = Monday;
+        weekdays[2] = Tuesday;
+        weekdays[3] = Wednesday;
+
+        console.log("00000-=-=-",weekdays);
         
         var day = day_Send.getDay();
         
         return weekdays[day];
       }
       else{// "28/05/2015 23:25"
-        console.log("33333");
-      var ddddd = dd+"-"+mm+"-"+"yy";
+        var d = (dd.toString()).length < 2 ? "0"+dd : dd;
+        var m = (mm.toString()).length < 2 ? "0"+mm : mm;
+        
+        var ddddd = d+"-"+m+"-"+(yy.toString()).substring(2, 4);
         return ddddd;
       }
     }
@@ -337,6 +364,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             $http.get(apiUrlLocal+newurl).
 
             success(function(data, status, headers, config) {
+
+              // call factory 
+              PopupFactory.getPopup($scope,data);
+
               var newHtml = data.split("<img").join(" <img class='img-class' ");
               // var newHtml = data.substr(0, pos+5) + "width='100%'" + data.substr(pos+5);
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
@@ -366,7 +397,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         // $ionicLoading.show({
         //   template: 'Loading...'
         // });
-  console.log("1111111");
+        console.log("1111111");
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
             fs.root.getDirectory(
                 "BMapp",
@@ -429,7 +460,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       return $scope.imageFrom;
     };
 
-    $scope.group =[1];// {name: "hola"}
+    $scope.group = {name: "grupo1"};
+    $scope.group2 = {name: "grupo2"};
+    $scope.group3 = {name: "grupo3"};
 
     // ACORDEON HELP
     $scope.toggleGroup = function(group) {

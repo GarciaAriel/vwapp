@@ -11,7 +11,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
 
     $scope.taskcall.$promise.then(function (results){
-
+        // call factory 
+        PopupFactory.getPopup($scope,results);
 
         $scope.tareas = results;
         $scope.prioridades = (results['mainData'])['priorityArray'];
@@ -40,7 +41,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE
 // 
-.controller('ControlSchedule',function(getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
@@ -139,6 +140,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       //  PROMISE
       $scope.newAppointments.$promise.then(function (results){
 
+        // call factory 
+        PopupFactory.getPopup($scope,results);
+
         console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
@@ -172,7 +176,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         var resInt = parseInt(res);
 
         var monthString = $scope.calendar.locale['m'+(resInt-1)];
-        console.log("0000-0-0---",monthString);
         $scope.realMonth = monthString;
         
     });//END PROMISE
@@ -283,52 +286,45 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   };
 
   $scope.doRefresh = function() {
-      //GET OBJECT OF LOCAL STORAGE
-      // var _data_date = $localstorage.getObject('dataDate');
+      // GET OBJECT OF LOCAL STORAGE
+      var _data_date = $localstorage.getObject('dataDate');
 
-      // //CALL SERVICES WITH (TYPE AND DATA)
-      // console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
-      // $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+      //CALL SERVICES WITH (TYPE AND DATA)
+      console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
+      $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-      // //  PROMISE
-      // $scope.newAppointments.$promise.then(function (results){
-      //   if (results.mainData == undefined) {
-      //     $state.go('login');
-      //   }
-      //   console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
-      //   $scope.listAppointments = (results['mainData'])['appointmentsList'];
+      //  PROMISE
+      $scope.newAppointments.$promise.then(function (results){
+        // call factory 
+        PopupFactory.getPopup($scope,results);
+        
+        console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
+        $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
-      //     //parse to variables
-      //     $scope.appointments = [];
-      //     angular.forEach($scope.listAppointments, function (appointment) {
+          //parse to variables
+          $scope.appointments = [];
+          angular.forEach($scope.listAppointments, function (appointment) {
 
-      //       // APPOINTMENT RECURRENT GET ID WITHOUT "-"
-      //       var str = appointment.virtualAppointmentId;
-      //       var pos = str.indexOf("-"); 
-      //       var idAppointment = appointment.virtualAppointmentId;
-      //       if (pos > -1) {
-      //         idAppointment = str.substring(0, pos);   
-      //       };
-      //       console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
+            // APPOINTMENT RECURRENT GET ID WITHOUT "-"
+            var str = appointment.virtualAppointmentId;
+            var pos = str.indexOf("-"); 
+            var idAppointment = appointment.virtualAppointmentId;
+            if (pos > -1) {
+              idAppointment = str.substring(0, pos);   
+            };
+            console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
 
-      //       var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
-      //       $scope.appointments.push(change);
-      //     });
-      //     console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+            var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
+            $scope.appointments.push(change);
+          });
 
-      //     $scope.$broadcast('scroll.refreshComplete');  
+          console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
 
-      //     //LOAD OPTIONS TO CALENDAR
-      //     console.log("list semana",$scope.appointments);
-      //     var calendar = $("#calendar").calendar(
-      //     {
-      //      view: _data_date.type_string,
-      //      language: $scope.languageCalendar,
-      //      time_split: '60',
-      //      tmpl_path: 'lib/bootstrap-calendar/tmpls/',
-      //      day: _data_date.yyyyc+"-"+_data_date.mmc+"-"+_data_date.ddc,
-      //      events_source: $scope.appointments
-      //    });
-      // });//END PROMISE
+          $scope.$broadcast('scroll.refreshComplete');  
+
+          //LOAD OPTIONS TO CALENDAR
+          $scope.calendar._render();          
+      });//END PROMISE
+
   };
 });

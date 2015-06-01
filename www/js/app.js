@@ -6,26 +6,29 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
+.run(function($translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
   
-  // enumerate routes that user can see 
-  // var routesForUser = ["/logout","/dos","/app","app/contacts","app/contact","/app/mailboxes","/app/mail-list","/mail-detail","/login","/app/schedulerDay","/app/schedulerDetail", "/log-out","/newperson"];
-
-  // VALIDATE THE CURRENT RUOTE
-  // var validateRoute = function (route) {
-  //   var result = false;
-  //   for(var i=0;i<routesForUser.length;i++) {
-  //     if (route.indexOf(routesForUser[i]) > -1) {
-  //       result = true;
-  //     };
-  //   };
-  //   return result;
-  // };
-
-
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
+    console.log("language cell", navigator.language);
+    var language = navigator.language;
+    if( language.indexOf("fr") != -1){
+      $translate.use("fr");  
+    }
+    else{
+      if (language.indexOf("de") != -1) {
+        $translate.use("de");
+      }
+      else{
+        if (language.indexOf("es") != -1) {
+          $translate.use("es");
+        }
+      }
+    }
+    
+    
+    
     // IF AUTHENTICATION IS FALSE GO TO LOGIN
     // var authentication = AuthenticationService.isLoggedIn();
     // if ( authentication == false ) {
@@ -91,6 +94,15 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
+    Monday: "Monday",
+    Tuesday: "Tuesday",
+    Wednesday: "Wednesday",
+    Thursday: "Thursday",
+    Friday: "Friday",
+    Saturday: "Saturday",
+    Sunday: "Sunday",
+    
+    
     Funtion: "Function",
     From: "From",
     To: "To",
@@ -154,6 +166,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+    Monday: "Lunes",
+    Tuesday: "Martes",
+    Wednesday: "Miércoles",
+    Thursday: "Jueves",
+    Friday: "Viernes",
+    Saturday: "Sábado",
+    Sunday: "Domingo",
 
     Funtion: "Funcion",
     From: "De",
@@ -220,6 +239,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+    Monday: "Montag",
+    Tuesday: "Dienstag",
+    Wednesday: "Mittwoch",
+    Thursday: "Donnerstag",
+    Friday: "Freitag",
+    Saturday: "Samstag",
+    Sunday: "Sonntag",
 
     Funtion: "Funktion",
     From: "Von",
@@ -286,6 +312,14 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+    Monday: "Lundi",
+    Tuesday: "Mardi",
+    Wednesday: "Mercredi",
+    Thursday: "Jeudi",
+    Friday: "Vendredi",
+    Saturday: "Samedi",
+    Sunday: "Dimanche",
+
     Funtion: "Fonction",
     From: "De",
     To: "A",
@@ -348,6 +382,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       Private: "Privé"
   });
 
-  $translateProvider.preferredLanguage("de");
-  $translateProvider.fallbackLanguage("de");
+  $translateProvider.preferredLanguage("en");
+  $translateProvider.fallbackLanguage("en");
 });

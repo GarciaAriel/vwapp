@@ -4438,7 +4438,7 @@ a.item {
 .item-complex .item-content, .item-radio .item-content {
   position: relative;
   z-index: 2;
-  padding: 16px 49px 16px 16px;
+  padding: 16px 0px 16px 16px;
   border: none;
   background-color: white; }
 
@@ -4730,8 +4730,8 @@ a.item-content {
     margin-bottom: 16px; }
 
 .item-divider {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   min-height: 30px;
   background-color: #f5f5f5;
   color: #222;
@@ -5643,6 +5643,7 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
 
 .item-toggle, .item-toggle.item-complex .item-content {
   padding-right: 102px; }
+
 
 .item-toggle.item-complex {
   padding-right: 0; }
