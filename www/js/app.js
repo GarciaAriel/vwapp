@@ -53,8 +53,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 
 
-  $ionicPlatform.ready(function() {
-    console.log("asdfsdafsafsdf",parseFloat(window.device.version));
+  $ionicPlatform.ready(function() {    
     if (parseFloat(window.device.version) >= 7.0) {
           document.body.style.marginTop = "20px";
     }
