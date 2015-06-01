@@ -19,42 +19,48 @@
   <ion-content> 
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
     </ion-refresher>
-      <ion-list>
+
+    <ion-list>
       
-        <ion-item class="item-avatar" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
-  
-          <img ng-if="item.fromImageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
-          <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
-          <span class="item-note">
-              <div>
-                {{getDate(item.sentDateTime)}}
-              </div>
-              <!-- ng-if="item.hasReadState == 'true' " -->
-              <!-- <button ng-if="item.hasReadState == 'true' " class="button button-clear button-positive">
-                <i class="icon ion-checkmark-circled"></i>    
-              </button> -->
+      <ion-item class="item-avatar" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
 
-              <!-- <button ng-class="{'button button-clear button-light': item.hasReadState, 'button button-clear button-positive': !item.hasReadState}">
-                <i class="icon ion-checkmark-circled"></i>    
-              </button> -->
-
-              <button class="button button-clear {{item.hasReadState == 'false' ? 'button-light' : 'button-positive'}}">
-                <i class="icon ion-checkmark-circled"></i>    
-              </button>
-              
-
-              <button ng-if="item.hasAttach == '1'" class="button button-clear button-light">
-                <i class="icon ion-paperclip"></i>  
-              </button>
-          </span>
-
-          <h2>{{item.mailToFrom}}</h2>
-          <p>{{item.subject}}</p>
-        </ion-item>
-      </ion-list>
       
-      <ion-infinite-scroll ng-if="_doRefresh" immediate-check="false" on-infinite="loadMore()" distance="1%">
-      </ion-infinite-scroll>  
+        <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
+        <img ng-if="item.isFromKnown == 'false' && item.fromImageUrl == ''" ng-src="img/user_default.png" style="width: 64px; height: 64px">
+        <img ng-if="item.isFromKnown == 'true' && item.fromImageUrl == ''" ng-src="img/person.png" style="width: 64px; height: 64px">
+        
+
+        <span class="item-note" style="padding-right: 9px;">
+            <div>
+              {{getDateMilli(item.sentDateTimeMillis)}}
+              =={{item.sentDateTime}}
+            </div>
+            <!-- ng-if="item.hasReadState == 'true' " -->
+            <!-- <button ng-if="item.hasReadState == 'true' " class="button button-clear button-positive">
+              <i class="icon ion-checkmark-circled"></i>    
+            </button> -->
+
+            <!-- <button ng-class="{'button button-clear button-light': item.hasReadState, 'button button-clear button-positive': !item.hasReadState}">
+              <i class="icon ion-checkmark-circled"></i>    
+            </button> -->
+
+            <button class="button button-clear {{item.hasReadState == 'false' ? 'button-light' : 'button-positive'}}">
+              <i class="icon ion-checkmark-circled"></i>    
+            </button>
+            
+
+            <button ng-if="item.hasAttach == '1'" class="button button-clear button-light">
+              <i class="icon ion-paperclip"></i>  
+            </button>
+        </span>
+
+        <h2>{{item.mailToFrom}}</h2>
+        <p>{{item.subject}}</p>
+      </ion-item>
+    </ion-list>
+      
+    <ion-infinite-scroll ng-if="_doRefresh" immediate-check="false" on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>  
 
   </ion-content>
 </ion-view>

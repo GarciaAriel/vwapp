@@ -185,10 +185,21 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
 
   
-  $scope.getDate = function(milliseconds){
+  $scope.getDateMilli = function(milliseconds){
     
-    var day_Send = new Date(1432598400000);
+    var day_Send = new Date(+milliseconds);
 
+    // 
+    
+    // 
+
+    console.log("timezone", day_Send);
+    
+
+    // 1432598400000 lunes 25
+    // 1432771200000 miercoles 27
+    // 1432915200000 viernes 29
+    // 1432310400000 viernes 22
 
     var dd = day_Send.getDate();
     var mm = day_Send.getMonth();
@@ -197,9 +208,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     var date = new Date();
     
     if ( (dd == date.getDate()) && (mm == (date.getMonth())) && (yy == date.getFullYear()) ) {
-      console.log("1111");
+      
       var hhh = day_Send.getHours();
-      return (""+hhh+"");  
+      var mmmm = (day_Send.getMinutes()).toString();
+      
+      var mmm = (mmmm).length < 2 ? "0"+mmmm : mmmm;
+      // var item.contactPersonAddressId ==='' ?  : ;
+      return (""+hhh+":"+mmm+"");  
     }
     else {
       var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -209,23 +224,23 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       var diffDays = Math.round(Math.abs((date.getTime() - day_Send.getTime())/(oneDay)));
       // return diffDays;
       if ( diffDays <= 6  ) {
-        console.log("22222");
+        
         var weekdays = new Array(7);
-        weekdays[0] = "Thursday";
-        weekdays[1] = "Friday";
-        weekdays[2] = "Saturday";
-        weekdays[3] = "Sunday";
-        weekdays[4] = "Monday";
-        weekdays[5] = "Tuesday";
-        weekdays[6] = "Wednesday";
+        weekdays[4] = "Thursday";
+        weekdays[5] = "Friday";
+        weekdays[6] = "Saturday";
+        weekdays[0] = "Sunday";
+        weekdays[1] = "Monday";
+        weekdays[2] = "Tuesday";
+        weekdays[3] = "Wednesday";
         
         var day = day_Send.getDay();
         
         return weekdays[day];
       }
       else{// "28/05/2015 23:25"
-        console.log("33333");
-      var ddddd = dd+"-"+mm+"-"+"yy";
+        
+      var ddddd = dd+"-"+mm+"-"+yy;
         return ddddd;
       }
     }

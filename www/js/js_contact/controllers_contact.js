@@ -261,7 +261,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.showSearchBar = false;
     $scope.apiUrlLocal = apiUrlLocal;
-    $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
     $scope.contacts = [];
     
     $scope.asknext = false;
@@ -299,7 +299,7 @@ $scope.doRefresh = function() {
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
 
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
 
   $scope.newContacts.$promise.then(function (results){
 
@@ -332,7 +332,7 @@ $scope.loadMore = function() {
     console.log("------------------1 loadMore principal");
   console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
     
     // call factory 
@@ -389,7 +389,7 @@ $scope.clearSearch = function () {
   $scope.searchKey = "";
   $scope.pag = 1;
   
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
 
   $scope.newContacts.$promise.then(function (results){
 

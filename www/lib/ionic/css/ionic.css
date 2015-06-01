@@ -4438,7 +4438,7 @@ a.item {
 .item-complex .item-content, .item-radio .item-content {
   position: relative;
   z-index: 2;
-  padding: 16px 49px 16px 16px;
+  padding: 16px 0px 16px 16px;
   border: none;
   background-color: white; }
 
@@ -5643,6 +5643,7 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
 
 .item-toggle, .item-toggle.item-complex .item-content {
   padding-right: 102px; }
+
 
 .item-toggle.item-complex {
   padding-right: 0; }
