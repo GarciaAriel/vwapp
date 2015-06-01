@@ -908,7 +908,15 @@ $scope.search = function () {
 
     $scope.go_to = function(link)
     {      
-       window.open('http://'+link, '_system', 'location=yes'); return false;
+      if (!link.startsWith("http://")){
+        window.open('http://'+link, '_system', 'location=yes'); return false;
+      }
+      else{
+       window.open(link, '_system', 'location=yes'); return false; 
+      }
+
+
+       
     }    
 
     $localstorage.setObject("EditContact",results.mainData);
