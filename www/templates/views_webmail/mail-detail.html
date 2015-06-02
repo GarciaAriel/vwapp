@@ -109,10 +109,10 @@
         </div> -->
         <!-- 00000000000000000000000 -->
 
-        <div ng-if="item.bodyType != '2' " class="card">
+        <div ng-if="item.bodyType != '2' "  ng-bind-html="thisCanBeusedInsideNgBindHtml" style="overflow: auto;">
           <!-- <ion-scroll zooming="true" direction="xy"> -->
-            <div ng-bind-html="thisCanBeusedInsideNgBindHtml" >
-            </div>
+            <!-- <div ng-bind-html="thisCanBeusedInsideNgBindHtml" style="overflow-x:scroll">
+            </div> -->
           <!-- </ion-scroll> -->
         </div>
 

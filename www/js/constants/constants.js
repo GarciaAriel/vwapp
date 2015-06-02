@@ -1,10 +1,10 @@
 angular.module('starter.constants',[])  
 
-.constant('apiUrlLocal', 'http://localhost:8080/bm')
-// .constant('apiUrlLocal', 'http://10.0.0.148:8080/bm')
+// .constant('apiUrlLocal', 'http://localhost:8080/bm')
+.constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
 
 //url server local
-// .constant('apiUrlLocal', 'localhost/bm')
+// .constant('apiUrlLocal', '/bm')
 
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
