@@ -1,15 +1,25 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
+// 
+// CONTROLLER SCHEDULE EDIT
+//
+.controller('ControllerScheduleEdit', function(bridgeServiceAppointment){
+  var a = bridgeServiceAppointment.getAppointment();
+  console.log("---",a);
+})
 
-.controller('ControlScheduleDetail', function(PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
+// 
+// CONTROLLER SCHEDULE DETAIL
+//
+.controller('ControlScheduleDetail', function(bridgeServiceAppointment,$state,PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
     $scope.pathSchedule = pathSchedule;
 
+    console.log("==CONTROLLER SCHEDULE== param id appointment: ", $stateParams.appointmentId);
     
-
-    console.log("==CONTROLLER SCHEDULE==", $stateParams.appointmentId);
-    
+    //CALL SERVICES WITH (id)
     $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
 
+    // PROMISE
     $scope.taskcall.$promise.then(function (results){
         // call factory 
         PopupFactory.getPopup($scope,results);
@@ -19,27 +29,19 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
         $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
         $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
-          
+
         console.log("==CONTROLLER SCHEDULE== results detail:",results['mainData']);
 
     })
-    
-    $scope.conf = function(){
-      $ionicActionSheet.show({
-         buttons: [
-         
-         { text: 'Edit' }
-          ],
-          destructiveText: 'Delete ',
-          cancelText: 'Cancel',
-          destructiveButtonClicked: function(){
-          }
-      });
-    };
-    
+
+    $scope.callToEditAppointment = function(){
+      // SEND OBJECT APPOINTMET TO EDIT
+      bridgeServiceAppointment.saveAppointment($scope.tareas);
+      $state.go('app.schedulerEdit');
+    }
 })
 // 
-// CONTROLLER SCHEDULE
+// CONTROLLER SCHEDULE VIEW CALENDAR
 // 
 .controller('ControlSchedule',function(PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   
@@ -211,49 +213,21 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // FUNCTION NEXT FOR DAY WEEK AND MONTH  
   $scope.scheduleNext  = function(){
     $scope.calendar.navigate('next');
-    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    // var ddd = ($scope.calendar.options.position.start.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
   };
 
   $scope.schedulePrev  = function(){
     $scope.calendar.navigate('prev');
-    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    // var ddd = ($scope.calendar.options.position.start.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
   };
 
   $scope.scheduleToday  = function(){
     $scope.calendar.navigate('today');
-    // var date = new Date();
-    // var mmm = (date.getMonth()+1);
-    // var ddd = (date.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = date.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleMonth = function(){
     var _data_date = $localstorage.getObject('dataDate');
     _data_date.type = SCHEDULE_TYPE_MONTH;
     $localstorage.setObject('dataDate',_data_date);    
-
     $scope.calendar.view('month');
-    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    // var ddd = ($scope.calendar.options.position.start.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
-
-
   };
 
   $scope.dataScheduleDay = function()    {
@@ -262,12 +236,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $localstorage.setObject('dataDate',_data_date);    
 
     $scope.calendar.view('day');
-    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    // var ddd = ($scope.calendar.options.position.start.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
   };
 
   $scope.dataScheduleWekk = function(){
@@ -276,13 +244,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $localstorage.setObject('dataDate',_data_date);    
     
     $scope.calendar.view('week');
-    // var mmm = ($scope.calendar.options.position.start.getMonth()+1);
-    // var ddd = ($scope.calendar.options.position.start.getDate());  
-    // var mm = (mmm).toString().length == 1 ? "0"+(mmm).toString() : (mmm).toString();
-    // var dd = (ddd).toString().length == 1 ? "0"+(ddd).toString() : (ddd).toString();
-    // var stringDate = $scope.calendar.options.position.start.getFullYear()+"-"+mm+"-"+dd;
-    // $scope.real_date_view = stringDate;
-    // $ionicScrollDelegate.scrollTop();
   };
 
   $scope.doRefresh = function() {

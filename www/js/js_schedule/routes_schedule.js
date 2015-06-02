@@ -3,18 +3,31 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
-  
-  .state('app.schedulerDay', {
-    url: "/schedulerDay",
+  // ROUTE VIEW EDIT APPOINTMENT
+  .state('app.schedulerEdit', {
+    url: "/schedulerEdit",
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: "templates/views_schedule/scheduler_day.html",
+        templateUrl: "templates/views_schedule/appointmentNew.html",
+        controller: "ControllerScheduleEdit"
+      }
+    }
+  })
+  
+  // ROUTE VIEW CALENDAR
+  .state('app.schedulerView', {
+    url: "/schedulerView",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/schedulerView.html",
         controller: "ControlSchedule"
       }
     }
   })
   
+  // ROUTE VIEW DETAIL
   .state('app.schedulerDetail', {
     url: "/schedulerDetail?appointmentId",
     cache: false,
