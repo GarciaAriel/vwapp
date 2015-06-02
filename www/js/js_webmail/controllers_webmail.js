@@ -356,11 +356,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         var bcc = ((results['mainData'])['entity'])['bcc'];
         $scope.arrayBCC = [];
         $scope.arrayBCC.push(bcc);
-      
+
         // this callback will be called asynchronously
         // CALL HTML BODY
         if (results['mainData']['entity']['bodyType'] == BODY_TYPE_HTML) {
-            var newurl = results['mainData']['entity']['htmlBodyUrl']
+            
+            var newurl = results['mainData']['entity']['htmlBodyUrl'];
             $http.get(apiUrlLocal+newurl).
 
             success(function(data, status, headers, config) {
@@ -452,7 +453,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // URL IMAGE
     $scope.imageF = function(){
-      $scope.imageFrom = "img/user_default.png";
+      $scope.imageFrom = "img/user_default_unknown.png";
 
       if ($stateParams.imageFrom != null) {
         $scope.imageFrom = apiUrlLocal+$stateParams.imageFrom+'='+$stateParams.fromImageId;
