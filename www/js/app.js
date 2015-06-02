@@ -54,7 +54,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         }
       }
     }  
-        
+       
     StatusBar.overlaysWebView(false);
 
     var isOnline = $cordovaNetwork.isOnline()

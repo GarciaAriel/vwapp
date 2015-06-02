@@ -1,5 +1,6 @@
 angular.module('starter.constants',[])  
 
+
 //url server local
 .constant('apiUrlLocal', '/bm')
 
