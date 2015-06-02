@@ -177,7 +177,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             $localstorage.setObject('rememberCompany',$scope.data.company);
 
             var lenguage = data.mainData.userInfo.locale;
-            console.log("==CONTROLLER LOGIN==  lenguage: ",lenguage );
+            console.log("==CONTROLLER LOGIN==  lenguage: ","-"+lenguage+"-" );
             $scope.ChangeLanguage(lenguage);
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             
@@ -321,6 +321,6 @@ $scope.data = {};
     };
 
     $scope.ChangeLanguage = function(lang){
-      $translate.use(lang);
+      $translate.use('en');
     }
 });

@@ -11,21 +11,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
-    console.log("language cell", navigator.language);
-    var language = navigator.language;
-    if( language.indexOf("fr") != -1){
-      $translate.use("fr");  
-    }
-    else{
-      if (language.indexOf("de") != -1) {
-        $translate.use("de");
-      }
-      else{
-        if (language.indexOf("es") != -1) {
-          $translate.use("es");
-        }
-      }
-    }
+    
     
     
     
@@ -54,6 +40,22 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $ionicPlatform.ready(function() {
+
+    console.log("language cell", navigator.language);
+    var language = navigator.language;
+    if( language.indexOf("fr") != -1){
+      $translate.use("fr");  
+    }
+    else{
+      if (language.indexOf("de") != -1) {
+        $translate.use("de");
+      }
+      else{
+        if (language.indexOf("es") != -1) {
+          $translate.use("es");
+        }
+      }
+    }
       
     var isOnline = $cordovaNetwork.isOnline()
     if(!isOnline)
