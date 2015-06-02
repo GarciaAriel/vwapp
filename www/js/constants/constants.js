@@ -1,7 +1,7 @@
 angular.module('starter.constants',[])  
 
 //url server local
-.constant('apiUrlLocal', 'localhost/bm')
+.constant('apiUrlLocal', '/bm')
 
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
