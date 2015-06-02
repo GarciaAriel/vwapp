@@ -38,11 +38,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     // }
   });
 
-
-// <<<<<<< HEAD
   $ionicPlatform.ready(function() {
 
-    console.log("language cell", navigator.language);
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
       $translate.use("fr");  
@@ -57,13 +54,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         }
       }
     }  
-// =======
-  // $ionicPlatform.ready(function() {    
-    if (parseFloat(window.device.version) >= 7.0) {
-          document.body.style.marginTop = "20px";
-// >>>>>>> 43c785eaedbab8f16f225f37f7f40b3128766dff
-    }
-      
+        
+    StatusBar.overlaysWebView(false);
+
     var isOnline = $cordovaNetwork.isOnline()
     if(!isOnline)
     {
