@@ -3,9 +3,53 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE EDIT
 //
-.controller('ControllerScheduleEdit', function(bridgeServiceAppointment){
-  var a = bridgeServiceAppointment.getAppointment();
-  console.log("---",a);
+.controller('ControllerScheduleEdit', function($scope,bridgeServiceAppointment){
+  // GET OBJECT APPOINTMET TO EDIT
+  var mainData = bridgeServiceAppointment.getAppointment();
+  console.log("==CONTROLLER SCHEDULE== edit appointment:",mainData);
+
+  $scope.entity = mainData.entity;
+  
+  var aTypesArray = mainData.appointmentTypeArray;
+  $scope.aTypes = [];    
+  aTypesArray.forEach(function(aType) {           
+      $scope.aTypes.push({
+        name: aType.name,
+        value:aType.appointmentTypeId
+      });       
+      if($scope.entity.appointmentTypeId == aType.appointmentTypeId) {             
+         $scope.aType = $scope.aTypes[$scope.aTypes.length-1];  
+      } 
+  });
+
+  var prioritiesArray = mainData.priorityArray;
+  $scope.priorities = [];    
+  prioritiesArray.forEach(function(priority) {           
+      $scope.priorities.push({
+        name: priority.name,
+        value:priority.priorityId
+      });       
+      if($scope.entity.priorityId == priority.priorityId) {             
+         $scope.priority = $scope.priorities[$scope.priorities.length-1];  
+      } 
+  });
+
+  $scope.updateType = function (nType)
+  {
+    $scope.aType = nType;     
+  }
+
+  $scope.updatePriority = function (nPriority)
+  {
+    $scope.priority = nPriority;     
+  }
+
+  $scope.saveAppointment = function(){
+    console.log("==aaaaaaaa== entity:",$scope.entity);
+    console.log("==aaaaaaaa== type:",$scope.aType);
+    console.log("==aaaaaaaa== priority:",$scope.priority);
+  }
+
 })
 
 // 
@@ -29,6 +73,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
         $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
         $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
+        $scope.mainData = results['mainData'];
 
         console.log("==CONTROLLER SCHEDULE== results detail:",results['mainData']);
 
@@ -36,7 +81,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
     $scope.callToEditAppointment = function(){
       // SEND OBJECT APPOINTMET TO EDIT
-      bridgeServiceAppointment.saveAppointment($scope.tareas);
+      bridgeServiceAppointment.saveAppointment($scope.mainData);
       $state.go('app.schedulerEdit');
     }
 })

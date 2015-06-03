@@ -1,9 +1,9 @@
 
-<ion-view view-title="{{description}}">
+<ion-view view-title="">
 
   <ion-nav-buttons side="right">
 
-    <button class="button" style="border-style: none" ng-click="saveChangePerson()">
+    <button class="button" style="border-style: none" ng-click="saveAppointment()">
       <i class="icon ion-checkmark" style="{{colorFont}}"></i>
     </button>
 
@@ -14,7 +14,25 @@
     <form >
       <div class="list">
 
-        <div class="item item-divider bar bar-header bar-assertive">New person</div>
+        <label class="item item-input">
+          <span class="input-label">Título</span>
+          <input type="text" maxlength="60" required="required" placeholder="Last name" ng-model="entity.title">
+          <i class="icon ion-alert-circled error"></i>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Tipo
+          </div>
+          <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in aTypes"></select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Prioridad
+          </div>
+          <select ng-model="priority" ng-change="updatePriority(priority)" id="priority" name="priority" ng-options="c.name for c in priorities"></select>
+        </label>
 
         <label class="item item-input item-select">
           <div class="input-label">
@@ -24,18 +42,14 @@
           </select>
         </label>
 
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Title
-          </div>
-          <select ng-model="title" ng-change="updateTitle(title)" name="dto(titleId)" ng-options="c.name for c in titles"></select>
-        </label>
-            
-        <label class="item item-input">
-          <span class="input-label">Last name</span>
-          <input type="text" name="dto(name1)" maxlength="60" required="required" placeholder="Last name" ng-model="entity.name1">
-          <i class="icon ion-alert-circled error"></i>
-        </label>
+
+
+
+
+
+
+
+
       
         <label class="item item-input">
           <span class="input-label">First name</span>
