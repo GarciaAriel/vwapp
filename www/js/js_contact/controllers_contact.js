@@ -812,10 +812,20 @@ $scope.search = function () {
     {      
         $state.go('app.newmail',{'to': email }); 
     }
+    
+    String.prototype.startsWith = function(prefix) {
+      return this.indexOf(prefix) === 0;
+    }
+
     $scope.go_to = function(link)
     {      
-       window.open('http://'+link, '_system', 'location=yes'); return false;
-    } 
+      if (!link.startsWith("http://")){
+        window.open('http://'+link, '_system', 'location=yes'); return false;
+      }
+      else{
+       window.open(link, '_system', 'location=yes'); return false; 
+      }       
+    }    
 
     $localstorage.setObject("EditContact",results.mainData);
 
@@ -913,6 +923,10 @@ $scope.search = function () {
     {      
         $state.go('app.newmail',{'to': email}); 
     }
+    
+    String.prototype.startsWith = function(prefix) {
+      return this.indexOf(prefix) === 0;
+    }
 
     $scope.go_to = function(link)
     {      
@@ -1008,10 +1022,20 @@ $scope.search = function () {
         $state.go('app.newmail',{'to': email }); 
     }
 
+    String.prototype.startsWith = function(prefix) {
+      return this.indexOf(prefix) === 0;
+    }
+
     $scope.go_to = function(link)
     {      
-       window.open('http://'+link, '_system', 'location=yes'); return false;
-    } 
+      if (!link.startsWith("http://")){
+        window.open('http://'+link, '_system', 'location=yes'); return false;
+      }
+      else{
+       window.open(link, '_system', 'location=yes'); return false; 
+      }       
+    }  
+
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {
