@@ -34,22 +34,74 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       } 
   });
 
+  
+
+  // show or hide time All day
+  $scope.isAllDayValue = $scope.entity.isAllDay == 'true' ? true : false;
+
+  // show or hide time All day
+  $scope.isRecurrenceValue = $scope.entity.isRecurrence == 'true' ? true : false;
+  
+  // get date start and end
+  $scope.startDate = new Date(parseInt($scope.entity.startDateTime));
+  $scope.endDate = new Date(parseInt($scope.entity.endDateTime));
+
+  $scope.as = true;
+  $scope.groupDaily = {name: 'groupDaily', type: true};
+  $scope.groupWeek = {name: 'groupWeek', type: false};
+  $scope.groupMonth = {name: 'groupMonth', type: false};
+  $scope.groupYear = {name: 'groupYear', type: false};
+
+  $scope.a = false;
+  $scope.b = false;
+  $scope.c = false;
+  $scope.d = false;
+  $scope.e = false;
+  $scope.f = false;
+  $scope.g = false;
+
+  $scope.days = [{name:'1'},{name:'2'},{name:'3'},{name:'4'},{name:'5'}]
+
+  // if ($scope.entity.isAllDay == 'true') {
+  //     console.log("asdf---true");
+  //     $scope.showDiv = true;
+  //   }
+  //   else{
+  //     console.log("asdf---false");
+  //    $scope.showDiv = false; 
+  //   }
+
+  // $scope.hideDiv = function(){
+  //   if ($scope.showDiv) {
+  //     console.log("asdf---true => false");
+  //     $scope.showDiv = false;
+  //   }
+  //   else{
+  //     console.log("asdf---false => true");
+  //    $scope.showDiv = true; 
+  //   }
+  // }
   $scope.updateType = function (nType)
   {
     $scope.aType = nType;     
   }
 
-  $scope.updatePriority = function (nPriority)
-  {
-    $scope.priority = nPriority;     
-  }
-
   $scope.saveAppointment = function(){
     console.log("==aaaaaaaa== entity:",$scope.entity);
     console.log("==aaaaaaaa== type:",$scope.aType);
-    console.log("==aaaaaaaa== priority:",$scope.priority);
   }
 
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+  
 })
 
 // 
