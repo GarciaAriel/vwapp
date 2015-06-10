@@ -560,17 +560,56 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function ($ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function (OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
   $scope.ntitle = "New Organization";
+  $scope.entity=[];
+
+  var request = $http({
+    method: "get",        
+    url: apiUrlLocal+"/bmapp/Address/Forward/Create.do",      
+  });
+  request.success(
+    function(data, status, headers, config) {    
+      // call factory 
+      PopupFactory.getPopup($scope,data);
+
+       var countryArray = data.mainData.countryArray;  
+        $scope.countries = [];    
+        countryArray.forEach(function(country) {           
+            $scope.countries.push({
+              name: country.name,
+              value:country.countryId
+            });                     
+        });
+
+        var languageArray = data.mainData.languageArray;
+        $scope.languages = [];    
+        languageArray.forEach(function(language) {           
+            $scope.languages.push({
+              name: language.name,
+              value:language.languageId
+            });                     
+        }); 
+
+        var telecomTypeArray = data.mainData.telecomTypeArray;
+        $scope.telecoms = []      
+        telecomTypeArray.forEach(function(telecom) {           
+            $scope.telecoms.push({
+              name: telecom.telecomTypeName,
+              value:telecom.telecomTypeId,
+            });                  
+        });                  
+    });
 
   $scope.choices = [];
   $scope.iframeWidth = $(window).width();
+ 
 
-  $scope.addNewChoice = function(value,telecom) {
+  $scope.addNewChoice = function(value,telecom) {  
     var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value,telecomvalue:telecom.name});    
+    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
   };
     
   $scope.removeChoice = function(choice) {
@@ -608,7 +647,7 @@ $scope.search = function () {
         saveToPhotoAlbum: false
     };
 
-    $cordovaCamera.getPicture(options).then(function(imageData) {
+    $cordovaCamera.getPicture(options).then(function(imageData) {      
         $scope.imgURI = "data:image/jpeg;base64," + imageData;
     }, function(err) {
         // An error occured. Show a message to the user
@@ -644,50 +683,7 @@ $scope.search = function () {
     console.log('Tapped!', res);      
   });  
  };
-
  
-  var request = $http({
-        method: "get",        
-        url: apiUrlLocal+"/bmapp/Address/Forward/Create.do",      
-      });
-    request.success(
-      function(data, status, headers, config) {  
-
-        // call factory 
-        PopupFactory.getPopup($scope,results);
-
-        console.log(data);
-         var countryArray = data.mainData.countryArray;  
-          $scope.countries = [];    
-          countryArray.forEach(function(country) {           
-              $scope.countries.push({
-                name: country.name,
-                value:country.countryId
-              });                     
-          });
-
-          var languageArray = data.mainData.languageArray;
-          $scope.languages = [];    
-          languageArray.forEach(function(language) {           
-              $scope.languages.push({
-                name: language.name,
-                value:language.languageId
-              });                     
-          }); 
-
-          var telecomTypeArray = data.mainData.telecomTypeArray;
-          $scope.telecoms = [];    
-          telecomTypeArray.forEach(function(telecom) {           
-              $scope.telecoms.push({
-                name: telecom.telecomTypeName,
-                value:telecom.telecomTypeId,
-              });                     
-          });    
-
-      });
-
-     
-    
 
     $scope.updateCountry = function (ncountry)
     {
@@ -703,7 +699,7 @@ $scope.search = function () {
         function(data, status, headers, config) {      
 
           // call factory 
-          PopupFactory.getPopup($scope,results);
+          PopupFactory.getPopup($scope,data);
 
           var cityArray = data.mainData.cityArray;
           $scope.cities = [];    
@@ -718,39 +714,74 @@ $scope.search = function () {
    
     }
 
+  verifyIndexTelecom = function(contIndexTelecom,choice){
+    respCont = 0;
+    enterIn = false;
+    contIndexTelecom.forEach(function(cont){
+      if(cont.id == choice.telecom.value)
+      {
+        cont.cont = cont.cont + 1;
+        respCont= cont.cont;
+        enterIn = true;
+      }  
+    });
+    if(!enterIn)
+    {
+      contIndexTelecom.push({id:choice.telecom.value , cont:0});
+    }
+    return respCont;
+  }
+
   $scope.saveOrganization = function() {
+    requestDataTelecoms = {};
+    contIndexTelecom = [];
+    requestDataTelecoms['dto(addressType)'] = OrgType;
+    requestDataTelecoms['dto(name1)'] = $scope.entity.name1;
+    requestDataTelecoms['dto(name2)'] = $scope.entity.name2;
+    requestDataTelecoms['dto(name3)'] = $scope.entity.name3;
+
+    if($scope.imgURI != undefined){
+      requestDataTelecoms['imageFile'] = $scope.imgURI;
+    }
+
+    $scope.choices.forEach(function(choice){      
+      index = verifyIndexTelecom(contIndexTelecom,choice);
+      newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data";   
+      requestDataTelecoms[newdata]=choice.value;     
+    });
+
+    $scope.telecoms.forEach(function(telecom){
+      newdata = "telecom("+telecom.value+").telecomTypeId";
+      requestDataTelecoms[newdata]=telecom.value; 
+      newdata = "telecom("+telecom.value+").telecomTypeName";
+      requestDataTelecoms[newdata]=telecom.name;     
+    });
+    console.log(requestDataTelecoms);    
+
+    //console.log($.extend(asfd, requestDataTelecoms));
     // console.log("Save organization", $scope.imgURI);
 
-    // var request = $http({
-    //   method: "post",
-    //   url: apiUrlLocal+"/bmapp/Address/Create.do",
-    //   headers: {'Content-Type': 'multipart/form-data'},
-    //   transformRequest: transformRequestAsFormPost,
-    //   data: {
-    //     'dto(addressType)': "0",
-    //     'dto(name1)': "121212",
-    //     'dto(name2)': "sdfsd",
-    //     'dto(name3)': "gggg",
-    //     // 'imageFile' : $scope.imgURI,
-    //   }
-    // });  
-    // request.success(
-    //   function(data, status, headers, config) {
-    //     if(data.forward == "Success")
-    //     {
-    //       console.log("organization creation succesfull");          
-    //       $state.go('app.contacts'); 
-    //     }
-    //     else
-    //     {           
-    //        PopupFactory.getPopup($scope,data);
-    //     }
+    var request = $http({
+      method: "post",
+      url: apiUrlLocal+"/bmapp/Address/Create.do",
+      headers: {'enctype': 'multipart/form-data'},
+      transformRequest: transformRequestAsFormPost,
+      data: requestDataTelecoms
+    });  
+    request.success(
+      function(data, status, headers, config) {
+        if(data.forward == "Success")
+        {
+          console.log("Organization creation succesfull");          
+          $state.go('app.contacts'); 
+        }
+        else
+        {           
+           PopupFactory.getPopup($scope,data);
+        }
         
-    //   }
-    // );
-  
-  
-   
+      }
+    );   
    
   };
 })

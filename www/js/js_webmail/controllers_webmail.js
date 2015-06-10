@@ -314,10 +314,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   })
 
 // NEW MAIL 
-.controller('NewMail',function($stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function(apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   $scope.data = {};
   $scope.colorFont = COLOR_VIEW;
   $scope.data.to = $stateParams.to;
+
+  var request = $http({
+    method: "get",    
+    url: apiUrlLocal+"/bmapp/Mail/Forward/ComposeEmail.do",        
+  });
+  request.success(
+    function(data, status, headers, config) {          
+      $scope.data.mailAccountId = data.mainData.mailAccount.email;
+    }
+  );
   
   $scope.sendMail = function() {
     console.log('---send data new mail', $scope.data);
