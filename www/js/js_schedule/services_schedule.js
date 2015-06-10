@@ -1,5 +1,24 @@
 angular.module('starter.scheduleservices', [])
 
+// SERVICE SAVE APPOINTMENT
+.service('bridgeServiceAppointment', function() {
+  var appointment = {};
+
+  var saveAppointment = function(newAppointment) {
+      appointment = newAppointment;
+  };
+
+  var getAppointment = function(){
+      return appointment;
+  };
+
+  return {
+    saveAppointment: saveAppointment,
+    getAppointment: getAppointment
+  };
+
+})
+
 //SERVICE RESOURCE QUERY
 .factory('scheduleService', function($resource,apiUrlLocal,pathSchedule) {
   var url = apiUrlLocal+pathSchedule;

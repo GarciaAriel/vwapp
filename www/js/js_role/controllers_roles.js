@@ -186,7 +186,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             }
             else{
               if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
-                $state.go('app.schedulerDay');
+                $state.go('app.schedulerView');
               }
               else{
                 if (data.mainData.accessRight.MAIL.VIEW == "true") {
@@ -279,7 +279,7 @@ $scope.data = {};
             }
             else{
               if (data.mainData.accessRight.APPOINTMENT.VIEW == "true") {
-                $state.go('app.schedulerDay');
+                $state.go('app.schedulerView');
               }
               else{
                 if (data.mainData.accessRight.MAIL.VIEW == "true") {
