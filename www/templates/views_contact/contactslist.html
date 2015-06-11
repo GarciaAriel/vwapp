@@ -2,10 +2,6 @@
 
   <ion-nav-buttons side="right">
 
-    <!-- <button class="button" style="border-style: none" ng-click="doRefresh()">
-      <i class="icon ion-person" style="{{colorFont}}"></i>
-    </button> -->
-
     <a href="#/app/newperson">
       <button class="button" style="border-style: none" ng-click="">
         <i class="icon ion-person-add" style="{{colorFont}}"></i>
@@ -23,6 +19,11 @@
         <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
       </button>
     </a>
+
+    <button class="button" style="border-style: none" ng-click="doRefresh()">
+      <i class="icon ion-android-star" style="{{colorFont}}"></i>
+    </button>
+
     <a>
       <button class="button" style="border-style: none;height: 0px;padding-left: 0px;padding-right: 0px;"></button>
     </a>
@@ -36,7 +37,7 @@
       <i class="icon ion-ios7-search placeholder-icon"></i>
 
       <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="search()">
-      <button class="button button-clear" ng-click="clearSearch()">X</button>
+      <button class="button button-clear" ng-click="doRefresh()">X</button>
     </span>
 
     <button class="button button-clear button-assertive" ng-click="search()">{{ 'Search' | translate}}</button>
