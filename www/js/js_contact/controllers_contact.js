@@ -251,19 +251,17 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('ContactsCtrl', function($ionicHistory,$ionicViewService,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.pagesintotal; 
     $scope.page = 1; 
-    $scope.idCall = false;
-    console.log("idcall =====++++261",$scope.idCall);
 
 
     $scope.showSearchBar = false;
     $scope.apiUrlLocal = apiUrlLocal;
-    $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
     $scope.contacts = [];
     
     $scope.asknext = false;
@@ -286,25 +284,22 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         console.log("page integer", $scope.page);
         console.log("pages in total", $scope.pagesintotal);
 
-        if ($scope.pagesintotal > $scope.page) {
+        if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
           $scope.asknext = true;  
         };
         // $window.location.reload();
     })
 
+
 $scope.doRefresh = function() {
-  $scope.searchKey = "";
-  $scope.idCall = false;
-  $scope.showSearchBar = false;
+    console.log("------------------1 do refresh principal");
+    $scope.page=1;
+    $scope.searchKey = "";
+    $scope.pag = 1;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
 
-  $scope.idCall = false;
-  $scope.page=1;
-  $scope.searchKey = "";
-  $scope.pag = 1;
-  $scope.asknext = false;
-  $scope.$broadcast('scroll.infiniteScrollComplete');
 
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
 
   $scope.newContacts.$promise.then(function (results){
 
@@ -330,27 +325,32 @@ $scope.doRefresh = function() {
       $ionicScrollDelegate.scrollTop();
     }
   });
-};
+};  
 
 $scope.loadMore = function() {
     
+    console.log("------------------1 loadMore principal");
   console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
-  $scope.asknext = false;
-  $scope.newContacts = Contact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
   $scope.newContacts.$promise.then(function(results){
     
     // call factory 
     PopupFactory.getPopup($scope,results);
 
+    console.log("+++++new info",(results['mainData']));
+    console.log("++++new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
+      console.log("++++new contacts list ", $scope.contacts);
       
-    if ($scope.pagesintotal > $scope.page) {
-        $scope.asknext = true;  
-    };
+      if ($scope.pagesintotal<=$scope.page+1) {
+          $scope.asknext = false;  
+        };
+      
   });
-};
+    };
+
 
 $scope.getContactUrl = function(item,type){  
   var accessRight = $localstorage.getObject('accessRight');
@@ -379,14 +379,51 @@ $scope.getContactUrl = function(item,type){
 $scope.searchcon = function(){
   $scope.showSearchBar = !$scope.showSearchBar;
 }   
+
+$scope.clearSearch = function () {
+  
+  $scope.searchKey = "";
+  $scope.showSearchBar = !$scope.showSearchBar;
+
+  $scope.page=1;
+  $scope.searchKey = "";
+  $scope.pag = 1;
+  
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+
+  $scope.newContacts.$promise.then(function (results){
+
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+
+    if (results['forward'] == "") {
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.$broadcast('scroll.refreshComplete'); 
+        
+      $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      console.log('COMEBACK TO THE FIRST LIST',$scope.page);
+      console.log('WITH THIS CONTACTS',$scope.contacts);
+      console.log('PAGE #',$scope.page);
+      console.log("pages in total on refresh", $scope.pagesintotal);
+      
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+        $scope.asknext = true;
+      };
+    }
+  });
+}
+
+
+        
             
 $scope.search = function () {
-  
+  console.log("------------------1 search function");
     $scope.contacts = [];
-    $scope.idCall = true;
     $scope.showSearchBar = !$scope.showSearchBar;
     $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey});
-    
     $scope.asknext = false;
 
     $scope.buscados.$promise.then(function (results){
@@ -401,7 +438,7 @@ $scope.search = function () {
         console.log("search info", results['mainData']);
         console.log("list  of contacts, first search", $scope.contacts);
          
-        if ( $scope.totalpag > $scope.pag) {
+        if ($scope.contacts.length > 0 && $scope.totalpag>$scope.pag) {
           $scope.asknext = true;  
         }; 
 
@@ -422,17 +459,10 @@ $scope.search = function () {
     });
       
     $scope.loadMore = function() {
+      console.log("------------------1 loadMore dentro search");
       console.log("trying to load more of the search",$scope.pag);
-      $scope.pag = $scope.pag +1;
-      if ($scope.idCall) {
-        console.log("loadMore search all");
-        $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
-      }
-      else{
-        console.log("loadMore search recent");
-        $scope.buscados = Contact.query({'pageParam(pageNumber)': $scope.pag});
-      }     
-      // $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
+      $scope.pag = $scope.pag +1;        
+      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
       $scope.buscados.$promise.then(function(results){
 
           // call factory 
