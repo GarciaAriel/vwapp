@@ -39,7 +39,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 
   $ionicPlatform.ready(function() {
-
+      
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
       $translate.use("fr");  

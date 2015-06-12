@@ -561,7 +561,7 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function (OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function ($cordovaFileTransfer,OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
   $scope.ntitle = "New Organization";
@@ -618,6 +618,22 @@ $scope.search = function () {
     $scope.choices.splice(index,1);
   };
 
+  function convertImgToBase64(url, callback, outputFormat){
+  var img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.onload = function(){
+      var canvas = document.createElement('CANVAS');
+      var ctx = canvas.getContext('2d');
+    canvas.height = this.height;
+    canvas.width = this.width;
+      ctx.drawImage(this,0,0);
+      var dataURL = canvas.toDataURL(outputFormat || 'image/jpeg');
+      callback(dataURL);
+      canvas = null; 
+  };
+  img.src = url;
+}
+
   $scope.pickerImage= function ()
   {
     var options = {
@@ -628,8 +644,12 @@ $scope.search = function () {
     };
 
     $cordovaImagePicker.getPictures(options)
-      .then(function (results) {        
-          $scope.imgURI = results[0];
+      .then(function (results) {          
+          convertImgToBase64(results[0], function(base64Img){
+              $scope.$apply(function(){
+                $scope.imgURI=base64Img;
+              })           
+          });      
       }, function(error) {
         // error getting photos
       })
@@ -742,7 +762,7 @@ $scope.search = function () {
     requestDataTelecoms['dto(name3)'] = $scope.entity.name3;
 
     if($scope.imgURI != undefined){
-      requestDataTelecoms['imageFile'] = $scope.imgURI;
+      requestDataTelecoms['imageFile'] = dataURItoBlob($scope.imgURI);
     }
 
     $scope.choices.forEach(function(choice){      
@@ -760,29 +780,91 @@ $scope.search = function () {
     console.log(requestDataTelecoms);    
 
     //console.log($.extend(asfd, requestDataTelecoms));
-    // console.log("Save organization", $scope.imgURI);
+    //console.log("Save organization image", $scope.imgURI);
 
-    var request = $http({
-      method: "post",
-      url: apiUrlLocal+"/bmapp/Address/Create.do",
-      headers: {'enctype': 'multipart/form-data'},
-      transformRequest: transformRequestAsFormPost,
-      data: requestDataTelecoms
-    });  
-    request.success(
-      function(data, status, headers, config) {
-        if(data.forward == "Success")
-        {
-          console.log("Organization creation succesfull");          
-          $state.go('app.contacts'); 
-        }
-        else
-        {           
-           PopupFactory.getPopup($scope,data);
-        }
-        
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
       }
-    );   
+
+      return new Blob([ia], {type:mimeString});
+    }
+
+
+    var fd = new FormData();    
+    fd.append( 'dto(addressType)', OrgType);
+    fd.append( 'dto(name1)', $scope.entity.name1);
+    fd.append( 'dto(name2)', $scope.entity.name2);
+    fd.append( 'dto(name3)', $scope.entity.name3);
+    fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+
+    $.ajax({
+      url: apiUrlLocal+"/bmapp/Address/Create.do",
+      data: fd,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+        alert(data);
+      }
+    });
+
+    // var request = $http({
+    //   method: "post",
+    //   url: apiUrlLocal+"/bmapp/Address/Create.do",
+    //   transformRequest: transformRequestAsFormPost,
+    //   data: requestDataTelecoms
+    // });  
+    // request.success(
+    //   function(data, status, headers, config) {
+    //     if(data.forward == "Success")
+    //     {
+    //       console.log("Organization creation succesfull");          
+    //       $state.go('app.contacts'); 
+    //     }
+    //     else
+    //     {           
+    //        PopupFactory.getPopup($scope,data);
+    //     }        
+    //   }
+    // );   
+   
+
+    // var win = function (r) {
+    // console.log("Code = " + r.responseCode);
+    // console.log("Response = " + r.response);
+    // console.log("Sent = " + r.bytesSent);
+    // }
+
+    // var fail = function (error) {
+    //     alert("An error has occurred: Code = " + error.code);
+    //     console.log("upload error source " + error.source);
+    //     console.log("upload error target " + error.target);
+    //     console.log("Error! " + error);
+    // }
+
+    // var options = new FileUploadOptions();
+    // options.fileKey = "file";
+    // options.fileName = $scope.imgURI.substr($scope.imgURI.lastIndexOf('/') + 1);
+    // options.mimeType = "image/jpg";
+
+
+    // options.params = requestDataTelecoms;
+
+    // var ft = new FileTransfer();
+    // ft.upload($scope.imgURI, encodeURI(apiUrlLocal+"/bmapp/Address/Create.do"), win, fail, options);
    
   };
 })
