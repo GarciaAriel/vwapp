@@ -49,6 +49,11 @@ angular.module('starter.contactservices', [])
                            'save':   {method:'POST'}});
 })
 
+.factory('ContactPerson', function ($resource,pathContactPerson,apiUrlLocal) {
+  var url = apiUrlLocal+pathContactPerson;
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
+
 
 .factory("transformRequestAsFormPost",function() {
 // I prepare the request data for the form post.
