@@ -88,8 +88,8 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
   })
 
 
-  $stateProvider.state('app.newContactPerson', {
-    url: "/newContactPerson",
+  $stateProvider.state('app.editContactPerson', {
+    url: "/editContactPerson",
     cache: false,
     views: {
       'menuContent': {

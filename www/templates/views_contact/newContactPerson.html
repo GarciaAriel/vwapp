@@ -1,5 +1,14 @@
 
 <ion-view view-title="{{ntitle}}">
+  
+  <ion-nav-buttons side="right">
+
+    <button class="button" style="border-style: none" ng-click="saveContactPerson()">
+      <i class="icon ion-checkmark" style="{{colorFont}}"></i>
+    </button>
+
+  </ion-nav-buttons>  
+
   <ion-content>
 
     <form >
@@ -15,8 +24,7 @@
 
         <label class="item item-input">
           <div class="input-label">First name</div>
-          <input type="text" ng-model="entity.name2" placeholder="First name" maxlength="60" name="dto(name2)" required="required" validated>
-          <i class="icon ion-alert-circled error"></i>
+          <input type="text" ng-model="entity.name2" placeholder="First name" maxlength="60" name="dto(name2)" validated>
         </label>
 
         <label class="item item-input item-select">
@@ -56,7 +64,25 @@
           </button>            
           <input type="text" ng-model="auxvalue">            
           <select ng-model="telecom" ng-options="c.name for c in telecoms"></select>  
-        </div>    
+        </div>  
+
+        <div class="item item-divider bar bar-header bar-assertive">Additional info</div>            
+          <div class="row">
+            <div class="col "> 
+
+            <div class="item item-body">
+              <img width="{{iframeWidth * 0.4}}"ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+              <img width="{{iframeWidth * 0.4}}" ng-show="imgURI === undefined" ng-src="img/person.png">  
+            </div>
+
+            </div>
+            <div class="col">
+              <h4 align = "center">Photo</h4>
+              <a class="button button-block  icon ion-camera" ng-click="takePicture()" style="{{colorFont}}"></a>
+              <a class="button button-block icon ion-images" ng-click="pickerImage()" style="{{colorFont}}"></a>               
+         
+            </div>
+          </div>  
 	        
       	</div>
     </form>

@@ -198,14 +198,13 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     // console.log("=========fouendation",$scope.foundation);
 })
 
-
-
 .controller('EditContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
-  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = "Edit Contact Person";
-   
+  
+  // get object to BRIDGE SERVICE to edit
   var mainData = bridgeService.getContact();
   $scope.entity = mainData.entity;
   $scope.mainData = mainData;
@@ -235,6 +234,16 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     var newItemNo = $scope.choices.length+1;
     $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
   };  
+
+  $scope.updateSalutation = function (nsalutation)
+  {
+    $scope.salutation = nsalutation;     
+  };
+
+  $scope.saveContactPerson = function(){
+    console.log('first name',$scope.entity);
+    console.log('deparment',$scope.salutation);
+  };
 
 })
 
@@ -282,6 +291,7 @@ $scope.doRefresh = function() {
     console.log("------------------1 do refresh principal");
     $scope.page=1;
     $scope.searchKey = "";
+    $scope.showSearchBar = false;
     $scope.pag = 1;
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
@@ -1188,7 +1198,7 @@ $scope.search = function () {
   $scope.page = 1; 
   $scope.asknext = false; 
   $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
-  // $scope.newContacts = ContactPerson.query({'contactId':mainData['entity']['addressId']});
+  $scope.helpToCallList = false;
   $scope.contacts = [];
   $scope.apiUrlLocal = apiUrlLocal;
     
@@ -1213,7 +1223,10 @@ $scope.search = function () {
   })
 
   $scope.doRefresh = function() {
+    $scope.searchKey = "";
     $scope.page = 1;
+    $scope.helpToCallList = false;
+    $scope.showSearchBar = false;
     $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
 
     $scope.newContacts.$promise.then(function (results){
@@ -1285,65 +1298,76 @@ $scope.search = function () {
   }
 
   $scope.search = function () {
-  console.log("==CONTROLLER CONTACT== search contact person");
-  $scope.contacts = [];
-  $scope.showSearchBar = !$scope.showSearchBar;
-  $scope.buscados = ContactPerson.query({'parameter(contactSearchName)':$scope.searchKey});
-  $scope.asknext = false;
+    
+    console.log("==CONTROLLER CONTACT== search contact person");
+    $scope.helpToCallList = true;
+    $scope.contacts = [];
+    $scope.showSearchBar = !$scope.showSearchBar;
+    console.log("-------search ---",$scope.searchKey);
 
-  $scope.buscados.$promise.then(function (results){
+    $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+    $scope.asknext = false;
+
+    $scope.buscados.$promise.then(function (results){
         // call factory 
-    PopupFactory.getPopup($scope,results);    
+      PopupFactory.getPopup($scope,results);    
 
-    $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
-            
-    $scope.contacts = (results['mainData'])['list'];
-     
-    if ($scope.contacts.length > 0 && $scope.totalpag>$scope.pag) {
-      $scope.asknext = true;  
-    }; 
-
-    // if no exists items show message
-    if ($scope.contacts.length == 0) {
-
-      var message = $filter('translate')('NoItems');
-      var messageRefresh = $filter('translate')('PulltoRefresh');
-      // An alert dialog
-      console.log("==CONTROLLER CONTACTS== alert if no exists items");
-      var alertPopup = $ionicPopup.alert({
-          title: message,
-          template: messageRefresh
-      });
-    }
-    $ionicScrollDelegate.scrollTop();
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
               
-  });
+      $scope.contacts = (results['mainData'])['list'];
+       
+      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.contacts.length == 0) {
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                
+    });
       
     $scope.loadMore = function() {
       console.log("------------------1 loadMore dentro search");
-      console.log("trying to load more of the search",$scope.pag);
-      $scope.pag = $scope.pag +1;        
-      $scope.buscados = ContactPerson.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.pag});
+      $scope.page = $scope.page +1;     
+      console.log("trying to load more of the search",$scope.page);
+      if ($scope.helpToCallList) {
+        console.log("search load more: value true",mainData.entity.addressId);
+        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+      }
+      else{
+        console.log("search load more: value false",mainData.entity.addressId);
+        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+      }
+
+      
       $scope.buscados.$promise.then(function(results){
 
           // call factory 
           PopupFactory.getPopup($scope,results);
 
-          $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+          $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
 
-          console.log("===== 000new info for search",(results['mainData']));
           $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
           $scope.$broadcast('scroll.infiniteScrollComplete');
           console.log("======0000new list of contacts for search",$scope.contacts);
-                
       });
             
-      if ($scope.totalpag<$scope.pag+1) {
+      if ($scope.totalPages<$scope.page+1) {
         $scope.asknext = false;  
       };              
     };
-}
+  }
 
 
 })
