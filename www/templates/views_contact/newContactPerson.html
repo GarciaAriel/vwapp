@@ -1,0 +1,65 @@
+
+<ion-view view-title="{{ntitle}}">
+  <ion-content>
+
+    <form >
+      <div class="list">
+<!--            style="height:15px"-->
+        <div class="item item-divider bar bar-header bar-assertive">{{ntitle}}</div>
+          
+        <label class="item item-input">
+          <div class="input-label">Last name</div>
+          <input type="text" ng-model="entity.name1" placeholder="Last name" name="dto(name1)" maxlength="60" required="required" validated>
+          <i class="icon ion-alert-circled error"></i>
+        </label>
+
+        <label class="item item-input">
+          <div class="input-label">First name</div>
+          <input type="text" ng-model="entity.name2" placeholder="First name" maxlength="60" name="dto(name2)" required="required" validated>
+          <i class="icon ion-alert-circled error"></i>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Department
+          </div>
+          <select ng-model="salutation" ng-change="updateSalutation(salutation)" name="dto(salutationId)" ng-options="c.name for c in salutations">
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Person type
+          </div>
+          <select ng-model="salutation" ng-change="updateSalutation(salutation)" name="dto(salutationId)" ng-options="c.name for c in salutations">
+          </select>
+        </label>
+
+        <label class="item item-input">
+          <div class="input-label">Function</div>
+          <input type="text" maxlength="40" ng-model="entity.function" placeholder="Function" name="dto(function)" required="required" validated>    
+        </label>
+
+        <div class="item item-divider bar bar-header bar-assertive">Comunication Info</div>
+
+        <div class="item item-input" data-ng-repeat="choice in choices">
+          <button class="button" style="border-style: none" ng-click="removeChoice(choice)">
+            <i class="ion-minus-circled" style="{{colorFont}}"></i>
+          </button>           
+          <input type="text" ng-model="choice.value" disabled>  
+          <b><input type="text" ng-model="choice.telecom.name" disabled></b>
+        </div>       
+
+        <div class="item item-input item-select">
+          <button class="button" style="border-style: none" ng-click="addNewChoice(auxvalue,telecom); auxvalue = ''">
+            <i class="ion-plus-circled" style="{{colorFont}}"></i>
+          </button>            
+          <input type="text" ng-model="auxvalue">            
+          <select ng-model="telecom" ng-options="c.name for c in telecoms"></select>  
+        </div>    
+	        
+      	</div>
+    </form>
+
+  </ion-content>
+</ion-view>

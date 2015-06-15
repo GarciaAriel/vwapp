@@ -8,7 +8,8 @@
     
 
     <!-- Href to add contact person -->
-    <button class="button" style="border-style: none" ng-click="addContactPerson()">
+    <!-- ng-click="" -->
+    <button class="button" style="border-style: none" >
       <i class="icon ion-person-add" style="{{colorFont}}"></i>
     </button>
 
@@ -34,12 +35,12 @@
 
     <ion-list ng-repeat="item in contacts">
 <!-- CONTACT PERSON -->
-        <a ng-if='item.contactPersonAddressId != ""' class="item item-thumbnail-left"  ng-href="{{getContactUrl(item,'contactPerson')}}" style="padding-left: 75px;">
-            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px;">
-            <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 60px; height: 60px">                      
+        <a class="item item-thumbnail-left"  ng-href="{{getContactUrl(item,'contactPerson')}}" style="padding-left: 75px;">
+            <img ng-if='item.imageUrl !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px;">
+            <img ng-if='item.imageUrl ==""' ng-src="img/contactp.png" style="width: 60px; height: 60px">                      
 
-            <h2>{{item.contactPersonOfName}}</h2>
-            <p>{{item.addressName}} </p>
+            <h2>{{item.contactPersonName}}</h2>
+            <p>{{item.department}} </p>
             <p>{{item.function}}</p>
         </a>
 

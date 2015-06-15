@@ -201,6 +201,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 
 .controller('EditContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+  
   $scope.apiUrlLocal = apiUrlLocal;
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = "Edit Contact Person";
@@ -209,7 +210,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.entity = mainData.entity;
   $scope.mainData = mainData;
 
-  console.log("==EDIT CONTACT PERSON CONTROLLER==  get maindata:", $scope.mainData);
+  console.log("==CONTROLLER CONTACT== edit contact person, maindata:", $scope.mainData);
 
   var salutationArray = $scope.mainData.salutationArray;  
     $scope.salutations = [];    
@@ -223,33 +224,18 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       } 
   });
 
-  var titleArray = $scope.mainData.titleArray;  
-    $scope.titles = [];    
-    titleArray.forEach(function(title) {           
-      $scope.titles.push({
-        name: title.name,
-        value: title.titleId
-      });       
-      if($scope.entity.titleId == title.titleId) {             
-         $scope.title = $scope.titles[$scope.titles.length-1];  
-      } 
-  });
-
-  var languageArray = $scope.mainData.languageArray;
-  $scope.languages = [];    
-  languageArray.forEach(function(language) {           
-      $scope.languages.push({
-        name: language.name,
-        value:language.languageId
-      });       
-      if($scope.entity.languageId == language.languageId) {             
-         $scope.language = $scope.languages[$scope.languages.length-1];  
-      } 
-  });   
-
-  $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
-  console.log("=========birthday",$scope.birthday);
+  $scope.choices = [];
   
+  $scope.removeChoice = function(choice) {
+    var index = $scope.choices.indexOf(choice);    
+    $scope.choices.splice(index,1);
+  };
+
+  $scope.addNewChoice = function(value,telecom) {  
+    var newItemNo = $scope.choices.length+1;
+    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+  };  
+
 })
 
 .controller('ContactsCtrl', function(allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
@@ -1192,7 +1178,7 @@ $scope.search = function () {
 
 })
 
-.controller('ctrlSeeContactsPerson', function(bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+.controller('ctrlSeeContactsPerson', function(apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
 
   var mainData = bridgeService.getContact();
   console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
@@ -1204,6 +1190,7 @@ $scope.search = function () {
   $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
   // $scope.newContacts = ContactPerson.query({'contactId':mainData['entity']['addressId']});
   $scope.contacts = [];
+  $scope.apiUrlLocal = apiUrlLocal;
     
   $scope.newContacts.$promise.then(function (results){
         
@@ -1283,7 +1270,6 @@ $scope.search = function () {
     if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
       return "#";
     }
-    console.log("----------asdf-----",item);
     switch(type) {
       case 'contactPerson':
           return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&addressType='+'1';  
@@ -1293,10 +1279,6 @@ $scope.search = function () {
           return "#";
     }    
   };
-
-  $scope.addContactPerson = function (){
-    $state.go('app.addContactPerson');
-  }
 
   $scope.searchcon = function(){
     $scope.showSearchBar = !$scope.showSearchBar;
@@ -1365,22 +1347,3 @@ $scope.search = function () {
 
 
 })
-
-.controller('ctrladdContactPerson', function($scope) {
-  console.log("controller add contact person");
-  $scope.ntitle = "New Organization";
-  $scope.choices = [];
-  $scope.removeChoice = function(choice) {
-    var index = $scope.choices.indexOf(choice);    
-    $scope.choices.splice(index,1);
-  };
-
-  $scope.addNewChoice = function(value,telecom) {  
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
-  };
-
-
-
-})
-

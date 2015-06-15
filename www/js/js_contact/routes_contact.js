@@ -88,12 +88,12 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
   })
 
 
-  $stateProvider.state('app.editContactPerson', {
-    url: "/editContactPerson",
+  $stateProvider.state('app.newContactPerson', {
+    url: "/newContactPerson",
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: "templates/views_contact/editContactPerson.html",
+        templateUrl: "templates/views_contact/newContactPerson.html",
         controller: 'EditContactPersonCtrl'
       }
     }
@@ -131,19 +131,6 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
       }
     }
   })
-
-  $stateProvider.state('app.addContactPerson', {
-    url: '/addContactPerson',
-    cache: true,
-    views: {
-      'menuContent': {
-       controller: 'ctrladdContactPerson',
-       templateUrl: 'templates/views_contact/addContactPerson.html'
-      }
-    }
-  })
-
-  
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
