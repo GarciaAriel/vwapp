@@ -198,7 +198,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     // console.log("=========fouendation",$scope.foundation);
 })
 
-.controller('EditContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -235,7 +235,17 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       } 
   });  
 
+  var telecomTypeArray = $scope.mainData.telecomTypeArray;
+  $scope.telecoms = []      
+  telecomTypeArray.forEach(function(telecom) {           
+      $scope.telecoms.push({
+        name: telecom.telecomTypeName,
+        value:telecom.telecomTypeId,
+      });                  
+  });  
+
   $scope.choices = [];
+  $scope.iframeWidth = $(window).width();
   
   $scope.removeChoice = function(choice) {
     var index = $scope.choices.indexOf(choice);    
@@ -257,10 +267,148 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.personType = nPersonType;     
   };
 
-  $scope.saveContactPerson = function(){
+  $scope.pickerImage= function ()
+  {
+    var options = {
+    maximumImagesCount: 1,
+    width: 300,
+    height: 300,
+    quality: 75
+    };
+
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {          
+          convertImgToBase64(results[0], function(base64Img){
+              $scope.$apply(function(){
+                $scope.imgURI=base64Img;
+              })           
+          });      
+      }, function(error) {
+        // error getting photos
+      })
+  };
+  function convertImgToBase64(url, callback, outputFormat){
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+      canvas.height = this.height;
+      canvas.width = this.width;
+        ctx.drawImage(this,0,0);
+        var dataURL = canvas.toDataURL(outputFormat || 'image/jpeg');
+        callback(dataURL);
+        canvas = null; 
+    };
+    img.src = url;
+  };
+
+  $scope.takePicture = function() {
+    var options = { 
+        quality : 75, 
+        destinationType : Camera.DestinationType.DATA_URL, 
+        sourceType : Camera.PictureSourceType.CAMERA, 
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {      
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+        // An error occured. Show a message to the user
+    });
+  };
+
+  $scope.saveContactPerson = function() {
     console.log('first name',$scope.entity);
     console.log('deparment',$scope.department);
     console.log('person type',$scope.personType);
+
+    requestDataTelecoms = {};
+    contIndexTelecom = [];
+    // requestDataTelecoms['dto(addressType)'] = OrgType;
+    // requestDataTelecoms['dto(name1)'] = $scope.entity.name1;
+    // requestDataTelecoms['dto(name2)'] = $scope.entity.name2;
+    // requestDataTelecoms['dto(name3)'] = $scope.entity.name3;
+
+    // if($scope.imgURI != undefined){
+    //   requestDataTelecoms['imageFile'] = dataURItoBlob($scope.imgURI);
+    // }
+
+    // $scope.choices.forEach(function(choice){      
+    //   index = verifyIndexTelecom(contIndexTelecom,choice);
+    //   newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data";   
+    //   requestDataTelecoms[newdata]=choice.value;     
+    // });
+
+    // $scope.telecoms.forEach(function(telecom){
+    //   newdata = "telecom("+telecom.value+").telecomTypeId";
+    //   requestDataTelecoms[newdata]=telecom.value; 
+    //   newdata = "telecom("+telecom.value+").telecomTypeName";
+    //   requestDataTelecoms[newdata]=telecom.name;     
+    // });
+    // console.log(requestDataTelecoms);    
+
+    //console.log($.extend(asfd, requestDataTelecoms));
+    //console.log("Save organization image", $scope.imgURI);
+
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+    }
+
+    console.log("pri---------",mainData.entity.addressId);
+    console.log("---------",mainData.entity.contactPersonId);
+    console.log("---------",mainData.entity.companyId);
+    console.log("---------",mainData.entity.addressType);
+    console.log("---------",mainData.entity.name1);
+    console.log("---------",mainData.entity.privateVersion);
+    console.log("---------",mainData.entity.version);
+    console.log("---------ult",$scope.entity.function);
+
+    var fd = new FormData();    
+    fd.append( 'dto(addressId)', mainData.entity.addressId);
+    fd.append( 'dto(contactPersonId)', mainData.entity.contactPersonId);
+    fd.append( 'dto(companyId)', mainData.entity.companyId);
+    fd.append( 'dto(addressType)', mainData.entity.addressType);
+    fd.append( 'dto(name1)', mainData.entity.name1);
+    fd.append( 'dto(privateVersion)', mainData.entity.privateVersion);
+    fd.append( 'dto(version)', mainData.entity.version);
+
+    fd.append( 'dto(function)', $scope.entity.function);
+    // fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+
+    $.ajax({
+      // url: apiUrlLocal+"/bmapp/Address/Create.do",
+      url: apiUrlLocal+"/bmapp/ContactPerson/Update.do",
+      data: fd,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+        alert(data);
+      }
+    });
+
   };
 
 })
@@ -375,10 +523,9 @@ $scope.getContactUrl = function(item,type){
   if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
     return "#";
   }
-
   switch(type) {
     case 'contactPerson':
-        return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
+        return '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
         // return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
         break;
     case 'organization':
@@ -889,15 +1036,14 @@ $scope.search = function () {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
-  console.log("param1", $stateParams.contactId);
-  console.log("param2", $stateParams.addressId);
-  console.log("param3", $stateParams.contactPersonId);
-  console.log("param4", $stateParams.addressType);
-  console.log("param5", $stateParams.name1);
-  console.log("param6", $stateParams.name2);
+  console.log("param1 contactId", $stateParams.contactId);
+  console.log("param2 addressId", $stateParams.addressId);
+  console.log("param3 contactPersonId", $stateParams.contactPersonId);
+  console.log("param5 name1", $stateParams.name1);
+  console.log("param6 name2", $stateParams.name2);
 
            // /ContactPerson/Forward/Update.do?contactId=1&                        dto(addressId)=1&                         dto(contactPersonId)=30525&                           dto(name1)=juan&                 dto(name2)=perez
-  $scope.contact = contactPersonDetail.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(name1)": $stateParams.name1,"dto(name2)":$stateParams.name2});
+  $scope.contact = contactPersonDetail.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(name1)":$stateParams.name1,"dto(name2)":$stateParams.name2});
 
   $scope.contact.$promise.then(function (results){
     // call factory 

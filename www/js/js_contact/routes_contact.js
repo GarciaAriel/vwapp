@@ -32,7 +32,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
   }) 
 
   $stateProvider.state('app.contactPerson', {
-    url: "/contactPerson?contactId&addressId&contactPersonId&addressType&name1&name2",
+    url: "/contactPerson?contactId&addressId&contactPersonId&name1&name2",
     cache: false,
     views: {
       'menuContent': {
