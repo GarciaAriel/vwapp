@@ -5,12 +5,14 @@ angular.module('starter.constants',[])
 //path contact
 .constant('pathContactPerson', '/bmapp/ContactPerson/List.do')
 
+//path contact person detail
+.constant('pathContactPersonDetail', '/bmapp/ContactPerson/Forward/Update.do')
+
 //path contact
 .constant('pathContact', '/bmapp/Contact/REST.do')
 
 // path recent contact
 .constant('recentContact', '/bmapp/Contact/Recent/List.do')
-
 
 //path schedule
 .constant('pathSchedule', '/bmapp/Appointment/REST.do')

@@ -211,17 +211,29 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
   console.log("==CONTROLLER CONTACT== edit contact person, maindata:", $scope.mainData);
 
-  var salutationArray = $scope.mainData.salutationArray;  
-    $scope.salutations = [];    
-    salutationArray.forEach(function(salutation) {           
-      $scope.salutations.push({
-        name: salutation.name,
-        value:salutation.salutationId
+  var departmentArray = $scope.mainData.departmentArray;  
+    $scope.departments = [];    
+    departmentArray.forEach(function(department) {           
+      $scope.departments.push({
+        name: department.name,
+        value: department.departmentId
       });       
-      if($scope.entity.salutationId == salutation.salutationId) {             
-         $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
+      if($scope.entity.departmentId == department.departmentId) {             
+         $scope.department = $scope.departments[$scope.departments.length-1];  
       } 
   });
+
+  var personTypeArray = $scope.mainData.personTypeArray;  
+    $scope.personTypes = [];    
+    personTypeArray.forEach(function(personType) {           
+      $scope.personTypes.push({
+        name: personType.name,
+        value:personType.personTypeId
+      });       
+      if($scope.entity.personTypeId == personType.personTypeId) {             
+         $scope.personType = $scope.personTypes[$scope.personTypes.length-1];  
+      } 
+  });  
 
   $scope.choices = [];
   
@@ -235,14 +247,20 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
   };  
 
-  $scope.updateSalutation = function (nsalutation)
+  $scope.updateDepartment = function (nDepartment)
   {
-    $scope.salutation = nsalutation;     
+    $scope.department = nDepartment;     
+  };
+
+  $scope.updatePersonType = function (nPersonType)
+  {
+    $scope.personType = nPersonType;     
   };
 
   $scope.saveContactPerson = function(){
     console.log('first name',$scope.entity);
-    console.log('deparment',$scope.salutation);
+    console.log('deparment',$scope.department);
+    console.log('person type',$scope.personType);
   };
 
 })
@@ -360,7 +378,8 @@ $scope.getContactUrl = function(item,type){
 
   switch(type) {
     case 'contactPerson':
-        return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+        return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
+        // return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
         break;
     case 'organization':
         return item.contactPersonAddressId ==='' ? '#/app/organization?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/organization?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
@@ -866,7 +885,7 @@ $scope.search = function () {
 })
 
 
-.controller('ContactPersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactPersonCtrl', function(contactPersonDetail,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -874,11 +893,13 @@ $scope.search = function () {
   console.log("param2", $stateParams.addressId);
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
+  console.log("param5", $stateParams.name1);
+  console.log("param6", $stateParams.name2);
 
-  $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+           // /ContactPerson/Forward/Update.do?contactId=1&                        dto(addressId)=1&                         dto(contactPersonId)=30525&                           dto(name1)=juan&                 dto(name2)=perez
+  $scope.contact = contactPersonDetail.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(name1)": $stateParams.name1,"dto(name2)":$stateParams.name2});
 
   $scope.contact.$promise.then(function (results){
-
     // call factory 
     PopupFactory.getPopup($scope,results);
 
@@ -1285,8 +1306,8 @@ $scope.search = function () {
     }
     switch(type) {
       case 'contactPerson':
-          return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&addressType='+'1';  
-
+          return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+          
           break;
       default:
           return "#";

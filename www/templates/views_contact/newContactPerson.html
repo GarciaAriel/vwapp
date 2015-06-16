@@ -31,7 +31,7 @@
           <div class="input-label">
             Department
           </div>
-          <select ng-model="salutation" ng-change="updateSalutation(salutation)" name="dto(salutationId)" ng-options="c.name for c in salutations">
+          <select ng-model="department" ng-change="updateDepartment(department)" name="dto(departmentId)" ng-options="c.name for c in departments">
           </select>
         </label>
 
@@ -39,7 +39,7 @@
           <div class="input-label">
             Person type
           </div>
-          <select ng-model="salutation" ng-change="updateSalutation(salutation)" name="dto(salutationId)" ng-options="c.name for c in salutations">
+          <select ng-model="personType" ng-change="updatePersonType(personType)" name="dto(salutationId)" ng-options="c.name for c in personTypes">
           </select>
         </label>
 

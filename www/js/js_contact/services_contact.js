@@ -49,6 +49,11 @@ angular.module('starter.contactservices', [])
                            'save':   {method:'POST'}});
 })
 
+.factory('contactPersonDetail', function ($resource,pathContactPersonDetail,apiUrlLocal) {
+  var url = apiUrlLocal+pathContactPersonDetail;
+  return $resource(url,{},{'query':{method:'GET', isArray:false} });
+})
+
 .factory('ContactPerson', function ($resource,pathContactPerson,apiUrlLocal) {
   var url = apiUrlLocal+pathContactPerson;
   return $resource(url,{},{'query':{method:'GET', isArray:false}});
