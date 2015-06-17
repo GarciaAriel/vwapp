@@ -104,7 +104,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Saturday: "Saturday",
     Sunday: "Sunday",
     
-    
+    addContact: "Add contact",
     Funtion: "Function",
     From: "From",
     To: "To",
@@ -176,6 +176,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Saturday: "Sábado",
     Sunday: "Domingo",
 
+    addContact: "Agregar contacto",
     Funtion: "Funcion",
     From: "De",
     To: "A",
@@ -249,6 +250,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Saturday: "Samstag",
     Sunday: "Sonntag",
 
+    addContact: "Kontakt hinzufügen",
     Funtion: "Funktion",
     From: "Von",
     To: "An",
@@ -322,6 +324,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Saturday: "Samedi",
     Sunday: "Dimanche",
 
+    addContact: "Ajouter Le Contact",
     Funtion: "Fonction",
     From: "De",
     To: "A",

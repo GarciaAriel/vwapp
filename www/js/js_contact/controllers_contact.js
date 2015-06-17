@@ -322,57 +322,221 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('EditContactPersonCtrl', function(bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
-  $scope.apiUrlLocal = apiUrlLocal;
+.controller('EditContactPersonCtrl', function($cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+  
+  $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = "Edit Contact Person";
-   
+  
+  // get object to BRIDGE SERVICE to edit
   var mainData = bridgeService.getContact();
   $scope.entity = mainData.entity;
   $scope.mainData = mainData;
 
-  console.log("==EDIT CONTACT PERSON CONTROLLER==  get maindata:", $scope.mainData);
+  console.log("==CONTROLLER CONTACT== edit contact person, maindata:", $scope.mainData);
 
-  var salutationArray = $scope.mainData.salutationArray;  
-    $scope.salutations = [];    
-    salutationArray.forEach(function(salutation) {           
-      $scope.salutations.push({
-        name: salutation.name,
-        value:salutation.salutationId
+  var departmentArray = $scope.mainData.departmentArray;  
+    $scope.departments = [];    
+    departmentArray.forEach(function(department) {           
+      $scope.departments.push({
+        name: department.name,
+        value: department.departmentId
       });       
-      if($scope.entity.salutationId == salutation.salutationId) {             
-         $scope.salutation = $scope.salutations[$scope.salutations.length-1];  
+      if($scope.entity.departmentId == department.departmentId) {             
+         $scope.department = $scope.departments[$scope.departments.length-1];  
       } 
   });
 
-  var titleArray = $scope.mainData.titleArray;  
-    $scope.titles = [];    
-    titleArray.forEach(function(title) {           
-      $scope.titles.push({
-        name: title.name,
-        value: title.titleId
+  var personTypeArray = $scope.mainData.personTypeArray;  
+    $scope.personTypes = [];    
+    personTypeArray.forEach(function(personType) {           
+      $scope.personTypes.push({
+        name: personType.name,
+        value:personType.personTypeId
       });       
-      if($scope.entity.titleId == title.titleId) {             
-         $scope.title = $scope.titles[$scope.titles.length-1];  
+      if($scope.entity.personTypeId == personType.personTypeId) {             
+         $scope.personType = $scope.personTypes[$scope.personTypes.length-1];  
       } 
-  });
+  });  
 
-  var languageArray = $scope.mainData.languageArray;
-  $scope.languages = [];    
-  languageArray.forEach(function(language) {           
-      $scope.languages.push({
-        name: language.name,
-        value:language.languageId
-      });       
-      if($scope.entity.languageId == language.languageId) {             
-         $scope.language = $scope.languages[$scope.languages.length-1];  
-      } 
-  });   
+  var telecomTypeArray = $scope.mainData.telecomTypeArray;
+  $scope.telecoms = []      
+  telecomTypeArray.forEach(function(telecom) {           
+      $scope.telecoms.push({
+        name: telecom.telecomTypeName,
+        value:telecom.telecomTypeId,
+      });                  
+  });  
 
-  $scope.birthday = new Date ( [$scope.entity.birthday.slice(0, 4), "/", $scope.entity.birthday.slice(4,6),"/", $scope.entity.birthday.slice(6)].join('') ).getTime();
-  console.log("=========birthday",$scope.birthday);
+  $scope.choices = [];
+  $scope.iframeWidth = $(window).width();
   
+  $scope.removeChoice = function(choice) {
+    var index = $scope.choices.indexOf(choice);    
+    $scope.choices.splice(index,1);
+  };
+
+  $scope.addNewChoice = function(value,telecom) {  
+    var newItemNo = $scope.choices.length+1;
+    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+  };  
+
+  $scope.updateDepartment = function (nDepartment)
+  {
+    $scope.department = nDepartment;     
+  };
+
+  $scope.updatePersonType = function (nPersonType)
+  {
+    $scope.personType = nPersonType;     
+  };
+
+  $scope.pickerImage= function ()
+  {
+    var options = {
+    maximumImagesCount: 1,
+    width: 300,
+    height: 300,
+    quality: 75
+    };
+
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {          
+          convertImgToBase64(results[0], function(base64Img){
+              $scope.$apply(function(){
+                $scope.imgURI=base64Img;
+              })           
+          });      
+      }, function(error) {
+        // error getting photos
+      })
+  };
+  function convertImgToBase64(url, callback, outputFormat){
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+      canvas.height = this.height;
+      canvas.width = this.width;
+        ctx.drawImage(this,0,0);
+        var dataURL = canvas.toDataURL(outputFormat || 'image/jpeg');
+        callback(dataURL);
+        canvas = null; 
+    };
+    img.src = url;
+  };
+
+  $scope.takePicture = function() {
+    var options = { 
+        quality : 75, 
+        destinationType : Camera.DestinationType.DATA_URL, 
+        sourceType : Camera.PictureSourceType.CAMERA, 
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {      
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+        // An error occured. Show a message to the user
+    });
+  };
+
+  $scope.saveContactPerson = function() {
+    console.log('first name',$scope.entity);
+    console.log('deparment',$scope.department);
+    console.log('person type',$scope.personType);
+
+    requestDataTelecoms = {};
+    contIndexTelecom = [];
+    // requestDataTelecoms['dto(addressType)'] = OrgType;
+    // requestDataTelecoms['dto(name1)'] = $scope.entity.name1;
+    // requestDataTelecoms['dto(name2)'] = $scope.entity.name2;
+    // requestDataTelecoms['dto(name3)'] = $scope.entity.name3;
+
+    // if($scope.imgURI != undefined){
+    //   requestDataTelecoms['imageFile'] = dataURItoBlob($scope.imgURI);
+    // }
+
+    // $scope.choices.forEach(function(choice){      
+    //   index = verifyIndexTelecom(contIndexTelecom,choice);
+    //   newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data";   
+    //   requestDataTelecoms[newdata]=choice.value;     
+    // });
+
+    // $scope.telecoms.forEach(function(telecom){
+    //   newdata = "telecom("+telecom.value+").telecomTypeId";
+    //   requestDataTelecoms[newdata]=telecom.value; 
+    //   newdata = "telecom("+telecom.value+").telecomTypeName";
+    //   requestDataTelecoms[newdata]=telecom.name;     
+    // });
+    // console.log(requestDataTelecoms);    
+
+    //console.log($.extend(asfd, requestDataTelecoms));
+    //console.log("Save organization image", $scope.imgURI);
+
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+    }
+
+    console.log("pri---------",mainData.entity.addressId);
+    console.log("---------",mainData.entity.contactPersonId);
+    console.log("---------",mainData.entity.companyId);
+    console.log("---------",mainData.entity.addressType);
+    console.log("---------",mainData.entity.name1);
+    console.log("---------",mainData.entity.privateVersion);
+    console.log("---------",mainData.entity.version);
+    console.log("---------ult",$scope.entity.function);
+
+    var fd = new FormData();    
+    fd.append( 'dto(addressId)', mainData.entity.addressId);
+    fd.append( 'dto(contactPersonId)', mainData.entity.contactPersonId);
+    fd.append( 'dto(companyId)', mainData.entity.companyId);
+    fd.append( 'dto(addressType)', mainData.entity.addressType);
+    fd.append( 'dto(name1)', mainData.entity.name1);
+    fd.append( 'dto(privateVersion)', mainData.entity.privateVersion);
+    fd.append( 'dto(version)', mainData.entity.version);
+
+    fd.append( 'dto(function)', $scope.entity.function);
+    // fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+
+    $.ajax({
+      // url: apiUrlLocal+"/bmapp/Address/Create.do",
+      url: apiUrlLocal+"/bmapp/ContactPerson/Update.do",
+      data: fd,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+        alert(data);
+      }
+    });
+
+  };
+
 })
+
 
 .controller('ContactsCtrl', function(allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
     
@@ -418,6 +582,7 @@ $scope.doRefresh = function() {
     console.log("------------------1 do refresh principal");
     $scope.page=1;
     $scope.searchKey = "";
+    $scope.showSearchBar = false;
     $scope.pag = 1;
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
@@ -483,10 +648,10 @@ $scope.getContactUrl = function(item,type){
   if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
     return "#";
   }
-
   switch(type) {
     case 'contactPerson':
-        return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+        return '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
+        // return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
         break;
     case 'organization':
         return item.contactPersonAddressId ==='' ? '#/app/organization?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/organization?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
@@ -1533,19 +1698,20 @@ $scope.search = function () {
 })
 
 
-.controller('ContactPersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('ContactPersonCtrl', function(contactPersonDetail,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
-  console.log("param1", $stateParams.contactId);
-  console.log("param2", $stateParams.addressId);
-  console.log("param3", $stateParams.contactPersonId);
-  console.log("param4", $stateParams.addressType);
+  console.log("param1 contactId", $stateParams.contactId);
+  console.log("param2 addressId", $stateParams.addressId);
+  console.log("param3 contactPersonId", $stateParams.contactPersonId);
+  console.log("param5 name1", $stateParams.name1);
+  console.log("param6 name2", $stateParams.name2);
 
-  $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
+           // /ContactPerson/Forward/Update.do?contactId=1&                        dto(addressId)=1&                         dto(contactPersonId)=30525&                           dto(name1)=juan&                 dto(name2)=perez
+  $scope.contact = contactPersonDetail.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(name1)":$stateParams.name1,"dto(name2)":$stateParams.name2});
 
   $scope.contact.$promise.then(function (results){
-
     // call factory 
     PopupFactory.getPopup($scope,results);
 
@@ -1638,6 +1804,7 @@ $scope.search = function () {
   });
 
 })
+
 
 .controller('OrganizationCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
@@ -1717,6 +1884,10 @@ $scope.search = function () {
        
     }    
 
+    $scope.seeContactsPerson = function (){
+      $state.go('app.seeContactsPerson');
+    }
+
     $localstorage.setObject("EditContact",results.mainData);
 
     if (results.mainData.entity.countryId != "") {
@@ -1793,6 +1964,10 @@ $scope.search = function () {
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
     $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink);  
 
+    $scope.seeContactsPerson = function (){
+      $state.go('app.seeContactsPerson');
+    }
+
     $scope.writeEmail = function(email)
     {      
         $state.go('app.newmail',{'to': email }); 
@@ -1846,7 +2021,186 @@ $scope.search = function () {
 
 })
 
+.controller('ctrlSeeContactsPerson', function(apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+
+  var mainData = bridgeService.getContact();
+  console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
+  
+  $scope.colorFont = COLOR_VIEW;
+  $scope.totalPages; 
+  $scope.page = 1; 
+  $scope.asknext = false; 
+  $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+  $scope.helpToCallList = false;
+  $scope.contacts = [];
+  $scope.apiUrlLocal = apiUrlLocal;
+    
+  $scope.newContacts.$promise.then(function (results){
+        
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+    
+    console.log("1. promise results: ",(results['mainData']));
+
+    $scope.contacts = (results['mainData'])['list'];
+
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+    console.log("current page: ", $scope.page);
+    console.log("total pages: ", $scope.totalPages);
+
+    if ( $scope.totalPages > $scope.page) {
+      $scope.asknext = true;  
+    };
+  })
+
+  $scope.doRefresh = function() {
+    $scope.searchKey = "";
+    $scope.page = 1;
+    $scope.helpToCallList = false;
+    $scope.showSearchBar = false;
+    $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+
+    $scope.newContacts.$promise.then(function (results){
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+      console.log("2. promise results: ",(results['mainData']));
+
+      if (results['forward'] == "") {
+        $scope.contacts = (results['mainData'])['list'];
+        $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+        $scope.$broadcast('scroll.refreshComplete'); 
+          
+        $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+        
+        if ( $scope.totalPages > $scope.page ) {
+          $scope.asknext = true;
+        };
+        $ionicScrollDelegate.scrollTop();
+      }
+    });
+  };  
+
+  $scope.loadMore = function() {
+    
+    $scope.page = $scope.page + 1;
+    $scope.asknext = false;
+    $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+    $scope.newContacts.$promise.then(function(results){
+      
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+      console.log("3. promise results: ",(results['mainData']));
+
+      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      if ( $scope.totalPages > $scope.page ) {
+        $scope.asknext = true;  
+      };
+        
+    });
+  };
+
+  $scope.getContactUrl = function(item,type){  
+    var accessRight = $localstorage.getObject('accessRight');
+    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
+
+    // IF CONTACT PERSON HAVE PERMISSION TO READ
+    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+      return "#";
+    }
+    switch(type) {
+      case 'contactPerson':
+          return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+          
+          break;
+      default:
+          return "#";
+    }    
+  };
+
+  $scope.searchcon = function(){
+    $scope.showSearchBar = !$scope.showSearchBar;
+  }
+
+  $scope.search = function () {
+    
+    console.log("==CONTROLLER CONTACT== search contact person");
+    $scope.helpToCallList = true;
+    $scope.contacts = [];
+    $scope.showSearchBar = !$scope.showSearchBar;
+    console.log("-------search ---",$scope.searchKey);
+
+    $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+    $scope.asknext = false;
+
+    $scope.buscados.$promise.then(function (results){
+        // call factory 
+      PopupFactory.getPopup($scope,results);    
+
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+              
+      $scope.contacts = (results['mainData'])['list'];
+       
+      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.contacts.length == 0) {
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                
+    });
+      
+    $scope.loadMore = function() {
+      console.log("------------------1 loadMore dentro search");
+      $scope.page = $scope.page +1;     
+      console.log("trying to load more of the search",$scope.page);
+      if ($scope.helpToCallList) {
+        console.log("search load more: value true",mainData.entity.addressId);
+        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+      }
+      else{
+        console.log("search load more: value false",mainData.entity.addressId);
+        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+      }
+
+      
+      $scope.buscados.$promise.then(function(results){
+
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+
+          $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+          $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          console.log("======0000new list of contacts for search",$scope.contacts);
+      });
+            
+      if ($scope.totalPages<$scope.page+1) {
+        $scope.asknext = false;  
+      };              
+    };
+  }
 
 
-
-
+})
