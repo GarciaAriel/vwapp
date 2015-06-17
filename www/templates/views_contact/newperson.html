@@ -1,9 +1,9 @@
 
-<ion-view view-title="{{description}}">
+<ion-view view-title="{{ntitle}}">
 
   <ion-nav-buttons side="right">
 
-    <button class="button" style="border-style: none" ng-click="saveChangePerson()">
+    <button class="button" style="border-style: none" ng-click="savePerson()">
       <i class="icon ion-checkmark" style="{{colorFont}}"></i>
     </button>
 
@@ -13,130 +13,106 @@
 
     <form >
       <div class="list">
-
-        <div class="item item-divider bar bar-header bar-assertive">New person</div>
-
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Salutation
-          </div>
-          <select ng-model="salutation" ng-change="updateSalutation(salutation)" name="dto(salutationId)" ng-options="c.name for c in salutations">
-          </select>
-        </label>
-
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Title
-          </div>
-          <select ng-model="title" ng-change="updateTitle(title)" name="dto(titleId)" ng-options="c.name for c in titles"></select>
-        </label>
-            
+<!--            style="height:15px"-->
+        <div class="item item-divider bar bar-header bar-assertive">{{ntitle}}</div>
+          
         <label class="item item-input">
-          <span class="input-label">Last name</span>
-          <input type="text" name="dto(name1)" maxlength="60" required="required" placeholder="Last name" ng-model="entity.name1">
-          <i class="icon ion-alert-circled error"></i>
-        </label>
-      
-        <label class="item item-input">
-          <span class="input-label">First name</span>
-          <input type="text" name="dto(name2)" maxlength="60" placeholder="First name" ng-model="entity.name2">
-        </label>
-
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Country
-          </div>
-          <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"></select>
+          <div class="input-label">Last name</div>
+          <input type="text" ng-model="entity.name1" placeholder="Last name" maxlength="60" name="dto(name1)" required="required" validated>                    
         </label>
 
         <label class="item item-input">
-          <div class="input-label">Zip</div>
-          <input type="text" name="zip" maxlength="10" ng-model="entity.zip" placeholder="Zip" ng-model="entity.zip" validated>
-          <i class="icon ion-alert-circled error"></i>        
+          <div class="input-label">First name</div>
+          <input type="text" ng-model="entity.name2" placeholder="First name" maxlength="60" name="dto(name2)" required="required" validated>
         </label>
-           
-        <label class="item item-input">
-          <div class="input-label">City</div>      
-          <input type="text" id="cityNameId" maxlength="40" name="city" ng-model="entity.city" placeholder="City" name="city" validated>
-          <i class="icon ion-alert-circled error"></i>
-        </label>
-       
+   
         <label class="item item-input">
           <div class="input-label">Street</div>
-          <input type="text" name="dto(street)" maxlength="40" ng-model="entity.street" placeholder="Street">
-        </label>
-
-         <label class="item item-input">
-          <div class="input-label">Number</div>
-          <input type="text" name="dto(houseNumber)" maxlength="10" ng-model="entity.houseNumber" placeholder="Number" >
-        </label>
-
-        <label class="item item-input">
-          <div class="input-label">Additional address</div>
-          <input type="text" name="dto(additionalAddressLine)" maxlength="100"  placeholder="Additional address line" ng-model="entity.additionalAddressLine">
-        </label>
-
-        <label class="item item-input">
-          <div class="input-label"> Short name </div>
-          <input type="text" name="dto(searchName)" maxlength="60" ng-model="entity.searchName" placeholder="Short name">
-        </label>
-
-        <label class="item item-input">
-          <div class="input-label">Keywords</div>
-          <input type="text" name="dto(keywords)" maxlength="50" ng-model="entity.keywords" placeholder="Keywords">
-        </label>
-
-        <label class="item item-input">
-          <div class="input-label">Education</div>
-          <input type="text" name="dto(education)" maxlength="40" ng-model="entity.education" placeholder="education">
+          <input type="text" name="dto(street)" maxlength="40" ng-model="entity.street" placeholder="Street" ng-model="data.street">
         </label>
 
         <label class="item item-input item-select">
-          <div class="input-label">
-            Language
-          </div>
-          <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages"></select>    
+          <div class="input-label">Country</div>
+          <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"></select>
         </label>
-
-        <label class="item item-input">
-          <div class="input-label">Birthday</div>
-          <input type="date" name="dto(birthday)" maxlength="10" value="{{ birthday | date: 'shortDate' }}">
-        </label>
-
-        <div class="item item-divider bar bar-header bar-assertive">Contact type</div>
+    
+        <label class="item item-input item-select">
+          <div class="input-label">City</div>      
+          <select ng-model="city" ng-change="updateCity(city)" id="cityId" name="cityId" ng-options="c.name for c in cities"></select>       
+        </label>        
      
-        <label class="item item-toggle">
-          Customer
-          <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.isCustomer" name="dto(isCustomer)" ng-checked="entity.isCustomer == 'true' ? true : false ">
-              <div class="track">
-               <div class="handle"></div>
+        <label class="item item-input item-select">
+          <div class="input-label">Language</div>
+          <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages" ></select>    
+        </label>
+
+        <div class="item item-divider bar bar-header bar-assertive">Comunication Info</div>
+
+          <div class="item item-input" data-ng-repeat="choice in choices">
+            <div class="row ">
+            <div class="col col-33">
+              <b><input type="text" ng-model="choice.telecom.name" disabled></b>       
+            </div>
+             <div class="col">
+            <input type="text" ng-model="choice.value" disabled>              
+            </div>
+             <div class="col col-10">
+            <button class="button" style="border-style: none" ng-click="removeChoice(choice)">
+              <i class="ion-minus-circled" style="{{colorFont}}"></i>
+            </button>   
+            </div>
+            </div>
+          </div>       
+  
+          <div class="row ">
+            <div class="col col-33 item-select">
+              <select ng-model="telecom" ng-options="c.name for c in telecoms"></select>  
+            </div>
+           
+            <div class="col">
+              <input type="text" ng-model="auxvalue">            
+            </div>            
+             <div class="col col-10">
+              <button class="button" style="border-style: none" ng-click="addNewChoice(auxvalue,telecom); auxvalue = ''">
+                <i class="ion-plus-circled" style="{{colorFont}}"></i>
+              </button>                        
+            </div>
+          </div>        
+        
+
+        <div class="item item-divider bar bar-header bar-assertive">Data access security</div>  <div data-ng-repeat="group in GroupsAvailable" >              
+            <div class="item item-toggle">
+               {{group.name}}
+               <label class="toggle toggle-assertive">
+                 <input type="checkbox" ng-model="group.value">
+                 <div class="track">
+                   <div class="handle"></div>
+                 </div>
+               </label>
+            </div>
+          </div>
+
+        <div class="item item-divider bar bar-header bar-assertive">Additional info</div>
+
+            <div class="row">
+              <div class="col "> 
+
+              <div class="item item-body">
+                <img width="{{iframeWidth * 0.4}}"ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+                <img width="{{iframeWidth * 0.4}}"ng-show="imgURI === undefined && entity.imageUrl != ''" ng-src="{{apiUrlLocal}}{{entity.imageUrl}}">
+                <img width="{{iframeWidth * 0.4}}" ng-show="imgURI === undefined && entity.imageUrl == ''" ng-src="img/person.png">  
               </div>
-          </label>
-        </label>
-  
-        <label class="item item-toggle">
-          Suplier
-          <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.isSuplier" name="dto(isSupplier)" ng-checked="entity.isSupplier == 'true' ? true : false ">
-            <div class="track">
-              <div class="handle"></div>
+
+              </div>
+              <div class="col">
+                <h4 align = "center">Photo</h4>
+                <a class="button button-block  icon ion-camera" ng-click="takePicture()" style="{{colorFont}}"></a>
+                <a class="button button-block icon ion-images" ng-click="pickerImage()" style="{{colorFont}}"></a>               
+           
             </div>
-          </label>
-        </label>
-          
-        <label class="item item-toggle">
-          Status
-          <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.isActive" name="dto(isActive)" ng-checked="entity.isActive == 'true' ? true : false ">
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </label>
-  
+           </div>
       </div>
-    </form>
+    </form>    
 
   </ion-content>
 </ion-view>

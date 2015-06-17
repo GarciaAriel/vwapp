@@ -54,8 +54,7 @@ angular.module('starter.contactservices', [])
 // I prepare the request data for the form post.
   function transformRequest( data, getHeaders ) {
     var headers = getHeaders();
-    headers[ "Content-type" ] = "application/x-www-form-urlencoded; charset=utf-8";
-    headers[ "enctype" ] = "multipart/form-data";
+    headers[ "Content-type" ] = "application/x-www-form-urlencoded; charset=utf-8";    
     return( serializeData( data ) );
   }
   // Return the factory value.
