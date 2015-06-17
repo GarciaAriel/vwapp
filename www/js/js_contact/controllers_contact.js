@@ -447,40 +447,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     });
   };
 
-  $scope.saveContactPerson = function() {
-    console.log('first name',$scope.entity);
-    console.log('deparment',$scope.department);
-    console.log('person type',$scope.personType);
-
-    requestDataTelecoms = {};
-    contIndexTelecom = [];
-    // requestDataTelecoms['dto(addressType)'] = OrgType;
-    // requestDataTelecoms['dto(name1)'] = $scope.entity.name1;
-    // requestDataTelecoms['dto(name2)'] = $scope.entity.name2;
-    // requestDataTelecoms['dto(name3)'] = $scope.entity.name3;
-
-    // if($scope.imgURI != undefined){
-    //   requestDataTelecoms['imageFile'] = dataURItoBlob($scope.imgURI);
-    // }
-
-    // $scope.choices.forEach(function(choice){      
-    //   index = verifyIndexTelecom(contIndexTelecom,choice);
-    //   newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data";   
-    //   requestDataTelecoms[newdata]=choice.value;     
-    // });
-
-    // $scope.telecoms.forEach(function(telecom){
-    //   newdata = "telecom("+telecom.value+").telecomTypeId";
-    //   requestDataTelecoms[newdata]=telecom.value; 
-    //   newdata = "telecom("+telecom.value+").telecomTypeName";
-    //   requestDataTelecoms[newdata]=telecom.name;     
-    // });
-    // console.log(requestDataTelecoms);    
-
-    //console.log($.extend(asfd, requestDataTelecoms));
-    //console.log("Save organization image", $scope.imgURI);
-
-    function dataURItoBlob(dataURI) {
+  dataURItoBlob = function(dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;
       if (dataURI.split(',')[0].indexOf('base64') >= 0)
@@ -500,40 +467,72 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       return new Blob([ia], {type:mimeString});
     }
 
-    console.log("pri---------",mainData.entity.addressId);
-    console.log("---------",mainData.entity.contactPersonId);
-    console.log("---------",mainData.entity.companyId);
-    console.log("---------",mainData.entity.addressType);
-    console.log("---------",mainData.entity.name1);
-    console.log("---------",mainData.entity.privateVersion);
-    console.log("---------",mainData.entity.version);
-    console.log("---------ult",$scope.entity.function);
+    $scope.saveContactPerson = function() {
 
-    var fd = new FormData();    
-    fd.append( 'dto(addressId)', mainData.entity.addressId);
-    fd.append( 'dto(contactPersonId)', mainData.entity.contactPersonId);
-    fd.append( 'dto(companyId)', mainData.entity.companyId);
-    fd.append( 'dto(addressType)', mainData.entity.addressType);
-    fd.append( 'dto(name1)', mainData.entity.name1);
-    fd.append( 'dto(privateVersion)', mainData.entity.privateVersion);
-    fd.append( 'dto(version)', mainData.entity.version);
+      console.log("---------0",mainData.entity);
+    
+      contIndexTelecom = [];
+      var fd = new FormData(); 
 
-    fd.append( 'dto(function)', $scope.entity.function);
-    // fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+      fd.append('dto(addressId)', mainData.entity.addressId);
+      fd.append('dto(contactPersonId)', mainData.entity.contactPersonId);
+      fd.append('dto(companyId)', mainData.entity.companyId);
+      fd.append('dto(addressType)', mainData.entity.addressType);
+      fd.append('dto(name1)', mainData.entity.name1);
+      fd.append('dto(privateVersion)', mainData.entity.privateVersion);
+      fd.append('dto(version)', mainData.entity.version);
+      // fd.append('contactId', mainData.entity.addressId);
 
-    $.ajax({
-      // url: apiUrlLocal+"/bmapp/Address/Create.do",
-      url: apiUrlLocal+"/bmapp/ContactPerson/Update.do",
-      data: fd,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      success: function(data){
-        alert(data);
-      }
-    });
+      console.log('--1');
+      
+      $scope.choices.forEach(function(choice){      
+        index = verifyIndexTelecom(contIndexTelecom,choice);
+        if(index == 0){
+          newdata = "telecom("+choice.telecom.value+").predeterminedIndex";
+          fd.append(newdata,0);
+        }
+        newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data"; 
+        fd.append(newdata,choice.value);        
+      });
 
-  };
+      console.log('--2');
+
+      $scope.telecoms.forEach(function(telecom){
+        newdata = "telecom("+telecom.value+").telecomTypeId";
+        fd.append(newdata,telecom.value);     
+        newdata = "telecom("+telecom.value+").telecomTypeName";
+        fd.append(newdata,telecom.value);       
+      });    
+
+      console.log('--3');
+
+      if($scope.imgURI != undefined){
+        fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+      }    
+
+      console.log('--4');
+
+      $.ajax({
+        url: apiUrlLocal+"/bmapp/ContactPerson/Update.do?contactId="+mainData.entity.addressId,
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Organization edit succesfull");          
+            $state.go('app.contacts'); 
+          }
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
+        }
+      });  
+
+    };
 
 })
 

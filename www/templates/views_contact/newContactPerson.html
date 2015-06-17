@@ -14,7 +14,8 @@
     <form >
       <div class="list">
 <!--            style="height:15px"-->
-        <div class="item item-divider bar bar-header bar-assertive">{{ntitle}}</div>
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">{{ntitle}}</div>
           
         <label class="item item-input">
           <div class="input-label">Last name</div>
@@ -48,7 +49,8 @@
           <input type="text" maxlength="40" ng-model="entity.function" placeholder="Function" name="dto(function)" required="required" validated>    
         </label>
 
-        <div class="item item-divider bar bar-header bar-assertive">Comunication Info</div>
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">Comunication Info</div>
 
         <div class="item item-input" data-ng-repeat="choice in choices">
           <button class="button" style="border-style: none" ng-click="removeChoice(choice)">
@@ -66,7 +68,8 @@
           <select ng-model="telecom" ng-options="c.name for c in telecoms"></select>  
         </div> 
 
-        <div class="item item-divider bar bar-header bar-assertive">Additional info</div>            
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">Additional info</div>            
             <div class="row">
               <div class="col "> 
 
