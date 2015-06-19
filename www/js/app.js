@@ -8,12 +8,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .run(function($translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
-  
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
-    
-    
-    
     
     // IF AUTHENTICATION IS FALSE GO TO LOGIN
     // var authentication = AuthenticationService.isLoggedIn();
@@ -22,6 +18,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     //   $location.path('/login');
     // }
     // else {
+
       console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
       //VALIDATE ROUTE
         // var rout = validateRoute($location.url());
@@ -39,7 +36,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 
   $ionicPlatform.ready(function() {
-      
+        
+    ionic.Platform.fullScreen(true,true);
+        
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
       $translate.use("fr");  
@@ -91,6 +90,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       });
      },null);
     }
+
   });
 })
 
@@ -112,7 +112,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Subject",
     
     Description: "Description",
-    CheckFolder: "Please check your folder BMapp.",
+    CheckFolder: "Please check your folder bm App.",
     Downloaded: "Downloaded",
     SelectAnother: "Please select another folder.",
     PulltoRefresh: "Please pull to refresh.",
@@ -184,7 +184,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Asunto",
     
     Description: "Descripcion",
-    CheckFolder: "Por favor revise su carpeta de BMapp.",
+    CheckFolder: "Por favor revise su carpeta de bm App.",
     Downloaded: "Descargado",
     SelectAnother: "Por favor, seleccione otra carpeta.",
     PulltoRefresh: "Por favor, deslice para refrescar.",
@@ -258,7 +258,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Betreff",
     
     Description: "Beschreibung",
-    CheckFolder: "Bitte überprüfen Sie Ihre Ordner BMapp.",
+    CheckFolder: "Bitte überprüfen Sie Ihre Ordner bm App.",
     Downloaded: "Heruntergeladen",
     SelectAnother: "Bitte wählen Sie einen anderen Ordner",
     PulltoRefresh: "Bitte ziehen Sie zur Erfrischung.",
@@ -332,7 +332,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Affaire", 
       
     Description: "Description",
-    CheckFolder: "Se il vous plaît vérifier votre dossier BMapp.", 
+    CheckFolder: "Se il vous plaît vérifier votre dossier bm App.", 
     Downloaded: "Téléchargé", 
     SelectAnother: "Se il vous plaît sélectionner un autre dossier", 
     PulltoRefresh: "Se il vous plaît tirer pour rafraîchir.", 

@@ -20,14 +20,6 @@ angular.module('starter.rolesroutes', ['starter.rolescontrollers'])
       }
   })
 
-  // ROUTE LOGOUT
-  .state('logout',{
-      url: '/logout',
-      cache: false,
-      templateUrl: 'templates/login.html',
-      controller: 'logoutController'
-  })
-
   // ROUTE APP
   .state('app', {
     url: "/app",

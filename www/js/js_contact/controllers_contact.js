@@ -322,7 +322,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('EditContactPersonCtrl', function($cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -473,6 +473,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     
       contIndexTelecom = [];
       var fd = new FormData(); 
+      // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
+      // fd.append('contactId',mainData.entity.addressId);
 
       fd.append('dto(addressId)', mainData.entity.addressId);
       fd.append('dto(contactPersonId)', mainData.entity.contactPersonId);
@@ -481,6 +483,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(name1)', mainData.entity.name1);
       fd.append('dto(privateVersion)', mainData.entity.privateVersion);
       fd.append('dto(version)', mainData.entity.version);
+
       // fd.append('contactId', mainData.entity.addressId);
 
       console.log('--1');
@@ -512,9 +515,26 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
       console.log('--4');
 
+      // var cityRequest = $http({
+      //   method: "post",        
+      //   url: apiUrlLocal+"/bmapp/ContactPerson/Update.do?module=contacts&dto(version)=9&contactId="+mainData.entity.addressId,      
+      //   data: {
+      //       'countryId' : "12"
+      //    }
+      // });
+  // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
+  var fd2 = new FormData(); 
+      // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
+      // fd.append('contactId',mainData.entity.addressId);
+
+      fd2.append('contactId', mainData.entity.addressId);
+
       $.ajax({
-        url: apiUrlLocal+"/bmapp/ContactPerson/Update.do?contactId="+mainData.entity.addressId,
-        data: fd,
+        url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
+        // data: fd,
+        // data: fd+"&module=contacts&dto(version)=9&contactId="+mainData.entity.addressId,
+        data: fd, 
+
         processData: false,
         contentType: false,
         type: 'POST',

@@ -47,7 +47,8 @@
         </ion-item>
 <!-- ng-click="doLogin()" -->
 <!--  href="#/login" -->
-        <ion-item nav-clear menu-close href="#/login">
+        <!-- <ion-item nav-clear menu-close href="#/login"> -->
+        <ion-item nav-clear menu-close ng-click="logout()" >
           <i class="icon ion-log-out" style='{{colorFont}}'>
             {{ 'Logout' | translate}}
           </i>
