@@ -469,8 +469,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.saveContactPerson = function() {
 
-      console.log("---------0",mainData.entity);
-    
       contIndexTelecom = [];
       var fd = new FormData(); 
       // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
@@ -484,10 +482,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(privateVersion)', mainData.entity.privateVersion);
       fd.append('dto(version)', mainData.entity.version);
 
-      // fd.append('contactId', mainData.entity.addressId);
-
-      console.log('--1');
-      
       $scope.choices.forEach(function(choice){      
         index = verifyIndexTelecom(contIndexTelecom,choice);
         if(index == 0){
@@ -498,8 +492,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append(newdata,choice.value);        
       });
 
-      console.log('--2');
-
       $scope.telecoms.forEach(function(telecom){
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
@@ -507,34 +499,13 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append(newdata,telecom.value);       
       });    
 
-      console.log('--3');
-
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      console.log('--4');
-
-      // var cityRequest = $http({
-      //   method: "post",        
-      //   url: apiUrlLocal+"/bmapp/ContactPerson/Update.do?module=contacts&dto(version)=9&contactId="+mainData.entity.addressId,      
-      //   data: {
-      //       'countryId' : "12"
-      //    }
-      // });
-  // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
-  var fd2 = new FormData(); 
-      // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
-      // fd.append('contactId',mainData.entity.addressId);
-
-      fd2.append('contactId', mainData.entity.addressId);
-
       $.ajax({
         url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
-        // data: fd,
-        // data: fd+"&module=contacts&dto(version)=9&contactId="+mainData.entity.addressId,
         data: fd, 
-
         processData: false,
         contentType: false,
         type: 'POST',
