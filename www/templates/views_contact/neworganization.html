@@ -14,7 +14,8 @@
     <form >
       <div class="list">
 <!--            style="height:15px"-->
-        <div class="item item-divider bar bar-header bar-assertive">{{ntitle}}</div>
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">{{ntitle}}</div>
           
         <label class="item item-input">
           <div class="input-label">Name</div>
@@ -51,7 +52,8 @@
           <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages" ></select>    
         </label>
 
-        <div class="item item-divider bar bar-header bar-assertive">Comunication Info</div>
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">Comunication Info</div>
 
           <div class="item item-input" data-ng-repeat="choice in choices">
             <div class="row ">
@@ -85,7 +87,8 @@
           </div>        
         
 
-        <div class="item item-divider bar bar-header bar-assertive">Data access security</div>  <div data-ng-repeat="group in GroupsAvailable" >              
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">Data access security</div>  <div data-ng-repeat="group in GroupsAvailable" >              
             <div class="item item-toggle">
                {{group.name}}
                <label class="toggle toggle-assertive">
@@ -97,7 +100,8 @@
             </div>
           </div>
 
-        <div class="item item-divider bar bar-header bar-assertive">Additional info</div>            
+        <div class="item item-divider bar bar-header bar-assertive" style="
+        height: 35px;">Additional info</div>            
             <!-- <div class="list card">
 
               <div class="button-bar">
