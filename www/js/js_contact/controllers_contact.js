@@ -322,6 +322,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
+.controller('newContactPersonCtrl',function(){
+  console.log('-----new conta Person');
+})
+
 .controller('EditContactPersonCtrl', function($state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
@@ -2090,18 +2094,24 @@ $scope.search = function () {
     accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
 
     // IF CONTACT PERSON HAVE PERMISSION TO READ
+    var result = '#';
     if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
-      return "#";
+      result = '#';
     }
-    switch(type) {
-      case 'contactPerson':
-          return '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+    // switch(type) {
+      // case 'contactPerson':
+      result = '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
           
-          break;
-      default:
-          return "#";
-    }    
+          // break;
+      // default:
+      return result;
+    // }    
   };
+
+  $scope.newContactPerson = function(){
+    console.log('==CONTACT CONTROLLER== go to new contact controller');
+    $state.go('app.newContactPerson');
+  }
 
   $scope.searchcon = function(){
     $scope.showSearchBar = !$scope.showSearchBar;

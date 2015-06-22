@@ -6,12 +6,15 @@
       <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
     
-
     <!-- Href to add contact person -->
     <!-- ng-click="" -->
-    <button class="button" style="border-style: none" >
+    <button class="button" style="border-style: none" ng-click="newContactPerson()">
       <i class="icon ion-person-add" style="{{colorFont}}"></i>
     </button>
+
+    <a>
+      <button class="button" style="border-style: none;height: 0px;padding-left: 0px;padding-right: 0px;"></button>
+    </a>
 
   </ion-nav-buttons>
 
@@ -30,7 +33,7 @@
   <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
 
 
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    <ion-refresher pulling-text="{{ 'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>
 
     <ion-list ng-repeat="item in contacts">

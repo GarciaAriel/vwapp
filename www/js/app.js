@@ -9,47 +9,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-
-    // IF AUTHENTICATION IS FALSE GO TO LOGIN
-    // var authentication = AuthenticationService.isLoggedIn();
-    // if ( authentication == false ) {
-    //   console.log("==VALIDATE ROUTE== USER NO AUTHENTICATION");
-    //   $location.path('/login');
-    // }
-    // else {
-
-      console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
-      //VALIDATE ROUTE
-        // var rout = validateRoute($location.url());
-        // console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
-
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
-      
-      //IF VALIDATE ROUTE FALSE GO TO /app
-      // if (rout == false) {
-      //   console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
-      //   ev.preventDefault();
-      //   $location.path('/login');
-      // }
-    // }
   });
 
   $ionicPlatform.ready(function() {
     
     ionic.Platform.fullScreen(true,true);
 
-    var User = $localstorage.get("currentUser");
-    console.log('currentUser---------------',User);
-
-    if( User == 'true') {
-      $state.go('app.contacts');
-      console.log('currentUser---------------trueeee');
-    }
-    // if (currentUser != true) {
-    //   $state.go('login');
-    //   console.log('currentUser---------------falseee'); 
-    // }
-        
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
       $translate.use("fr");  
@@ -64,6 +30,12 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         }
       }
     }  
+
+    var User = $localstorage.get("currentUser");
+    console.log('Current User registration: ',User);
+    if( User == 'true') {
+      $state.go('app.contacts');
+    }
        
     StatusBar.overlaysWebView(false);
 
@@ -101,6 +73,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       });
      },null);
     }
+
   });
 })
 

@@ -31,13 +31,13 @@
         	<img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 60px;">
 	        <div>
 
-            <div ng-if="contact.mainData.entity.name2 == ''" class="card">
+            <div ng-if="contact.mainData.entity.name2 == ''">
               <div class="item item-body-auto">
                 {{titleperson}} {{contact.mainData.entity.name1}}
               </div>
             </div>
 
-            <div ng-if="contact.mainData.entity.name2 != ''" class="card">
+            <div ng-if="contact.mainData.entity.name2 != ''">
               <div class="item item-body-auto">
                {{titleperson}} {{contact.mainData.entity.name1}}, {{contact.mainData.entity.name2}}
               </div>

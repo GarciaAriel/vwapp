@@ -12,17 +12,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
   $scope.accessRightContact = $scope.accessRight.CONTACT.VIEW;
   $scope.accessRightPerson = $scope.accessRight.CONTACT.VIEW;
 
-
-//   var currentUser = $localstorage.get("currentUser");
-//   var url = $location.url();
-//   console.log("aaaa-----url",url);
-//   console.log("aaaa-----currentUser",currentUser);
-// // (url != '/login')
-//   if (currentUser ) {
-//     console.log("aaaa-----true");
-//     $state.go('app.contacts');
-//   }
-
   $scope.logout = function(){
 
     $scope.callResult = LogoutService.query({});
@@ -85,18 +74,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     }).then(function(modal) {
       $scope.modal = modal;
     });
-
-    // 111111111111
-//     var currentUser = $localstorage.get("currentUser");
-//     var url = $location.url();
-//     console.log("-----url",url);
-//     console.log("-----currentUser",currentUser);
-// // (url != '/login')
-//     if (currentUser && (url != '/login')) {
-//       $state.go('app.contacts');
-//     }
-
-    // 2222222222
 
     $scope.ChangeLanguage = function(lang){
       $translate.use(lang);
