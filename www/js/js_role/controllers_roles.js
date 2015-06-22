@@ -28,7 +28,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
     $scope.callResult = LogoutService.query({});
        
     $scope.callResult.$promise.then(function (results){
-      $localstorage.set("currentUser",false);
+      $localstorage.set("currentUser",'false');
       console.log("==CONTROLLER ROLES== logout",results);
       $state.go('login');
     })
@@ -182,14 +182,13 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           
           console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
 
-          $localstorage.set("currentUser",true);
-
           if( data.forward != "Fail")
           {
             $localstorage.setObject('accessRight',data.mainData.accessRight);
             $localstorage.setObject('userInfo',data.mainData.userInfo);
             $localstorage.setObject('rememberUsername',$scope.data.username);
             $localstorage.setObject('rememberCompany',$scope.data.company);
+            $localstorage.set("currentUser",'true');
 
             var lenguage = data.mainData.userInfo.locale;
             console.log("==CONTROLLER LOGIN==  lenguage: ","-"+lenguage+"-" );

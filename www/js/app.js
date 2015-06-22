@@ -6,11 +6,10 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
+.run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
 
-    
     // IF AUTHENTICATION IS FALSE GO TO LOGIN
     // var authentication = AuthenticationService.isLoggedIn();
     // if ( authentication == false ) {
@@ -36,8 +35,20 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 
   $ionicPlatform.ready(function() {
-        
+    
     ionic.Platform.fullScreen(true,true);
+
+    var User = $localstorage.get("currentUser");
+    console.log('currentUser---------------',User);
+
+    if( User == 'true') {
+      $state.go('app.contacts');
+      console.log('currentUser---------------trueeee');
+    }
+    // if (currentUser != true) {
+    //   $state.go('login');
+    //   console.log('currentUser---------------falseee'); 
+    // }
         
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
@@ -90,11 +101,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       });
      },null);
     }
-
   });
 })
 
 .config(function($translateProvider) {
+
   $translateProvider.translations("en", {
     Close: "Close",
     Monday: "Monday",
