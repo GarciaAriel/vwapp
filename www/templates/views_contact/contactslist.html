@@ -37,7 +37,7 @@
       <i class="icon ion-ios7-search placeholder-icon"></i>
 
       <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="search()">
-      <button class="button button-clear" ng-click="doRefresh()">X</button>
+      <button class="button button-clear" ng-click="hideSearch()">X</button>
     </span>
 
     <button class="button button-clear button-assertive" ng-click="search()">{{ 'Search' | translate}}</button>

@@ -322,7 +322,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('EditContactPersonCtrl', function($http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -368,8 +368,14 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       });                  
   });  
 
-  $scope.choices = [];
   $scope.iframeWidth = $(window).width();
+  $scope.choices = [];
+  $scope.entity.telecoms.forEach(function(telecom){      
+      telecom.telecomList.forEach(function(item){
+        var newItemNo = $scope.choices.length+1;
+        $scope.choices.push({'id':newItemNo, value:item.data, telecom:{value: telecom.telecomTypeId ,name: telecom.telecomTypeName}});
+      });        
+  });
   
   $scope.removeChoice = function(choice) {
     var index = $scope.choices.indexOf(choice);    
@@ -447,6 +453,24 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     });
   };
 
+  verifyIndexTelecom = function(contIndexTelecom,choice){
+      respCont = 0;
+      enterIn = false;
+      contIndexTelecom.forEach(function(cont){
+        if(cont.id == choice.telecom.value)
+        {
+          cont.cont = cont.cont + 1;
+          respCont= cont.cont;
+          enterIn = true;
+        }  
+      });
+      if(!enterIn)
+      {
+        contIndexTelecom.push({id:choice.telecom.value , cont:0});
+      }
+      return respCont;
+    }
+
   dataURItoBlob = function(dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;
@@ -471,16 +495,25 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
       contIndexTelecom = [];
       var fd = new FormData(); 
-      // +"module=contacts&dto(version)=9&contactId="+mainData.entity.addressId
-      // fd.append('contactId',mainData.entity.addressId);
-
+      
       fd.append('dto(addressId)', mainData.entity.addressId);
       fd.append('dto(contactPersonId)', mainData.entity.contactPersonId);
       fd.append('dto(companyId)', mainData.entity.companyId);
       fd.append('dto(addressType)', mainData.entity.addressType);
       fd.append('dto(name1)', mainData.entity.name1);
+      fd.append('dto(name2)', mainData.entity.name2);
       fd.append('dto(privateVersion)', mainData.entity.privateVersion);
       fd.append('dto(version)', mainData.entity.version);
+      fd.append('dto(function)', mainData.entity.function);
+
+      if($scope.department != undefined){
+
+        fd.append( 'dto(departmentId)', $scope.department.value);
+      }
+
+      if($scope.personType != undefined){
+        fd.append( 'dto(personTypeId)', $scope.personType.value);
+      }
 
       $scope.choices.forEach(function(choice){      
         index = verifyIndexTelecom(contIndexTelecom,choice);
@@ -513,7 +546,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           var result = JSON.parse(data);
           if(result.forward == "Success")
           {
-            console.log("Organization edit succesfull");          
+            console.log("Contact person edit succesfull");          
             $state.go('app.contacts'); 
           }
           else
@@ -566,6 +599,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         };
         // $window.location.reload();
     })
+
+  $scope.hideSearch = function() {
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };    
 
 
 $scope.doRefresh = function() {
@@ -1312,7 +1350,7 @@ $scope.search = function () {
       if($scope.country != undefined){
         fd.append( 'countryId', $scope.country.value);
       }
-      if($scope.language != undefined){
+      if($scope.language != undefined){console.log('----------------------1',$scope.language.value);
         fd.append( 'dto(languageId)', $scope.language.value);  
       }
       if($scope.city != undefined){
@@ -1711,35 +1749,18 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
-    $scope.firstGruoup = [];
-    $scope.secondGruoup = [];
-    $scope.auxEmail = [];
-    $scope.auxFax = [];
-    $scope.auxLink = [];    
-    $scope.telecomss.forEach(function(telecom) {
+    function compare(a,b) {     
+      if (a.telecomTypePosition > b.telecomTypePosition) {
+        return 1;
+      }
+      if (a.telecomTypePosition < b.telecomTypePosition) {
+        return -1;
+      }
+      return 0;
+    }
 
-      switch(telecom.telecomTypeType) {
-          case 'PHONE':
-              $scope.firstGruoup.push(telecom);
-              break;
-          case 'EMAIL':
-              $scope.auxEmail.push(telecom);
-              break;
-          case 'OTHER':
-              $scope.secondGruoup.push(telecom);
-              break;
-          case 'FAX':
-              $scope.auxFax.push(telecom);
-              break;         
-          case 'LINK':
-              $scope.auxLink.push(telecom);
-              break;
-      }     
-    });
-
-    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
+    $scope.telecomss.sort(compare);
+    console.log('list of telecoms sort',$scope.telecomss);
 
     $scope.writeEmail = function(email)
     {      
@@ -1784,13 +1805,6 @@ $scope.search = function () {
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
 
-    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
-    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
-
-    function compare(a,b) {     
-      return a.telecomTypePosition - b.telecomTypePosition        
-    }
-    
   });
 
 })
@@ -1817,40 +1831,18 @@ $scope.search = function () {
 
     $scope.telecomss=results.mainData.entity.telecoms;    
 
-    $scope.firstGruoup = [];
-    $scope.secondGruoup = [];
-    $scope.auxEmail = [];
-    $scope.auxFax = [];
-    $scope.auxLink = [];    
-    $scope.telecomss.forEach(function(telecom) {
+    function compare(a,b) {     
+      if (a.telecomTypePosition > b.telecomTypePosition) {
+        return 1;
+      }
+      if (a.telecomTypePosition < b.telecomTypePosition) {
+        return -1;
+      }
+      return 0;
+    }
 
-      switch(telecom.telecomTypeType) {
-          case 'PHONE':
-              $scope.firstGruoup.push(telecom);
-              break;
-          case 'EMAIL':
-              $scope.auxEmail.push(telecom);
-              break;
-          case 'OTHER':
-              $scope.secondGruoup.push(telecom);
-              break;
-          case 'FAX':
-              $scope.auxFax.push(telecom);
-              break;         
-          case 'LINK':
-              $scope.auxLink.push(telecom);
-              break;
-      }     
-    });
-
-    
-
-
-
-    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink); 
-   
+    $scope.telecomss.sort(compare);
+    console.log('list of telecoms sort',$scope.telecomss);
 
     $scope.writeEmail = function(email)
     {      
@@ -1892,12 +1884,6 @@ $scope.search = function () {
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
 
-    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
-    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
-
-    function compare(a,b) {     
-      return a.telecomTypePosition - b.telecomTypePosition        
-    }
   });
 
 })
@@ -1924,35 +1910,18 @@ $scope.search = function () {
     $scope.telecomss=results.mainData.entity.telecoms;
     console.log("list of telecoms",$scope.telecomss);
 
-    $scope.firstGruoup = [];
-    $scope.secondGruoup = [];
-    $scope.auxEmail = [];
-    $scope.auxFax = [];
-    $scope.auxLink = [];    
-    $scope.telecomss.forEach(function(telecom) {
+    function compare(a,b) {     
+      if (a.telecomTypePosition > b.telecomTypePosition) {
+        return 1;
+      }
+      if (a.telecomTypePosition < b.telecomTypePosition) {
+        return -1;
+      }
+      return 0;
+    }
 
-      switch(telecom.telecomTypeType) {
-          case 'PHONE':
-              $scope.firstGruoup.push(telecom);
-              break;
-          case 'EMAIL':
-              $scope.auxEmail.push(telecom);
-              break;
-          case 'OTHER':
-              $scope.secondGruoup.push(telecom);
-              break;
-          case 'FAX':
-              $scope.auxFax.push(telecom);
-              break;         
-          case 'LINK':
-              $scope.auxLink.push(telecom);
-              break;
-      }     
-    });
-
-    $scope.firstGruoup = $scope.firstGruoup.concat($scope.auxEmail);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxFax);
-    $scope.secondGruoup = $scope.secondGruoup.concat($scope.auxLink);  
+    $scope.telecomss.sort(compare);
+    console.log('list of telecoms sort',$scope.telecomss);
 
     $scope.seeContactsPerson = function (){
       $state.go('app.seeContactsPerson');
@@ -2044,6 +2013,11 @@ $scope.search = function () {
       $scope.asknext = true;  
     };
   })
+
+  $scope.hideSearch = function() {
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };
 
   $scope.doRefresh = function() {
     $scope.searchKey = "";

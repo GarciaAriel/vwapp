@@ -67,37 +67,23 @@
        </div>
        <div class="item item-body">
           <div ng-if="firstGruoup.length != 0">
-                <div ng-repeat="telecom in firstGruoup">
+                <div ng-repeat="telecom in telecomss">
                   <div ng-repeat="tele in telecom.telecomList">
                     <table style="width:100%">
                       <tr>
                         <td style="width:35%;">{{telecom.telecomTypeName}}:</td>                                            
-                        <td style="width:65%;">  
-                         <a ng-if="telecom.telecomTypeType == 'PHONE'" ng-href="tel:{{tele.data}}">{{tele.data}}</a>   
-                        <a ng-click="writeEmail(tele.data)" ng-if="telecom.telecomTypeType == 'EMAIL'">{{tele.data}}</a>
+                        <td style="width:65%;">
+                          <a ng-if="telecom.telecomTypeType == 'PHONE'" ng-href="tel:{{tele.data}}">{{tele.data}}</a>   
+                          <a ng-if="telecom.telecomTypeType == 'EMAIL'" ng-click="writeEmail(tele.data)">{{tele.data}}</a>
+                          <a ng-if="telecom.telecomTypeType == 'LINK'"  ng-click="go_to(tele.data)">{{tele.data}}</a>
+                          <a ng-if="telecom.telecomTypeType != 'LINK' && telecom.telecomTypeType != 'EMAIL' && telecom.telecomTypeType != 'PHONE'" >{{tele.data}}</a>
                         </td>                    
                       </tr>                    
                     </table>                           
                   </div>
             </div>
-          </div>
-          <br>
-          <div ng-if="secondGruoup.length != 0">            
-                <div ng-repeat="telecom in secondGruoup">
-                  <div ng-repeat="tele in telecom.telecomList">
-                    <table style="width:100%">
-                      <tr>
-                        <td style="width:35%;">{{telecom.telecomTypeName}}:</td>                                            
-                       <td style="width:65%;">
-                          <a ng-if="telecom.telecomTypeType == 'LINK'"  href="#" ng-click="go_to(tele.data)">{{tele.data}}</a>
-                          <a ng-if="telecom.telecomTypeType != 'LINK'" >{{tele.data}}</a>
-                          </td>                    
-                      </tr>                    
-                    </table> 
-                  </div>
-                </div>              
-          </div>
-      	</div>
+          </div>   
+       </div>
     </div>
 
   </ion-content>
