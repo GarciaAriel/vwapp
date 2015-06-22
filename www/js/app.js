@@ -96,6 +96,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .config(function($translateProvider) {
   $translateProvider.translations("en", {
+    Close: "Close",
     Monday: "Monday",
     Tuesday: "Tuesday",
     Wednesday: "Wednesday",
@@ -168,6 +169,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+    Close: "Cerrar",
     Monday: "Lunes",
     Tuesday: "Martes",
     Wednesday: "Miércoles",
@@ -242,6 +244,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+    Close: "Schließen",
     Monday: "Montag",
     Tuesday: "Dienstag",
     Wednesday: "Mittwoch",
@@ -316,6 +319,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+    Close: "Près",
     Monday: "Lundi",
     Tuesday: "Mardi",
     Wednesday: "Mercredi",

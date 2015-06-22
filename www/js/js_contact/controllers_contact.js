@@ -1969,18 +1969,11 @@ $scope.search = function () {
     // save contact for edit do not call service
     bridgeService.saveContact($scope.contact.mainData);
 
-    $scope.firstGruoup = $scope.firstGruoup.sort(compare);
-    $scope.secondGruoup = $scope.secondGruoup.sort(compare);
-
-    function compare(a,b) {     
-      return a.telecomTypePosition - b.telecomTypePosition        
-    }
-    
   });
 
 })
 
-.controller('ctrlSeeContactsPerson', function(apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+.controller('ctrlSeeContactsPerson', function($window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
 
   var mainData = bridgeService.getContact();
   console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
@@ -2012,6 +2005,26 @@ $scope.search = function () {
     if ( $scope.totalPages > $scope.page) {
       $scope.asknext = true;  
     };
+    // if no exists items show message
+    if ($scope.contacts.length == 0) {
+
+      var message = $filter('translate')('NoItems');
+      var messageClose = $filter('translate')('Close');
+      // An alert dialog
+      console.log("==CONTROLLER CONTACTS== alert if no exists items");
+      var alertPopup = $ionicPopup.alert({
+          title: message,
+          buttons: [
+            { text: '<b>'+messageClose+'</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $window.history.back();
+              }
+            },
+          ]
+      });
+    }
+    $ionicScrollDelegate.scrollTop();
   })
 
   $scope.hideSearch = function() {
