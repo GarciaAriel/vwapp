@@ -784,7 +784,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             console.log("Contact person create succesfull");
             $state.go('app.seeContactsPerson');
             // $state.go('app.contacts');
-            // aaaaaaaaaaa 
+            
           }
           else
           {           
@@ -2209,16 +2209,14 @@ $scope.search = function () {
 
 
 .controller('ContactPersonCtrl', function(contactPersonDetail,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
-    $scope.apiUrlLocal = apiUrlLocal;
-    $scope.colorFont = COLOR_VIEW;
+  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.colorFont = COLOR_VIEW;
 
-  console.log("param1 contactId", $stateParams.contactId);
-  console.log("param2 addressId", $stateParams.addressId);
-  console.log("param3 contactPersonId", $stateParams.contactPersonId);
-  console.log("param5 name1", $stateParams.name1);
-  console.log("param6 name2", $stateParams.name2);
-
-           // /ContactPerson/Forward/Update.do?contactId=1&                        dto(addressId)=1&                         dto(contactPersonId)=30525&                           dto(name1)=juan&                 dto(name2)=perez
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+  console.log('Access Right',$scope.accessRight);
+  
+  $scope.varUpdate = $scope.accessRight.CONTACTPERSON.UPDATE;  
+         
   $scope.contact = contactPersonDetail.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(name1)":$stateParams.name1,"dto(name2)":$stateParams.name2});
 
   $scope.contact.$promise.then(function (results){
@@ -2297,7 +2295,7 @@ $scope.search = function () {
     $scope.colorFont = COLOR_VIEW;
 
   $scope.accessRight = $localstorage.getObject('accessRight');  
-  console.log('-----------Access Right',$scope.accessRight);
+  console.log('Access Right',$scope.accessRight);
   
   $scope.varUpdate = $scope.accessRight.CONTACT.UPDATE;  
   $scope.varView = $scope.accessRight.CONTACTPERSON.VIEW;  
