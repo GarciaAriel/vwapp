@@ -207,7 +207,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     var date = new Date();
     
     if ( (dd == date.getDate()) && (mm == (date.getMonth())) && (yy == date.getFullYear()) ) {
-      
+      // date: in the same day
       var hhh = day_Send.getHours();
       var mmmm = (day_Send.getMinutes()).toString();
       
@@ -216,6 +216,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       return (hhh+":"+mmm);  
     }
     else {
+      // date: week
       var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
       // var firstDate = new Date(date.getFullYear(),date.getMonth()+1,date.getDate());
       // var secondDate = new Date(yy,mm,dd);
@@ -249,10 +250,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         return weekdays[day];
       }
       else{// "28/05/2015 23:25"
+        // date: older
         var d = (dd.toString()).length < 2 ? "0"+dd : dd;
-        var m = (mm.toString()).length < 2 ? "0"+mm : mm;
+        var mes = parseInt(mm) + 1;
+        var ms = (mes.toString()).length < 2 ? "0"+mes : mes;
         
-        var ddddd = d+"-"+m+"-"+(yy.toString()).substring(2, 4);
+        var ddddd = d+"-"+ms+"-"+(yy.toString()).substring(2, 4);
         return ddddd;
       }
     }
@@ -379,12 +382,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               // call factory 
               PopupFactory.getPopup($scope,data);
 
+              console.log("==CONTROLLER WEBMAIL== html body",data);
+
+              // var newHtml = data.split('width="600"').join(' ');
+              // var newHtml = data.split('width="500"').join(' ');
+              // var newHtml = data.split('width="140"').join(' ');
+              // var newHtml = data.split('width="183"').join(' ');
+              // var newHtml = data.split('width="310"').join(' ');
+              // var newHtml = data.split('width="200"').join(' ');
+              // var newHtml = data.split('width="138"').join(' ');
+
               var newHtml = data.split("<img").join(" <img class='img-class' ");
-              // var newHtml = data.substr(0, pos+5) + "width='100%'" + data.substr(pos+5);
+              
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
-                // when the response is available
-                console.log("==CONTROLLER WEBMAIL== html body",newHtml);
-              }).
+            }).
             error(function(data, status, headers, config) {
               // or server returns response with an error status.
             });
@@ -405,13 +416,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // DOWNLOAD FILE
     $scope.download = function(attach) {
-        // $ionicLoading.show({
-        //   template: 'Loading...'
-        // });
-        console.log("1111111");
+        $ionicLoading.show({
+          template: '<i class="ion-loading-d"></i>'
+        });
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
             fs.root.getDirectory(
-                "BMapp",
+                "bm App",
                 {
                     create: true
                 },
@@ -429,16 +439,22 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                             fe.remove();
                             ft = new FileTransfer();
                             ft.download(
-                                // encodeURI("http://ionicframework.com/img/ionic-logo-blog.png"),
                                 encodeURI(apiUrlLocal+attach.downloadUrl),
-                                
                                 p,
                                 function(entry) {
-                                    // $ionicLoading.hide();
+                                    $ionicLoading.hide();
                                     $scope.imgFile = entry.toURL();
+
+                                    var message = $filter('translate')('Downloaded');
+                                    var messageCheck = $filter('translate')('CheckFolder');
+                                    
+                                    var alertPopup = $ionicPopup.alert({
+                                      title: message,
+                                      template: messageCheck
+                                    });
                                 },
                                 function(error) {
-                                    // $ionicLoading.hide();
+                                    $ionicLoading.hide();
                                     alert("Download Error Source -> " + error.source);
                                 },
                                 false,
@@ -446,7 +462,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
                             );
                         }, 
                         function() {
-                            // $ionicLoading.hide();
+                            $ionicLoading.hide();
                             console.log("Get file failed");
                         }
                     );

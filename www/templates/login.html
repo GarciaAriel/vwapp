@@ -1,8 +1,11 @@
 
 <ion-view view-title="{{ 'Login' | translate}}" name="login-view">
-  <ion-content class="padding">  
+  <ion-content class="padding"> 
+    <br> 
     <div align="center">       
-        <img class="img-responsive" src="img/bm_image.png">
+        <img ng-if="imageUrlCompany == undefined" class="img-responsive" src="img/bm_image.png">
+        <img ng-if="imageUrlCompany != undefined" class="img-responsive" ng-src="{{imageUrlCompany}}">      
+      <!-- <div class="col"></div> -->
     </div>
     <br>
       <!-- ng-submit="doLogin()" -->

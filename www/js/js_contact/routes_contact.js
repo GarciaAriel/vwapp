@@ -44,7 +44,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.organization', {
     url: "/organization?contactId&addressId&contactPersonId&addressType",
-    cache: false,
+    cache: true,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/organization.html",
@@ -55,7 +55,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.person', {
     url: "/person?contactId&addressId&contactPersonId&addressType",
-    cache: false,
+    cache: true,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/person.html",
@@ -99,6 +99,28 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
     }
   })
 
+  $stateProvider.state('app.newContactPerson', {
+    url: "/newContactPerson",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/newContactPerson.html",
+        controller: 'newContactPersonCtrl'
+      }
+    }
+  })
+
+  $stateProvider.state('app.addContactPerson', {
+    url: "/addContactPerson",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/listToAddContactPerson.html",
+        controller: 'listToAddContactPersonCtrl'
+      }
+    }
+  })
+
   $stateProvider.state('app.editOrganization', {
     url: "/editOrganization",
     cache: false,
@@ -123,7 +145,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.seeContactsPerson', {
     url: '/seeContactsPerson',
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
        controller: 'ctrlSeeContactsPerson',

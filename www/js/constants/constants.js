@@ -26,6 +26,9 @@ angular.module('starter.constants',[])
 //path logout
 .constant('pathLogout','/bmapp/LogoffBMApp.do')
 
+//path list To Add Contact Person
+.constant('pathListToAddContactPerson','/bmapp/ContactPerson/SearchContact.do')
+
 //color view
 .constant('COLOR_VIEW','color: #ba0808')
 .constant('COLOR_2','#ba0808');

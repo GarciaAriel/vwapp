@@ -6,40 +6,16 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
-  
+.run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-
-    
-    
-    
-    
-    // IF AUTHENTICATION IS FALSE GO TO LOGIN
-    // var authentication = AuthenticationService.isLoggedIn();
-    // if ( authentication == false ) {
-    //   console.log("==VALIDATE ROUTE== USER NO AUTHENTICATION");
-    //   $location.path('/login');
-    // }
-    // else {
-      console.log("==VALIDATE ROUTE== AUTHENTICATION TRUE");
-      //VALIDATE ROUTE
-        // var rout = validateRoute($location.url());
-        // console.log("==VALIDATE ROUTE== URL LOCATION: ",$location.url());
-
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
-      
-      //IF VALIDATE ROUTE FALSE GO TO /app
-      // if (rout == false) {
-      //   console.log("==VALIDATE ROUTE== YOU CAN NOT SEE THIS WINDOW");
-      //   ev.preventDefault();
-      //   $location.path('/login');
-      // }
-    // }
   });
 
   $ionicPlatform.ready(function() {
-      
+    
+    ionic.Platform.fullScreen(true,true);
+
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
       $translate.use("fr");  
@@ -54,9 +30,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         }
       }
     }  
-       
-    StatusBar.overlaysWebView(false);
-
+    
     var isOnline = $cordovaNetwork.isOnline()
     if(!isOnline)
     {
@@ -68,6 +42,14 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         ionic.Platform.exitApp();
       });    
     }
+
+    var User = $localstorage.get("currentUser");
+    console.log('Current User registration: ',User);
+    if( User == 'true') {
+      $state.go('app.contacts');
+    }
+
+    StatusBar.overlaysWebView(false);
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     if (window.cordova && window.cordova.plugins.Keyboard) 
@@ -91,11 +73,16 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       });
      },null);
     }
+
+    
+
   });
 })
 
 .config(function($translateProvider) {
+
   $translateProvider.translations("en", {
+    Close: "Close",
     Monday: "Monday",
     Tuesday: "Tuesday",
     Wednesday: "Wednesday",
@@ -112,7 +99,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Subject",
     
     Description: "Description",
-    CheckFolder: "Please check your folder BMapp.",
+    CheckFolder: "Please check your folder bm App.",
     Downloaded: "Downloaded",
     SelectAnother: "Please select another folder.",
     PulltoRefresh: "Please pull to refresh.",
@@ -136,6 +123,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Company: "Company",
     Menu: "Menu",
     Contacts:   "Contacts",
+    ContactPersons:   "Contact Persons",
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: "Log out",
@@ -168,6 +156,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+    Close: "Cerrar",
     Monday: "Lunes",
     Tuesday: "Martes",
     Wednesday: "Miércoles",
@@ -184,7 +173,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Asunto",
     
     Description: "Descripcion",
-    CheckFolder: "Por favor revise su carpeta de BMapp.",
+    CheckFolder: "Por favor revise su carpeta de bm App.",
     Downloaded: "Descargado",
     SelectAnother: "Por favor, seleccione otra carpeta.",
     PulltoRefresh: "Por favor, deslice para refrescar.",
@@ -208,6 +197,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menu",
 
     Contacts:   "Contactos",
+    ContactPersons: "Personas de contacto",
     Scheduler: "Calendario",
     Webmail: "Webmail",
     Logout: "Salir", 
@@ -242,6 +232,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+    Close: "Schließen",
     Monday: "Montag",
     Tuesday: "Dienstag",
     Wednesday: "Mittwoch",
@@ -258,7 +249,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Betreff",
     
     Description: "Beschreibung",
-    CheckFolder: "Bitte überprüfen Sie Ihre Ordner BMapp.",
+    CheckFolder: "Bitte überprüfen Sie Ihre Ordner bm App.",
     Downloaded: "Heruntergeladen",
     SelectAnother: "Bitte wählen Sie einen anderen Ordner",
     PulltoRefresh: "Bitte ziehen Sie zur Erfrischung.",
@@ -282,6 +273,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menü",
 
     Contacts:   "Kontakte",
+    ContactPersons: "Kontaktpersonen",
     Scheduler: "Termine",
     Webmail: "Webmail",
     Logout: "Abmelden", 
@@ -316,6 +308,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+    Close: "Près",
     Monday: "Lundi",
     Tuesday: "Mardi",
     Wednesday: "Mercredi",
@@ -332,7 +325,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Subject: "Affaire", 
       
     Description: "Description",
-    CheckFolder: "Se il vous plaît vérifier votre dossier BMapp.", 
+    CheckFolder: "Se il vous plaît vérifier votre dossier bm App.", 
     Downloaded: "Téléchargé", 
     SelectAnother: "Se il vous plaît sélectionner un autre dossier", 
     PulltoRefresh: "Se il vous plaît tirer pour rafraîchir.", 
@@ -356,6 +349,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menu",
 
     Contacts:   "Contacts",
+    ContactPersons: "Personnes de contact",
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: " Sortir",

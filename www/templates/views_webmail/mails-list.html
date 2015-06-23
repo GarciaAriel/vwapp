@@ -17,12 +17,12 @@
   </ion-nav-buttons>
 
   <ion-content> 
-    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    <ion-refresher pulling-text="{{ 'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>
 
     <ion-list>
       
-      <ion-item class="item-avatar" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
+      <ion-item class="item item-thumbnail-left" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
 
       
         <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
@@ -32,11 +32,11 @@
         
         <span class="item-note" style="padding-right: 2px;">
           
-          <button ng-if="item.hasAttach == '1'" class="button button-small button-clear button-light">
+          <button ng-if="item.hasAttach == '1'" class="button button-small button-clear button-positive">
               <i class="icon ion-paperclip"></i>  
           </button>
 
-          <button class="button button-small button-clear {{item.hasReadState == 'false' ? 'button-light' : 'button-positive'}}">
+          <button class="button button-small button-clear {{item.hasReadState == 'false' ? 'button-positive' : 'button-light'}}">
               <i class="icon ion-checkmark-circled"></i>    
           </button>
           
