@@ -322,8 +322,475 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('newContactPersonCtrl',function(){
-  console.log('-----new conta Person');
+.controller('listToAddContactPersonCtrl',function(bridgeServiceNewContactPerson,$state,apiUrlLocal,$localstorage,$ionicScrollDelegate,listToAddContactPerson,bridgeService,$scope,PopupFactory){
+
+  var mainData = bridgeService.getContact();
+  console.log('bridge service result: ',mainData);
+
+  $scope.totalPages; 
+  $scope.page = 1; 
+  $scope.asknext = false; 
+  $scope.helpToCallList = false;
+  $scope.contacts = [];
+  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.showSearchBar = false;
+
+  $scope.newContacts = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+  
+  $scope.newContacts.$promise.then(function (results){
+        
+    // call factory 
+    PopupFactory.getPopup($scope,results);
+    
+    console.log("1. promise list to add contact person: ",(results['mainData']));
+
+    $scope.contacts = (results['mainData'])['list'];
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+    console.log("current page: ", $scope.page);
+    console.log("total pages: ", $scope.totalPages);
+
+    if ( $scope.totalPages > $scope.page) {
+      $scope.asknext = true;  
+    };
+    // if no exists items show message
+    if ($scope.contacts.length == 0) {
+
+      var message = $filter('translate')('NoItems');
+      var messageClose = $filter('translate')('Close');
+      // An alert dialog
+      console.log("==CONTROLLER CONTACTS== alert if no exists items");
+      var alertPopup = $ionicPopup.alert({
+          title: message,
+          buttons: [
+            { text: '<b>'+messageClose+'</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $window.history.back();
+              }
+            },
+          ]
+      });
+    }
+    $ionicScrollDelegate.scrollTop();
+  })
+
+  $scope.hideSearch = function() {
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };
+
+  $scope.doRefresh = function() {
+    $scope.searchKey = "";
+    $scope.page = 1;
+    $scope.helpToCallList = false;
+    $scope.showSearchBar = false;
+    $scope.asknext = false; 
+    $scope.newContacts = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+
+    $scope.newContacts.$promise.then(function (results){
+
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+      console.log("2. promise results: ",(results['mainData']));
+
+      if (results['forward'] == "") {
+        $scope.contacts = (results['mainData'])['list'];
+        
+        $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+        
+        if ( $scope.totalPages > $scope.page ) {
+          $scope.asknext = true;
+        };
+        $ionicScrollDelegate.scrollTop();
+        $scope.$broadcast('scroll.refreshComplete'); 
+      }
+    });
+  };  
+
+  $scope.loadMore = function() {
+    
+    $scope.page = $scope.page + 1;
+    // $scope.asknext = false;
+    $scope.newContacts = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+    $scope.newContacts.$promise.then(function(results){
+      
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+      console.log("3. promise results: ",(results['mainData']));
+
+      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      if ($scope.totalPages<$scope.page+1) {
+        $scope.asknext = false;  
+      };
+        
+    });
+  };
+
+  $scope.getContactUrl = function(item,type){  
+    var accessRight = $localstorage.getObject('accessRight');
+    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
+
+    // IF CONTACT PERSON HAVE PERMISSION TO READ
+    var result = '#';
+    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+      result = '#';
+    }
+    // switch(type) {
+      // case 'contactPerson':
+      result = '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+          
+          // break;
+      // default:
+      return result;
+    // }    
+  };
+
+  $scope.addContactPerson = function(item){
+    console.log('==CONTACT CONTROLLER== go to add contact person controller',item);
+    bridgeServiceNewContactPerson.saveContact(item);
+    $state.go('app.newContactPerson');
+  }
+
+
+
+  $scope.formSearch = function(){
+    $scope.showSearchBar = !$scope.showSearchBar;
+  }
+
+  $scope.search = function () {
+    
+    console.log("==CONTROLLER CONTACT== search contact person");
+    $scope.helpToCallList = true;
+    $scope.contacts = [];
+    $scope.showSearchBar = !$scope.showSearchBar;
+    console.log("-------search ---",$scope.searchKey);
+
+    $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+    $scope.asknext = false;
+
+    $scope.buscados.$promise.then(function (results){
+        // call factory 
+      PopupFactory.getPopup($scope,results);    
+
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+              
+      $scope.contacts = (results['mainData'])['list'];
+       
+      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.contacts.length == 0) {
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                
+    });
+      
+    $scope.loadMore = function() {
+      console.log("------------------1 loadMore dentro search");
+      $scope.page = $scope.page +1;     
+      console.log("trying to load more of the search",$scope.page);
+      if ($scope.helpToCallList) {
+        console.log("search load more: value true",mainData.entity.addressId);
+        $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+      }
+      else{
+        console.log("search load more: value false",mainData.entity.addressId);
+        $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+      }
+
+      
+      $scope.buscados.$promise.then(function(results){
+
+          // call factory 
+          PopupFactory.getPopup($scope,results);
+
+          $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+          $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          console.log("======0000new list of contacts for search",$scope.contacts);
+      });
+            
+      if ($scope.totalPages<$scope.page+1) {
+        $scope.asknext = false;  
+      };              
+    };
+  }
+})
+
+.controller('newContactPersonCtrl',function(bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+
+  // var mainData1 = $localstorage.getObject("EditContact");
+  
+  // var mainData = mainData.entity;
+  var mainData = bridgeService.getContact();
+  var entityComp = mainData.entity;
+
+  entity = bridgeServiceNewContactPerson.getContact();
+
+  console.log('bridgeService company',entityComp);
+  console.log('bridgeServiceNewContactPerson new contact person',entity);
+
+  $scope.information = {};
+  var request = $http({
+    method: "get",                                          
+    url: apiUrlLocal+"/bmapp/ContactPerson/Import.do?contactId="+entityComp.addressId+"&dto(addressIdToImport)="+entity.addressId+"&dto(addressType)="+entity.addressType+"&dto(name1)="+entity.name1+"&dto(name2)="+entity.name2,      
+  });
+  request.success(
+    function(data, status, headers, config) {    
+      // call factory 
+      PopupFactory.getPopup($scope,data);  
+      console.log('------sss',data);
+
+      $scope.mainData = data.mainData;
+      var entity = data.mainData.entity;
+      $scope.entity = data.mainData.entity;
+
+      var departmentArray = $scope.mainData.departmentArray;  
+        $scope.departments = [];    
+        departmentArray.forEach(function(department) {           
+          $scope.departments.push({
+            name: department.name,
+            value: department.departmentId
+          });       
+          if( entity.departmentId == department.departmentId) {             
+             $scope.department = $scope.departments[$scope.departments.length-1];  
+          } 
+      });  
+
+      var personTypeArray = $scope.mainData.personTypeArray;  
+        $scope.personTypes = [];    
+        personTypeArray.forEach(function(personType) {           
+          $scope.personTypes.push({
+            name: personType.name,
+            value:personType.personTypeId
+          });       
+          if(entity.personTypeId == personType.personTypeId) {             
+             $scope.personType = $scope.personTypes[$scope.personTypes.length-1];  
+          } 
+      });  
+
+      var telecomTypeArray = $scope.mainData.telecomTypeArray;
+      $scope.telecoms = []      
+      telecomTypeArray.forEach(function(telecom) {           
+          $scope.telecoms.push({
+            name: telecom.telecomTypeName,
+            value:telecom.telecomTypeId,
+          });                  
+      });  
+      
+      
+
+
+      
+  });
+
+  $scope.iframeWidth = $(window).width();  
+
+  $scope.choices = [];
+
+  $scope.removeChoice = function(choice) {
+    var index = $scope.choices.indexOf(choice);    
+    $scope.choices.splice(index,1);
+  };
+
+  $scope.addNewChoice = function(value,telecom) {  
+    var newItemNo = $scope.choices.length+1;
+    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+  };  
+
+  $scope.updateDepartment = function (nDepartment)
+  {
+    $scope.department = nDepartment;     
+  };
+
+  $scope.updatePersonType = function (nPersonType)
+  {
+    $scope.personType = nPersonType;     
+  };
+
+  $scope.pickerImage= function ()
+  {
+    var options = {
+    maximumImagesCount: 1,
+    width: 300,
+    height: 300,
+    quality: 75
+    };
+
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {          
+          convertImgToBase64(results[0], function(base64Img){
+              $scope.$apply(function(){
+                $scope.imgURI=base64Img;
+              })           
+          });      
+      }, function(error) {
+        // error getting photos
+      })
+  };
+  function convertImgToBase64(url, callback, outputFormat){
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+      canvas.height = this.height;
+      canvas.width = this.width;
+        ctx.drawImage(this,0,0);
+        var dataURL = canvas.toDataURL(outputFormat || 'image/jpeg');
+        callback(dataURL);
+        canvas = null; 
+    };
+    img.src = url;
+  };
+
+  $scope.takePicture = function() {
+    var options = { 
+        quality : 75, 
+        destinationType : Camera.DestinationType.DATA_URL, 
+        sourceType : Camera.PictureSourceType.CAMERA, 
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {      
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+        // An error occured. Show a message to the user
+    });
+  };
+
+  verifyIndexTelecom = function(contIndexTelecom,choice){
+      respCont = 0;
+      enterIn = false;
+      contIndexTelecom.forEach(function(cont){
+        if(cont.id == choice.telecom.value)
+        {
+          cont.cont = cont.cont + 1;
+          respCont= cont.cont;
+          enterIn = true;
+        }  
+      });
+      if(!enterIn)
+      {
+        contIndexTelecom.push({id:choice.telecom.value , cont:0});
+      }
+      return respCont;
+    }
+
+  dataURItoBlob = function(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+    }
+
+    $scope.saveContactPerson = function() {
+      console.log('-----sssdfasdfsadf------',$scope.entity);
+      contIndexTelecom = [];
+      var fd = new FormData(); 
+
+      fd.append('dto(addressId)', entityComp.addressId);
+      fd.append('dto(addressIdToImport)', $scope.entity.addressIdToImport );
+      fd.append('dto(importAddress)', true);      
+      fd.append('dto(name1)', $scope.entity.name1);
+      fd.append('dto(name2)', $scope.entity.name2);
+
+      fd.append('dto(function)', $scope.entity.function);
+
+      if($scope.department != undefined){
+
+        fd.append( 'dto(departmentId)', $scope.department.value);
+      }
+
+      if($scope.personType != undefined){
+        fd.append( 'dto(personTypeId)', $scope.personType.value);
+      }
+
+      $scope.choices.forEach(function(choice){      
+        index = verifyIndexTelecom(contIndexTelecom,choice);
+        if(index == 0){
+          newdata = "telecom("+choice.telecom.value+").predeterminedIndex";
+          fd.append(newdata,0);
+        }
+        newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data"; 
+        fd.append(newdata,choice.value);        
+      });
+
+      $scope.telecoms.forEach(function(telecom){
+        newdata = "telecom("+telecom.value+").telecomTypeId";
+        fd.append(newdata,telecom.value);     
+        newdata = "telecom("+telecom.value+").telecomTypeName";
+        fd.append(newdata,telecom.value);       
+      });    
+
+      if($scope.imgURI != undefined){
+        fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
+      }    
+
+      $.ajax({               
+        url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
+        data: fd, 
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Contact person create succesfull");          
+            $state.go('app.contacts'); 
+          }
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
+        }
+      });  
+
+    };
+  
+  // /ContactPerson/Import.do?contactId=1&dto(addressIdToImport)=11480&dto(addressType)=1&dto(name1)=juan&dto(name2)=perez
+  // get object to BRIDGE SERVICE to edit
+  
 })
 
 .controller('EditContactPersonCtrl', function($state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
@@ -1979,6 +2446,11 @@ $scope.search = function () {
 
 .controller('ctrlSeeContactsPerson', function($window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
 
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+  console.log('------------accessRight',$scope.accessRight);
+  
+  $scope.varCreate = $scope.accessRight.CONTACTPERSON.CREATE;
+  
   var mainData = bridgeService.getContact();
   console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
   
@@ -2108,10 +2580,12 @@ $scope.search = function () {
     // }    
   };
 
-  $scope.newContactPerson = function(){
-    console.log('==CONTACT CONTROLLER== go to new contact controller');
-    $state.go('app.newContactPerson');
+  $scope.addContactPerson = function(){
+    console.log('==CONTACT CONTROLLER== go to add contact person controller');
+    $state.go('app.addContactPerson');
   }
+
+
 
   $scope.searchcon = function(){
     $scope.showSearchBar = !$scope.showSearchBar;

@@ -110,6 +110,17 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
     }
   })
 
+  $stateProvider.state('app.addContactPerson', {
+    url: "/addContactPerson",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_contact/listToAddContactPerson.html",
+        controller: 'listToAddContactPersonCtrl'
+      }
+    }
+  })
+
   $stateProvider.state('app.editOrganization', {
     url: "/editOrganization",
     cache: false,

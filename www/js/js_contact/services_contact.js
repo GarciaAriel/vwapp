@@ -37,6 +37,24 @@ angular.module('starter.contactservices', [])
 
 })
 
+.service('bridgeServiceNewContactPerson', function() {
+  var contact = {};
+
+  var saveContact = function(newContact) {
+      contact = newContact;
+  };
+
+  var getContact = function(){
+      return contact;
+  };
+
+  return {
+    saveContact: saveContact,
+    getContact: getContact
+  };
+
+})
+
 .factory('Contact', function ($resource,recentContact,apiUrlLocal) {
 	var url = apiUrlLocal+recentContact;
 	return $resource(url,{},{'query':{method:'GET', isArray:false},
@@ -59,6 +77,10 @@ angular.module('starter.contactservices', [])
   return $resource(url,{},{'query':{method:'GET', isArray:false}});
 })
 
+.factory('listToAddContactPerson', function ($resource,pathListToAddContactPerson,apiUrlLocal) {
+  var url = apiUrlLocal+pathListToAddContactPerson;
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
 
 .factory("transformRequestAsFormPost",function() {
 // I prepare the request data for the form post.

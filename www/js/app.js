@@ -30,15 +30,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         }
       }
     }  
-
-    var User = $localstorage.get("currentUser");
-    console.log('Current User registration: ',User);
-    if( User == 'true') {
-      $state.go('app.contacts');
-    }
-       
-    StatusBar.overlaysWebView(false);
-
+    
     var isOnline = $cordovaNetwork.isOnline()
     if(!isOnline)
     {
@@ -50,6 +42,14 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
         ionic.Platform.exitApp();
       });    
     }
+
+    var User = $localstorage.get("currentUser");
+    console.log('Current User registration: ',User);
+    if( User == 'true') {
+      $state.go('app.contacts');
+    }
+
+    StatusBar.overlaysWebView(false);
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     if (window.cordova && window.cordova.plugins.Keyboard) 
@@ -73,6 +73,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       });
      },null);
     }
+
+    
 
   });
 })
@@ -121,6 +123,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Company: "Company",
     Menu: "Menu",
     Contacts:   "Contacts",
+    ContactPersons:   "Contact Persons",
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: "Log out",
@@ -194,6 +197,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menu",
 
     Contacts:   "Contactos",
+    ContactPersons: "Personas de contacto",
     Scheduler: "Calendario",
     Webmail: "Webmail",
     Logout: "Salir", 
@@ -269,6 +273,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menü",
 
     Contacts:   "Kontakte",
+    ContactPersons: "Kontaktpersonen",
     Scheduler: "Termine",
     Webmail: "Webmail",
     Logout: "Abmelden", 
@@ -344,6 +349,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Menu: "Menu",
 
     Contacts:   "Contacts",
+    ContactPersons: "Personnes de contact",
     Scheduler: "Scheduler",
     Webmail: "Webmail",
     Logout: " Sortir",
