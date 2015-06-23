@@ -351,6 +351,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
     $scope.item = {};
 
+    $scope.iframeWidth = $(window).width();
+    // console.log('------',$scope.iframeWidth);
+    
+
     // PROMISE
     $scope.detail.$promise.then(function (results){
 
