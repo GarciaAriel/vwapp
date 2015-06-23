@@ -2,13 +2,13 @@
 
   <ion-nav-buttons side="right">
 
-    <a href="#/app/newperson">
+    <a ng-if="varCreate == 'true'" href="#/app/newperson">
       <button class="button" style="border-style: none" ng-click="">
         <i class="icon ion-person-add" style="{{colorFont}}"></i>
       </button>
     </a>
 
-    <a href="#/app/neworganization">
+    <a ng-if="varCreate == 'true'" href="#/app/neworganization">
       <button class="button"style="border-style: none" ng-click="">
         <i class="icon ion-person-stalker" style="{{colorFont}}"></i>
       </button>

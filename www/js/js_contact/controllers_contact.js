@@ -327,6 +327,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   var mainData = bridgeService.getContact();
   console.log('bridge service result: ',mainData);
 
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+  console.log('Access Right',$scope.accessRight);
+  
+  $scope.varUpdate = $scope.accessRight.CONTACTPERSON.UPDATE;
+
   $scope.totalPages; 
   $scope.page = 1; 
   $scope.asknext = false; 
@@ -776,8 +781,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           var result = JSON.parse(data);
           if(result.forward == "Success")
           {
-            console.log("Contact person create succesfull");          
-            $state.go('app.contacts'); 
+            console.log("Contact person create succesfull");
+            $state.go('app.seeContactsPerson');
+            // $state.go('app.contacts');
+            // aaaaaaaaaaa 
           }
           else
           {           
@@ -1039,7 +1046,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.pagesintotal; 
     $scope.page = 1; 
 
-
+    $scope.accessRight = $localstorage.getObject('accessRight');  
+    console.log('Access Right',$scope.accessRight);
+    
+    $scope.varCreate = $scope.accessRight.CONTACT.CREATE;
+    
     $scope.showSearchBar = false;
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
@@ -2285,6 +2296,13 @@ $scope.search = function () {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+  console.log('-----------Access Right',$scope.accessRight);
+  
+  $scope.varUpdate = $scope.accessRight.CONTACT.UPDATE;  
+  $scope.varView = $scope.accessRight.CONTACTPERSON.VIEW;  
+
+
   console.log("param1", $stateParams.contactId);
   console.log("param2", $stateParams.addressId);
   console.log("param3", $stateParams.contactPersonId);
@@ -2362,6 +2380,12 @@ $scope.search = function () {
 .controller('PersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
+
+  $scope.accessRight = $localstorage.getObject('accessRight');  
+  console.log('Access Right',$scope.accessRight);
+  
+  $scope.varUpdate = $scope.accessRight.CONTACT.UPDATE;  
+  $scope.varView = $scope.accessRight.CONTACTPERSON.VIEW;
 
   console.log("param1", $stateParams.contactId);
   console.log("param2", $stateParams.addressId);
@@ -2447,10 +2471,10 @@ $scope.search = function () {
 .controller('ctrlSeeContactsPerson', function($window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
 
   $scope.accessRight = $localstorage.getObject('accessRight');  
-  console.log('------------accessRight',$scope.accessRight);
+  console.log('Access Right',$scope.accessRight);
   
   $scope.varCreate = $scope.accessRight.CONTACTPERSON.CREATE;
-  
+
   var mainData = bridgeService.getContact();
   console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
   
@@ -2494,7 +2518,7 @@ $scope.search = function () {
             { text: '<b>'+messageClose+'</b>',
               type: 'button-positive',
               onTap: function(e) {
-                $window.history.back();
+                // $window.history.back();
               }
             },
           ]
