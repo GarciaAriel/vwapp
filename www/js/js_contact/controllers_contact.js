@@ -889,8 +889,13 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.choices = [];
   $scope.entity.telecoms.forEach(function(telecom){      
       telecom.telecomList.forEach(function(item){
-        var newItemNo = $scope.choices.length+1;
-        $scope.choices.push({'id':newItemNo, value:item.data, telecom:{value: telecom.telecomTypeId ,name: telecom.telecomTypeName}});
+       var newItemNo = $scope.choices.length+1;          
+          $scope.telecoms.forEach(function(telecomearr){
+            if(telecomearr.value == telecom.telecomTypeId)
+              $scope.auxvar=telecomearr;
+          });
+      
+          $scope.choices.push({'id':newItemNo, value:item.data, telecom: $scope.auxvar });
       });        
   });
   
@@ -1080,9 +1085,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('ContactsCtrl', function($ionicViewService,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
 
-    $ionicViewService.clearHistory();   
+    $ionicHistory.clearHistory();   
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.pagesintotal; 
