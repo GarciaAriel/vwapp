@@ -1,8 +1,45 @@
-
+ 
+<!--
 <% _.each(events, function(event){ %>
-<div class="cal-row-fluid"  >
+<div class="cal-row-fluid-week"  >
 	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>">
 		<a href="<%= event.url ? event.url : '#app/schedulerDetail' %>" data-event-id="<%= event.id %>" class="cal-event-week event<%= event.id %>"><%= event.title %></a>
 	</div>
 </div>
 <% }); %>
+-->
+<% console.log("fsdfsafsdf", events); %>
+
+
+
+<div id="cal-day-box" class="clearfix">	
+
+<div id="cal-day-panel" class="clearfix">						
+		
+	<% firstt = 0; %>
+	<% secondd = 0; %>	
+	<% distancia=0;%>
+	<% _.each(events, function(event){ %>
+		
+		<div class=" cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>" style="clear: both; float: left; display: block; position: absolute; top: 100px; height: 40px;left: 10px;bottom: 2px;">					
+			<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
+			   data-event-class="<%= event['class'] %>" class="event-item">
+			<%= event.title %></a>
+		</div>	
+	<% }); %>
+
+
+		<div id="cal-day-panel-hour">
+			<% for(i = 0; i < 16; i++){ %>
+				<div class="cal-day-hour">
+					<% for(l = 0; l < cal._hour_min(i); l++){ %>
+						<div class="row-fluid cal-day-hour-part">
+							<div class="span1 col-xs-4"><b><%= cal._hour(i, l) %></b></div>
+							<div class="span11 col-xs-8"></div>
+						</div>
+				<% }; %>
+				</div>
+			<% }; %>
+		</div>
+	</div>
+</div>

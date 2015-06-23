@@ -575,7 +575,8 @@ if(!String.prototype.formatNum) {
 			events.push(event);
 		});
 		t.events = events;
-		t.cal = this;
+		t.cal = this;	
+
 		return self.options.templates['week-days'](t);
 	}
 

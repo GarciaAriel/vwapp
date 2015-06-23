@@ -61,6 +61,32 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         });                  
     });   
 
+     if($scope.entity.countryId != "" && $scope.entity.cityId == ""){
+       var cityRequest = $http({
+        method: "post",        
+        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        data: {
+            'countryId' : $scope.entity.countryId 
+         }
+      });
+      cityRequest.success(
+        function(data, status, headers, config) {      
+
+          // call factory 
+          PopupFactory.getPopup($scope,data);
+
+          var cityArray = data.mainData.cityArray;
+          $scope.cities = [];    
+          cityArray.forEach(function(city) {           
+              $scope.cities.push({
+                name: city.cityName,
+                value:city.cityId, 
+                zip: city.zip,             
+              });                     
+          });    
+      });
+    }
+
     if($scope.entity.cityId != ""){
       var cityRequest = $http({
         method: "post",        
@@ -94,14 +120,22 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     $scope.entity.telecoms.forEach(function(telecom){      
         telecom.telecomList.forEach(function(item){
-          var newItemNo = $scope.choices.length+1;
-          $scope.choices.push({'id':newItemNo, value:item.data, telecom:{value: telecom.telecomTypeId ,name: telecom.telecomTypeName}});
+
+          var newItemNo = $scope.choices.length+1;          
+          $scope.telecoms.forEach(function(telecomearr){
+            if(telecomearr.value == telecom.telecomTypeId)
+              $scope.auxvar=telecomearr;
+          });
+      
+          $scope.choices.push({'id':newItemNo, value:item.data, telecom: $scope.auxvar });
         });        
-    });
+    });    
 
     $scope.addNewChoice = function(value,telecom) {  
-      var newItemNo = $scope.choices.length+1;
-      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+      if(value != undefined && telecom != undefined && value != ""){ 
+        var newItemNo = $scope.choices.length+1;
+        $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+      }       
     };
       
     $scope.removeChoice = function(choice) {
@@ -252,8 +286,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append( 'dto(version)', $scope.entity.version);      
       fd.append( 'dto(name1)', $scope.entity.name1);
       fd.append( 'dto(name2)', $scope.entity.name2);
-      fd.append( 'dto(name3)', '');  
-      fd.append( 'dto(street)', $scope.entity.street);  
+      fd.append( 'dto(name3)', ''); 
+
+      if($scope.entity.street != undefined){
+        fd.append( 'dto(street)', $scope.entity.street);  
+      } 
 
       if($scope.country != undefined){
         fd.append( 'countryId', $scope.country.value);
@@ -281,7 +318,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.value);       
+        fd.append(newdata,telecom.name);       
       });    
 
       var accessUserGroupIds = "";
@@ -291,9 +328,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           }
       });
 
-      if(accessUserGroupIds != ""){
-        fd.append( 'dto(accessUserGroupIds)',accessUserGroupIds.substring(0, accessUserGroupIds.length - 1));
+      if(accessUserGroupIds.length != 0){
+        accessUserGroupIds = accessUserGroupIds.substring(0, accessUserGroupIds.length - 1);
       }
+
+      fd.append( 'dto(accessUserGroupIds)',accessUserGroupIds);
 
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
@@ -377,8 +416,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   };
 
   $scope.addNewChoice = function(value,telecom) {  
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    if(value != undefined && telecom != undefined && value != ""){       
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    }
   };  
 
   $scope.updateDepartment = function (nDepartment)
@@ -538,8 +579,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('ContactsCtrl', function(allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
-    
+.controller('ContactsCtrl', function($ionicViewService,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+
+    $ionicViewService.clearHistory();   
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.pagesintotal; 
@@ -783,7 +825,7 @@ $scope.search = function () {
 
 
 
-.controller('newpCtrl', function ($cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
+.controller('newpCtrl', function ($ionicPopup,$cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
   $scope.apiUrlLocal = apiUrlLocal;
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = "New Person";
@@ -843,9 +885,11 @@ $scope.search = function () {
   $scope.iframeWidth = $(window).width();
  
 
-  $scope.addNewChoice = function(value,telecom) {  
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+  $scope.addNewChoice = function(value,telecom) { 
+    if(value != undefined && telecom != undefined && value != ""){  
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    }
   };
     
   $scope.removeChoice = function(choice) {
@@ -992,10 +1036,24 @@ $scope.search = function () {
     contIndexTelecom = [];
     var fd = new FormData();    
     fd.append( 'dto(addressType)', PersonType);
-    fd.append( 'dto(name1)', $scope.entity.name1);
-    fd.append( 'dto(name2)', $scope.entity.name2);  
+
+    if ($scope.entity.name1 !=  undefined){
+      fd.append( 'dto(name1)', $scope.entity.name1);  
+    }
+    
+    if ($scope.entity.name2 !=  undefined){
+      fd.append( 'dto(name2)', $scope.entity.name2);
+    }
+    else
+    {
+      fd.append( 'dto(name2)' , '');  
+    }
+
     fd.append( 'dto(name3)', '');    
-    fd.append( 'dto(street)', $scope.entity.street);  
+
+    if($scope.entity.street != undefined){
+      fd.append( 'dto(street)', $scope.entity.street);  
+    }     
 
     if($scope.country != undefined){
       fd.append( 'countryId', $scope.country.value);
@@ -1023,7 +1081,7 @@ $scope.search = function () {
       newdata = "telecom("+telecom.value+").telecomTypeId";
       fd.append(newdata,telecom.value);     
       newdata = "telecom("+telecom.value+").telecomTypeName";
-      fd.append(newdata,telecom.value);       
+      fd.append(newdata,telecom.name);       
     });    
 
     var accessUserGroupIds = "";
@@ -1039,27 +1097,39 @@ $scope.search = function () {
 
     if($scope.imgURI != undefined){
       fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
-    }    
+    } 
 
-    $.ajax({
-      url: apiUrlLocal+"/bmapp/Address/Create.do",
-      data: fd,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      success: function(data){
-        var result = JSON.parse(data);
-        if(result.forward == "Success")
-        {
-          console.log("Person creation succesfull");          
-          $state.go('app.contacts'); 
+
+    if ($scope.entity.name1 !=  undefined){
+      $.ajax({
+        url: apiUrlLocal+"/bmapp/Address/Create.do",
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Person creation succesfull");          
+            $state.go('app.contacts'); 
+          }
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
         }
-        else
-        {           
-           PopupFactory.getPopup($scope,result);
-        }             
-      }
-    });  
+      });  
+    } 
+    else
+    {
+       var alertPopup = $ionicPopup.alert({
+         title: 'Message',
+         template: "Last name of person can't be blank"
+       });   
+    }  
+
+    
   };
 
 })
@@ -1125,6 +1195,32 @@ $scope.search = function () {
         });                  
     });   
 
+    if($scope.entity.countryId != "" && $scope.entity.cityId == ""){
+       var cityRequest = $http({
+        method: "post",        
+        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        data: {
+            'countryId' : $scope.entity.countryId 
+         }
+      });
+      cityRequest.success(
+        function(data, status, headers, config) {      
+
+          // call factory 
+          PopupFactory.getPopup($scope,data);
+
+          var cityArray = data.mainData.cityArray;
+          $scope.cities = [];    
+          cityArray.forEach(function(city) {           
+              $scope.cities.push({
+                name: city.cityName,
+                value:city.cityId, 
+                zip: city.zip,             
+              });                     
+          });    
+      });
+    }
+
     if($scope.entity.cityId != ""){
       var cityRequest = $http({
         method: "post",        
@@ -1158,14 +1254,21 @@ $scope.search = function () {
 
     $scope.entity.telecoms.forEach(function(telecom){      
         telecom.telecomList.forEach(function(item){
-          var newItemNo = $scope.choices.length+1;
-          $scope.choices.push({'id':newItemNo, value:item.data, telecom:{value: telecom.telecomTypeId ,name: telecom.telecomTypeName}});
+           var newItemNo = $scope.choices.length+1;          
+          $scope.telecoms.forEach(function(telecomearr){
+            if(telecomearr.value == telecom.telecomTypeId)
+              $scope.auxvar=telecomearr;
+          });
+      
+          $scope.choices.push({'id':newItemNo, value:item.data, telecom: $scope.auxvar });
         });        
     });
 
-    $scope.addNewChoice = function(value,telecom) {  
-      var newItemNo = $scope.choices.length+1;
-      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    $scope.addNewChoice = function(value,telecom) { 
+      if(value != undefined && telecom != undefined && value != ""){  
+        var newItemNo = $scope.choices.length+1;
+        $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+      }
     };
       
     $scope.removeChoice = function(choice) {
@@ -1316,9 +1419,11 @@ $scope.search = function () {
       fd.append( 'dto(version)', $scope.entity.version);      
       fd.append( 'dto(name1)', $scope.entity.name1);
       fd.append( 'dto(name2)', $scope.entity.name2);
-      fd.append( 'dto(name3)', $scope.entity.name3);  
-      fd.append( 'dto(street)', $scope.entity.street);  
-
+      fd.append( 'dto(name3)', $scope.entity.name3);
+      
+      if($scope.entity.street != undefined){
+        fd.append( 'dto(street)', $scope.entity.street);  
+      } 
       if($scope.country != undefined){
         fd.append( 'countryId', $scope.country.value);
       }
@@ -1345,7 +1450,7 @@ $scope.search = function () {
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.value);       
+        fd.append(newdata,telecom.name);       
       });    
 
       var accessUserGroupIds = "";
@@ -1355,9 +1460,11 @@ $scope.search = function () {
           }
       });
 
-      if(accessUserGroupIds != ""){
-        fd.append( 'dto(accessUserGroupIds)',accessUserGroupIds.substring(0, accessUserGroupIds.length - 1));
+      if(accessUserGroupIds.length != 0){
+        accessUserGroupIds = accessUserGroupIds.substring(0, accessUserGroupIds.length - 1);
       }
+
+      fd.append( 'dto(accessUserGroupIds)',accessUserGroupIds);
 
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
@@ -1447,8 +1554,10 @@ $scope.search = function () {
  
 
   $scope.addNewChoice = function(value,telecom) {  
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    if(value != undefined && telecom != undefined && value != ""){ 
+      var newItemNo = $scope.choices.length+1;      
+      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    }
   };
     
   $scope.removeChoice = function(choice) {
@@ -1626,11 +1735,31 @@ $scope.search = function () {
     contIndexTelecom = [];
     var fd = new FormData();    
     fd.append( 'dto(addressType)', OrgType);
-    fd.append( 'dto(name1)', $scope.entity.name1);
-    fd.append( 'dto(name2)', $scope.entity.name2);
-    fd.append( 'dto(name3)', $scope.entity.name3);  
-    fd.append( 'dto(street)', $scope.entity.street);  
+    
+    if ($scope.entity.name1 !=  undefined){
+      fd.append( 'dto(name1)', $scope.entity.name1);  
+    }
+    
+    if ($scope.entity.name2 !=  undefined){
+      fd.append( 'dto(name2)', $scope.entity.name2);
+    }
+    else
+    {
+      fd.append( 'dto(name2)' , '');  
+    }
 
+    if ($scope.entity.name3 !=  undefined){
+      fd.append( 'dto(name3)', $scope.entity.name3);  
+    }
+    else
+    {
+      fd.append( 'dto(name3)' , '');
+    }
+
+    if($scope.entity.street != undefined){
+      fd.append( 'dto(street)', $scope.entity.street);  
+    } 
+    
     if($scope.country != undefined){
       fd.append( 'countryId', $scope.country.value);
     }
@@ -1657,7 +1786,7 @@ $scope.search = function () {
       newdata = "telecom("+telecom.value+").telecomTypeId";
       fd.append(newdata,telecom.value);     
       newdata = "telecom("+telecom.value+").telecomTypeName";
-      fd.append(newdata,telecom.value);       
+      fd.append(newdata,telecom.name);       
     });    
 
     var accessUserGroupIds = "";
@@ -1675,25 +1804,36 @@ $scope.search = function () {
       fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
     }    
 
-    $.ajax({
-      url: apiUrlLocal+"/bmapp/Address/Create.do",
-      data: fd,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      success: function(data){
-        var result = JSON.parse(data);
-        if(result.forward == "Success")
-        {
-          console.log("Organization creation succesfull");          
-          $state.go('app.contacts'); 
+    if ($scope.entity.name1 !=  undefined){      
+      $.ajax({
+        url: apiUrlLocal+"/bmapp/Address/Create.do",
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Organization creation succesfull");          
+            $state.go('app.contacts'); 
+          }
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
         }
-        else
-        {           
-           PopupFactory.getPopup($scope,result);
-        }             
-      }
-    });  
+      }); 
+    }
+    else
+    {    
+       var alertPopup = $ionicPopup.alert({
+         title: 'Message',
+         template: "Name of organization can't be blank"
+       });              
+    }
+
+     
   };
 })
 
@@ -1912,7 +2052,7 @@ $scope.search = function () {
 
 })
 
-.controller('PersonCtrl', function(allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
+.controller('PersonCtrl', function($window,allContact,$state,PopupFactory,bridgeService,$scope,COLOR_VIEW,$localstorage,$stateParams, Contact,apiUrlLocal) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
 
@@ -1920,6 +2060,7 @@ $scope.search = function () {
   console.log("param2", $stateParams.addressId);
   console.log("param3", $stateParams.contactPersonId);
   console.log("param4", $stateParams.addressType);
+  $scope.iframeWidth = $(window).width();
 
   $scope.contact = allContact.get({contactId: $stateParams.contactId, "dto(addressId)": $stateParams.addressId, "dto(contactPersonId)": $stateParams.contactPersonId, "dto(addressType)": $stateParams.addressType});
 
