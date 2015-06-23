@@ -90,7 +90,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           data: {"dto(login)":$scope.dataa.username, "dto(companyLogin)":$scope.dataa.company, "dto(password)":$scope.dataa.password, "dto(language)":"en","dto(rememberInfo)":true}
         }).success(function(data, status, headers, config) {
           
-          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
+          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);          
           
           if( data.mainData)
           {

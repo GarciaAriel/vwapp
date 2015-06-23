@@ -57,8 +57,8 @@
 
           <div class="item item-input" data-ng-repeat="choice in choices">
             <div class="row ">
-            <div class="col col-33">
-              <b><input type="text" ng-model="choice.telecom.name" disabled></b>       
+            <div class="col col-33 item-select">
+             <!--  <b><input type="text" ng-model="choice.telecom.name" disabled></b> -->       <select ng-model="choice.telecom" ng-options="c.name for c in telecoms" style="  padding-left: 0px;padding-right: 25px; "></select>  
             </div>
              <div class="col">
             <input type="text" ng-model="choice.value" disabled>              
@@ -73,7 +73,7 @@
   
           <div class="row ">
             <div class="col col-33 item-select">
-              <select ng-model="telecom" ng-options="c.name for c in telecoms"></select>  
+              <select ng-model="telecom" ng-options="c.name for c in telecoms"  style="padding-left: 0px;padding-right: 25px;"></select>  
             </div>
            
             <div class="col">
