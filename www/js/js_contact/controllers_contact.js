@@ -582,7 +582,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   }
 })
 
-.controller('newContactPersonCtrl',function(bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function($cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
 
   // var mainData1 = $localstorage.getObject("EditContact");
   
