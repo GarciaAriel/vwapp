@@ -89,7 +89,8 @@
 
               <div class="item item-body">
                 <img width="{{iframeWidth * 0.4}}"ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-                <img width="{{iframeWidth * 0.4}}" ng-show="imgURI === undefined" ng-src="img/contactp.png">  
+                <img width="{{iframeWidth * 0.4}}"ng-show="imgURI === undefined && entity.imageUrl != ''" ng-src="{{apiUrlLocal}}{{entity.imageUrl}}">
+                <img width="{{iframeWidth * 0.4}}" ng-show="imgURI === undefined && entity.imageUrl == ''" ng-src="img/person.png">  
               </div>
 
               </div>
