@@ -82,6 +82,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .config(function($translateProvider) {
 
   $translateProvider.translations("en", {
+    CommunicationInfo: "Communication Info",
+    NewContactPerson: "New Contact Person",
     Close: "Close",
     Monday: "Monday",
     Tuesday: "Tuesday",
@@ -156,6 +158,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
+    CommunicationInfo: "Datos de Comunicación",
+    NewContactPerson: "Nueva Persona de Contacto",
     Close: "Cerrar",
     Monday: "Lunes",
     Tuesday: "Martes",
@@ -232,6 +236,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
+    CommunicationInfo: "Kommunikations info",
+    NewContactPerson: "Neuen Ansprechpartner",
     Close: "Schließen",
     Monday: "Montag",
     Tuesday: "Dienstag",
@@ -308,6 +314,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
+    CommunicationInfo: "Infos de Communication",
+    NewContactPerson: "Nouvelle Personne de Contact",
     Close: "Près",
     Monday: "Lundi",
     Tuesday: "Mardi",
