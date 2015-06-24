@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory("PopupFactory", function ($ionicPopup,$state) {
+.factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state) {
   
   function getPopup(scope,result) {
 
@@ -26,6 +26,26 @@ angular.module('starter.services', [])
 
         
       };
+
+      // if Concurrency fail
+      if (result.forward == "ConcurrencyFail") {
+        console.log("==SERVICE ERROR== Concurrency Fail:",result);
+        
+        return $ionicPopup.show({
+         
+          title: "Error",
+          template: "Concurrency Fail",
+          scope: scope,
+          buttons: [
+            { text: '<b>close</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $ionicHistory.goBack();
+              }
+            },
+          ]
+        })
+      };
       
       if (result.errorsArray) {
         console.log("==SERVICE ERROR== errors array:",result);
@@ -46,6 +66,9 @@ angular.module('starter.services', [])
          ]
         })  
       };
+
+      
+
       console.log("==SERVICE ERROR== all good:",result);
   }
        

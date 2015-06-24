@@ -1,6 +1,6 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function($state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function($ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
      $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = "Edit Person";
@@ -352,8 +352,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             $state.go('app.contacts'); 
           }
           else
-          {           
-             PopupFactory.getPopup($scope,result);
+          {        
+            PopupFactory.getPopup($scope,result);
           }             
         }
       });  

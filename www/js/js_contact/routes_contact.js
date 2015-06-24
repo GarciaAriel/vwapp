@@ -55,7 +55,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.person', {
     url: "/person?contactId&addressId&contactPersonId&addressType",
-    cache: true,
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: "templates/views_contact/person.html",
