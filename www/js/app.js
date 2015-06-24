@@ -82,8 +82,23 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .config(function($translateProvider) {
 
   $translateProvider.translations("en", {
-    CommunicationInfo: "Communication Info",
+    
     NewContactPerson: "New Contact Person",
+
+    
+    LastName: "Last name",
+    FirstName: "First Name",
+    Department: "Department",
+    PersonType: "Person Type",
+    Functionn: "Function",
+    Country: "Country",
+    Language: "Language",
+    DataAccessSecurity: "Data Access Security",
+                    
+    CommunicationInfo: "Communication Info",
+    AdditionalInfo: "Additional Info",
+    
+
     Close: "Close",
     Monday: "Monday",
     Tuesday: "Tuesday",
@@ -158,8 +173,22 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   });
   $translateProvider.translations("es", {
-    CommunicationInfo: "Datos de Comunicación",
+    
     NewContactPerson: "Nueva Persona de Contacto",
+
+    LastName: "Apellido",
+    FirstName: "Nombre",
+    Department: "Departamento",
+    PersonType: "Tipo de Persona",
+    Functionn: "Función",
+    Country: "País",
+    Language: "Idioma",
+    DataAccessSecurity: "Seguridad de acceso a datos",
+
+    CommunicationInfo: "Datos de Comunicación",
+    AdditionalInfo: "Información Adicional",
+    
+
     Close: "Cerrar",
     Monday: "Lunes",
     Tuesday: "Martes",
@@ -236,8 +265,21 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("de", {
-    CommunicationInfo: "Kommunikations info",
+    
     NewContactPerson: "Neuen Ansprechpartner",
+
+    LastName: "Nachname",
+    FirstName: "Vorname",
+    Department: "Abteilung",
+    PersonType: "Person Art",
+    Functionn: "Funktion",
+    Country: "Land",
+    Language: "Sprache",
+    DataAccessSecurity: "Zugriffsrechte",
+
+    CommunicationInfo: "Kommunikations info",
+    AdditionalInfo: "Zusätzliche Information",
+
     Close: "Schließen",
     Monday: "Montag",
     Tuesday: "Dienstag",
@@ -314,8 +356,21 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 
   $translateProvider.translations("fr", {
-    CommunicationInfo: "Infos de Communication",
+    
     NewContactPerson: "Nouvelle Personne de Contact",
+
+    LastName: "Nom de Famille",
+    FirstName: "Prénom",
+    Department: "Département",
+    PersonType: "Type de Personne",
+    Functionn: "Fonction",
+    Country: "Pays",
+    Language: "Langue",
+    DataAccessSecurity: "Sécurité d'accès aux données",
+
+    CommunicationInfo: "Infos de Communication",
+    AdditionalInfo: "Information Additionnelle",
+
     Close: "Près",
     Monday: "Lundi",
     Tuesday: "Mardi",

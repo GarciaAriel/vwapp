@@ -189,8 +189,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          correctOrientation: true
+          saveToPhotoAlbum: false
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -316,7 +315,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data"; 
         fd.append(newdata,choice.value);        
       });
-
+      
       $scope.telecoms.forEach(function(telecom){
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
@@ -586,14 +585,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   }
 })
 
-.controller('newContactPersonCtrl',function($ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function($filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
 
-  // var mainData1 = $localstorage.getObject("EditContact");
-  
-  // var mainData = mainData.entity;
-  $scope.ntitle = "New contact person";
   var mainData = bridgeService.getContact();
-  
   var entityComp = mainData.entity;
   $scope.ntitle = $filter('translate')('NewContactPerson');
   $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
@@ -661,11 +655,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.choices.splice(index,1);
   };
 
-  $scope.addNewChoice = function(value,telecom) { 
-    if(value != undefined && telecom != undefined && value != ""){ 
-      var newItemNo = $scope.choices.length+1;
-      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
-    }
+  $scope.addNewChoice = function(value,telecom) {  
+    var newItemNo = $scope.choices.length+1;
+    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
   };  
 
   $scope.updateDepartment = function (nDepartment)
@@ -724,8 +716,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
+        saveToPhotoAlbum: false
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -780,23 +771,12 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
       fd.append('dto(addressId)', entityComp.addressId);
       fd.append('dto(addressIdToImport)', $scope.entity.addressIdToImport );
-      fd.append('dto(importAddress)', true);   
+      fd.append('dto(importAddress)', true);      
+      fd.append('dto(name1)', $scope.entity.name1);
+      fd.append('dto(name2)', $scope.entity.name2);
 
-      if ($scope.entity.name1 !=  undefined){
-        fd.append( 'dto(name1)', $scope.entity.name1);  
-      }
-      
-      if ($scope.entity.name2 !=  undefined){
-        fd.append( 'dto(name2)', $scope.entity.name2);
-      }
-      else
-      {
-        fd.append( 'dto(name2)' , '');  
-      }        
+      fd.append('dto(function)', $scope.entity.function);
 
-      if($scope.entity.function != undefined){
-        fd.append('dto(function)', $scope.entity.function);
-      }
       if($scope.department != undefined){
 
         fd.append( 'dto(departmentId)', $scope.department.value);
@@ -820,42 +800,34 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.name);       
+        fd.append(newdata,telecom.value);       
       });    
 
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
-      }  
+      }    
 
-      if ($scope.entity.name1 !=  undefined){  
-
-        $.ajax({               
-          url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
-          data: fd, 
-          processData: false,
-          contentType: false,
-          type: 'POST',
-          success: function(data){
-            var result = JSON.parse(data);
-            if(result.forward == "Success")
-            {
-              console.log("Contact person create succesfull");
-              $state.go('app.seeContactsPerson');                        
-            }
-            else
-            {           
-               PopupFactory.getPopup($scope,result);
-            }             
+      $.ajax({               
+        url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
+        data: fd, 
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Contact person create succesfull");
+            $state.go('app.seeContactsPerson');
+            // $state.go('app.contacts');
+            
           }
-        });
-      }
-      else
-      {
-         var alertPopup = $ionicPopup.alert({
-           title: 'Message',
-           template: "Last name of contact person can't be blank"
-         });    
-      }  
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
+        }
+      });  
 
     };
   
@@ -864,11 +836,13 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('EditContactPersonCtrl', function($ionicHistory,$ionicPopup,PopupFactory,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = "Edit Contact Person";
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+  // var message = $filter('translate')('');
   
   // get object to BRIDGE SERVICE to edit
   var mainData = bridgeService.getContact();
@@ -944,7 +918,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.updatePersonType = function (nPersonType)
   {
     $scope.personType = nPersonType;     
-  };  
+  };
 
   $scope.pickerImage= function ()
   {
@@ -992,8 +966,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
+        saveToPhotoAlbum: false
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1049,22 +1022,12 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(addressId)', mainData.entity.addressId);
       fd.append('dto(contactPersonId)', mainData.entity.contactPersonId);
       fd.append('dto(companyId)', mainData.entity.companyId);
-      fd.append('dto(addressType)', mainData.entity.addressType);      
+      fd.append('dto(addressType)', mainData.entity.addressType);
+      fd.append('dto(name1)', mainData.entity.name1);
+      fd.append('dto(name2)', mainData.entity.name2);
       fd.append('dto(privateVersion)', mainData.entity.privateVersion);
       fd.append('dto(version)', mainData.entity.version);
       fd.append('dto(function)', mainData.entity.function);
-
-      if ($scope.entity.name1 !=  undefined){
-        fd.append( 'dto(name1)', $scope.entity.name1);  
-      }
-      
-      if ($scope.entity.name2 !=  undefined){
-        fd.append( 'dto(name2)', $scope.entity.name2);
-      }
-      else
-      {
-        fd.append( 'dto(name2)' , '');  
-      } 
 
       if($scope.department != undefined){
 
@@ -1089,46 +1052,32 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.name);       
+        fd.append(newdata,telecom.value);       
       });    
 
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      
-      
-      if ($scope.entity.name1 !=  undefined){
-        $.ajax({
-          url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
-          data: fd, 
-          processData: false,
-          contentType: false,
-          type: 'POST',
-          success: function(data){
-            var result = JSON.parse(data);
-            if(result.forward == "Success")
-            {
-              console.log("Contact person edit succesfull");    
-
-              if($ionicHistory.backView().index ==3)
-                $state.go('app.seeContactsPerson');
-              if($ionicHistory.backView().index ==1)
-                 $state.go('app.contacts'); 
-            }
-            else
-            {           
-               PopupFactory.getPopup($scope,result);
-            }             
+      $.ajax({
+        url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
+        data: fd, 
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          var result = JSON.parse(data);
+          if(result.forward == "Success")
+          {
+            console.log("Contact person edit succesfull");          
+            $state.go('app.contacts'); 
           }
-        });
-      }
-      else{
-         var alertPopup = $ionicPopup.alert({
-           title: 'Message',
-           template: "Last name of contact person can't be blank"
-         });    
-      }  
+          else
+          {           
+             PopupFactory.getPopup($scope,result);
+          }             
+        }
+      });  
 
     };
 
@@ -1526,8 +1475,7 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
+        saveToPhotoAlbum: false
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1905,8 +1853,7 @@ $scope.search = function () {
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          correctOrientation: true
+          saveToPhotoAlbum: false
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -2196,8 +2143,7 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
+        saveToPhotoAlbum: false
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
