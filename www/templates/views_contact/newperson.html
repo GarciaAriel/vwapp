@@ -1,5 +1,5 @@
 
-<ion-view view-title="{{ntitle}}">
+<ion-view cache-view="false" view-title="{{ntitle}}">
 
   <ion-nav-buttons side="right">
 
@@ -34,26 +34,26 @@
 
         <label class="item item-input item-select">
           <div class="input-label">Country</div>
-          <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"></select>
+          <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"><option value=""></option></select>
         </label>
     
         <label class="item item-input item-select">
           <div class="input-label">City</div>      
-          <select ng-model="city" ng-change="updateCity(city)" id="cityId" name="cityId" ng-options="c.name for c in cities"></select>       
+          <select ng-model="city" ng-change="updateCity(city)" id="cityId" name="cityId" ng-options="c.name for c in cities"><option value=""></option></select>       
         </label>        
      
         <label class="item item-input item-select">
           <div class="input-label">Language</div>
-          <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages" ></select>    
+          <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages" ><option value=""></option></select>    
         </label>
 
         <div class="item item-divider bar bar-header bar-assertive" style="
-        height: 35px;">Comunication Info</div>
+        height: 35px;">Communication Info</div>
 
           <div class="item item-input" data-ng-repeat="choice in choices">
             <div class="row ">
             <div class="col col-33 item-select">          
-            <!--   <b><input type="text" ng-model="choice.telecom.name" disabled></b> -->     <select ng-model="choice.telecom" ng-options="c.name for c in telecoms" style="  padding-left: 0px;padding-right: 25px; "></select>  
+            <!--   <b><input type="text" ng-model="choice.telecom.name" disabled></b> -->     <select ng-model="choice.telecom" ng-options="c.name for c in telecoms" style="  padding-left: 0px;padding-right: 25px; "><option value=""></option></select>  
             </div>
              <div class="col">
             <input type="text" ng-model="choice.value">              
@@ -68,7 +68,7 @@
   
           <div class="row ">
             <div class="col col-33 item-select" >
-              <select ng-model="telecom" ng-options="c.name for c in telecoms" style="padding-left: 0px;padding-right: 25px; "></select>  
+              <select ng-model="telecom" ng-options="c.name for c in telecoms" style="padding-left: 0px;padding-right: 25px; "><option value=""></option></select>  
             </div>
            
             <div class="col">
