@@ -3,11 +3,7 @@ angular.module('starter.constants',[])
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
 // .constant('apiUrlLocal', 'http://dev.jatun.net/bm')
-<<<<<<< HEAD
-// .constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
-=======
 // .constant('apiUrlLocal', 'http://10.0.0.125:8080/bm')
->>>>>>> 3b63b742fd1f2d79d57246b3ac32718c685af168
 // .constant('apiUrlLocal', 'http://10.0.0.11/bm')
 
 // .constant('apiUrlLocal', '/bm')
@@ -35,7 +31,7 @@ angular.module('starter.constants',[])
 
 //path list To Add Contact Person
 .constant('pathListToAddContactPerson','/bmapp/ContactPerson/SearchContact.do')
-														
+
 //color view
 .constant('COLOR_VIEW','color: #ba0808')
 .constant('COLOR_2','#ba0808');
