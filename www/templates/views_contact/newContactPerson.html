@@ -33,7 +33,7 @@
             Department
           </div>
           <select ng-model="department" ng-change="updateDepartment(department)" name="dto(departmentId)" ng-options="c.name for c in departments">
-          </select>
+          <option value=""></option></select>
         </label>
 
         <label class="item item-input item-select">
@@ -41,7 +41,7 @@
             Person type
           </div>
           <select ng-model="personType" ng-change="updatePersonType(personType)" name="dto(salutationId)" ng-options="c.name for c in personTypes">
-          </select>
+          <option value=""></option></select>
         </label>
 
         <label class="item item-input">
@@ -49,13 +49,12 @@
           <input type="text" maxlength="40" ng-model="entity.function" placeholder="Function" name="dto(function)">    
         </label>
 
-        <div class="item item-divider bar bar-header bar-assertive" style="
-        height: 35px;">{{ntitleCommunication}}</div>
+        <div class="item item-divider bar bar-header bar-assertive" style="height: 35px;">{{ntitleCommunication}}</div>
 
           <div class="item item-input" data-ng-repeat="choice in choices">
             <div class="row ">
             <div class="col col-33 item-select">
-             <!--  <b><input type="text" ng-model="choice.telecom.name" disabled></b> -->       <select ng-model="choice.telecom" ng-options="c.name for c in telecoms" style="  padding-left: 0px;padding-right: 25px; "></select>  
+             <!--  <b><input type="text" ng-model="choice.telecom.name" disabled></b> -->       <select ng-model="choice.telecom" ng-options="c.name for c in telecoms" style="  padding-left: 0px;padding-right: 25px; "><option value=""></option></select>  
             </div>
              <div class="col">
             <input type="text" ng-model="choice.value" >              
@@ -70,11 +69,11 @@
   
           <div class="row ">
             <div class="col col-33 item-select">
-              <select ng-model="telecom" ng-options="c.name for c in telecoms"  style="padding-left: 0px;padding-right: 25px;"></select>  
+              <select ng-model="telecom" ng-options="c.name for c in telecoms"  style="padding-left: 0px;padding-right: 25px;"><option value=""></option></select>  
             </div>
            
             <div class="col">
-              <input type="text" ng-model="auxvalue">            
+              <input type="text" ng-model="auxvalue" placeholder="Insert data of telecom">            
             </div>            
              <div class="col col-10">
               <button class="button" style="border-style: none" ng-click="addNewChoice(auxvalue,telecom); auxvalue = ''">

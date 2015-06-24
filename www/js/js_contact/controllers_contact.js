@@ -304,6 +304,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'zip', $scope.city.zip);
       }    
 
+
+
       $scope.choices.forEach(function(choice){      
         index = verifyIndexTelecom(contIndexTelecom,choice);
         if(index == 0){
@@ -313,7 +315,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data"; 
         fd.append(newdata,choice.value);        
       });
-
+      
       $scope.telecoms.forEach(function(telecom){
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
