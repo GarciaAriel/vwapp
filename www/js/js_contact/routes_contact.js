@@ -145,7 +145,7 @@ angular.module('starter.contactroutes', ['starter.contactcontrollers'])
 
   $stateProvider.state('app.seeContactsPerson', {
     url: '/seeContactsPerson',
-    cache: false,
+    cache: true,
     views: {
       'menuContent': {
        controller: 'ctrlSeeContactsPerson',

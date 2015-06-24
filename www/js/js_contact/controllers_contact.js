@@ -364,7 +364,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 })
 
-.controller('listToAddContactPersonCtrl',function(bridgeServiceNewContactPerson,$state,apiUrlLocal,$localstorage,$ionicScrollDelegate,listToAddContactPerson,bridgeService,$scope,PopupFactory){
+.controller('listToAddContactPersonCtrl',function($filter,bridgeServiceNewContactPerson,$state,apiUrlLocal,$localstorage,$ionicScrollDelegate,listToAddContactPerson,bridgeService,$scope,PopupFactory){
 
   var mainData = bridgeService.getContact();
   console.log('bridge service result: ',mainData);
@@ -519,8 +519,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.contacts = [];
     $scope.showSearchBar = !$scope.showSearchBar;
     console.log("-------search ---",$scope.searchKey);
-
-    $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+// lastName@_firstName@_searchName
+// 'contactId':mainData.entity.addressId,
+    $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'parameter(contactSearchName)':$scope.searchKey});
     $scope.asknext = false;
 
     $scope.buscados.$promise.then(function (results){
@@ -558,7 +559,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       console.log("trying to load more of the search",$scope.page);
       if ($scope.helpToCallList) {
         console.log("search load more: value true",mainData.entity.addressId);
-        $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+        $scope.buscados = listToAddContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(contactSearchName)':$scope.searchKey});
       }
       else{
         console.log("search load more: value false",mainData.entity.addressId);
@@ -585,7 +586,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   }
 })
 
-.controller('newContactPersonCtrl',function($cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function($filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
 
   // var mainData1 = $localstorage.getObject("EditContact");
   
@@ -593,7 +594,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.ntitle = "New contact person";
   var mainData = bridgeService.getContact();
   var entityComp = mainData.entity;
-
+  $scope.ntitle = $filter('translate')('NewContactPerson');
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+  
   entity = bridgeServiceNewContactPerson.getContact();
 
   console.log('bridgeService company',entityComp);
@@ -608,8 +611,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     function(data, status, headers, config) {    
       // call factory 
       PopupFactory.getPopup($scope,data);  
-      console.log('------sss',data);
-
+      
       $scope.mainData = data.mainData;
       var entity = data.mainData.entity;
       $scope.entity = data.mainData.entity;
@@ -646,10 +648,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             value:telecom.telecomTypeId,
           });                  
       });  
-      
-      
-
-
       
   });
 
