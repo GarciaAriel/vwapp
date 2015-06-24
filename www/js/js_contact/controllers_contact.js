@@ -189,7 +189,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+          correctOrientation: true
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -315,7 +316,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+choice.telecom.value+").telecom["+index+"].data"; 
         fd.append(newdata,choice.value);        
       });
-      
+
       $scope.telecoms.forEach(function(telecom){
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
@@ -589,6 +590,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   // var mainData1 = $localstorage.getObject("EditContact");
   
   // var mainData = mainData.entity;
+  $scope.ntitle = "New contact person";
   var mainData = bridgeService.getContact();
   var entityComp = mainData.entity;
 
@@ -721,7 +723,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -780,8 +783,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(name1)', $scope.entity.name1);
       fd.append('dto(name2)', $scope.entity.name2);
 
-      fd.append('dto(function)', $scope.entity.function);
-
+      if($scope.entity.function != undefined){
+        fd.append('dto(function)', $scope.entity.function);
+      }
       if($scope.department != undefined){
 
         fd.append( 'dto(departmentId)', $scope.department.value);
@@ -969,7 +973,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1461,7 +1466,8 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1839,7 +1845,8 @@ $scope.search = function () {
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+          correctOrientation: true
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -2129,7 +2136,8 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
