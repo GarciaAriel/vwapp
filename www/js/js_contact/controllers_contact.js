@@ -1161,7 +1161,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('ContactsCtrl', function($cacheFactory,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($window,$cacheFactory,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
 
     $ionicHistory.clearHistory();   
     $scope.apiUrlLocal = apiUrlLocal;
@@ -1179,10 +1179,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     var session = $localstorage.get("session");
     console.log('-----sessionId inicio',session);
-    // $cookieStore.put("JSESSIONID", session);
     
 
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page,'JSESSIONID':session});
     $scope.contacts = [];
     
     $scope.asknext = false;
@@ -1225,6 +1224,8 @@ $scope.doRefresh = function() {
     $scope.pag = 1;
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
+// console.log('-----askdjf---- ',$window);
+    
     // var session1 = $localstorage.get("session");
     // console.log('-----sessionId doRefresh',session1);
     // var session2 = $localstorage.get("JSESSIONID");
@@ -1237,9 +1238,10 @@ $scope.doRefresh = function() {
     // console.log('-----sessionId real',session2);
     
 
-  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page,'JSESSIONID':session});
 
   $scope.newContacts.$promise.then(function (results){
+
 
     // call factory 
     PopupFactory.getPopup($scope,results);

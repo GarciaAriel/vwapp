@@ -79,6 +79,12 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
 })
 
+.config(['$httpProvider', function($httpProvider) {
+  console.log('------credentials');
+  $httpProvider.defaults.withCredentials = true;
+  console.log('------credentials');
+}])
+
 .config(function($translateProvider) {
 
   $translateProvider.translations("en", {
