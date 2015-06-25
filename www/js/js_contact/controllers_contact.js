@@ -682,9 +682,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.choices.splice(index,1);
   };
 
-  $scope.addNewChoice = function(value,telecom) {  
-    var newItemNo = $scope.choices.length+1;
-    $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+  $scope.addNewChoice = function(value,telecom) { 
+    if(value != undefined && telecom != undefined && value != ""){   
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id':newItemNo, value:value, telecom:telecom});    
+    }
   };  
 
   $scope.updateDepartment = function (nDepartment)
@@ -1132,12 +1134,13 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           success: function(data){
             var result = JSON.parse(data);
             if(result.forward == "Success")
-            {
+            {        
               console.log("Contact person edit succesfull");          
-              if($ionicHistory.backView().index ==3)
-                $state.go('app.seeContactsPerson');
+                        
               if($ionicHistory.backView().index ==1)
                 $state.go('app.contacts');
+              else
+                $state.go('app.seeContactsPerson');
             }
             else
             {           
