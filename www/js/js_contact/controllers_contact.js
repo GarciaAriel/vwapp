@@ -586,7 +586,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   }
 })
 
-.controller('newContactPersonCtrl',function($ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function(apiUrlLocal,$ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,PopupFactory,$localstorage){
 
   // var mainData1 = $localstorage.getObject("EditContact");
   
@@ -598,8 +598,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.ntitle = $filter('translate')('NewContactPerson');
   $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
   
+  
+  
   entity = bridgeServiceNewContactPerson.getContact();
-
+  $scope.entity = entity;  
+  $scope.apiUrlLocal= apiUrlLocal;
   console.log('bridgeService company',entityComp);
   console.log('bridgeServiceNewContactPerson new contact person',entity);
 
