@@ -1,15 +1,14 @@
 <ion-view cache-view="false" view-title="{{ 'ContactPersons' | translate}}">
   <ion-nav-buttons side="right">
 
-    
-    <button class="button" style="border-style: none" ng-click="searchcon()">
-      <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
-    </button>
-    
     <!-- Href to add contact person -->
     <!-- ng-click="" -->
     <button ng-if="varCreate == 'true'" class="button" style="border-style: none" ng-click="addContactPerson()">
       <i class="icon ion-person-add" style="{{colorFont}}"></i>
+    </button>
+
+    <button class="button" style="border-style: none" ng-click="searchcon()">
+      <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
     
     <a>
