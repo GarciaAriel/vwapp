@@ -18,37 +18,37 @@
         height: 35px;">{{ntitle}}</div>
           
         <label class="item item-input">
-          <div class="input-label">Last name</div>
-          <input type="text" ng-model="entity.name1" placeholder="Last name" maxlength="60" name="dto(name1)" required="required" validated>                    
+          <div class="input-label">{{ 'LastName' | translate}}</div>
+          <input type="text" ng-model="entity.name1" placeholder="{{ 'LastName' | translate}}" maxlength="60" name="dto(name1)" required="required" validated>                    
         </label>
 
         <label class="item item-input">
-          <div class="input-label">First name</div>
-          <input type="text" ng-model="entity.name2" placeholder="First name" maxlength="60" name="dto(name2)" required="required" validated>
+          <div class="input-label">{{ 'FirstName' | translate}}</div>
+          <input type="text" ng-model="entity.name2" placeholder="{{ 'FirstName' | translate}}" maxlength="60" name="dto(name2)" required="required" validated>
         </label>
    
         <label class="item item-input">
-          <div class="input-label">Street</div>
-          <input type="text" name="dto(street)" maxlength="40" ng-model="entity.street" placeholder="Street" ng-model="data.street">
+          <div class="input-label">{{ 'Street' | translate}}</div>
+          <input type="text" name="dto(street)" maxlength="40" ng-model="entity.street" placeholder="{{ 'Street' | translate}}" ng-model="data.street">
         </label>
 
         <label class="item item-input item-select">
-          <div class="input-label">Country</div>
+          <div class="input-label">{{ 'Country' | translate}}</div>
           <select ng-model="country" ng-change="updateCountry(country)" id="countryId" name="countryId" ng-options="c.name for c in countries"><option value=""></option></select>
         </label>
     
         <label class="item item-input item-select">
-          <div class="input-label">City</div>      
+          <div class="input-label">{{ 'City' | translate}}</div>      
           <select ng-model="city" ng-change="updateCity(city)" id="cityId" name="cityId" ng-options="c.name for c in cities"><option value=""></option></select>       
         </label>        
      
         <label class="item item-input item-select">
-          <div class="input-label">Language</div>
+          <div class="input-label">{{ 'Language' | translate}}</div>
           <select ng-model="language" ng-change="updateLanguage(language)" name="dto(languageId)" ng-options="c.name for c in languages" ><option value=""></option></select>    
         </label>
 
         <div class="item item-divider bar bar-header bar-assertive" style="
-        height: 35px;">Communication Info</div>
+        height: 35px;">{{ntitleCommunication}}</div>
 
           <div class="item item-input" data-ng-repeat="choice in choices">
             <div class="row ">
@@ -83,7 +83,7 @@
         
 
         <div class="item item-divider bar bar-header bar-assertive" style="
-        height: 35px;">Data access security</div>  <div data-ng-repeat="group in GroupsAvailable" >              
+        height: 35px;">{{DataAccessSecurity}}</div>  <div data-ng-repeat="group in GroupsAvailable" >              
             <div class="item item-toggle">
                {{group.name}}
                <label class="toggle toggle-assertive">
@@ -96,7 +96,7 @@
           </div>
 
         <div class="item item-divider bar bar-header bar-assertive" style="
-        height: 35px;">Additional info</div>
+        height: 35px;">{{AdditionalInfo}}</div>
 
             <div class="row">
               <div class="col "> 
@@ -109,7 +109,7 @@
 
               </div>
               <div class="col">
-                <h4 align = "center">Photo</h4>
+                <h4 align = "center">{{ 'Photo' | translate}}</h4>
                 <a class="button button-block  icon ion-camera" ng-click="takePicture()" style="{{colorFont}}"></a>
                 <a class="button button-block icon ion-images" ng-click="pickerImage()" style="{{colorFont}}"></a>               
            

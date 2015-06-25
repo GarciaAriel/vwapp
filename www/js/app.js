@@ -83,9 +83,16 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("en", {
     
+    EditContactPerson: "Edit Contact Person",
+    EditOrganization: "Edit Organization",
+    EditPerson: "Edit Person",
+    NewPerson: "New Person",
     NewContactPerson: "New Contact Person",
+    NewOrganization : "New Organization",
+    Photo: "Photo",
 
-    
+    Street: "Street",
+    Name: "Name",
     LastName: "Last name",
     FirstName: "First Name",
     Department: "Department",
@@ -174,8 +181,16 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    EditContactPerson: "Editar Persona de Contacto",
+    EditOrganization: "Editar Organizacion",
+    EditPerson: "Editar Persona",
+    NewPerson: "Nueva Persona",
     NewContactPerson: "Nueva Persona de Contacto",
+    NewOrganization : "Nueva Organizacion",
+    Photo: "Foto",
 
+    Street: "Calle",
+    Name: "Nombre",
     LastName: "Apellido",
     FirstName: "Nombre",
     Department: "Departamento",
@@ -266,8 +281,16 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    EditContactPerson: "Bearbeiten Ansprechpartner",
+    EditOrganization: "Bearbeiten Organisation",
+    EditPerson: "Bearbeiten Person",
+    NewPerson: "Neue Person",
     NewContactPerson: "Neuen Ansprechpartner",
+    NewOrganization : "Neue Organisation",
+    Photo: "Bild",
 
+    Street: "Straße",
+    Name: "Name",
     LastName: "Nachname",
     FirstName: "Vorname",
     Department: "Abteilung",
@@ -357,8 +380,16 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    EditContactPerson: "Modifier Personne de Contact",
+    EditOrganization: "Modifier Organisation",
+    EditPerson: "Modifier Personne",
+    NewPerson: "Nouvelle Personnet",
     NewContactPerson: "Nouvelle Personne de Contact",
+    NewOrganization : "Nouvelle Organisation",
+    Photo: "Photo",
 
+    Street: "Rue",
+    Name: "Nom",
     LastName: "Nom de Famille",
     FirstName: "Prénom",
     Department: "Département",

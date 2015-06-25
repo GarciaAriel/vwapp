@@ -1,9 +1,12 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function($ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
-     $scope.apiUrlLocal = apiUrlLocal;
+.controller('editPersonCtrl', function($filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+    $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
-    $scope.ntitle = "Edit Person";
+    $scope.ntitle = $filter('translate')('EditPerson');
+    $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+    $scope.DataAccessSecurity = $filter('translate')('DataAccessSecurity');
+    $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');
     // get contact for edit
     var mainData = bridgeService.getContact();
     $scope.entity = mainData.entity;
@@ -592,9 +595,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   var mainData = bridgeService.getContact();
   var entityComp = mainData.entity;
   $scope.ntitle = $filter('translate')('NewContactPerson');
-  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
-  
-  
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');  
+  $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');
   
   entity = bridgeServiceNewContactPerson.getContact();
   $scope.entity = entity;  
@@ -845,8 +847,9 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
-  $scope.ntitle = "Edit Contact Person";
-  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+  $scope.ntitle = $filter('translate')('EditContactPerson');
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');  
+  $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');
   // var message = $filter('translate')('');
   
   // get object to BRIDGE SERVICE to edit
@@ -1361,10 +1364,13 @@ $scope.search = function () {
 
 
 
-.controller('newpCtrl', function ($ionicPopup,$cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
+.controller('newpCtrl', function ($filter,$ionicPopup,$cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
   $scope.apiUrlLocal = apiUrlLocal;
   $scope.colorFont = COLOR_VIEW;
-  $scope.ntitle = "New Person";
+  $scope.ntitle = $filter('translate')('NewPerson');
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+  $scope.DataAccessSecurity = $filter('translate')('DataAccessSecurity');
+  $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');
   $scope.entity=[];  
   $scope.entity.imageUrl = "";
 
@@ -1670,10 +1676,13 @@ $scope.search = function () {
 
 })
 
-.controller('editOrganizationCtrl', function($state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editOrganizationCtrl', function($filter,$state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
-    $scope.ntitle = "Edit Organization";
+    $scope.ntitle = $filter('translate')('EditOrganization');
+    $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+    $scope.DataAccessSecurity = $filter('translate')('DataAccessSecurity');
+    $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');
     // get contact for edit
     var mainData = bridgeService.getContact();
     $scope.entity = mainData.entity;
@@ -2030,10 +2039,14 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function (OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function ($filter,OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
-  $scope.ntitle = "New Organization";
+  $scope.ntitle = $filter('translate')('NewOrganization');
+  $scope.ntitleCommunication = $filter('translate')('CommunicationInfo');
+  $scope.DataAccessSecurity = $filter('translate')('DataAccessSecurity');
+  $scope.AdditionalInfo = $filter('translate')('AdditionalInfo');  
+
   $scope.entity=[];  
   $scope.entity.imageUrl = "";
 
