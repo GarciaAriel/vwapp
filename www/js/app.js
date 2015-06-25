@@ -98,6 +98,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Photo: "Photo",
     SelectContact: "Select Contact",
     InsertTelecom: "Insert data of telecom",
+    ConcurrencyFail: "Concurrency Fail",
+    Error: "Error",
 
     Street: "Street",
     Name: "Name",
@@ -198,6 +200,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Photo: "Foto",
     SelectContact: "Seleccione Contacto",
     InsertTelecom: "Ingrese Informacion",
+    ConcurrencyFail: "Fallo de Concurrencia",
+    Error: "Error",
 
     Street: "Calle",
     Name: "Nombre",
@@ -300,6 +304,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Photo: "Bild",
     SelectContact: "Wählen Sie einen Kontakt",
     InsertTelecom: "Einfügen von Daten der Telekom-",
+    ConcurrencyFail: "Concurrency Ausfallen",
+    Error: "Fehler",
 
     Street: "Straße",
     Name: "Name",
@@ -401,6 +407,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     Photo: "Photo",
     SelectContact: "Sélectionnez Contact",
     InsertTelecom: "Insérer des données de télécommunications ",
+    ConcurrencyFail: "Concurrence Fail",
+    Error: "Erreur",
 
     Street: "Rue",
     Name: "Nom",

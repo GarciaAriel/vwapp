@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state) {
+.factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state,$filter) {
   
   function getPopup(scope,result) {
 
@@ -33,8 +33,8 @@ angular.module('starter.services', [])
         
         return $ionicPopup.show({
          
-          title: "Error",
-          template: "Concurrency Fail",
+          title: $filter('translate')('Error'),
+          template:  $filter('translate')('ConcurrencyFail'),
           scope: scope,
           buttons: [
             { text: '<b>close</b>',
