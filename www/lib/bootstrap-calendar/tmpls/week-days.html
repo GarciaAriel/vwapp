@@ -21,11 +21,11 @@
 	<% distancia=0;%>
 	<% _.each(events, function(event){ %>
 		
-		<div class=" cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>" style="clear: both; float: left; display: block; position: absolute; top: 100px; height: 40px;left: 10px;bottom: 2px;">					
+	<!-- 	<div class=" cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>" style="clear: both; float: left; display: block; position: absolute; top: 100px; height: 40px;left: 10px;bottom: 2px;">					
 			<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
 			   data-event-class="<%= event['class'] %>" class="event-item">
 			<%= event.title %></a>
-		</div>	
+		</div>	 -->
 	<% }); %>
 
 
