@@ -843,7 +843,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.value);       
+        fd.append(newdata,telecom.name);       
       });    
 
       if($scope.imgURI != undefined){
@@ -880,7 +880,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('EditContactPersonCtrl', function($ionicHistory,$ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function(PopupFactory,$ionicHistory,$ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -1115,7 +1115,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         newdata = "telecom("+telecom.value+").telecomTypeId";
         fd.append(newdata,telecom.value);     
         newdata = "telecom("+telecom.value+").telecomTypeName";
-        fd.append(newdata,telecom.value);       
+        fd.append(newdata,telecom.name);       
       });    
 
       if($scope.imgURI != undefined){
