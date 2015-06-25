@@ -35,7 +35,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 //  CONTROLLER LOGIN
 
-.controller('LoginController', function ($cookies,$location,COLOR_VIEW,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($location,COLOR_VIEW,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
 
     'use strict';
     

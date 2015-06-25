@@ -192,7 +192,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+        correctOrientation: true
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -723,7 +724,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -974,7 +976,8 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1092,7 +1095,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('ContactsCtrl', function($cacheFactory,$cookieStore,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function($cacheFactory,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
 
     $ionicHistory.clearHistory();   
     $scope.apiUrlLocal = apiUrlLocal;
@@ -1486,7 +1489,8 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1676,7 +1680,7 @@ $scope.search = function () {
 
 })
 
-.controller('editOrganizationCtrl', function($filter,$state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editOrganizationCtrl', function($ionicPopup,$filter,$state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = $filter('translate')('EditOrganization');
@@ -1867,7 +1871,8 @@ $scope.search = function () {
           targetWidth: 300,
           targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+        correctOrientation: true
       };
 
       $cordovaCamera.getPicture(options).then(function(imageData) {      
@@ -1962,9 +1967,25 @@ $scope.search = function () {
       fd.append( 'dto(companyId)', $scope.entity.companyId);
       fd.append( 'dto(addressType)', $scope.entity.addressType);      
       fd.append( 'dto(version)', $scope.entity.version);      
-      fd.append( 'dto(name1)', $scope.entity.name1);
-      fd.append( 'dto(name2)', $scope.entity.name2);
-      fd.append( 'dto(name3)', $scope.entity.name3);
+      if ($scope.entity.name1 !=  undefined){
+        fd.append( 'dto(name1)', $scope.entity.name1);  
+      }
+      
+      if ($scope.entity.name2 !=  undefined){
+        fd.append( 'dto(name2)', $scope.entity.name2);
+      }
+      else
+      {
+        fd.append( 'dto(name2)' , '');  
+      }
+
+      if ($scope.entity.name3 !=  undefined){
+        fd.append( 'dto(name3)', $scope.entity.name3);  
+      }
+      else
+      {
+        fd.append( 'dto(name3)' , '');
+      }
       
       if($scope.entity.street != undefined){
         fd.append( 'dto(street)', $scope.entity.street);  
@@ -2015,25 +2036,36 @@ $scope.search = function () {
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      $.ajax({
-        url: apiUrlLocal+"/bmapp/Address/Update.do",
-        data: fd,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data){
-          var result = JSON.parse(data);
-          if(result.forward == "Success")
-          {
-            console.log("Organization edit succesfull");          
-            $state.go('app.contacts'); 
+      if ($scope.entity.name1 !=  undefined){      
+        $.ajax({
+          url: apiUrlLocal+"/bmapp/Address/Update.do",
+          data: fd,
+          processData: false,
+          contentType: false,
+          type: 'POST',
+          success: function(data){
+            var result = JSON.parse(data);
+            if(result.forward == "Success")
+            {
+              console.log("Organization edit succesfull");          
+              $state.go('app.contacts'); 
+            }
+            else
+            {           
+               PopupFactory.getPopup($scope,result);
+            }             
           }
-          else
-          {           
-             PopupFactory.getPopup($scope,result);
-          }             
-        }
-      });  
+        }); 
+      }
+      else
+      {    
+         var alertPopup = $ionicPopup.alert({
+           title: 'Message',
+           template: "Name of organization can't be blank"
+         });              
+      }
+
+       
     };
 
 })
@@ -2161,7 +2193,8 @@ $scope.search = function () {
         targetWidth: 300,
         targetHeight: 300,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        correctOrientation: true
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {      
