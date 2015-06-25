@@ -291,6 +291,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       if ($scope.entity.name1 !=  undefined){
         fd.append( 'dto(name1)', $scope.entity.name1);  
       }
+      else
+      {
+        fd.append( 'dto(name1)' , '');  
+      }
       
       if ($scope.entity.name2 !=  undefined){
         fd.append( 'dto(name2)', $scope.entity.name2);
@@ -354,7 +358,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      if ($scope.entity.name1 !=  undefined){
+    
         $.ajax({
           url: apiUrlLocal+"/bmapp/Address/Update.do",
           data: fd,
@@ -374,14 +378,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             }             
           }
         });
-      }
-      else
-      {
-        var alertPopup = $ionicPopup.alert({
-           title: 'Message',
-           template: "Last name of person can't be blank"
-         });   
-      }
+     
 
         
     };
@@ -390,6 +387,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
 .controller('listToAddContactPersonCtrl',function($filter,bridgeServiceNewContactPerson,$state,apiUrlLocal,$localstorage,$ionicScrollDelegate,listToAddContactPerson,bridgeService,$scope,PopupFactory){
 
+  $scope.ntitle= $filter('translate')('SelectContact');
   var mainData = bridgeService.getContact();
   console.log('bridge service result: ',mainData);
 
@@ -805,6 +803,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       if ($scope.entity.name1 !=  undefined){
         fd.append( 'dto(name1)', $scope.entity.name1);  
       }
+      else
+      {
+        fd.append( 'dto(name1)' , '');  
+      }
       
       if ($scope.entity.name2 !=  undefined){
         fd.append( 'dto(name2)', $scope.entity.name2);
@@ -848,7 +850,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      if ($scope.entity.name1 !=  undefined){
         $.ajax({               
           url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
           data: fd, 
@@ -869,15 +870,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
                PopupFactory.getPopup($scope,result);
             }             
           }
-        }); 
-      }
-      else
-      {
-          var alertPopup = $ionicPopup.alert({
-             title: 'Message',
-             template: "Last name of contact person can't be blank"
-           });   
-      }
+        });
        
 
     };
@@ -887,7 +880,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('EditContactPersonCtrl', function($ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($ionicHistory,$ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -1082,6 +1075,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       if ($scope.entity.name1 !=  undefined){
         fd.append( 'dto(name1)', $scope.entity.name1);  
       }
+      else
+      {
+        fd.append( 'dto(name1)' , '');  
+      }
       
       if ($scope.entity.name2 !=  undefined){
         fd.append( 'dto(name2)', $scope.entity.name2);
@@ -1125,7 +1122,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      if ($scope.entity.name1 !=  undefined){
+      
          $.ajax({
           url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
           data: fd, 
@@ -1137,7 +1134,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             if(result.forward == "Success")
             {
               console.log("Contact person edit succesfull");          
-              $state.go('app.contacts'); 
+              if($ionicHistory.backView().index ==3)
+                $state.go('app.seeContactsPerson');
+              if($ionicHistory.backView().index ==1)
+                $state.go('app.contacts');
             }
             else
             {           
@@ -1145,16 +1145,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             }             
           }
         });  
-      }
-      else
-      {
-          var alertPopup = $ionicPopup.alert({
-             title: 'Message',
-             template: "Last name of contact person can't be blank"
-           });   
-      }
-
-      
+   
 
     };
 
@@ -1654,7 +1645,11 @@ $scope.search = function () {
     if ($scope.entity.name1 !=  undefined){
       fd.append( 'dto(name1)', $scope.entity.name1);  
     }
-    
+    else
+    {
+      fd.append( 'dto(name1)' , '');  
+    }
+
     if ($scope.entity.name2 !=  undefined){
       fd.append( 'dto(name2)', $scope.entity.name2);
     }
@@ -1712,9 +1707,7 @@ $scope.search = function () {
     if($scope.imgURI != undefined){
       fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
     } 
-
-
-    if ($scope.entity.name1 !=  undefined){
+  
       $.ajax({
         url: apiUrlLocal+"/bmapp/Address/Create.do",
         data: fd,
@@ -1734,14 +1727,6 @@ $scope.search = function () {
           }             
         }
       });  
-    } 
-    else
-    {
-       var alertPopup = $ionicPopup.alert({
-         title: 'Message',
-         template: "Last name of person can't be blank"
-       });   
-    }  
 
     
   };
@@ -2038,6 +2023,10 @@ $scope.search = function () {
       if ($scope.entity.name1 !=  undefined){
         fd.append( 'dto(name1)', $scope.entity.name1);  
       }
+      else
+      {
+        fd.append( 'dto(name1)' , '');  
+      }
       
       if ($scope.entity.name2 !=  undefined){
         fd.append( 'dto(name2)', $scope.entity.name2);
@@ -2103,8 +2092,7 @@ $scope.search = function () {
       if($scope.imgURI != undefined){
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
-
-      if ($scope.entity.name1 !=  undefined){      
+      
         $.ajax({
           url: apiUrlLocal+"/bmapp/Address/Update.do",
           data: fd,
@@ -2123,16 +2111,7 @@ $scope.search = function () {
                PopupFactory.getPopup($scope,result);
             }             
           }
-        }); 
-      }
-      else
-      {    
-         var alertPopup = $ionicPopup.alert({
-           title: 'Message',
-           template: "Name of organization can't be blank"
-         });              
-      }
-
+        });     
        
     };
 
@@ -2389,7 +2368,11 @@ $scope.search = function () {
     if ($scope.entity.name1 !=  undefined){
       fd.append( 'dto(name1)', $scope.entity.name1);  
     }
-    
+    else
+    {
+      fd.append( 'dto(name1)' , '');  
+    }
+
     if ($scope.entity.name2 !=  undefined){
       fd.append( 'dto(name2)', $scope.entity.name2);
     }
@@ -2453,8 +2436,7 @@ $scope.search = function () {
     if($scope.imgURI != undefined){
       fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
     }    
-
-    if ($scope.entity.name1 !=  undefined){      
+        
       $.ajax({
         url: apiUrlLocal+"/bmapp/Address/Create.do",
         data: fd,
@@ -2473,15 +2455,7 @@ $scope.search = function () {
              PopupFactory.getPopup($scope,result);
           }             
         }
-      }); 
-    }
-    else
-    {    
-       var alertPopup = $ionicPopup.alert({
-         title: 'Message',
-         template: "Name of organization can't be blank"
-       });              
-    }
+      });     
 
      
   };
