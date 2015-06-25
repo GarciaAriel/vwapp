@@ -1,6 +1,6 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function($filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function($ionicPopup,$filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = $filter('translate')('EditPerson');
@@ -288,9 +288,19 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append( 'dto(companyId)', $scope.entity.companyId);
       fd.append( 'dto(addressType)', $scope.entity.addressType);      
       fd.append( 'dto(version)', $scope.entity.version);      
-      fd.append( 'dto(name1)', $scope.entity.name1);
-      fd.append( 'dto(name2)', $scope.entity.name2);
-      fd.append( 'dto(name3)', ''); 
+      if ($scope.entity.name1 !=  undefined){
+        fd.append( 'dto(name1)', $scope.entity.name1);  
+      }
+      
+      if ($scope.entity.name2 !=  undefined){
+        fd.append( 'dto(name2)', $scope.entity.name2);
+      }
+      else
+      {
+        fd.append( 'dto(name2)' , '');  
+      }
+
+      fd.append( 'dto(name3)', '');    
 
       if($scope.entity.street != undefined){
         fd.append( 'dto(street)', $scope.entity.street);  
@@ -344,25 +354,36 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      $.ajax({
-        url: apiUrlLocal+"/bmapp/Address/Update.do",
-        data: fd,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data){
-          var result = JSON.parse(data);
-          if(result.forward == "Success")
-          {
-            console.log("Person edit succesfull");          
-            $state.go('app.contacts'); 
+      if ($scope.entity.name1 !=  undefined){
+        $.ajax({
+          url: apiUrlLocal+"/bmapp/Address/Update.do",
+          data: fd,
+          processData: false,
+          contentType: false,
+          type: 'POST',
+          success: function(data){
+            var result = JSON.parse(data);
+            if(result.forward == "Success")
+            {
+              console.log("Person edit succesfull");          
+              $state.go('app.contacts'); 
+            }
+            else
+            {        
+              PopupFactory.getPopup($scope,result);
+            }             
           }
-          else
-          {        
-            PopupFactory.getPopup($scope,result);
-          }             
-        }
-      });  
+        });
+      }
+      else
+      {
+        var alertPopup = $ionicPopup.alert({
+           title: 'Message',
+           template: "Last name of person can't be blank"
+         });   
+      }
+
+        
     };
 
 })
@@ -590,7 +611,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('newContactPersonCtrl',function($filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function($ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
 
 
   var mainData = bridgeService.getContact();
@@ -781,10 +802,21 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(addressId)', entityComp.addressId);
       fd.append('dto(addressIdToImport)', $scope.entity.addressIdToImport );
       fd.append('dto(importAddress)', true);      
-      fd.append('dto(name1)', $scope.entity.name1);
-      fd.append('dto(name2)', $scope.entity.name2);
+      if ($scope.entity.name1 !=  undefined){
+        fd.append( 'dto(name1)', $scope.entity.name1);  
+      }
+      
+      if ($scope.entity.name2 !=  undefined){
+        fd.append( 'dto(name2)', $scope.entity.name2);
+      }
+      else
+      {
+        fd.append( 'dto(name2)' , '');  
+      }
 
-      fd.append('dto(function)', $scope.entity.function);
+      if ($scope.entity.function !=  undefined){
+        fd.append('dto(function)', $scope.entity.function);
+      }
 
       if($scope.department != undefined){
 
@@ -816,27 +848,37 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      $.ajax({               
-        url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
-        data: fd, 
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data){
-          var result = JSON.parse(data);
-          if(result.forward == "Success")
-          {
-            console.log("Contact person create succesfull");
-            $state.go('app.seeContactsPerson');
-            // $state.go('app.contacts');
-            
+      if ($scope.entity.name1 !=  undefined){
+        $.ajax({               
+          url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
+          data: fd, 
+          processData: false,
+          contentType: false,
+          type: 'POST',
+          success: function(data){
+            var result = JSON.parse(data);
+            if(result.forward == "Success")
+            {
+              console.log("Contact person create succesfull");
+              $state.go('app.seeContactsPerson');
+              // $state.go('app.contacts');
+              
+            }
+            else
+            {           
+               PopupFactory.getPopup($scope,result);
+            }             
           }
-          else
-          {           
-             PopupFactory.getPopup($scope,result);
-          }             
-        }
-      });  
+        }); 
+      }
+      else
+      {
+          var alertPopup = $ionicPopup.alert({
+             title: 'Message',
+             template: "Last name of contact person can't be blank"
+           });   
+      }
+       
 
     };
   
@@ -845,7 +887,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('EditContactPersonCtrl', function($filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function($ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -1033,12 +1075,25 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append('dto(addressId)', mainData.entity.addressId);
       fd.append('dto(contactPersonId)', mainData.entity.contactPersonId);
       fd.append('dto(companyId)', mainData.entity.companyId);
-      fd.append('dto(addressType)', mainData.entity.addressType);
-      fd.append('dto(name1)', mainData.entity.name1);
-      fd.append('dto(name2)', mainData.entity.name2);
+      fd.append('dto(addressType)', mainData.entity.addressType);     
       fd.append('dto(privateVersion)', mainData.entity.privateVersion);
-      fd.append('dto(version)', mainData.entity.version);
-      fd.append('dto(function)', mainData.entity.function);
+      fd.append('dto(version)', mainData.entity.version);      
+
+      if ($scope.entity.name1 !=  undefined){
+        fd.append( 'dto(name1)', $scope.entity.name1);  
+      }
+      
+      if ($scope.entity.name2 !=  undefined){
+        fd.append( 'dto(name2)', $scope.entity.name2);
+      }
+      else
+      {
+        fd.append( 'dto(name2)' , '');  
+      }
+
+      if ($scope.entity.function !=  undefined){
+        fd.append('dto(function)', $scope.entity.function);
+      }
 
       if($scope.department != undefined){
 
@@ -1070,25 +1125,36 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
       }    
 
-      $.ajax({
-        url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
-        data: fd, 
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data){
-          var result = JSON.parse(data);
-          if(result.forward == "Success")
-          {
-            console.log("Contact person edit succesfull");          
-            $state.go('app.contacts'); 
+      if ($scope.entity.name1 !=  undefined){
+         $.ajax({
+          url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
+          data: fd, 
+          processData: false,
+          contentType: false,
+          type: 'POST',
+          success: function(data){
+            var result = JSON.parse(data);
+            if(result.forward == "Success")
+            {
+              console.log("Contact person edit succesfull");          
+              $state.go('app.contacts'); 
+            }
+            else
+            {           
+               PopupFactory.getPopup($scope,result);
+            }             
           }
-          else
-          {           
-             PopupFactory.getPopup($scope,result);
-          }             
-        }
-      });  
+        });  
+      }
+      else
+      {
+          var alertPopup = $ionicPopup.alert({
+             title: 'Message',
+             template: "Last name of contact person can't be blank"
+           });   
+      }
+
+      
 
     };
 
