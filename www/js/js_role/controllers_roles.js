@@ -35,7 +35,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
 
 //  CONTROLLER LOGIN
 
-.controller('LoginController', function ($location,COLOR_VIEW,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
+.controller('LoginController', function ($cookies,$location,COLOR_VIEW,$filter,$localstorage,$translate,$templateCache,$window,LoginService,apiUrlLocal,pathLogon,$ionicPopup,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading) {
 
     'use strict';
     
@@ -166,6 +166,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             $localstorage.setObject('rememberUsername',$scope.data.username);
             $localstorage.setObject('rememberCompany',$scope.data.company);
             $localstorage.set("currentUser",'true');
+            $localstorage.set("session",data.mainData.userInfo.JSESSIONID);
 
             var lenguage = data.mainData.userInfo.locale;
             console.log("==CONTROLLER LOGIN==  lenguage: ","-"+lenguage+"-" );
