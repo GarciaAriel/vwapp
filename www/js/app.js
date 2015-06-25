@@ -90,6 +90,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     NewContactPerson: "New Contact Person",
     NewOrganization : "New Organization",
     Photo: "Photo",
+    SelectContact: "Select Contact",
+    InsertTelecom: "Insert data of telecom",
 
     Street: "Street",
     Name: "Name",
@@ -188,6 +190,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     NewContactPerson: "Nueva Persona de Contacto",
     NewOrganization : "Nueva Organizacion",
     Photo: "Foto",
+    SelectContact: "Seleccione Contacto",
+    InsertTelecom: "Ingrese Informacion",
 
     Street: "Calle",
     Name: "Nombre",
@@ -281,13 +285,15 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
-    EditContactPerson: "Bearbeiten Ansprechpartner",
+    EditContactPerson: "Bearbeiten Kontaktperson",
     EditOrganization: "Bearbeiten Organisation",
     EditPerson: "Bearbeiten Person",
     NewPerson: "Neue Person",
-    NewContactPerson: "Neuen Ansprechpartner",
+    NewContactPerson: "Neue Kontaktperson",
     NewOrganization : "Neue Organisation",
     Photo: "Bild",
+    SelectContact: "Wählen Sie einen Kontakt",
+    InsertTelecom: "Einfügen von Daten der Telekom-",
 
     Street: "Straße",
     Name: "Name",
@@ -301,7 +307,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     DataAccessSecurity: "Zugriffsrechte",
 
     CommunicationInfo: "Kommunikations info",
-    AdditionalInfo: "Zusätzliche Information",
+    AdditionalInfo: "Zusätzliche Informationen",
 
     Close: "Schließen",
     Monday: "Montag",
@@ -387,6 +393,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     NewContactPerson: "Nouvelle Personne de Contact",
     NewOrganization : "Nouvelle Organisation",
     Photo: "Photo",
+    SelectContact: "Sélectionnez Contact",
+    InsertTelecom: "Insérer des données de télécommunications ",
 
     Street: "Rue",
     Name: "Nom",
