@@ -3,7 +3,6 @@ angular.module('starter.constants',[])
 .constant('apiUrlLocal', 'http://localhost:8080/bm')
 
 // .constant('apiUrlLocal', 'http://dev.jatun.net/bm')
-// .constant('apiUrlLocal', 'http://192.168.2.47:8080/bm')
 // .constant('apiUrlLocal', 'http://10.0.0.100:8080/bm')
 // .constant('apiUrlLocal', 'http://10.0.0.11/bm')
 

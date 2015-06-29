@@ -24,12 +24,14 @@
       
       <ion-item class="item item-thumbnail-left" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
 
-      
-        <img ng-if="item.fromImageUrl != ''" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
-        <img ng-if="item.isFromKnown == 'false' && item.fromImageUrl == ''" ng-src="img/user_default_unknown.png" style="width: 64px; height: 64px">
-        <img ng-if="item.isFromKnown == 'true' && item.fromImageUrl == ''" ng-src="img/user_default_known.png" style="width: 64px; height: 64px">
-        
-        
+        <img ng-if="item.mailIconType === '1'" ng-src="img/recipient_unknown.png" style="width: 64px; height: 64px">
+        <img ng-if="item.mailIconType === '2'" ng-src="img/recipient_known.png" style="width: 64px; height: 64px">
+        <img ng-if="item.mailIconType === '3'" ng-src="{{apiUrlLocal}}{{item.fromImageUrl}}" style="width: 64px; height: 64px">
+
+        <img ng-if="item.mailIconType == '4'" ng-src="img/recipients_unknown.png" style="width: 64px; height: 64px">
+        <img ng-if="item.mailIconType == '5'" ng-src="img/recipients_unknown_known.png" style="width: 64px; height: 64px">
+        <img ng-if="item.mailIconType == '6'" ng-src="img/recipients_known.png" style="width: 64px; height: 64px">
+
         <span class="item-note" style="padding-right: 2px;">
           
           <button ng-if="item.hasAttach == '1'" class="button button-small button-clear button-positive">

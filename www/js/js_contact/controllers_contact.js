@@ -795,7 +795,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     }
 
     $scope.saveContactPerson = function() {
-      console.log('-----sssdfasdfsadf------',$scope.entity);
+      console.log('save contact person data:',$scope.entity);
       contIndexTelecom = [];
       var fd = new FormData(); 
 
@@ -862,9 +862,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             var result = JSON.parse(data);
             if(result.forward == "Success")
             {
-
+              
               console.log("Contact person create succesfull");
-              $state.go('app.seeContactsPerson', {updated: true});
+              $state.go('app.seeContactsPerson');
+              // console.log("---------------ok");
+              // aaaaaaaaaaaaaaaa
               // $state.go('app.seeContactsPerson');
               // $state.go('app.contacts');
               
@@ -2726,10 +2728,18 @@ $scope.search = function () {
 
 })
 
-.controller('ctrlSeeContactsPerson', function($window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+.controller('ctrlSeeContactsPerson', function($stateParams,$window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
 
   $scope.accessRight = $localstorage.getObject('accessRight');  
   console.log('Access Right',$scope.accessRight);
+
+  if($stateParams.updated == true){
+    console.log('----0-0-0-000000--------trueeeee');
+  }
+  else{
+    console.log('----0-0-0-000000--------falseeeee');
+  }
+
   
   $scope.varCreate = $scope.accessRight.CONTACTPERSON.CREATE;
 
