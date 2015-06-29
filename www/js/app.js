@@ -6,15 +6,13 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
 
-.run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
-  
+.run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
+
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
   });
 
-  $ionicPlatform.ready(function() {
-    
-    ionic.Platform.fullScreen(true,true);
+  $ionicPlatform.ready(function() {    
 
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
