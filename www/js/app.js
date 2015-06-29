@@ -8,13 +8,13 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
 .run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {
   
+  FastClick.attach(document.body);
+
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
   });
 
-  $ionicPlatform.ready(function() {
-    
-    ionic.Platform.fullScreen(true,true);
+  $ionicPlatform.ready(function() {    
 
     var language = navigator.language;
     if( language.indexOf("fr") != -1){
