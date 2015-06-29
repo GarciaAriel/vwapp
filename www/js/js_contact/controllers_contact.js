@@ -862,8 +862,10 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             var result = JSON.parse(data);
             if(result.forward == "Success")
             {
+
               console.log("Contact person create succesfull");
-              $state.go('app.seeContactsPerson');
+              $state.go('app.seeContactsPerson', {updated: true});
+              // $state.go('app.seeContactsPerson');
               // $state.go('app.contacts');
               
             }
