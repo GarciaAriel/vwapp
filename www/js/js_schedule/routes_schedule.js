@@ -3,14 +3,26 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   
-  // ROUTE VIEW EDIT APPOINTMENT
+  // ROUTE EDIT APPOINTMENT
   .state('app.schedulerEdit', {
     url: "/schedulerEdit",
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: "templates/views_schedule/appointmentNew.html",
+        templateUrl: "templates/views_schedule/newAppointment.html",
         controller: "ControllerScheduleEdit"
+      }
+    }
+  })
+
+  // ROUTE NEW APPOINTMENT
+  .state('app.newAppointment', {
+    url: "/newAppointment",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/newAppointment.html",
+        controller: "NewAppointmentController"
       }
     }
   })
@@ -27,7 +39,7 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
     }
   })
   
-  // ROUTE VIEW DETAIL
+  // ROUTE DETAIL APPOINTMENT
   .state('app.schedulerDetail', {
     url: "/schedulerDetail?appointmentId",
     cache: false,

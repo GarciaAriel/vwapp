@@ -24,7 +24,7 @@
           <div class="input-label">
             Tipo
           </div>
-          <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in aTypes"></select>
+          <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
         </label>
 
         <label class="item item-toggle">
@@ -46,8 +46,8 @@
             </strong>
           </div>
           <div class="col">
-            <input type="date" ng-model="startDate"><br>
-            <input type="time" ng-show="!isAllDayValue" ng-model="startDate">
+            <input type="date" ng-model="dateStart.value"><br>
+            <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
           </div>
         </div>
 
@@ -58,8 +58,8 @@
             </strong>
           </div>
           <div class="col">
-            <input type="date" ng-model="endDate"><br>
-            <input type="time" ng-show="!isAllDayValue" ng-model="endDate">
+            <input type="date" ng-model="dateEnd.value"><br>
+            <input type="time" ng-model="dateEnd.value" ng-show="!isAllDayValue">
           </div>
         </div>
 

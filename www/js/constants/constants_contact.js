@@ -5,4 +5,6 @@ angular.module('starter.constantscontact',[])
 // Contact person>1
 .constant('PersonType',1)
 // contact Organiztion or company> 0
-.constant('OrgType',0);
+.constant('OrgType',0)
+
+.constant('newPersonGetJsonInfo','/bmapp/Address/Forward/Create.do');

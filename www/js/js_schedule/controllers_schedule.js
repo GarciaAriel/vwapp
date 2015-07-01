@@ -138,12 +138,68 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     }
 })
 // 
+// CONTROLLER SCHEDULE NEW APPOINTMENT
+// 
+.controller('NewAppointmentController',function(newPersonGetJsonInfo,$scope,PopupFactory,apiUrlLocal,$http){
+  console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
+
+  // Simple POST request
+  var request = $http({
+    method: "get",        
+    url: apiUrlLocal+newPersonGetJsonInfo,      
+  });
+  // request success or error
+  request.success(
+    function(data, status, headers, config) {    
+
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,data);
+
+      console.log("results of request: ",data);
+
+      // display the current day // start and end
+      var date = new Date()
+      date.setMilliseconds(0);
+      date.setSeconds(0); 
+      $scope.dateStart = {
+        value: date
+      };
+
+      $scope.dateEnd = {
+        value: date
+      };
+      
+      
+      // list of type of appointments
+      var appointmentTypeArray = data.mainData.salutationArray;  
+      $scope.appointmentTypes = [];
+        appointmentTypeArray.forEach(function(appointmentType) {           
+          $scope.appointmentTypes.push({
+            name: appointmentType.name,
+            value:appointmentType.salutationId
+          });       
+      });  
+
+      
+    
+    }).error(
+    function(data, status, headers, config) {    
+      console.log("asdfasfdsfdfas error",data);
+    
+    });
+
+})
+// 
 // CONTROLLER SCHEDULE VIEW CALENDAR
 // 
 .controller('ControlSchedule',function(PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   
+  console.log("==CONTROLLER SCHEDULE VIEW CALENDAR==");
+
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
+  $('button').css({"color":COLOR_2});
+  $('view-title').css({"color":COLOR_2});
 
   $scope.calendar;
 
@@ -162,10 +218,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         break;    
   } 
   
-  // change text colour 
-  $('button').css({"color":COLOR_2});
-  $('view-title').css({"color":COLOR_2});
-  
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
 
@@ -174,10 +226,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   var date = new Date();
 
-      var yyyy = date.getFullYear().toString();
-      var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
-      var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-      var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
+  var yyyy = date.getFullYear().toString();
+  var ww = (date.getWeek()).toString().length == 1 ? "0"+(date.getWeek()).toString() : (date.getWeek()).toString();       
+  var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+  var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()).toString() : (date.getDate()).toString();
 
   //  HELP TO SEE DATE IN VIEW
   $scope.real_date_view = yyyy+"-"+mm+"-"+dd;
@@ -185,7 +237,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   var options = {
     events_source: function () {       
         return [];
-    
     }, 
     tmpl_path: 'lib/bootstrap-calendar/tmpls/',
     view: 'month',
@@ -200,7 +251,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       	var pos = aux.indexOf("data-cal-date=");
       	var res = aux.substring(pos+15, pos+25);     
 		setTimeout(function(){
-		console.log('First name being reset');
+		console.log('first name being reset');
 			$scope.$apply(function(){
 				$scope.real_date_view = res;
 				}
@@ -210,7 +261,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     onAfterViewLoad: function(view)
     {     
       if ($scope.calendar != undefined) {
-        console.log("calendar",$scope.calendar);
+        console.log("see calendar: ",$scope.calendar);
 
         var yyyy = $scope.calendar.options.position.start.getFullYear();
         var mmm = ($scope.calendar.options.position.start.getMonth()+1);
@@ -242,7 +293,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         // call factory 
         PopupFactory.getPopup($scope,results);
 
-        console.log("==CONTROLLER SCHEDULE== get query list appointments success OK");
+        console.log("get query list appointments success OK: ",results);
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
         //parse to variables PROVISIONAL
@@ -255,8 +306,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           var idAppointment = appointment.virtualAppointmentId;
           if (pos > -1) {
             idAppointment = str.substring(0, pos);   
+            console.log("new id appointment without '-' IN RECURRENT", idAppointment);
           };
-          console.log("==CONTROLLER SCHEDULE== id appointment without '-' IN RECURRENT", idAppointment);
           
           // load appointment and push in list
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
@@ -264,7 +315,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       
         });
 
-        console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+        console.log("final list of appointments: ",$scope.appointments);
 
         $scope.calendar.options.events = $scope.appointments;
         $scope.calendar._render();
@@ -348,7 +399,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       var _data_date = $localstorage.getObject('dataDate');
 
       //CALL SERVICES WITH (TYPE AND DATA)
-      console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointments");  
+      console.log("get query list doRefresh appointments");  
       $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
       //  PROMISE
@@ -356,7 +407,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         // call factory 
         PopupFactory.getPopup($scope,results);
         
-        console.log("==CONTROLLER SCHEDULE== get query list doRefresh appointmentssuccess OK",results['mainData']);
+        console.log("get query list doRefresh appointments success OK",results['mainData']);
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
           //parse to variables
@@ -369,14 +420,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             var idAppointment = appointment.virtualAppointmentId;
             if (pos > -1) {
               idAppointment = str.substring(0, pos);   
+              console.log("new id appointment without '-' IN RECURRENT", idAppointment);
             };
-            console.log("==CONTROLLER SCHEDULE== id appointment without '-'", idAppointment);
-
+            
             var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
             $scope.appointments.push(change);
           });
 
-          console.log("==CONTROLLER SCHEDULE== list appointments: ",$scope.appointments);
+          console.log("final list of appointments: ",$scope.appointments);
 
           $scope.$broadcast('scroll.refreshComplete');  
 
@@ -385,4 +436,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       });//END PROMISE
 
   };
+
+  $scope.newevent = function(){
+    console.log('new event');
+    $state.go('app.newAppointment');
+  };
+
 });
