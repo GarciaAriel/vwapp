@@ -51,6 +51,18 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
     }
   })
 
+  // ROUTE TO ADD PARTICIPANTS TO AN APPOINTMENT
+  .state('app.addParticipantsToAnAppointment', {
+    url: "/addParticipants",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/addParticipantsToAnAppointment.html",
+        controller: "addParticipantsToAnAppointment"
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });

@@ -3,6 +3,10 @@
 
   <ion-nav-buttons side="right">
 
+    <button class="button" style="border-style: none" ng-click="addPerson()">
+      <i class="icon ion-log-out" style="{{colorFont}}"></i>
+    </button>
+
     <button class="button" style="border-style: none" ng-click="saveAppointment()">
       <i class="icon ion-checkmark" style="{{colorFont}}"></i>
     </button>
@@ -79,7 +83,7 @@
             <label class="item item-toggle">
               Daily
               <label class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="groupDaily.type" name="" ng-click="toggleGroup(groupDaily)">
+                <input type="checkbox" name="" ng-checked="isGroupShown(groupDaily)" ng-click="toggleGroup(groupDaily)">
                   <div class="track">
                    <div class="handle"></div>
                   </div>
@@ -110,7 +114,7 @@
             <label class="item item-toggle">
               Week
               <label class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="groupWeek.type" name="" ng-click="toggleGroup(groupWeek)">
+                <input type="checkbox" name="" ng-checked="isGroupShown(groupWeek)" ng-click="toggleGroup(groupWeek)">
                   <div class="track">
                    <div class="handle"></div>
                   </div>
@@ -149,7 +153,7 @@
             <label class="item item-toggle">
               Month
               <label class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="groupMonth.type" name="" ng-click="toggleGroup(groupMonth)">
+                <input type="checkbox" name="" ng-checked="isGroupShown(groupMonth)" ng-click="toggleGroup(groupMonth)">
                   <div class="track">
                    <div class="handle"></div>
                   </div>
@@ -187,7 +191,7 @@
             <label class="item item-toggle">
               Year
               <label class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="groupYear.type" name="" ng-click="toggleGroup(groupYear)">
+                <input type="checkbox" name="" ng-checked="isGroupShown(groupYear)" ng-click="toggleGroup(groupYear)">
                   <div class="track">
                    <div class="handle"></div>
                   </div>

@@ -7,7 +7,7 @@ angular.module('starter.services', [])
 
       // if session Expired
       if (result.forward == "SessionExpired") {
-        console.log("==SERVICE ERROR== session expired:",result);
+        console.log("==ERROR CONTROL== session expired:",result);
         
         return $ionicPopup.show({
          
@@ -23,13 +23,11 @@ angular.module('starter.services', [])
             },
           ]
         })
-
-        
       };
 
       // if Concurrency fail
       if (result.forward == "ConcurrencyFail") {
-        console.log("==SERVICE ERROR== Concurrency Fail:",result);
+        console.log("==ERROR CONTROL== Concurrency Fail:",result);
         
         return $ionicPopup.show({
          
@@ -48,7 +46,7 @@ angular.module('starter.services', [])
       };
       
       if (result.errorsArray) {
-        console.log("==SERVICE ERROR== errors array:",result);
+        console.log("==ERROR CONTROL== errors array:",result);
         var message = result.errorsArray[0].error;
         for (var i = 1; i < result.errorsArray.length; i++) {
           message=message+"<br>"+result.errorsArray[i].error ;
@@ -67,9 +65,7 @@ angular.module('starter.services', [])
         })  
       };
 
-      
-
-      console.log("==SERVICE ERROR== all good:",result);
+      console.log("==ERROR CONTROL== no problems");
   }
        
    return {

@@ -36,17 +36,17 @@ angular.module('starter.scheduleservices', [])
           case SCHEDULE_TYPE_MONTH_STRING:
               _data_date.type = SCHEDULE_TYPE_MONTH;
               _data_date.data = yyyy+""+mm;
-              console.log("SERVICE====mes",_data_date.data)
+              console.log("0. factory month: ",_data_date.data)
               break;
           case SCHEDULE_TYPE_WEEK_STRING: 
               _data_date.type = SCHEDULE_TYPE_WEEK;
               _data_date.data = _data_date.yyyyc+""+ww;
-              console.log("SERVICE====semanaaa",_data_date.data)
+              console.log("0. factory week: ",_data_date.data)
               break;
           case SCHEDULE_TYPE_DAY_STRING:
               _data_date.type = SCHEDULE_TYPE_DAY;
               _data_date.data = yyyy+""+mm+""+dd;
-              console.log("SERVICE====dia",_data_date.data)
+              console.log("0. factory day: ",_data_date.data)
               break;    
       }
       $localstorage.setObject('dataDate',_data_date);    

@@ -1,9 +1,233 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
 // 
+// CONTROLLER LIST CONTACT TO ADD APPOINTMENT
+//
+.controller('addParticipantsToAnAppointment', function($ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {
+  console.log('*******************************************************');
+  console.log("==CONTROLLER SCHEDULE== LIST TO AD PARTICIPANT TO APPOINTMENT: ");
+
+  $scope.pagesintotal; 
+  $scope.page = 1;
+  $scope.showSearchBar = false;
+  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.contacts = [];
+  $scope.asknext = false;
+
+  // EXECUTE QUERY WITH (PAGE NUMBER)
+  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+  
+  $scope.newContacts.$promise.then(function (results){
+      
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);
+      
+      console.log("1. results of request: ",results);
+
+      $scope.contacts = (results['mainData'])['list'];
+
+      // get page and page in total
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+      console.log("2. page number", $scope.page);
+      console.log("3. page in total", $scope.pagesintotal);
+
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+        $scope.asknext = true;  
+      };
+  })
+
+  $scope.hideSearch = function() {
+    console.log('*******************************************************');
+    console.log("4. hide search");
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };    
+
+  $scope.doRefresh = function() {
+    console.log('*******************************************************');
+    console.log("5. do refresh");
+
+    $scope.page=1;
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+
+    // EXECUTE QUERY WITH (PAGE NUMBER)
+    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+
+    // PROMISE
+    $scope.newContacts.$promise.then(function (results){
+
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);
+      
+      console.log("6. results of request: ",results);
+
+      $scope.contacts = (results['mainData'])['list']
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+
+      console.log("7. page number", $scope.page);
+      console.log("8. page in total", $scope.totalPages);
+
+      if ( $scope.totalPages > $scope.page ) {
+        $scope.asknext = true;
+      };
+
+      $scope.$broadcast('scroll.refreshComplete'); 
+      $ionicScrollDelegate.scrollTop();
+    });
+  };  
+
+  $scope.loadMore = function() {
+    console.log('*******************************************************');
+    console.log("9. load more contacts");
+    
+    $scope.page = $scope.page + 1;
+
+    // EXECUTE QUERY WITH (PAGE NUMBER)
+    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+    // PROMISE
+    $scope.newContacts.$promise.then(function(results){
+    
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);
+
+      console.log("10. results of request: ",results);
+
+      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+      console.log("11. page number", $scope.page);
+      console.log("12. page in total", $scope.totalPages);
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      if ($scope.totalPages <= $scope.page) {
+        $scope.asknext = false;  
+      };
+
+    });
+  };
+
+  $scope.searchcon = function(){
+    $scope.showSearchBar = !$scope.showSearchBar;
+  }   
+
+  $scope.search = function () {
+    console.log('*******************************************************');
+    console.log("13. function search");
+
+    $scope.contacts = [];
+    $scope.asknext = false;
+    $scope.showSearchBar = !$scope.showSearchBar;
+
+    // EXECUTE QUERY WITH (CONTACT SEARCH NAME)
+    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey});
+    
+    // PROMISE
+    $scope.buscados.$promise.then(function (results){
+        
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);  
+
+      console.log("14. results of request: ",results);  
+
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+      console.log("15. page number", $scope.page);
+      console.log("16. page in total", $scope.totalPages);
+
+      if ( $scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.contacts.length == 0) {
+
+        console.log("17. no exists items");
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                
+    });
+      
+    $scope.loadMore = function() {
+      console.log('*******************************************************');
+      console.log("18. load more into search");
+
+      $scope.page = $scope.page +1;      
+
+      // EXECUTE QUERY WITH (contactSearchName, pageNumber)
+      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+      // PROMISE
+      $scope.buscados.$promise.then(function(results){
+
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,results);
+
+        console.log("19. results of request: ",results);
+
+        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+        $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+        $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+        console.log("20. page number", $scope.page);
+        console.log("21. page in total", $scope.totalPages);
+
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+                
+      });
+            
+      if ($scope.totalPages <= $scope.page) {
+        $scope.asknext = false;  
+      };              
+    };
+  }
+
+  $scope.getContactUrl = function(item,type){  
+    var accessRight = $localstorage.getObject('accessRight');
+    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
+
+    // IF CONTACT PERSON HAVE PERMISSION TO READ
+    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+      return "#";
+    }
+    switch(type) {
+      case 'contactPerson':
+          return '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
+          // return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+          break;
+      case 'organization':
+          return item.contactPersonAddressId ==='' ? '#/app/organization?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/organization?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+          break;
+      case 'person':
+          return item.contactPersonAddressId ==='' ? '#/app/person?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/person?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
+          break;        
+      default:
+          return "#";
+    }    
+  };
+                            
+})
+
+// 
 // CONTROLLER SCHEDULE EDIT
 //
 .controller('ControllerScheduleEdit', function($scope,bridgeServiceAppointment){
+  console.log('*******************************************************');
   // GET OBJECT APPOINTMET TO EDIT
   var mainData = bridgeServiceAppointment.getAppointment();
   console.log("==CONTROLLER SCHEDULE== edit appointment:",mainData);
@@ -112,7 +336,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
     console.log("==CONTROLLER SCHEDULE== param id appointment: ", $stateParams.appointmentId);
     
-    //CALL SERVICES WITH (id)
+    // EXECUTE QUERY WITH (APPOINTMENTID)
     $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
 
     // PROMISE
@@ -140,8 +364,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE NEW APPOINTMENT
 // 
-.controller('NewAppointmentController',function(newPersonGetJsonInfo,$scope,PopupFactory,apiUrlLocal,$http){
+.controller('NewAppointmentController',function($state,newPersonGetJsonInfo,$scope,PopupFactory,apiUrlLocal,$http){
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
+
+  $scope.groupDaily = {name: 'groupDaily'};
+  $scope.groupWeek = {name: 'groupWeek'};
+  $scope.groupMonth = {name: 'groupMonth'};
+  $scope.groupYear = {name: 'groupYear'};
+  $scope.shownGroup = null;  
 
   // Simple POST request
   var request = $http({
@@ -188,12 +418,29 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     
     });
 
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return ($scope.shownGroup === group);
+  };
+
+  $scope.addPerson = function(){
+    console.log('-----add person');
+    $state.go('app.addParticipantsToAnAppointment');
+  };
+
 })
+
 // 
 // CONTROLLER SCHEDULE VIEW CALENDAR
 // 
 .controller('ControlSchedule',function(PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
-  
+  console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE VIEW CALENDAR==");
 
   // COLOR DEFAULT
@@ -216,7 +463,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     case 'fr':
         $scope.languageCalendar = 'fr-FR';
         break;    
-  } 
+  };
   
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
@@ -247,21 +494,23 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     width: '100%',   
 
     onClickADate: function(event) {
+      console.log('*******************************************************');
     	var aux = this.innerHTML;
-      	var pos = aux.indexOf("data-cal-date=");
-      	var res = aux.substring(pos+15, pos+25);     
-		setTimeout(function(){
-		console.log('first name being reset');
-			$scope.$apply(function(){
-				$scope.real_date_view = res;
-				}
-			)
-		}, 0);
+      var pos = aux.indexOf("data-cal-date=");
+      var res = aux.substring(pos+15, pos+25);     
+		  setTimeout(function(){
+		    console.log('1. first name being reset');
+			  $scope.$apply(function(){
+				  $scope.real_date_view = res;
+				})
+		  }, 0);
     },
     onAfterViewLoad: function(view)
-    {     
+    {
+      console.log('*******************************************************');     
+      console.log('2. on after view load');     
       if ($scope.calendar != undefined) {
-        console.log("see calendar: ",$scope.calendar);
+        console.log("3. see calendar: ",$scope.calendar);
 
         var yyyy = $scope.calendar.options.position.start.getFullYear();
         var mmm = ($scope.calendar.options.position.start.getMonth()+1);
@@ -284,19 +533,20 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       $scope.appointments =[];
       var _data_date = $localstorage.getObject('dataDate');
       
-      // -------------------------------------
+      // EXECUTE QUERY WITH (type, calendar)
       $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
 
-      //  PROMISE
+      // PROMISE
       $scope.newAppointments.$promise.then(function (results){
 
-        // call factory 
+        // call factory to validate the response
         PopupFactory.getPopup($scope,results);
 
-        console.log("get query list appointments success OK: ",results);
+        console.log("4. results of request: ");
+
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
-        //parse to variables PROVISIONAL
+        //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
 
@@ -306,7 +556,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           var idAppointment = appointment.virtualAppointmentId;
           if (pos > -1) {
             idAppointment = str.substring(0, pos);   
-            console.log("new id appointment without '-' IN RECURRENT", idAppointment);
+            console.log("5. new id appointment without '-' IN RECURRENT", idAppointment);
           };
           
           // load appointment and push in list
@@ -315,7 +565,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       
         });
 
-        console.log("final list of appointments: ",$scope.appointments);
+        console.log("6. final list of appointments: ",$scope.appointments);
 
         $scope.calendar.options.events = $scope.appointments;
         $scope.calendar._render();
@@ -395,45 +645,49 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   };
 
   $scope.doRefresh = function() {
-      // GET OBJECT OF LOCAL STORAGE
-      var _data_date = $localstorage.getObject('dataDate');
+    console.log('*******************************************************');
+    console.log('7. refresh calendar');
 
-      //CALL SERVICES WITH (TYPE AND DATA)
-      console.log("get query list doRefresh appointments");  
-      $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+    // GET OBJECT OF LOCAL STORAGE
+    var _data_date = $localstorage.getObject('dataDate');
 
-      //  PROMISE
-      $scope.newAppointments.$promise.then(function (results){
-        // call factory 
-        PopupFactory.getPopup($scope,results);
+    // EXECUTE QUERY WITH (type, calendar)
+    $scope.newAppointments = scheduleService.query({type: _data_date.type,calendar: _data_date.data});
+
+      // PROMISE 
+    $scope.newAppointments.$promise.then(function (results){
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);
+
+      console.log("8. results of request: ",results);
         
-        console.log("get query list doRefresh appointments success OK",results['mainData']);
-        $scope.listAppointments = (results['mainData'])['appointmentsList'];
+      $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
-          //parse to variables
-          $scope.appointments = [];
-          angular.forEach($scope.listAppointments, function (appointment) {
+      //parse to variables
+      $scope.appointments = [];
+      angular.forEach($scope.listAppointments, function (appointment) {
 
-            // APPOINTMENT RECURRENT GET ID WITHOUT "-"
-            var str = appointment.virtualAppointmentId;
-            var pos = str.indexOf("-"); 
-            var idAppointment = appointment.virtualAppointmentId;
-            if (pos > -1) {
-              idAppointment = str.substring(0, pos);   
-              console.log("new id appointment without '-' IN RECURRENT", idAppointment);
-            };
-            
-            var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
-            $scope.appointments.push(change);
-          });
+        // APPOINTMENT RECURRENT GET ID WITHOUT "-"
+        var str = appointment.virtualAppointmentId;
+        var pos = str.indexOf("-"); 
+        var idAppointment = appointment.virtualAppointmentId;
+        if (pos > -1) {
+          idAppointment = str.substring(0, pos);   
+          console.log("9. new id appointment without '-' IN RECURRENT", idAppointment);
+        };
+        
+        var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
+        $scope.appointments.push(change);
+      });
 
-          console.log("final list of appointments: ",$scope.appointments);
+      console.log("10. final list of appointments: ",$scope.appointments);
 
-          $scope.$broadcast('scroll.refreshComplete');  
+      $scope.$broadcast('scroll.refreshComplete');  
 
-          //LOAD OPTIONS TO CALENDAR
-          $scope.calendar._render();          
-      });//END PROMISE
+      //LOAD OPTIONS TO CALENDAR
+      $scope.calendar.options.events = $scope.appointments;
+      $scope.calendar._render();          
+    });//END PROMISE
 
   };
 
