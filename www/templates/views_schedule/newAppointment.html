@@ -42,27 +42,46 @@
         </label>
 
         <!-- show or hide fields -->
-        start
+        <div class="card">
+          <div class="item item-divider">
+            Start
+          </div>
+          <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
+            <div class="row">
+              <!-- <div class="col"> -->
+                <input type="date" ng-model="dateStart.value"><br>  
+              <!-- </div> -->
+              <!-- <div class="col"> -->
+                <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+
+
+
+        <strong>
+          <div class="input-label" style="padding-left: 17px;">Start</div>    
+        </strong>
         <div class="row">
           <div class="col">
-            <strong>
-              <div class="input-label" style="padding-left: 17px;">Start</div>    
-            </strong>
+            <div class="card">
+              <input type="date" ng-model="dateStart.value"><br>  
+            </div>
           </div>
           <div class="col">
-            <input type="date" ng-model="dateStart.value"><br>
             <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
           </div>
         </div>
 
+        <strong>
+          <div class="input-label" style="padding-left: 17px;">End</div>    
+        </strong>
         <div class="row">
           <div class="col">
-            <strong>
-              <div class="input-label" style="padding-left: 17px;">End</div>    
-            </strong>
+            <input type="date" ng-model="dateEnd.value"><br>
           </div>
           <div class="col">
-            <input type="date" ng-model="dateEnd.value"><br>
             <input type="time" ng-model="dateEnd.value" ng-show="!isAllDayValue">
           </div>
         </div>
