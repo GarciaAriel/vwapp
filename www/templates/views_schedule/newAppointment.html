@@ -42,7 +42,7 @@
         </label>
 
         <!-- show or hide fields -->
-
+        start
         <div class="row">
           <div class="col">
             <strong>
@@ -79,130 +79,168 @@
 
         <!-- show recurrent -->
         <div ng-show="isRecurrenceValue">
-            <!-- daily popup -->
-            <label class="item item-toggle">
-              Daily
-              <label class="toggle toggle-assertive">
-                <input type="checkbox" name="" ng-checked="isGroupShown(groupDaily)" ng-click="toggleGroup(groupDaily)">
-                  <div class="track">
-                   <div class="handle"></div>
-                  </div>
+          <div class="card">
+              <!-- daily popup -->
+              <label class="item item-toggle">
+                Daily
+                <label class="toggle toggle-assertive">
+                  <input type="checkbox" name="" ng-checked="isGroupShown(groupDaily)" ng-click="toggleGroup(groupDaily)">
+                    <div class="track">
+                     <div class="handle"></div>
+                    </div>
+                </label>
               </label>
-            </label>
-
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown(groupDaily)">
-
-              <div class="row">
-                <div class="col col-75">
-                  <label class="item-input">
-                    <span class="input-label">Every</span>
-                    <input type="number">
-                  </label>
-                </div>
-                <div class="col col-25">
-                  <label class="item-input">
-                    <span class="input-label">Day(s)</span>
-                  </label>
-                </div>
-              </div>        
-              
-            </ion-item>
-            <!-- end daily popup -->
-
-            <!-- week popup -->
-            <label class="item item-toggle">
-              Week
-              <label class="toggle toggle-assertive">
-                <input type="checkbox" name="" ng-checked="isGroupShown(groupWeek)" ng-click="toggleGroup(groupWeek)">
-                  <div class="track">
-                   <div class="handle"></div>
-                  </div>
-              </label>
-            </label>
-
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown(groupWeek)">
-              <div class="row">
-                <div class="col col-75">
-                  <label class="item-input">
-                    <span class="input-label">Every</span>
-                    <input type="number">
-                  </label>
-                </div>
-                <div class="col col-25">
-                  <label class="item-input">
-                    <span class="input-label">Week(s)</span>
-                  </label>
-                </div>
-              </div>
-
-              <ion-checkbox ng-model="a">Lu</ion-checkbox>
-              <ion-checkbox ng-model="b">Ma</ion-checkbox>
-              <ion-checkbox ng-model="c">Mi</ion-checkbox>
-              <ion-checkbox ng-model="d">Ju</ion-checkbox>
-              <ion-checkbox ng-model="e">Vi</ion-checkbox>
-              <ion-checkbox ng-model="f">Sa</ion-checkbox>
-              <ion-checkbox ng-model="g">Do</ion-checkbox>
 
               
-            </ion-item>
-            <!-- end week popup -->
+              <ion-item class="item-accordion"
+                        ng-show="isGroupShown(groupDaily)">
+                <div class="card">
+                  <div class="row">
+                    <div class="col col-75">
+                      <label class="item-input">
+                        <span class="input-label">Every</span>
+                        <input type="number" min="1" max="99" value="1">
+                      </label>
+                    </div>
+                    <div class="col col-25">
+                      <label class="item-input">
+                        <span class="input-label">Day(s)</span>
+                      </label>
+                    </div>
+                  </div>        
+                </div>              
+              </ion-item>
 
-            <!-- Month popup -->
-            <label class="item item-toggle">
-              Month
-              <label class="toggle toggle-assertive">
-                <input type="checkbox" name="" ng-checked="isGroupShown(groupMonth)" ng-click="toggleGroup(groupMonth)">
-                  <div class="track">
-                   <div class="handle"></div>
+              <!-- end daily popup -->
+
+              <!-- week popup -->
+              <label class="item item-toggle">
+                Week
+                <label class="toggle toggle-assertive">
+                  <input type="checkbox" name="" ng-checked="isGroupShown(groupWeek)" ng-click="toggleGroup(groupWeek)">
+                    <div class="track">
+                     <div class="handle"></div>
+                    </div>
+                </label>
+              </label>
+
+              <ion-item class="item-accordion"
+                        ng-show="isGroupShown(groupWeek)">
+                <div class="card">          
+                  <div class="row">
+                    <div class="col col-66">
+                      <label class="item-input">
+                        <span class="input-label">Every</span>
+                        <input type="number" min="1" max="99" value="1">
+                      </label>
+                    </div>
+                    <div class="col col-33">
+                      <label class="item-input">
+                        <span class="input-label">Week(s)</span>
+                      </label>
+                    </div>
                   </div>
-              </label>
-            </label>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown(groupMonth)">
-              
-              <div class="row">
-                <div class="col col-67">
-                  <label class="item-input">
-                    <span class="input-label">Every</span>
-                    <input type="number">
-                  </label>
-                </div>
-                <div class="col col-33">
-                  <label class="item-input">
-                    <span class="input-label">month(s)</span>
-                  </label>
-                </div>
-              </div>
 
-              <label class="item item-radio">
-                <input type="radio" name="group">
-                <div class="item-content">
-                  Recur
-                </div>
-                <i class="radio-icon ion-checkmark"></i>
+                  <ion-checkbox ng-model="a">Lu</ion-checkbox>
+                  <ion-checkbox ng-model="b">Ma</ion-checkbox>
+                  <ion-checkbox ng-model="c">Mi</ion-checkbox>
+                  <ion-checkbox ng-model="d">Ju</ion-checkbox>
+                  <ion-checkbox ng-model="e">Vi</ion-checkbox>
+                  <ion-checkbox ng-model="f">Sa</ion-checkbox>
+                  <ion-checkbox ng-model="g">Do</ion-checkbox>
+
+                </div>  
+              </ion-item>
+              <!-- end week popup -->
+
+              <!-- Month popup -->
+              <label class="item item-toggle">
+                Month
+                <label class="toggle toggle-assertive">
+                  <input type="checkbox" name="" ng-checked="isGroupShown(groupMonth)" ng-click="toggleGroup(groupMonth)">
+                    <div class="track">
+                     <div class="handle"></div>
+                    </div>
+                </label>
               </label>
 
-            </ion-item>
-            <!-- end month popup -->
-
-            <!-- Year popup -->
-            <label class="item item-toggle">
-              Year
-              <label class="toggle toggle-assertive">
-                <input type="checkbox" name="" ng-checked="isGroupShown(groupYear)" ng-click="toggleGroup(groupYear)">
-                  <div class="track">
-                   <div class="handle"></div>
+              <ion-item class="item-accordion"
+                        ng-show="isGroupShown(groupMonth)">
+                <div class="card"> 
+                  <div class="row">
+                    <div class="col col-67">
+                      <label class="item-input">
+                        <span class="input-label">Every</span>
+                        <input type="number" min="1" max="99" value="1">
+                      </label>
+                    </div>
+                    <div class="col col-33">
+                      <label class="item-input">
+                        <span class="input-label">month(s)</span>
+                      </label>
+                    </div>
                   </div>
-              </label>
-            </label>
-            <ion-item class="item-accordion"
-                      ng-show="isGroupShown(groupYear)">
-              hola year
-            </ion-item>
-            <!-- end year popup -->
 
+                  <div class="row">
+                    <div class="col">
+                      <label class="item item-radio">
+                        <input type="radio" name="group" ng-model="content" value="first">
+                        <div class="item-content">
+                          Recur on the
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                      </label>
+                    </div>
+                    <div class="col">
+                      <label class="item item-radio">
+                        <input type="radio" name="group" ng-model="content" value="other">
+                        <div class="item-content">
+                          Recur on the
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                      </label>    
+                    </div>
+                  </div>
+
+                  <label ng-show="content=='first'" class="item item-input item-select">
+                    <div class="input-label">
+                      Tipo123123
+                    </div>
+                    <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+                  </label>
+
+                  <label ng-show="content=='other'" class="item item-input item-select">
+                    <div class="input-label">
+                      
+                    </div>
+                    <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+                    <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+                  </label>
+
+                </div>
+              </ion-item>
+              <!-- end month popup -->
+
+              <!-- Year popup -->
+              <label class="item item-toggle">
+                Year
+                <label class="toggle toggle-assertive">
+                  <input type="checkbox" name="" ng-checked="isGroupShown(groupYear)" ng-click="toggleGroup(groupYear)">
+                    <div class="track">
+                     <div class="handle"></div>
+                    </div>
+                </label>
+              </label>
+              <ion-item class="item-accordion"
+                        ng-show="isGroupShown(groupYear)">
+                <div class="card">
+                        
+                hola year
+                </div>
+              </ion-item>
+              <!-- end year popup -->
+
+          </div>
         </div>
         <!-- show recurrent -->
         
@@ -221,6 +259,33 @@
               </div>
           </label>
         </label>
+
+        <div ng-show="entity.reminder" class="card">
+          <div  class="row">
+            <div class="col col-33">
+              <label class="item item-input item-select">
+                <div class="input-label">
+                  T
+                </div>
+                <select ng-init="asdf.name" ng-model="asdf" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+              </label>
+            </div>
+            <div class="col col-66">
+              <label class="item item-input item-select">
+                <div class="input-label">
+                  .
+                </div>
+                <select ng-init="asdf.name" ng-model="asdf" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+              </label>
+            </div>
+          </div>
+          <div class="item item-text-wrap">
+            before the appointment
+          </div>
+        </div>  
+          
+        
+        
 
         <label class="item item-toggle">
           Private

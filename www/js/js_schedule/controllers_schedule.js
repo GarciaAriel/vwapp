@@ -409,7 +409,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             value:appointmentType.salutationId
           });       
       });  
-
       
     
     }).error(
