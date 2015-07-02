@@ -1,4 +1,4 @@
-<ion-view  view-title="{{ 'ContactPersons' | translate}}">
+<ion-view cache-view="false" view-title="{{ 'ContactPersons' | translate}}">
   <ion-nav-buttons side="right">
 
     <!-- Href to add contact person -->
@@ -30,7 +30,6 @@
   </div>
   
   <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
-
 
     <ion-refresher pulling-text="{{ 'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>

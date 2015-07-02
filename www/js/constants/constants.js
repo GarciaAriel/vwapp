@@ -38,8 +38,3 @@ angular.module('starter.constants',[])
 .constant('COLOR_VIEW','color: #ba0808')
 .constant('COLOR_2','#ba0808');
 // .constant('COLOR_VIEW','color: #1A36A7')
-
-
-
-
-

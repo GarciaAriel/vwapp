@@ -1,6 +1,6 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
-// 
+//
 // CONTROLLER LIST CONTACT TO ADD APPOINTMENT
 //
 .controller('addParticipantsToAnAppointment', function($ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {

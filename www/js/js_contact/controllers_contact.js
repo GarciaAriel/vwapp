@@ -2728,192 +2728,186 @@ $scope.search = function () {
 
 })
 
-.controller('ctrlSeeContactsPerson', function($stateParams,$window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+//
+// CONTROLLER LIST CONTACT TO ADD APPOINTMENT
+//
+.controller('ctrlSeeContactsPerson', function(ContactPerson,bridgeService,$ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {
+  console.log('*******************************************************');
+  console.log("==CONTROLLER CONTACT== see contact person");
 
+  $scope.pagesintotal; 
+  $scope.page = 1;
+  $scope.showSearchBar = false;
+  $scope.apiUrlLocal = apiUrlLocal;
+  $scope.contacts = [];
+  $scope.asknext = false;
+
+  // *******
+  // access right
   $scope.accessRight = $localstorage.getObject('accessRight');  
   console.log('Access Right',$scope.accessRight);
-
-  if($stateParams.updated == true){
-    console.log('----0-0-0-000000--------trueeeee');
-  }
-  else{
-    console.log('----0-0-0-000000--------falseeeee');
-  }
-
-  
   $scope.varCreate = $scope.accessRight.CONTACTPERSON.CREATE;
 
   var mainData = bridgeService.getContact();
-  console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
-  
-  $scope.colorFont = COLOR_VIEW;
-  $scope.totalPages; 
-  $scope.page = 1; 
-  $scope.asknext = false; 
+  console.log("maindata of contact or organization:",mainData);
+// ********8
+
+
+  // EXECUTE QUERY WITH (PAGE NUMBER)
+  // ******
   $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
-  $scope.helpToCallList = false;
-  $scope.contacts = [];
-  $scope.apiUrlLocal = apiUrlLocal;
-    
+  // *******
+  // $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+  
   $scope.newContacts.$promise.then(function (results){
-        
-    // call factory 
-    PopupFactory.getPopup($scope,results);
-    
-    console.log("1. promise results: ",(results['mainData']));
+      
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);
+      
+      console.log("1. results of request: ",results);
 
-    $scope.contacts = (results['mainData'])['list'];
+      $scope.contacts = (results['mainData'])['list'];
 
-    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-    $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      // get page and page in total
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
 
-    console.log("current page: ", $scope.page);
-    console.log("total pages: ", $scope.totalPages);
+      console.log("2. page number", $scope.page);
+      console.log("3. page in total", $scope.pagesintotal);
 
-    if ( $scope.totalPages > $scope.page) {
-      $scope.asknext = true;  
-    };
-    // if no exists items show message
-    if ($scope.contacts.length == 0) {
-
-      var message = $filter('translate')('NoItems');
-      var messageClose = $filter('translate')('Close');
-      // An alert dialog
-      console.log("==CONTROLLER CONTACTS== alert if no exists items");
-      var alertPopup = $ionicPopup.alert({
-          title: message,
-          buttons: [
-            { text: '<b>'+messageClose+'</b>',
-              type: 'button-positive',
-              onTap: function(e) {
-                // $window.history.back();
-              }
-            },
-          ]
-      });
-    }
-    $ionicScrollDelegate.scrollTop();
+      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+        $scope.asknext = true;  
+      };
   })
 
   $scope.hideSearch = function() {
+    console.log('*******************************************************');
+    console.log("4. hide search");
     $scope.searchKey = "";
     $scope.showSearchBar = false;
-  };
+  };    
 
   $scope.doRefresh = function() {
-    $scope.searchKey = "";
-    $scope.page = 1;
-    $scope.helpToCallList = false;
-    $scope.showSearchBar = false;
-    $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+    console.log('*******************************************************');
+    console.log("5. do refresh");
 
+    $scope.page=1;
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+
+    // EXECUTE QUERY WITH (PAGE NUMBER)
+    // ******
+    $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+    // ******
+    // $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+
+    // PROMISE
     $scope.newContacts.$promise.then(function (results){
 
-      // call factory 
+      // call factory to validate the response
       PopupFactory.getPopup($scope,results);
-      console.log("2. promise results: ",(results['mainData']));
+      
+      console.log("6. results of request: ",results);
 
-      if (results['forward'] == "") {
-        $scope.contacts = (results['mainData'])['list'];
-        $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-        $scope.$broadcast('scroll.refreshComplete'); 
-          
-        $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
-        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
-        
-        if ( $scope.totalPages > $scope.page ) {
-          $scope.asknext = true;
-        };
-        $ionicScrollDelegate.scrollTop();
-      }
+      $scope.contacts = (results['mainData'])['list']
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+
+      console.log("7. page number", $scope.page);
+      console.log("8. page in total", $scope.totalPages);
+
+      if ( $scope.totalPages > $scope.page ) {
+        $scope.asknext = true;
+      };
+
+      $scope.$broadcast('scroll.refreshComplete'); 
+      $ionicScrollDelegate.scrollTop();
     });
   };  
 
   $scope.loadMore = function() {
+    console.log('*******************************************************');
+    console.log("9. load more contacts");
     
     $scope.page = $scope.page + 1;
     $scope.asknext = false;
+
+    // EXECUTE QUERY WITH (PAGE NUMBER)
+    // *******
     $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+    // ******
+    // $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+    // PROMISE
     $scope.newContacts.$promise.then(function(results){
-      
-      // call factory 
+    
+      // call factory to validate the response
       PopupFactory.getPopup($scope,results);
-      console.log("3. promise results: ",(results['mainData']));
+
+      console.log("10. results of request: ",results);
 
       $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+      console.log("11. page number", $scope.page);
+      console.log("12. page in total", $scope.totalPages);
+
       $scope.$broadcast('scroll.infiniteScrollComplete');
-      
-      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
-      $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
-      
-      if ( $scope.totalPages > $scope.page ) {
+      if ($scope.totalPages > $scope.page) {
         $scope.asknext = true;  
       };
-        
+
+
     });
   };
 
-  $scope.getContactUrl = function(item,type){  
-    var accessRight = $localstorage.getObject('accessRight');
-    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
-
-    // IF CONTACT PERSON HAVE PERMISSION TO READ
-    var result = '#';
-    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
-      result = '#';
-    }
-    // switch(type) {
-      // case 'contactPerson':
-      result = '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
-          
-          // break;
-      // default:
-      return result;
-    // }    
-  };
-
-  $scope.addContactPerson = function(){
-    console.log('==CONTACT CONTROLLER== go to add contact person controller');
-    $state.go('app.addContactPerson');
-  }
-
-
-
   $scope.searchcon = function(){
     $scope.showSearchBar = !$scope.showSearchBar;
-  }
+  }   
 
   $scope.search = function () {
-    
-    console.log("==CONTROLLER CONTACT== search contact person");
-    $scope.helpToCallList = true;
+    console.log('*******************************************************');
+    console.log("13. function search");
+
     $scope.contacts = [];
-    $scope.showSearchBar = !$scope.showSearchBar;
-    console.log("-------search ---",$scope.searchKey);
-
-    $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
     $scope.asknext = false;
+    $scope.showSearchBar = !$scope.showSearchBar;
 
+    // EXECUTE QUERY WITH (CONTACT SEARCH NAME)
+    // *****
+    $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+    // ********
+    // $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey});
+    
+    // PROMISE
     $scope.buscados.$promise.then(function (results){
-        // call factory 
-      PopupFactory.getPopup($scope,results);    
+        
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);  
 
+      console.log("14. results of request: ",results);  
+
+      $scope.contacts = (results['mainData'])['list'];
       $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-              
-      $scope.contacts = (results['mainData'])['list'];
-       
-      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+
+      console.log("15. page number", $scope.page);
+      console.log("16. page in total", $scope.totalPages);
+
+      if ($scope.totalPages > $scope.page) {
         $scope.asknext = true;  
       }; 
 
       // if no exists items show message
       if ($scope.contacts.length == 0) {
 
+        console.log("17. no exists items");
+
         var message = $filter('translate')('NoItems');
         var messageRefresh = $filter('translate')('PulltoRefresh');
         // An alert dialog
-        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        
         var alertPopup = $ionicPopup.alert({
             title: message,
             template: messageRefresh
@@ -2924,36 +2918,291 @@ $scope.search = function () {
     });
       
     $scope.loadMore = function() {
-      console.log("------------------1 loadMore dentro search");
-      $scope.page = $scope.page +1;     
-      console.log("trying to load more of the search",$scope.page);
-      if ($scope.helpToCallList) {
-        console.log("search load more: value true",mainData.entity.addressId);
-        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
-      }
-      else{
-        console.log("search load more: value false",mainData.entity.addressId);
-        $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
-      }
+      console.log('*******************************************************');
+      console.log("18. load more into search");
 
+      $scope.page = $scope.page +1;
+
+      // EXECUTE QUERY WITH (contactSearchName, pageNumber)
+      // *******
       
+      $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+      
+      // *********
+      // $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+      // PROMISE
       $scope.buscados.$promise.then(function(results){
 
-          // call factory 
-          PopupFactory.getPopup($scope,results);
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,results);
 
-          $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+        console.log("19. results of request: ",results);
 
-          $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-          console.log("======0000new list of contacts for search",$scope.contacts);
+        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+        $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+        $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+        console.log("20. page number", $scope.page);
+        console.log("21. page in total", $scope.totalPages);
+
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+                
       });
             
-      if ($scope.totalPages<$scope.page+1) {
+      if ($scope.totalPages <= $scope.page) {
         $scope.asknext = false;  
       };              
     };
   }
 
+  $scope.getContactUrl = function(item,type){  
+    var accessRight = $localstorage.getObject('accessRight');
+    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
 
+    // IF CONTACT PERSON HAVE PERMISSION TO READ
+    var result = '#';
+    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+      result = '#';
+    }
+    result = '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+          
+    return result;
+    
+  };
+
+  $scope.addContactPerson = function(){
+    console.log('==CONTACT CONTROLLER== go to add contact person controller');
+    $state.go('app.addContactPerson');
+  }
+                            
 })
+
+// .controller('ctrlSeeContactsPerson', function($stateParams,$window,$ionicPopup,$filter,apiUrlLocal,bridgeService,ContactPerson,$state,$localstorage,$ionicScrollDelegate,PopupFactory,$scope,COLOR_VIEW) {
+
+//   $scope.accessRight = $localstorage.getObject('accessRight');  
+//   console.log('Access Right',$scope.accessRight);
+
+//   if($stateParams.updated == true){
+//     console.log('----0-0-0-000000--------trueeeee');
+//   }
+//   else{
+//     console.log('----0-0-0-000000--------falseeeee');
+//   }
+
+  
+//   $scope.varCreate = $scope.accessRight.CONTACTPERSON.CREATE;
+
+//   var mainData = bridgeService.getContact();
+//   console.log("==CONTROLLER CONTACT== see contact person, maindata of contact or organization:",mainData);
+  
+//   $scope.colorFont = COLOR_VIEW;
+//   $scope.totalPages; 
+//   $scope.page = 1; 
+//   $scope.asknext = false; 
+//   $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+//   $scope.helpToCallList = false;
+//   $scope.contacts = [];
+//   $scope.apiUrlLocal = apiUrlLocal;
+    
+//   $scope.newContacts.$promise.then(function (results){
+        
+//     // call factory 
+//     PopupFactory.getPopup($scope,results);
+    
+//     console.log("1. promise results: ",(results['mainData']));
+
+//     $scope.contacts = (results['mainData'])['list'];
+
+//     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//     $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+//     console.log("current page: ", $scope.page);
+//     console.log("total pages: ", $scope.totalPages);
+
+//     if ( $scope.totalPages > $scope.page) {
+//       $scope.asknext = true;  
+//     };
+//     // if no exists items show message
+//     if ($scope.contacts.length == 0) {
+
+//       var message = $filter('translate')('NoItems');
+//       var messageClose = $filter('translate')('Close');
+//       // An alert dialog
+//       console.log("==CONTROLLER CONTACTS== alert if no exists items");
+//       var alertPopup = $ionicPopup.alert({
+//           title: message,
+//           buttons: [
+//             { text: '<b>'+messageClose+'</b>',
+//               type: 'button-positive',
+//               onTap: function(e) {
+//                 // $window.history.back();
+//               }
+//             },
+//           ]
+//       });
+//     }
+//     $ionicScrollDelegate.scrollTop();
+//   })
+
+//   $scope.hideSearch = function() {
+//     $scope.searchKey = "";
+//     $scope.showSearchBar = false;
+//   };
+
+//   $scope.doRefresh = function() {
+//     $scope.searchKey = "";
+//     $scope.page = 1;
+//     $scope.helpToCallList = false;
+//     $scope.showSearchBar = false;
+//     $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+
+//     $scope.newContacts.$promise.then(function (results){
+
+//       // call factory 
+//       PopupFactory.getPopup($scope,results);
+//       console.log("2. promise results: ",(results['mainData']));
+
+//       if (results['forward'] == "") {
+//         $scope.contacts = (results['mainData'])['list'];
+//         $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+//         $scope.$broadcast('scroll.refreshComplete'); 
+          
+//         $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//         $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+        
+//         if ( $scope.totalPages > $scope.page ) {
+//           $scope.asknext = true;
+//         };
+//         $ionicScrollDelegate.scrollTop();
+//       }
+//     });
+//   };  
+
+//   $scope.loadMore = function() {
+    
+//     $scope.page = $scope.page + 1;
+//     $scope.asknext = false;
+//     $scope.newContacts = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+//     $scope.newContacts.$promise.then(function(results){
+      
+//       // call factory 
+//       PopupFactory.getPopup($scope,results);
+//       console.log("3. promise results: ",(results['mainData']));
+
+//       $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+//       $scope.$broadcast('scroll.infiniteScrollComplete');
+      
+//       $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//       $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+//       if ( $scope.totalPages > $scope.page ) {
+//         $scope.asknext = true;  
+//       };
+        
+//     });
+//   };
+
+//   $scope.getContactUrl = function(item,type){  
+//     var accessRight = $localstorage.getObject('accessRight');
+//     accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
+
+//     // IF CONTACT PERSON HAVE PERMISSION TO READ
+//     var result = '#';
+//     if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
+//       result = '#';
+//     }
+//     // switch(type) {
+//       // case 'contactPerson':
+//       result = '#/app/contactPerson?contactId='+item.addressId+'&addressId='+item.addressId+'&contactPersonId='+item.contactPersonId+'&name1='+item.lastName+'&name2='+item.firstName;
+          
+//           // break;
+//       // default:
+//       return result;
+//     // }    
+//   };
+
+//   $scope.addContactPerson = function(){
+//     console.log('==CONTACT CONTROLLER== go to add contact person controller');
+//     $state.go('app.addContactPerson');
+//   }
+
+
+
+//   $scope.searchcon = function(){
+//     $scope.showSearchBar = !$scope.showSearchBar;
+//   }
+
+//   $scope.search = function () {
+    
+//     console.log("==CONTROLLER CONTACT== search contact person");
+//     $scope.helpToCallList = true;
+//     $scope.contacts = [];
+//     $scope.showSearchBar = !$scope.showSearchBar;
+//     console.log("-------search ---",$scope.searchKey);
+
+//     $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+//     $scope.asknext = false;
+
+//     $scope.buscados.$promise.then(function (results){
+//         // call factory 
+//       PopupFactory.getPopup($scope,results);    
+
+//       $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+//       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+              
+//       $scope.contacts = (results['mainData'])['list'];
+       
+//       if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+//         $scope.asknext = true;  
+//       }; 
+
+//       // if no exists items show message
+//       if ($scope.contacts.length == 0) {
+
+//         var message = $filter('translate')('NoItems');
+//         var messageRefresh = $filter('translate')('PulltoRefresh');
+//         // An alert dialog
+//         console.log("==CONTROLLER CONTACTS== alert if no exists items");
+//         var alertPopup = $ionicPopup.alert({
+//             title: message,
+//             template: messageRefresh
+//         });
+//       }
+//       $ionicScrollDelegate.scrollTop();
+                
+//     });
+      
+//     $scope.loadMore = function() {
+//       console.log("------------------1 loadMore dentro search");
+//       $scope.page = $scope.page +1;     
+//       console.log("trying to load more of the search",$scope.page);
+//       if ($scope.helpToCallList) {
+//         console.log("search load more: value true",mainData.entity.addressId);
+//         $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page,'parameter(lastName@_firstName@_searchName)':$scope.searchKey});
+//       }
+//       else{
+//         console.log("search load more: value false",mainData.entity.addressId);
+//         $scope.buscados = ContactPerson.query({'contactId':mainData.entity.addressId,'pageParam(pageNumber)':$scope.page});
+//       }
+
+      
+//       $scope.buscados.$promise.then(function(results){
+
+//           // call factory 
+//           PopupFactory.getPopup($scope,results);
+
+//           $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+//           $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+//           $scope.$broadcast('scroll.infiniteScrollComplete');
+//           console.log("======0000new list of contacts for search",$scope.contacts);
+//       });
+            
+//       if ($scope.totalPages<$scope.page+1) {
+//         $scope.asknext = false;  
+//       };              
+//     };
+//   }
+
+
+// })
