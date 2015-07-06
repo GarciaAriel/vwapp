@@ -48,41 +48,21 @@
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
-              <!-- <div class="col"> -->
-                <input type="date" ng-model="dateStart.value"><br>  
-              <!-- </div> -->
-              <!-- <div class="col"> -->
-                <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
-              <!-- </div> -->
+              <input type="date" ng-model="dateStart.value">
+              <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
             </div>
           </div>
         </div>
 
-
-
-        <strong>
-          <div class="input-label" style="padding-left: 17px;">Start</div>    
-        </strong>
-        <div class="row">
-          <div class="col">
-            <div class="card">
-              <input type="date" ng-model="dateStart.value"><br>  
+        <div class="card">
+          <div class="item item-divider">
+            End
+          </div>
+          <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
+            <div class="row">
+              <input type="date" ng-model="dateEnd.value">
+              <input type="time" ng-model="dateEnd.value" ng-show="!isAllDayValue">
             </div>
-          </div>
-          <div class="col">
-            <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
-          </div>
-        </div>
-
-        <strong>
-          <div class="input-label" style="padding-left: 17px;">End</div>    
-        </strong>
-        <div class="row">
-          <div class="col">
-            <input type="date" ng-model="dateEnd.value"><br>
-          </div>
-          <div class="col">
-            <input type="time" ng-model="dateEnd.value" ng-show="!isAllDayValue">
           </div>
         </div>
 
@@ -280,31 +260,18 @@
         </label>
 
         <div ng-show="entity.reminder" class="card">
-          <div  class="row">
-            <div class="col col-33">
-              <label class="item item-input item-select">
-                <div class="input-label">
-                  T
-                </div>
-                <select ng-init="asdf.name" ng-model="asdf" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
-              </label>
-            </div>
-            <div class="col col-66">
-              <label class="item item-input item-select">
-                <div class="input-label">
-                  .
-                </div>
-                <select ng-init="asdf.name" ng-model="asdf" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
-              </label>
-            </div>
-          </div>
-          <div class="item item-text-wrap">
-            before the appointment
-          </div>
+          <!-- <div  class="row"> -->
+            <label class="item item-input item-select">
+              <div class="input-label">
+                Reminder
+              </div>
+              <div  class="row">
+                <select ng-model="reminder" ng-change="updateType(reminder)" name="type" ng-options="c.name for c in reminderList"></select>
+
+              </div>  
+            </label>
+          <!-- </div> -->
         </div>  
-          
-        
-        
 
         <label class="item item-toggle">
           Private
@@ -316,11 +283,16 @@
           </label>
         </label>
 
-        <label class="item item-input">
-          <span class="input-label">Description</span>
-
-          <input type="textarea" maxlength="60" placeholder="Location" ng-model="entity.descriptionText">
-        </label>
+        <div class="card">
+          <div class="item item-divider">
+            Description 3333
+          </div>
+          <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
+            <div class="row">
+              <textarea rows="4"></textarea> 
+            </div>
+          </div>
+        </div>
 
       </div>
     </form>

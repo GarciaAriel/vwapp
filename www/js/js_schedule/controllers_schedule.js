@@ -332,28 +332,60 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // CONTROLLER SCHEDULE DETAIL
 //
 .controller('ControlScheduleDetail', function(bridgeServiceAppointment,$state,PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
-    $scope.pathSchedule = pathSchedule;
+  console.log('*******************************************************');
+  console.log("==CONTROLLER SCHEDULE== view detail");
+  console.log("param id appointment: ", $stateParams.appointmentId);
 
-    console.log("==CONTROLLER SCHEDULE== param id appointment: ", $stateParams.appointmentId);
-    
-    // EXECUTE QUERY WITH (APPOINTMENTID)
-    $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
+  $scope.pathSchedule = pathSchedule;
+  
+  // EXECUTE QUERY WITH (appointment id)
+  $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId});
 
-    // PROMISE
-    $scope.taskcall.$promise.then(function (results){
-        // call factory 
-        PopupFactory.getPopup($scope,results);
+  // PROMISE
+  $scope.taskcall.$promise.then(function (results){
 
-        $scope.tareas = results;
-        $scope.prioridades = (results['mainData'])['priorityArray'];
-        $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
-        $scope.tipolist = (results['mainData'])['appointmentTypeArray'];
-        $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
-        $scope.mainData = results['mainData'];
+    // call factory to validate the response
+    PopupFactory.getPopup($scope,results);
+    console.log("results of request: ",results);
 
-        console.log("==CONTROLLER SCHEDULE== results detail:",results['mainData']);
+    $scope.entity = results['mainData']['entity'];
+    $scope.appointmentTypeArray = results['mainData']['appointmentTypeArray'];
+    $scope.priorityArray = results['mainData']['priorityArray'];
+    $scope.reminderTypeArray = results['mainData']['reminderTypeArray'];
 
-    })
+    // search appointment type by id
+    $scope.appointmentType = $scope.appointmentTypeArray.filter(function ( obj ) {
+      return obj.appointmentTypeId === $scope.entity.appointmentTypeId;
+    })[0];
+    console.log('appointment type: ',$scope.appointmentType);
+
+    // search priority by id
+    if ($scope.entity.priorityId != '') {
+      $scope.priority = $scope.priorityArray.filter(function ( obj ) {
+        return obj.priorityId === $scope.entity.priorityId;
+      })[0];  
+      console.log('priority type: ',$scope.priority);
+    }
+    // search reminder by id
+    if ($scope.entity.reminderType != '') {
+      $scope.reminder = $scope.reminderTypeArray.filter(function ( obj ) {
+        return obj.value === $scope.entity.reminderType;
+      })[0];  
+      console.log('priority type: ',$scope.priority);
+    }
+
+    console.log('---a-a-aaaaa----',$scope.reminder);
+
+
+    $scope.tareas = results;
+    $scope.prioridades = (results['mainData'])['priorityArray'];
+    $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
+    $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
+    $scope.mainData = results['mainData'];
+
+    console.log("==CONTROLLER SCHEDULE== results detail:",results['mainData']);
+
+  })
 
     $scope.callToEditAppointment = function(){
       // SEND OBJECT APPOINTMET TO EDIT
@@ -372,6 +404,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.groupMonth = {name: 'groupMonth'};
   $scope.groupYear = {name: 'groupYear'};
   $scope.shownGroup = null;  
+
+  $scope.reminderList = [{name: '5 min before'},{name: '15 min before'},{name: '30 min before'},
+                         {name: '45 min before'},{name: '1 hour before'},{name: '2 hour before'},
+                         {name: '3 hour before'},{name: '12 hour before'},{name: '1 day before'},{name: '2 day before'},];
+  $scope.reminder = $scope.reminderList[0];
 
   // Simple POST request
   var request = $http({
