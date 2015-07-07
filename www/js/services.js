@@ -4,7 +4,6 @@ angular.module('starter.services', [])
   
   function getPopup(scope,result) {
 
-
       // if session Expired
       if (result.forward == "SessionExpired") {
         console.log("==ERROR CONTROL== session expired:",result);
@@ -74,46 +73,79 @@ angular.module('starter.services', [])
 
 })
 
+.service('factoryAccessRight', function($localstorage) {
+  console.log('*******************************************************');
+  console.log('==FACTORY ACCESS RIGHT==');
+
+  // GET ACCESS RIGHT FROM LOCAL STORAGE
+  var accessRight = $localstorage.getObject('accessRight');
+  console.log('Access Right',accessRight);
+  
+  var getAccessRight = function(modulo,type) {
+    console.log('*******************************************************');
+    console.log('==FACTORY ACCESS RIGHT==');
+    console.log("modulo: "+modulo+" type: "+type);
+
+    // get value
+    var res = accessRight[modulo][type];
+    console.log('result of access right: ',res);
+
+    // response boolean
+    var result = res == 'true' ? true : false;
+    return result;
+  };
+
+  return {
+    getAccessRight: getAccessRight
+  };
+})
+
 .factory('myHttpInterceptor', function($q,$location,$injector) {
   return {
-
     'request': function(config) {
-     $injector.get("$ionicLoading").show({
-      template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
-      animation: 'fade-in',
-      noBackdrop: false
-    });
-     return config;
-   },
+      $injector.get("$ionicLoading").show({
+        template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+        animation: 'fade-in',
+        noBackdrop: false
+      });
+      return config;
+    },
 
-     //  // optional method
-     // 'requestError': function(rejection) {
-     //    // do something on error
-     //    if (canRecover(rejection)) {
-     //      return responseOrNewPromise
-     //    }
-     //    return $q.reject(rejection);
-     //  },
+    // optional method
+    'response': function(response) {
+      $injector.get("$ionicLoading").hide();
+      return response;
+    },
 
-
-
-      // optional method
-      'response': function(response) {
-        $injector.get("$ionicLoading").hide();
-        return response;
-      },
-
-      // optional method
-      'responseError': function(rejection) {
-        $injector.get("$ionicLoading").hide();
-        // do something on error
-        if (rejection.status == 302){
-          $location.path('/login');
-        }
-        // if (canRecover(rejection)) {
-        //   return responseOrNewPromise
-        // }
-        return $q.reject(rejection);
+    // optional method
+    'responseError': function(rejection) {
+      $injector.get("$ionicLoading").hide();
+      // do something on error
+      if (rejection.status == 302){
+        $location.path('/login');
       }
-    };
-  });
+      // if (canRecover(rejection)) {
+      //   return responseOrNewPromise
+      // }
+      return $q.reject(rejection);
+    }
+  };
+})
+
+// HELP SERVICE LOCAL STORAGE
+.factory('$localstorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}]);

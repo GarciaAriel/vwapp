@@ -15,21 +15,21 @@
           <b>{{tareas.mainData.entity.title}}</b>
       </div>
 
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b>{{ 'Type' | translate}}:</b></div>
           <div class="col" align="right">{{appointmentType.name}}</div>
         </div>
       </div>
 
-      <div ng-if="entity.priorityId != ''"  class="item item-text-wrap">
+      <div ng-if="entity.priorityId != ''"  class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b>{{ 'Priority' | translate}}: </b></div>
           <div class="col" align="right">{{priority.name}}</div>
         </div>
       </div>
 
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
 
         <div class="row">
           <div class="col col-50">
@@ -60,14 +60,14 @@
         </b>
       </div>
 
-      <div ng-if="entity.reminder == 'true'"  class="item item-text-wrap">
+      <div ng-if="entity.reminder == 'true'"  class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b>{{ 'Reminder' | translate}}:</b></div>
-          <div class="col" align="right">{{reminder.label}}</div>
+          <div class="col" align="right">{{timebefore}}&nbsp;{{reminder.label}}&nbsp;{{ 'before' | translate}}</div>
         </div>
       </div>
 
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b>{{ 'Private' | translate}}:</b></div>
           <div ng-if="entity.isPrivate == 'true'" class="col" align="right">
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div ng-if="entity.location != ''" class="item item-text-wrap">
+      <div ng-if="entity.location != ''" class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b> {{ 'Location' | translate}}:</b></div>
           <div class="col" align="right">
@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <div class="row">
           <div class="col"><b>{{ 'Recurrent' | translate}} : </b></div>
           <div ng-if="entity.isRecurrence == 'true'" class="col" align="right">
@@ -100,19 +100,14 @@
         </div>
       </div>
 
-      <div ng-if="entity.descriptionText != ''" class="item item-text-wrap">
+      <div ng-if="entity.descriptionText != ''" class="item item-text-wrap" style="padding-top: 0px; padding-bottom: 0px;">
         <b> {{ 'Description' | translate}}: </b>
         <br>
           {{entity.descriptionText}}
       </div>
       
-          
-
-          
-       </div>
+  </div>
       
-
-
 </ion-content>
 </ion-view>
 

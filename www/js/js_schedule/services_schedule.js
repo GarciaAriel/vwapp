@@ -19,6 +19,43 @@ angular.module('starter.scheduleservices', [])
 
 })
 
+// SERVICE TO GET FORMAT DATE
+.factory('getFormatDate', function() {
+
+    return {
+      getStringDate:  function(date,datePattern) {
+
+        var yyyy = date.getFullYear();
+        var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+        var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()) : (date.getDate());
+
+        var result = "";
+
+        switch(datePattern) {
+          case "MM/dd/yyyy":
+              result = mm+'/'+dd+'/'+yyyy;
+              break;
+          case "dd.MM.yyyy":
+              result = dd+'.'+mm+'.'+yyyy;
+              break;
+          case "dd/MM/yyyy":
+              result = dd+'/'+mm+'/'+yyyy;
+              break;
+        } 
+        return result;
+      },
+      getStringHour:  function(date) {
+        var hh = (date.getHours()).toString().length == 1 ? "0"+(date.getHours()) : (date.getHours());
+        return hh;
+      },
+      getStringMinute:  function(date) {
+        var mm = (date.getMinutes()).toString().length == 1 ? "0"+(date.getMinutes()) : (date.getMinutes());
+        return mm;
+      }
+    };
+
+})
+
 //SERVICE RESOURCE QUERY
 .factory('scheduleService', function($resource,apiUrlLocal,pathSchedule) {
   var url = apiUrlLocal+pathSchedule;

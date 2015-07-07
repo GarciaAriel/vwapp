@@ -519,14 +519,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
 });
 
-
-// angular.module('MyModule', [])
-//     .controller('MyController', function ($scope) {
-//     $scope.myfunction = function (data) {
-//         alert("---" + data);
-//     };
-// });
-
 window.onload = function () {
     angular.element(document.getElementById('page_content')).scope().updateEditor();
 }

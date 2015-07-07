@@ -1,5 +1,6 @@
 angular.module('starter.constantsSchedule',[])  
 
+.constant('NEW_APPOINTMENT_FORWARD','/bmapp/Appointment/Forward/Create.do') 
 
 // CONSTANTS TYPE SCHEDULE STRING
 .constant('SCHEDULE_TYPE_MONTH_STRING','month')

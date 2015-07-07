@@ -19,22 +19,22 @@
       <div class="list">
 
         <label class="item item-input">
-          <span class="input-label">Title</span>
+          <span class="input-label">{{'Title'|translate}}:</span>
           <input type="text" maxlength="60" required="required" placeholder="" ng-model="entity.title">
           <i class="icon ion-alert-circled error"></i>
         </label>
 
         <label class="item item-input item-select">
           <div class="input-label">
-            Tipo
+            {{'Type'|translate}}:
           </div>
-          <select ng-model="aType" ng-change="updateType(aType)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
+          <select ng-model="typeAppointment" ng-change="updateTypeAppointment(typeAppointment)" id="type" name="type" ng-options="c.name for c in appointmentTypes"></select>
         </label>
 
         <label class="item item-toggle">
-          All Day
+          {{'AllDay'|translate}}:
           <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="isAllDayValue" name="" ng-checked="entity.isAllDay == 'true' ? true : false " ng-change="hideDiv()">
+            <input type="checkbox" ng-model="entity.isAllDay" name="" ng-change="hideDiv()">
               <div class="track">
                <div class="handle"></div>
               </div>
@@ -44,44 +44,44 @@
         <!-- show or hide fields -->
         <div class="card">
           <div class="item item-divider">
-            Start
+            {{'Start'|translate}}:
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <input type="date" ng-model="dateStart.value">
-              <input type="time" ng-model="dateStart.value" ng-show="!isAllDayValue">
+              <input type="time" step="900" ng-model="dateStart.value" ng-show="!entity.isAllDay">
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="item item-divider">
-            End
+            {{'End'|translate}}:
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <input type="date" ng-model="dateEnd.value">
-              <input type="time" ng-model="dateEnd.value" ng-show="!isAllDayValue">
+              <input type="time" step="900" ng-model="dateEnd.value" ng-show="!entity.isAllDay" step='900'>
             </div>
           </div>
         </div>
 
-        <label class="item item-toggle">
-          Recurrent
+        <!-- <label class="item item-toggle">
+          {{'Recurrent'|translate}}:
           <label class="toggle toggle-assertive">
             <input type="checkbox" ng-model="isRecurrenceValue" name="" ng-checked="entity.isRecurrence == 'true' ? true : false ">
               <div class="track">
                <div class="handle"></div>
               </div>
           </label>
-        </label>
+        </label> -->
 
         <!-- show recurrent -->
-        <div ng-show="isRecurrenceValue">
-          <div class="card">
+        <!-- <div ng-show="isRecurrenceValue">
+          <div class="card"> -->
               <!-- daily popup -->
-              <label class="item item-toggle">
-                Daily
+              <!-- <label class="item item-toggle">
+                {{'Daily'|translate}}:
                 <label class="toggle toggle-assertive">
                   <input type="checkbox" name="" ng-checked="isGroupShown(groupDaily)" ng-click="toggleGroup(groupDaily)">
                     <div class="track">
@@ -108,13 +108,13 @@
                     </div>
                   </div>        
                 </div>              
-              </ion-item>
+              </ion-item> -->
 
               <!-- end daily popup -->
 
               <!-- week popup -->
-              <label class="item item-toggle">
-                Week
+              <!-- <label class="item item-toggle">
+                {{'Week'|translate}}:
                 <label class="toggle toggle-assertive">
                   <input type="checkbox" name="" ng-checked="isGroupShown(groupWeek)" ng-click="toggleGroup(groupWeek)">
                     <div class="track">
@@ -149,12 +149,12 @@
                   <ion-checkbox ng-model="g">Do</ion-checkbox>
 
                 </div>  
-              </ion-item>
+              </ion-item> -->
               <!-- end week popup -->
 
               <!-- Month popup -->
-              <label class="item item-toggle">
-                Month
+              <!-- <label class="item item-toggle">
+                {{'Month'|translate}}:
                 <label class="toggle toggle-assertive">
                   <input type="checkbox" name="" ng-checked="isGroupShown(groupMonth)" ng-click="toggleGroup(groupMonth)">
                     <div class="track">
@@ -217,12 +217,12 @@
                   </label>
 
                 </div>
-              </ion-item>
+              </ion-item> -->
               <!-- end month popup -->
 
               <!-- Year popup -->
-              <label class="item item-toggle">
-                Year
+              <!-- <label class="item item-toggle">
+                {{'Year'|translate}}:
                 <label class="toggle toggle-assertive">
                   <input type="checkbox" name="" ng-checked="isGroupShown(groupYear)" ng-click="toggleGroup(groupYear)">
                     <div class="track">
@@ -236,23 +236,23 @@
                         
                 hola year
                 </div>
-              </ion-item>
+              </ion-item> -->
               <!-- end year popup -->
-
+<!-- 
           </div>
-        </div>
+        </div> -->
         <!-- show recurrent -->
         
 
         <label class="item item-input">
-          <span class="input-label">Location</span>
+          <span class="input-label">{{'Location'|translate}}:</span>
           <input type="text" maxlength="60" placeholder="Location" ng-model="entity.location">
         </label>
 
         <label class="item item-toggle">
-          Reminder
+          {{'Reminder'|translate}}:
           <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.reminder" name="" ng-checked="entity.reminder == 'true' ? true : false ">
+            <input type="checkbox" ng-model="entity.reminder" name="">
               <div class="track">
                <div class="handle"></div>
               </div>
@@ -263,10 +263,10 @@
           <!-- <div  class="row"> -->
             <label class="item item-input item-select">
               <div class="input-label">
-                Reminder
+                {{'Reminder'|translate}}:
               </div>
               <div  class="row">
-                <select ng-model="reminder" ng-change="updateType(reminder)" name="type" ng-options="c.name for c in reminderList"></select>
+                <select ng-model="typeReminder" ng-change="updateReminder(typeReminder)" name="type" ng-options="c.name for c in reminderList"></select>
 
               </div>  
             </label>
@@ -274,7 +274,7 @@
         </div>  
 
         <label class="item item-toggle">
-          Private
+          {{'Private'|translate}}:
           <label class="toggle toggle-assertive">
             <input type="checkbox" ng-model="entity.isPrivate" name="" ng-checked="entity.isPrivate == 'true' ? true : false ">
               <div class="track">
@@ -285,12 +285,10 @@
 
         <div class="card">
           <div class="item item-divider">
-            Description 3333
+            {{'Description'|translate}}:
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
-            <div class="row">
-              <textarea rows="4"></textarea> 
-            </div>
+            <textarea rows="4" ng-model="entity.descriptionText"></textarea> 
           </div>
         </div>
 
