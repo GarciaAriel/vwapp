@@ -226,7 +226,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE EDIT
 //
-.controller('ControllerScheduleEdit', function($scope,bridgeServiceAppointment){
+.controller('ControllerScheduleEdit', function($state,PopupFactory,apiUrlLocal,getFormatDate,$filter,$scope,bridgeServiceAppointment){
   console.log('*******************************************************');
   // GET OBJECT APPOINTMET TO EDIT
   var mainData = bridgeServiceAppointment.getAppointment();
@@ -239,14 +239,67 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.dateStart = {  value: dateStart  };
   $scope.dateEnd = {  value: dateEnd  };
 
-  // reminter list type 
-  $scope.reminderList = [{name: '5 min before',type: 1,value: 5},{name: '15 min before',type: 1,value: 15},
-        {name: '30 min before',type: 1,value: 30},{name: '45 min before',type: 1,value: 45},
-        {name: '1 hour before',type: 2,value: 1},{name: '2 hour before',type: 2,value: 2},
-        {name: '3 hour before',type: 2,value: 3},{name: '12 hour before',type: 12},
-        {name: '1 day before',type: 3,value: 1},{name: '2 day before',type: 3,value: 2},];
-  // $scope.typeReminder = $scope.reminderList[0];
+  // change string by boolean
+  $scope.entity.isAllDay  = $scope.entity.isAllDay == 'true' ? true : false;
+  $scope.entity.reminder  = $scope.entity.reminder == 'true' ? true : false;
+  $scope.entity.isPrivate = $scope.entity.isPrivate == 'true' ? true : false;
 
+  // reminter list type 
+  $scope.reminderList = [{name: '5 min before',type: '1',value: '5'},{name: '15 min before',type: '1',value: '15'},
+        {name: '30min before',type: '1',value: '30'},{name: '45 min before',type: '1',value: '45'},
+        {name: '1 hour before',type: '2',value: '1'},{name: '2 hour before',type: '2',value: '2'},
+        {name: '3 hour before',type: '2',value: '3'},{name: '12 hour before',type: '2',value: '12'},
+        {name: '1 day before',type: '3',value: '1'},{name: '2 day before',type: '3',value: '2'},];
+
+  $scope.typeReminder = $scope.reminderList[0];
+
+  // search type of rimender type by id
+  if ($scope.entity.reminder == true) {
+    console.log('---reminder trueeeee');
+    $scope.typeReminder = $scope.reminderList.filter(function ( obj ) {
+      if (obj.type === $scope.entity.reminderType) {
+        if (obj.type == '1') {
+          if (parseInt(obj.value) == parseInt($scope.entity.timeBefore_1) ) {
+            return obj;
+          }
+        }
+        else{
+          if (parseInt(obj.value) == parseInt($scope.entity.timeBefore_2) ) {
+            return obj;
+          }
+        }
+      }
+    })[0];  
+
+    // add new value if not exist
+    if ($scope.typeReminder == undefined) {
+      var newType = $scope.entity.reminderType;
+      var newTimeBefore1 = $scope.entity.timeBefore_1;
+      var newTimeBefore2 = $scope.entity.timeBefore_2;
+
+      if (newType == '1') {
+        var text = newTimeBefore1+' '+'minutos';
+        $scope.typeReminder = {name: text,type: newType, value: newTimeBefore1};
+        $scope.reminderList.unshift($scope.typeReminder);  
+      }
+      else{
+        if (newType == '2') {
+          var text = newTimeBefore2+' '+'hour';
+          $scope.typeReminder = {name: text,type: newType, value: newTimeBefore1};
+          $scope.reminderList.unshift($scope.typeReminder);     
+        }
+        else{
+          var text = newTimeBefore2+' '+'day';
+          $scope.typeReminder = {name: text,type: newType, value: newTimeBefore2};
+          $scope.reminderList.unshift($scope.typeReminder);    
+        }
+      }
+    }
+  }
+  
+  console.log('reminder type: ',$scope.typeReminder);
+
+  
   var aTypesArray = mainData.appointmentTypeArray;
   $scope.appointmentTypes = [];    
   aTypesArray.forEach(function(aType) {           
@@ -271,35 +324,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       } 
   });
 
-  // show or hide time All day
-  $scope.entity.isAllDay = $scope.entity.isAllDay == 'true' ? true : false;
-
-  // show or hide time All day
-  $scope.isRecurrenceValue = $scope.entity.isRecurrence == 'true' ? true : false;
-
-  // appointment is reminder convert string to boolean
-  if ($scope.entity.reminder == 'true') {
-    $scope.entity.reminder = true;
-    // switch($scope.entity.reminder) {
-    //   case '1':
-          
-    //       break;
-    //   case '2':
-          
-    //       break;
-    //   default:
-    //       default code block
-    // } 
-    // reminderType:"1"
-  }
-  else{
-    $scope.entity.reminder = false; 
-  }
-
   
-
-  // show or hide time All day
-  $scope.isRecurrenceValue = $scope.entity.isRecurrence == 'true' ? true : false;
   
   // get date start and end
   $scope.startDate = new Date(parseInt($scope.entity.startDateTime));
@@ -345,21 +370,93 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.aType = nType;     
   }
 
-  $scope.saveAppointment = function(){
-    console.log("==aaaaaaaa== entity:",$scope.entity);
-    console.log("==aaaaaaaa== type:",$scope.aType);
+  $scope.updateReminder = function(nTypeReminder){
+    $scope.typeReminder = nTypeReminder;
+  };
+
+  $scope.updateTypeAppointment = function (nTypeAppointment)
+  {
+    $scope.typeAppointment = nTypeAppointment;
   }
 
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
+  $scope.saveAppointment = function(){
+    console.log('*******************************************************');
+    console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==save appointment");
+    console.log('update appointment entity: ',$scope.entity);
+    console.log('update appointment type appointment',$scope.typeAppointment);
+    console.log('update appointment date start',$scope.dateStart);
+    console.log('update appointment date end',$scope.dateEnd);
+    console.log('update appointment date end',$scope.typeReminder);
+    
+    var fd = new FormData();
+    fd.append('dto(op)', 'update');
+    fd.append('dto(save)', 'save');
+    fd.append('dto(appointmentId)',$scope.entity.appointmentId);
+    fd.append('dto(version)',$scope.entity.version);
+    fd.append('dto(title)', $scope.entity.title);
+    fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
+
+    if ($scope.entity.isAllDay) {
+      console.log('ppointment all day true');
+      fd.append('dto(isAllDay)', $scope.entity.isAllDay);  
     }
-  };
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === group;
-  };
+    if ($scope.entity.isPrivate) {
+      console.log('appointment private true');
+      fd.append('dto(isPrivate)', $scope.entity.isPrivate);
+    }
+    if ($scope.entity.reminder) {
+      console.log('appointment reminder true');
+
+      fd.append('dto(reminder)', $scope.entity.reminder);
+      fd.append('dto(reminderType)',$scope.typeReminder.type);
+      fd.append('dto(timeBefore_1)',$scope.typeReminder.value);
+      fd.append('dto(timeBefore_2)',$scope.typeReminder.value);
+      
+    }
+    
+    var datePattern = $filter('translate')('datePattern');
+    fd.append('dto(startDate)', getFormatDate.getStringDate($scope.dateStart.value,datePattern));
+    fd.append('dto(startHour)',getFormatDate.getStringHour($scope.dateStart.value));
+    fd.append('dto(startMin)', getFormatDate.getStringMinute($scope.dateStart.value));
+    fd.append('dto(endDate)', getFormatDate.getStringDate($scope.dateEnd.value,datePattern));
+    fd.append('dto(endHour)', getFormatDate.getStringHour($scope.dateEnd.value));
+    fd.append('dto(endMin)', getFormatDate.getStringMinute($scope.dateEnd.value));
+
+    fd.append('dto(location)',$scope.entity.location);
+    fd.append('dto(descriptionText)',$scope.entity.descriptionText);
+               
+    $.ajax({
+      url: apiUrlLocal+"/bmapp/Appointment/Update.do",
+      data: fd,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+
+        var result = JSON.parse(data);
+        if(result.forward == "Success")
+        {
+          console.log("Appointment create succesfull");
+          $state.go('app.schedulerView');
+        }
+        else
+        {        
+          PopupFactory.getPopup($scope,data);
+        }             
+      }
+    });
+  }
+
+  // $scope.toggleGroup = function(group) {
+  //   if ($scope.isGroupShown(group)) {
+  //     $scope.shownGroup = null;
+  //   } else {
+  //     $scope.shownGroup = group;
+  //   }
+  // };
+  // $scope.isGroupShown = function(group) {
+  //   return $scope.shownGroup === group;
+  // };
   
 })
 
@@ -443,14 +540,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   // entity data
   $scope.entity = {isAllDay: false, reminder: false, isPrivate: false};
-  // $scope.isAllDayValue
-
+  
   // reminter list type 
-  $scope.reminderList = [{name: '5 min before',type: 1,value: 5},{name: '15 min before',type: 1,value: 15},
-        {name: '30 min before',type: 1,value: 30},{name: '45 min before',type: 1,value: 45},
-        {name: '1 hour before',type: 2,value: 1},{name: '2 hour before',type: 2,value: 2},
-        {name: '3 hour before',type: 2,value: 3},{name: '12 hour before',type: 12},
-        {name: '1 day before',type: 3,value: 1},{name: '2 day before',type: 3,value: 2},];
+  $scope.reminderList = [{name: '5 min before',type: '1',value: '5'},{name: '15 min before',type: '1',value: '15'},
+        {name: '30 min before',type: '1',value: '30'},{name: '45 min before',type: '1',value: '45'},
+        {name: '1 hour before',type: '2',value: '1'},{name: '2 hour before',type: '2',value: '2'},
+        {name: '3 hour before',type: '2',value: '3'},{name: '12 hour before',type: '2',value: '12'},
+        {name: '1 day before',type: '3',value: '1'},{name: '2 day before',type: '3',value: '2'},];
   $scope.typeReminder = $scope.reminderList[0];
 
   // display the current day // start and end
@@ -523,7 +619,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     console.log('save appointment type appointment',$scope.typeAppointment);
     console.log('save appointment date start',$scope.dateStart);
     console.log('save appointment date end',$scope.dateEnd);
-    console.log('save appointment type reminder',$scope.typeReminder);
+    console.log('save appointment type reminder',$scope.entity.reminder);
     
     var fd = new FormData();
     fd.append('dto(op)', 'create');

@@ -260,23 +260,21 @@
         </label>
 
         <div ng-show="entity.reminder" class="card">
-          <!-- <div  class="row"> -->
             <label class="item item-input item-select">
               <div class="input-label">
                 {{'Reminder'|translate}}:
               </div>
               <div  class="row">
-                <select ng-model="typeReminder" ng-change="updateReminder(typeReminder)" name="type" ng-options="c.name for c in reminderList"></select>
+                <select ng-model="typeReminder" ng-change="updateReminder(typeReminder)" ng-options="c.name for c in reminderList"></select>
 
               </div>  
             </label>
-          <!-- </div> -->
         </div>  
 
         <label class="item item-toggle">
           {{'Private'|translate}}:
           <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.isPrivate" name="" ng-checked="entity.isPrivate == 'true' ? true : false ">
+            <input type="checkbox" ng-model="entity.isPrivate" name="">
               <div class="track">
                <div class="handle"></div>
               </div>
