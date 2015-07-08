@@ -1,261 +1,62 @@
 angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
-//
-// CONTROLLER LIST CONTACT TO ADD APPOINTMENT
-//
-.controller('addParticipantsToAnAppointment', function($ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {
-  console.log('*******************************************************');
-  console.log("==CONTROLLER SCHEDULE== LIST TO AD PARTICIPANT TO APPOINTMENT: ");
-
-  $scope.pagesintotal; 
-  $scope.page = 1;
-  $scope.showSearchBar = false;
-  $scope.apiUrlLocal = apiUrlLocal;
-  $scope.contacts = [];
-  $scope.asknext = false;
-
-  // EXECUTE QUERY WITH (PAGE NUMBER)
-  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
-  
-  $scope.newContacts.$promise.then(function (results){
-      
-      // call factory to validate the response
-      PopupFactory.getPopup($scope,results);
-      
-      console.log("1. results of request: ",results);
-
-      $scope.contacts = (results['mainData'])['list'];
-
-      // get page and page in total
-      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-      $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
-
-      console.log("2. page number", $scope.page);
-      console.log("3. page in total", $scope.pagesintotal);
-
-      if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
-        $scope.asknext = true;  
-      };
-  })
-
-  $scope.hideSearch = function() {
-    console.log('*******************************************************');
-    console.log("4. hide search");
-    $scope.searchKey = "";
-    $scope.showSearchBar = false;
-  };    
-
-  $scope.doRefresh = function() {
-    console.log('*******************************************************');
-    console.log("5. do refresh");
-
-    $scope.page=1;
-    $scope.searchKey = "";
-    $scope.showSearchBar = false;
-    $scope.$broadcast('scroll.infiniteScrollComplete');
-
-    // EXECUTE QUERY WITH (PAGE NUMBER)
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
-
-    // PROMISE
-    $scope.newContacts.$promise.then(function (results){
-
-      // call factory to validate the response
-      PopupFactory.getPopup($scope,results);
-      
-      console.log("6. results of request: ",results);
-
-      $scope.contacts = (results['mainData'])['list']
-      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
-
-      console.log("7. page number", $scope.page);
-      console.log("8. page in total", $scope.totalPages);
-
-      if ( $scope.totalPages > $scope.page ) {
-        $scope.asknext = true;
-      };
-
-      $scope.$broadcast('scroll.refreshComplete'); 
-      $ionicScrollDelegate.scrollTop();
-    });
-  };  
-
-  $scope.loadMore = function() {
-    console.log('*******************************************************');
-    console.log("9. load more contacts");
-    
-    $scope.page = $scope.page + 1;
-
-    // EXECUTE QUERY WITH (PAGE NUMBER)
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
-    // PROMISE
-    $scope.newContacts.$promise.then(function(results){
-    
-      // call factory to validate the response
-      PopupFactory.getPopup($scope,results);
-
-      console.log("10. results of request: ",results);
-
-      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-
-      console.log("11. page number", $scope.page);
-      console.log("12. page in total", $scope.totalPages);
-
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      if ($scope.totalPages <= $scope.page) {
-        $scope.asknext = false;  
-      };
-
-    });
-  };
-
-  $scope.searchcon = function(){
-    $scope.showSearchBar = !$scope.showSearchBar;
-  }   
-
-  $scope.search = function () {
-    console.log('*******************************************************');
-    console.log("13. function search");
-
-    $scope.contacts = [];
-    $scope.asknext = false;
-    $scope.showSearchBar = !$scope.showSearchBar;
-
-    // EXECUTE QUERY WITH (CONTACT SEARCH NAME)
-    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey});
-    
-    // PROMISE
-    $scope.buscados.$promise.then(function (results){
-        
-      // call factory to validate the response
-      PopupFactory.getPopup($scope,results);  
-
-      console.log("14. results of request: ",results);  
-
-      $scope.contacts = (results['mainData'])['list'];
-      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-
-      console.log("15. page number", $scope.page);
-      console.log("16. page in total", $scope.totalPages);
-
-      if ( $scope.totalPages > $scope.page) {
-        $scope.asknext = true;  
-      }; 
-
-      // if no exists items show message
-      if ($scope.contacts.length == 0) {
-
-        console.log("17. no exists items");
-
-        var message = $filter('translate')('NoItems');
-        var messageRefresh = $filter('translate')('PulltoRefresh');
-        // An alert dialog
-        
-        var alertPopup = $ionicPopup.alert({
-            title: message,
-            template: messageRefresh
-        });
-      }
-      $ionicScrollDelegate.scrollTop();
-                
-    });
-      
-    $scope.loadMore = function() {
-      console.log('*******************************************************');
-      console.log("18. load more into search");
-
-      $scope.page = $scope.page +1;      
-
-      // EXECUTE QUERY WITH (contactSearchName, pageNumber)
-      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
-      // PROMISE
-      $scope.buscados.$promise.then(function(results){
-
-        // call factory to validate the response
-        PopupFactory.getPopup($scope,results);
-
-        console.log("19. results of request: ",results);
-
-        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-        $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
-        $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-
-        console.log("20. page number", $scope.page);
-        console.log("21. page in total", $scope.totalPages);
-
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-                
-      });
-            
-      if ($scope.totalPages <= $scope.page) {
-        $scope.asknext = false;  
-      };              
-    };
-  }
-
-  $scope.getContactUrl = function(item,type){  
-    var accessRight = $localstorage.getObject('accessRight');
-    accessRightContactPerson = $scope.accessRight.CONTACTPERSON.VIEW;  
-
-    // IF CONTACT PERSON HAVE PERMISSION TO READ
-    if (item.contactPersonAddressId != "" && accessRightContactPerson != "true") {
-      return "#";
-    }
-    switch(type) {
-      case 'contactPerson':
-          return '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&name1='+item.name1+'&name2='+item.name2;  
-          // return item.contactPersonAddressId ==='' ? '#/app/contactPerson?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/contactPerson?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
-          break;
-      case 'organization':
-          return item.contactPersonAddressId ==='' ? '#/app/organization?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/organization?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
-          break;
-      case 'person':
-          return item.contactPersonAddressId ==='' ? '#/app/person?contactId=' +item.addressId +'&addressId='+ item.addressId + '&addressType=' + item.addressType : '#/app/person?contactId='+item.contactPersonAddressId+'&addressId='+item.contactPersonAddressId+'&contactPersonId='+item.addressId+'&addressType='+item.addressType2;  
-          break;        
-      default:
-          return "#";
-    }    
-  };
-                            
-})
-
 // 
 // CONTROLLER SCHEDULE EDIT
 //
 .controller('ControllerScheduleEdit', function($state,PopupFactory,apiUrlLocal,getFormatDate,$filter,$scope,bridgeServiceAppointment){
+  
   console.log('*******************************************************');
+  console.log("==CONTROLLER SCHEDULE== edit appointment");
+
   // GET OBJECT APPOINTMET TO EDIT
   var mainData = bridgeServiceAppointment.getAppointment();
-  console.log("==CONTROLLER SCHEDULE== edit appointment:",mainData);
+  console.log("recover mainData: ",mainData);
 
   $scope.entity = mainData.entity;
+
+  // prepare info to view
   // display the current day // start and end
   var dateStart = new Date(parseInt($scope.entity.startDateTime,10));
   var dateEnd = new Date(parseInt($scope.entity.endDateTime,10));
-  $scope.dateStart = {  value: dateStart  };
-  $scope.dateEnd = {  value: dateEnd  };
-
-  // change string by boolean
+  $scope.dateStart = { value: dateStart };
+  $scope.dateEnd = { value: dateEnd };
   $scope.entity.isAllDay  = $scope.entity.isAllDay == 'true' ? true : false;
   $scope.entity.reminder  = $scope.entity.reminder == 'true' ? true : false;
   $scope.entity.isPrivate = $scope.entity.isPrivate == 'true' ? true : false;
 
-  // reminter list type 
+  var aTypesArray = mainData.appointmentTypeArray;
+  $scope.appointmentTypes = [];    
+  aTypesArray.forEach(function(aType) {           
+      $scope.appointmentTypes.push({
+        name: aType.name,
+        value: aType.appointmentTypeId
+      });       
+      if($scope.entity.appointmentTypeId == aType.appointmentTypeId) {             
+         $scope.typeAppointment = $scope.appointmentTypes[$scope.appointmentTypes.length-1];  
+      } 
+  });
+
+  var prioritiesArray = mainData.priorityArray;
+  $scope.priorities = [];    
+  prioritiesArray.forEach(function(priority) {           
+      $scope.priorities.push({
+        name: priority.name,
+        value:priority.priorityId
+      });       
+      if($scope.entity.priorityId == priority.priorityId) {             
+         $scope.priority = $scope.priorities[$scope.priorities.length-1];  
+      } 
+  });
+
   $scope.reminderList = [{name: '5 min before',type: '1',value: '5'},{name: '15 min before',type: '1',value: '15'},
         {name: '30min before',type: '1',value: '30'},{name: '45 min before',type: '1',value: '45'},
         {name: '1 hour before',type: '2',value: '1'},{name: '2 hour before',type: '2',value: '2'},
         {name: '3 hour before',type: '2',value: '3'},{name: '12 hour before',type: '2',value: '12'},
         {name: '1 day before',type: '3',value: '1'},{name: '2 day before',type: '3',value: '2'},];
-
   $scope.typeReminder = $scope.reminderList[0];
 
   // search type of rimender type by id
   if ($scope.entity.reminder == true) {
-    console.log('---reminder trueeeee');
     $scope.typeReminder = $scope.reminderList.filter(function ( obj ) {
       if (obj.type === $scope.entity.reminderType) {
         if (obj.type == '1') {
@@ -298,88 +99,19 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   }
   
   console.log('reminder type: ',$scope.typeReminder);
-
-  
-  var aTypesArray = mainData.appointmentTypeArray;
-  $scope.appointmentTypes = [];    
-  aTypesArray.forEach(function(aType) {           
-      $scope.appointmentTypes.push({
-        name: aType.name,
-        value:aType.appointmentTypeId
-      });       
-      if($scope.entity.appointmentTypeId == aType.appointmentTypeId) {             
-         $scope.typeAppointment = $scope.appointmentTypes[$scope.appointmentTypes.length-1];  
-      } 
-  });
-
-  var prioritiesArray = mainData.priorityArray;
-  $scope.priorities = [];    
-  prioritiesArray.forEach(function(priority) {           
-      $scope.priorities.push({
-        name: priority.name,
-        value:priority.priorityId
-      });       
-      if($scope.entity.priorityId == priority.priorityId) {             
-         $scope.priority = $scope.priorities[$scope.priorities.length-1];  
-      } 
-  });
-
-  
-  
-  // get date start and end
-  $scope.startDate = new Date(parseInt($scope.entity.startDateTime));
-  $scope.endDate = new Date(parseInt($scope.entity.endDateTime));
-
-  $scope.as = true;
-  $scope.groupDaily = {name: 'groupDaily', type: true};
-  $scope.groupWeek = {name: 'groupWeek', type: false};
-  $scope.groupMonth = {name: 'groupMonth', type: false};
-  $scope.groupYear = {name: 'groupYear', type: false};
-
-  $scope.a = false;
-  $scope.b = false;
-  $scope.c = false;
-  $scope.d = false;
-  $scope.e = false;
-  $scope.f = false;
-  $scope.g = false;
-
-  $scope.days = [{name:'1'},{name:'2'},{name:'3'},{name:'4'},{name:'5'}]
-
-  // if ($scope.entity.isAllDay == 'true') {
-  //     console.log("asdf---true");
-  //     $scope.showDiv = true;
-  //   }
-  //   else{
-  //     console.log("asdf---false");
-  //    $scope.showDiv = false; 
-  //   }
-
-  // $scope.hideDiv = function(){
-  //   if ($scope.showDiv) {
-  //     console.log("asdf---true => false");
-  //     $scope.showDiv = false;
-  //   }
-  //   else{
-  //     console.log("asdf---false => true");
-  //    $scope.showDiv = true; 
-  //   }
-  // }
-  $scope.updateType = function (nType)
-  {
-    $scope.aType = nType;     
-  }
-
+ 
+  // help function to update reminder
   $scope.updateReminder = function(nTypeReminder){
     $scope.typeReminder = nTypeReminder;
   };
 
+  // help function to update type
   $scope.updateTypeAppointment = function (nTypeAppointment)
   {
     $scope.typeAppointment = nTypeAppointment;
   }
-
-  $scope.saveAppointment = function(){
+  // help function to update appointment
+    $scope.saveAppointment = function(){
     console.log('*******************************************************');
     console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==save appointment");
     console.log('update appointment entity: ',$scope.entity);
@@ -446,18 +178,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       }
     });
   }
-
-  // $scope.toggleGroup = function(group) {
-  //   if ($scope.isGroupShown(group)) {
-  //     $scope.shownGroup = null;
-  //   } else {
-  //     $scope.shownGroup = group;
-  //   }
-  // };
-  // $scope.isGroupShown = function(group) {
-  //   return $scope.shownGroup === group;
-  // };
-  
 })
 
 // 
@@ -468,8 +188,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log("==CONTROLLER SCHEDULE== view detail");
   console.log("param id appointment: ", $stateParams.appointmentId);
 
-  $scope.pathSchedule = pathSchedule;
-  
   // EXECUTE QUERY WITH (appointment id)
   $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId,'dto(title)':'meeting'});
 
@@ -480,12 +198,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     PopupFactory.getPopup($scope,results);
     console.log("results of request: ",results);
 
+    // prepare info to view
+    $scope.mainData = results['mainData'];
     $scope.entity = results['mainData']['entity'];
     $scope.appointmentTypeArray = results['mainData']['appointmentTypeArray'];
     $scope.priorityArray = results['mainData']['priorityArray'];
     $scope.reminderTypeArray = results['mainData']['reminderTypeArray'];
 
-    // search appointment type by id
     $scope.appointmentType = $scope.appointmentTypeArray.filter(function ( obj ) {
       return obj.appointmentTypeId === $scope.entity.appointmentTypeId;
     })[0];
@@ -503,27 +222,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       $scope.reminder = $scope.reminderTypeArray.filter(function ( obj ) {
         return obj.value === $scope.entity.reminderType;
       })[0];  
-      console.log('reminder type: ',$scope.reminder);
       $scope.timebefore = $scope.entity.reminderType == '1' ? $scope.entity.timeBefore_1 : $scope.entity.timeBefore_2;
-      console.log('reminder time before: ',$scope.timebefore);
+      console.log('reminder type: '+$scope.reminder+'  reminder time before: '+$scope.timebefore);
     }
-
-    $scope.tareas = results;
-    $scope.prioridades = (results['mainData'])['priorityArray'];
-    $scope.prid = parseInt((results['mainData'])['entity']['priorityId']);
-    $scope.appoid = parseInt((results['mainData'])['entity']['appointmentTypeId']);
-    $scope.mainData = results['mainData'];
-
-    console.log("==CONTROLLER SCHEDULE== results detail:",results['mainData']);
-
   })
 
-    $scope.callToEditAppointment = function(){
-      // SEND OBJECT APPOINTMET TO EDIT
-      bridgeServiceAppointment.saveAppointment($scope.mainData);
-      $state.go('app.schedulerEdit');
-    }
+  $scope.callToEditAppointment = function(){
+    // SEND OBJECT APPOINTMET TO EDIT
+    bridgeServiceAppointment.saveAppointment($scope.mainData);
+    $state.go('app.schedulerEdit');
+  }
 })
+
 // 
 // CONTROLLER SCHEDULE NEW APPOINTMENT
 // 
@@ -531,14 +241,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
-  // recurrent appointment
-  $scope.groupDaily = {name: 'groupDaily'};
-  $scope.groupWeek = {name: 'groupWeek'};
-  $scope.groupMonth = {name: 'groupMonth'};
-  $scope.groupYear = {name: 'groupYear'};
-  $scope.shownGroup = null;
-
-  // entity data
+  // prepare info to view
   $scope.entity = {isAllDay: false, reminder: false, isPrivate: false};
   
   // reminter list type 
@@ -565,9 +268,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // Simple POST request
   var request = $http({
     method: "get",        
-    url: apiUrlLocal+NEW_APPOINTMENT_FORWARD //newPersonGetJsonInfo,      
+    url: apiUrlLocal+NEW_APPOINTMENT_FORWARD 
   });
-  // request success or error
   request.success(
     function(data, status, headers, config) {    
 
@@ -590,18 +292,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     }).error(
     function(data, status, headers, config) {    
       console.log("problems with http request: get info new appointment",data);
-    });
-
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
     }
-  };
-  $scope.isGroupShown = function(group) {
-    return ($scope.shownGroup === group);
-  };
+  );
 
   $scope.updateTypeAppointment = function (nTypeAppointment)
   {
@@ -620,12 +312,24 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     console.log('save appointment date start',$scope.dateStart);
     console.log('save appointment date end',$scope.dateEnd);
     console.log('save appointment type reminder',$scope.entity.reminder);
-    
+    console.log('');
+
+    // load into usint Form Data
     var fd = new FormData();
     fd.append('dto(op)', 'create');
     fd.append('dto(save)', 'save');
     fd.append('dto(title)', $scope.entity.title);
     fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
+    fd.append('dto(location)',$scope.entity.location);
+    fd.append('dto(descriptionText)',$scope.entity.descriptionText);
+
+    var datePattern = $filter('translate')('datePattern');
+    fd.append('dto(startDate)', getFormatDate.getStringDate($scope.dateStart.value,datePattern));
+    fd.append('dto(startHour)',getFormatDate.getStringHour($scope.dateStart.value));
+    fd.append('dto(startMin)', getFormatDate.getStringMinute($scope.dateStart.value));
+    fd.append('dto(endDate)', getFormatDate.getStringDate($scope.dateEnd.value,datePattern));
+    fd.append('dto(endHour)', getFormatDate.getStringHour($scope.dateEnd.value));
+    fd.append('dto(endMin)', getFormatDate.getStringMinute($scope.dateEnd.value));
 
     if ($scope.entity.isAllDay) {
       console.log('ppointment all day true');
@@ -642,20 +346,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       fd.append('dto(reminderType)',$scope.typeReminder.type);
       fd.append('dto(timeBefore_1)',$scope.typeReminder.value);
       fd.append('dto(timeBefore_2)',$scope.typeReminder.value);
-      
     }
-    
-    var datePattern = $filter('translate')('datePattern');
-    fd.append('dto(startDate)', getFormatDate.getStringDate($scope.dateStart.value,datePattern));
-    fd.append('dto(startHour)',getFormatDate.getStringHour($scope.dateStart.value));
-    fd.append('dto(startMin)', getFormatDate.getStringMinute($scope.dateStart.value));
-    fd.append('dto(endDate)', getFormatDate.getStringDate($scope.dateEnd.value,datePattern));
-    fd.append('dto(endHour)', getFormatDate.getStringHour($scope.dateEnd.value));
-    fd.append('dto(endMin)', getFormatDate.getStringMinute($scope.dateEnd.value));
-
-    fd.append('dto(location)',$scope.entity.location);
-    fd.append('dto(descriptionText)',$scope.entity.descriptionText);
-               
+      
+    // ajax query post to create new appointment           
     $.ajax({
       url: apiUrlLocal+"/bmapp/Appointment/Create.do",
       data: fd,
@@ -678,12 +371,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     });
 
   };
-
-  $scope.addPerson = function(){
-    console.log('-----add person');
-    $state.go('app.addParticipantsToAnAppointment');
-  };
-
 })
 
 // 
@@ -750,7 +437,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       var pos = aux.indexOf("data-cal-date=");
       var res = aux.substring(pos+15, pos+25);     
 		  setTimeout(function(){
-		    console.log('1. first name being reset');
+		    console.log('first name being reset');
 			  $scope.$apply(function(){
 				  $scope.real_date_view = res;
 				})
@@ -759,9 +446,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     onAfterViewLoad: function(view)
     {
       console.log('*******************************************************');     
-      console.log('2. on after view load');     
+      console.log('on after view load');     
       if ($scope.calendar != undefined) {
-        console.log("3. see calendar: ",$scope.calendar);
+        console.log("see calendar: ",$scope.calendar);
 
         var yyyy = $scope.calendar.options.position.start.getFullYear();
         var mmm = ($scope.calendar.options.position.start.getMonth()+1);
@@ -793,7 +480,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         // call factory to validate the response
         PopupFactory.getPopup($scope,results);
 
-        console.log("4. results of request: ");
+        console.log("results of request: ");
 
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
@@ -807,7 +494,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
           var idAppointment = appointment.virtualAppointmentId;
           if (pos > -1) {
             idAppointment = str.substring(0, pos);   
-            console.log("5. new id appointment without '-' IN RECURRENT", idAppointment);
+            console.log("new id appointment without '-' IN RECURRENT", idAppointment);
           };
           
           // load appointment and push in list
@@ -816,7 +503,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       
         });
 
-        console.log("6. final list of appointments: ",$scope.appointments);
+        console.log("final list of appointments: ",$scope.appointments);
 
         $scope.calendar.options.events = $scope.appointments;
         $scope.calendar._render();
@@ -859,7 +546,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
      return [];
   };   
 
-  // FUNCTION NEXT FOR DAY WEEK AND MONTH  
+  // FUNCTION NEXT/PREV FOR DAY WEEK AND MONTH  
   $scope.scheduleNext  = function(){
     $scope.calendar.navigate('next');
   };
@@ -897,7 +584,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   $scope.doRefresh = function() {
     console.log('*******************************************************');
-    console.log('7. refresh calendar');
+    console.log('refresh calendar');
 
     // GET OBJECT OF LOCAL STORAGE
     var _data_date = $localstorage.getObject('dataDate');
@@ -910,7 +597,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       // call factory to validate the response
       PopupFactory.getPopup($scope,results);
 
-      console.log("8. results of request: ",results);
+      console.log("results of request: ",results);
         
       $scope.listAppointments = (results['mainData'])['appointmentsList'];
 
@@ -924,14 +611,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         var idAppointment = appointment.virtualAppointmentId;
         if (pos > -1) {
           idAppointment = str.substring(0, pos);   
-          console.log("9. new id appointment without '-' IN RECURRENT", idAppointment);
+          console.log("new id appointment without '-' IN RECURRENT", idAppointment);
         };
         
         var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};
         $scope.appointments.push(change);
       });
 
-      console.log("10. final list of appointments: ",$scope.appointments);
+      console.log("final list of appointments: ",$scope.appointments);
 
       $scope.$broadcast('scroll.refreshComplete');  
 
