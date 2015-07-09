@@ -5,11 +5,7 @@
     <button class="button" style="border-style: none" ng-click="searchcon()">
       <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
-
-    <a>
-      <button class="button" style="border-style: none;height: 0px;padding-left: 0px;padding-right: 0px;"></button>
-    </a>
-
+  
   </ion-nav-buttons>
     
   <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
@@ -31,15 +27,16 @@
     </ion-refresher>
 
     <ion-list ng-repeat="item in contacts">
-<!-- product -->
-        <a ng-if='item.contactPersonAddressId != ""' class="item item-thumbnail-left"  ng-href="{{getContactUrl(item,'contactPerson')}}" style="padding-left: 75px;">
-            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px;">
-            <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 60px; height: 60px">                      
+      <!-- product -->
+      <a ng-if='item.contactPersonAddressId != ""' ng-href="{{getContactUrl(item)}}" class="item item-thumbnail-left">
 
-            <h2>{{item.contactPersonOfName}}</h2>
-            <p>{{item.addressName}} </p>
-            <p>{{item.function}}</p>
-        </a>
+        <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}">
+        <img ng-if='item.imageId ==""' ng-src="img/image_product.png">
+
+        <h2>{{ item.contactPersonOfName }}</h2>
+        <h4>{{ item.addressName }}</h4>
+        <h4>{{ item.function }}</h4>
+      </a>
 
     </ion-list>
 

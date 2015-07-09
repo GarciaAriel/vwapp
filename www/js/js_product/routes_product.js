@@ -3,7 +3,7 @@ angular.module('starter.productRoutes', ['starter.productsController'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-
+  // route product list
   $stateProvider.state('app.products', {
     url: '/products',
     cache: true,
@@ -11,6 +11,18 @@ angular.module('starter.productRoutes', ['starter.productsController'])
       'menuContent': {
        controller: 'productsCtrl',
        templateUrl: 'templates/views_product/productList.html'
+      }
+    }
+  })
+
+  // route detail product
+  $stateProvider.state('app.productDetail', {
+    url: "/productDetail?contactId&addressId&contactPersonId&name1&name2",
+    cache: true,
+    views: {
+      'menuContent': {
+       controller: 'ProductDetail_Controller',
+       templateUrl: 'templates/views_product/productDetail.html'
       }
     }
   })

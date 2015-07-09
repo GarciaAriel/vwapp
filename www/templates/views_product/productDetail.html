@@ -1,0 +1,42 @@
+<ion-view cache-view="false" view-title="{{ 'Detail' | translate}}">
+  
+  <ion-content>
+      
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img src="img/image_product.png">
+        <h2>{{contact.mainData.entity.organizationName}}</h2>
+        <p>{{titleperson}}</p>
+      </div>
+
+      <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;">
+        <ion-slide style="padding-top: 0px;">
+          <div class="item item-image">
+            <img src="img/image_product.png">
+          </div>
+        </ion-slide>
+        <ion-slide style="padding-top: 0px;">
+          <div class="item item-image">
+            <img src="img/person.png">
+          </div>
+        </ion-slide>
+        <ion-slide style="padding-top: 0px;">
+          <div class="item item-image">
+            <img src="img/image_product.png">
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+
+
+      <div class="item item-icon-left positive">
+        <i class="icon ion-music-note"></i>
+        {{contact.mainData.entity.name1}}<br>
+        {{contact.mainData.entity.name2}}<br>
+        {{contact.mainData.entity.name3}}
+      </div>
+
+    </div>
+   
+  </ion-content>
+</ion-view>
