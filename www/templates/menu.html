@@ -41,13 +41,17 @@
 
 
         <ion-item ng-if="accessRightMail != 'false' " nav-clear menu-close href="#/app/mailboxes">
-        <i class="icon ion-filing" style='{{colorFont}}'>
-          {{ 'Webmail' | translate}}
-        </i>
+          <i class="icon ion-filing" style='{{colorFont}}'>
+            {{ 'Webmail' | translate}}
+          </i>
         </ion-item>
-<!-- ng-click="doLogin()" -->
-<!--  href="#/login" -->
-        <!-- <ion-item nav-clear menu-close href="#/login"> -->
+
+        <ion-item nav-clear menu-close href="#/app/products">
+          <i class="icon ion-clipboard" style='{{colorFont}}'>
+            {{ 'products' | translate}}
+          </i>
+        </ion-item>
+
         <ion-item nav-clear menu-close ng-click="logout()" >
           <i class="icon ion-log-out" style='{{colorFont}}'>
             {{ 'Logout' | translate}}

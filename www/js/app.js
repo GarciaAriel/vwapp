@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','ngResource'])
+var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','starter.productRoutes','ngResource'])
 
 .run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
 
@@ -87,6 +87,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("en", {
     
+    products: "Products",
     before: "before",
     EditContactPerson: "Edit Contact Person",
     EditOrganization: "Edit Organization",
@@ -187,6 +188,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    products: "Productos",
     before: "antes",
     EditContactPerson: "Editar Persona de Contacto",
     EditOrganization: "Editar Organizacion",
@@ -289,6 +291,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    products: "Produkte",
     before: "vorher",
     EditContactPerson: "Bearbeiten Kontaktperson",
     EditOrganization: "Bearbeiten Organisation",
@@ -391,6 +394,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    products: "Produits",
     before: "avant",
     EditContactPerson: "Modifier Personne de Contact",
     EditOrganization: "Modifier Organisation",
