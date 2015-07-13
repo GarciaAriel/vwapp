@@ -86,7 +86,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .config(function($translateProvider) {
 
   $translateProvider.translations("en", {
-    
+    Cc:"Cc",
+    Bcc:"Bcc",
+    dayBefore: "day before",
+    hourBefore: "hour before",
+    minutesBefore: "min before",
     products: "Products",
     before: "before",
     EditContactPerson: "Edit Contact Person",
@@ -188,6 +192,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    Cc:"Cc",
+    Bcc:"Bcc",
+    dayBefore: "día antes",
+    hourBefore: "horas antes",
+    minutesBefore: "min antes",
     products: "Productos",
     before: "antes",
     EditContactPerson: "Editar Persona de Contacto",
@@ -291,6 +300,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    Cc:"CC",
+    Bcc:"BCC",
+    dayBefore: "tag(e) vorher",
+    hourBefore: "Stunde(n) vorher",
+    minutesBefore: "minuten vorher",
     products: "Produkte",
     before: "vorher",
     EditContactPerson: "Bearbeiten Kontaktperson",
@@ -394,6 +408,11 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    Cc:"Cc",
+    Bcc:"Bcc",
+    dayBefore: "jour avant",
+    hourBefore: "heures avant",
+    minutesBefore: "minutes avant",
     products: "Produits",
     before: "avant",
     EditContactPerson: "Modifier Personne de Contact",

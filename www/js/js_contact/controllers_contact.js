@@ -1,6 +1,6 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function($ionicPopup,$filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function(UPDATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$ionicPopup,$filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = $filter('translate')('EditPerson');
@@ -67,7 +67,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
      if($scope.entity.countryId != "" && $scope.entity.cityId == ""){
        var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : $scope.entity.countryId 
          }
@@ -93,7 +93,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     if($scope.entity.cityId != ""){
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : $scope.country.value
          }
@@ -209,7 +209,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       $scope.city =  undefined; 
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : ncountry.value
          }
@@ -360,7 +360,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
     
         $.ajax({
-          url: apiUrlLocal+"/bmapp/Address/Update.do",
+          url: apiUrlLocal+UPDATE_PER_AND_ORG_URL,
           data: fd,
           processData: false,
           contentType: false,
@@ -609,7 +609,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('newContactPersonCtrl',function($ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
+.controller('newContactPersonCtrl',function($stateParams,FORWARD_NEW_CONTACT_PERSON_URL,CREATE_CONTACT_PERSON_URL,$ionicPopup,$filter,$cordovaCamera,$cordovaImagePicker,bridgeServiceNewContactPerson,bridgeService,$state,$scope,$http,apiUrlLocal,PopupFactory,$localstorage){
 
 
   var mainData = bridgeService.getContact();
@@ -627,7 +627,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   $scope.information = {};
   var request = $http({
     method: "get",                                          
-    url: apiUrlLocal+"/bmapp/ContactPerson/Import.do?contactId="+entityComp.addressId+"&dto(addressIdToImport)="+entity.addressId+"&dto(addressType)="+entity.addressType+"&dto(name1)="+entity.name1+"&dto(name2)="+entity.name2,      
+    url: apiUrlLocal+FORWARD_NEW_CONTACT_PERSON_URL+"?contactId="+entityComp.addressId+"&dto(addressIdToImport)="+entity.addressId+"&dto(addressType)="+entity.addressType+"&dto(name1)="+entity.name1+"&dto(name2)="+entity.name2,      
   });
   request.success(
     function(data, status, headers, config) {    
@@ -853,7 +853,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       }    
 
         $.ajax({               
-          url: apiUrlLocal+"/bmapp/ContactPerson/Create.do?contactId="+entityComp.addressId,
+          url: apiUrlLocal+CREATE_CONTACT_PERSON_URL+"?contactId="+entityComp.addressId,
           data: fd, 
           processData: false,
           contentType: false,
@@ -864,9 +864,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
             {
               
               console.log("Contact person create succesfull");
+// $state.transitionTo('app.seeContactsPerson', {}, { reload: true });
               $state.go('app.seeContactsPerson');
+
               // console.log("---------------ok");
-              // aaaaaaaaaaaaaaaa
+              // aaaaaaaaaaaaaaaaaaaaaaaaaa
               // $state.go('app.seeContactsPerson');
               // $state.go('app.contacts');
               
@@ -886,7 +888,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
   
 })
 
-.controller('EditContactPersonCtrl', function(PopupFactory,$ionicHistory,$ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('EditContactPersonCtrl', function(EDIT_CONTACT_PERSON_URL,PopupFactory,$ionicHistory,$ionicPopup,$filter,$state,$http,$cordovaImagePicker,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
   
   $scope.apiUrlLocal = apiUrlLocal; 
   $scope.colorFont = COLOR_VIEW;
@@ -1130,7 +1132,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 
       
          $.ajax({
-          url: apiUrlLocal+"/bmapp/ContactPerson/Update.do"+"?contactId="+mainData.entity.addressId,
+          url: apiUrlLocal+EDIT_CONTACT_PERSON_URL+"?contactId="+mainData.entity.addressId,
           data: fd, 
           processData: false,
           contentType: false,
@@ -1433,7 +1435,7 @@ $scope.search = function () {
 
 
 
-.controller('newpCtrl', function ($filter,$ionicPopup,$cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
+.controller('newpCtrl', function (FORWARD_NEW_PER_AND_ORG_URL,CREATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$filter,$ionicPopup,$cordovaCamera,$cordovaImagePicker,PersonType,COLOR_VIEW,PopupFactory,$state,apiUrlLocal,$scope,$ionicModal,$http,transformRequestAsFormPost) {
   $scope.apiUrlLocal = apiUrlLocal;
   $scope.colorFont = COLOR_VIEW;
   $scope.ntitle = $filter('translate')('NewPerson');
@@ -1445,7 +1447,7 @@ $scope.search = function () {
 
   var request = $http({
     method: "get",        
-    url: apiUrlLocal+"/bmapp/Address/Forward/Create.do",      
+    url: apiUrlLocal+FORWARD_NEW_PER_AND_ORG_URL,
   });
   request.success(
     function(data, status, headers, config) {    
@@ -1572,7 +1574,7 @@ $scope.search = function () {
       $scope.city =  undefined; 
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : ncountry.value
          }
@@ -1716,7 +1718,7 @@ $scope.search = function () {
     } 
   
       $.ajax({
-        url: apiUrlLocal+"/bmapp/Address/Create.do",
+        url: apiUrlLocal+CREATE_PER_AND_ORG_URL,
         data: fd,
         processData: false,
         contentType: false,
@@ -1740,7 +1742,7 @@ $scope.search = function () {
 
 })
 
-.controller('editOrganizationCtrl', function($ionicPopup,$filter,$state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editOrganizationCtrl', function(UPDATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$ionicPopup,$filter,$state,$cordovaImagePicker,PopupFactory,$http,$cordovaCamera,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = $filter('translate')('EditOrganization');
@@ -1807,7 +1809,7 @@ $scope.search = function () {
     if($scope.entity.countryId != "" && $scope.entity.cityId == ""){
        var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : $scope.entity.countryId 
          }
@@ -1833,7 +1835,7 @@ $scope.search = function () {
     if($scope.entity.cityId != ""){
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : $scope.country.value
          }
@@ -1948,7 +1950,7 @@ $scope.search = function () {
       $scope.city =  undefined; 
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : ncountry.value
          }
@@ -2101,7 +2103,7 @@ $scope.search = function () {
       }    
       
         $.ajax({
-          url: apiUrlLocal+"/bmapp/Address/Update.do",
+          url: apiUrlLocal+UPDATE_PER_AND_ORG_URL,
           data: fd,
           processData: false,
           contentType: false,
@@ -2125,7 +2127,7 @@ $scope.search = function () {
 })
 
 
-.controller('neworganizationCtrl', function ($filter,OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
+.controller('neworganizationCtrl', function (FORWARD_NEW_PER_AND_ORG_URL,CREATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$filter,OrgType,$ionicPopup,$cordovaImagePicker,$cordovaCamera,PopupFactory,transformRequestAsFormPost,apiUrlLocal,$scope,$ionicModal, AuthenticationService,$state,$http,$ionicLoading,$location, $state, $window,COLOR_VIEW) {
   $scope.colorFont = COLOR_VIEW;
 
   $scope.ntitle = $filter('translate')('NewOrganization');
@@ -2138,7 +2140,7 @@ $scope.search = function () {
 
   var request = $http({
     method: "get",        
-    url: apiUrlLocal+"/bmapp/Address/Forward/Create.do",      
+    url: apiUrlLocal+FORWARD_NEW_PER_AND_ORG_URL,
   });
   request.success(
     function(data, status, headers, config) {    
@@ -2295,7 +2297,7 @@ $scope.search = function () {
       $scope.city =  undefined; 
       var cityRequest = $http({
         method: "post",        
-        url: apiUrlLocal+"/bmapp/Country/City.do",      
+        url: apiUrlLocal+GET_CITIES_OF_COUNTRY_URL,
         data: {
             'countryId' : ncountry.value
          }
@@ -2445,7 +2447,7 @@ $scope.search = function () {
     }    
         
       $.ajax({
-        url: apiUrlLocal+"/bmapp/Address/Create.do",
+        url: apiUrlLocal+CREATE_PER_AND_ORG_URL,
         data: fd,
         processData: false,
         contentType: false,
@@ -2731,7 +2733,7 @@ $scope.search = function () {
 //
 // CONTROLLER LIST CONTACT TO ADD APPOINTMENT
 //
-.controller('ctrlSeeContactsPerson', function(ContactPerson,bridgeService,$ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {
+.controller('ctrlSeeContactsPerson', function($state,ContactPerson,bridgeService,$ionicPopup,$filter,$ionicScrollDelegate,PopupFactory,allContact,$scope,apiUrlLocal,$localstorage) {
   console.log('*******************************************************');
   console.log("==CONTROLLER CONTACT== see contact person");
 

@@ -44,27 +44,49 @@
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
-              <input type="date" ng-model="dateStart.value">
-              <input type="time" ng-model="dateStart.value" ng-show="!entity.isAllDay" step="900">
-            </div>
+              <div class="col col-50" class="button button-small button-light">
+                <input type="date" ng-model="dateStart.value">
+              </div>
+              <div ng-show="!entity.isAllDay" class="col col-25">
+                <label class="item item-input">
+                  <select class="button button-small button-light" ng-model="startHourType" ng-change="updateStartHour(startHourType)" ng-options="c.name for c in hoursArray"></select>
+                </label>
+              </div>
+              <div ng-show="!entity.isAllDay" class="col col-25">
+                <label class="item item-input">
+                  <select class="button button-small button-light" ng-model="startMinuteType" ng-change="updateStartMinute(startMinuteType)" ng-options="c.name for c in minutesArray"></select>
+                </label>
+              </div>
+            </div>    
           </div>
         </div>
 
         <div class="card">
           <div class="item item-divider">
-            {{'End'|translate}}:
+            {{'Start'|translate}}:
           </div>
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
-              <input type="date" ng-model="dateEnd.value">
-              <input type="time" ng-model="dateEnd.value" ng-show="!entity.isAllDay" step='900'>
-            </div>
+              <div class="col col-50" class="button button-small button-light">
+                <input type="date" ng-model="dateEnd.value">
+              </div>
+              <div ng-show="!entity.isAllDay" class="col col-25">
+                <label class="item item-input">
+                  <select class="button button-small button-light" ng-model="endHourType" ng-change="updateEndHour(endHourType)" ng-options="c.name for c in hoursArray"></select>
+                </label>
+              </div>
+              <div ng-show="!entity.isAllDay" class="col col-25">
+                <label class="item item-input">
+                  <select class="button button-small button-light" ng-model="endMinuteType" ng-change="updateEndMinute(endMinuteType)" ng-options="c.name for c in minutesArray"></select>
+                </label>
+              </div>
+            </div>    
           </div>
         </div>
 
         <label class="item item-input">
           <span class="input-label">{{'Location'|translate}}:</span>
-          <input type="text" maxlength="60" placeholder="Location" ng-model="entity.location">
+          <input type="text" maxlength="60"  ng-model="entity.location">
         </label>
 
         <label class="item item-toggle">

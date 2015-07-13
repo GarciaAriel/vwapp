@@ -93,7 +93,92 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     });
     
   };
-  
+
+  // show or hide search
+  $scope.searchcon = function(){
+    $scope.showSearchBar = !$scope.showSearchBar;
+  }
+
+  // clear search
+  $scope.hideSearch = function() {
+    $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };
+
+  // function search mail
+  $scope.search = function () {
+    console.log('*******************************************************');
+    console.log("search function");
+    $scope.contacts = [];
+    $scope.showSearchBar = !$scope.showSearchBar;
+    $scope.asknext = false;
+    $scope.page = 1;
+
+    // EXECUTE QUERY WITH ()
+    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+    
+    // PROMISE
+    $scope.buscados.$promise.then(function (results){
+          
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);    
+
+      console.log("results of request: ",results);
+
+      $scope.contacts = (results['mainData'])['list'];
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
+          
+      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.contacts.length == 0) {
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        console.log("==CONTROLLER CONTACTS== alert if no exists items");
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                  
+    });
+        
+    $scope.loadMore = function() {
+      console.log('*******************************************************');
+      console.log("loadMore dentro search");
+      console.log("trying to load more of the search",$scope.page);
+      $scope.page = $scope.page +1;
+
+      // EXECUTE QUERY WITH ()
+      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+
+      // promise
+      $scope.buscados.$promise.then(function(results){
+
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,results);
+
+        console.log("results of request: ",results);
+
+        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
+        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+              
+      if ($scope.totalPages<$scope.pag+1) {
+        $scope.asknext = false;  
+      };              
+    };
+  }
+
   //  RETURN CLASS ICON OF FOLDER
   $scope.getClassImage = function(item){
     var response;
@@ -316,28 +401,30 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     }
   })
 
-// NEW MAIL 
-.controller('NewMail',function(apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+// NEW EMAIL 
+.controller('NewMail',function(FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+  console.log('*******************************************************');
+  console.log('compose new email');
+
   $scope.data = {};
   $scope.colorFont = COLOR_VIEW;
   $scope.data.to = $stateParams.to;
-
+  
   var request = $http({
     method: "get",    
-    url: apiUrlLocal+"/bmapp/Mail/Forward/ComposeEmail.do",        
+    url: apiUrlLocal+FORWARD_CREATE_MAIL_URL,
   });
   request.success(
     function(data, status, headers, config) {          
       $scope.data.mailAccountId = data.mainData.mailAccount.email;
+      console.log('--===',data);
     }
   );
   
   $scope.sendMail = function() {
-    console.log('---send data new mail', $scope.data);
-    // var mailAccountId = $scope.data.mailAccountId;
-    // var to = $scope.data.to;
-    // console.log("mailAccountId",mailAccountId);
-    // console.log("to",to);
+    console.log('*******************************************************');
+    console.log('function to send new email: ', $scope.data);
+    
   }
 
 })

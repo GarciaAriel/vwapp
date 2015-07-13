@@ -3,16 +3,19 @@
 
   <ion-nav-buttons side="right">
 
-    <button disabled="" class="button" style="border-style: none" ng-click="searchcon()">
+    <a href="#/app/newmail">
+      <button class="button" style="border-style: none" >
+        <i class="icon ion-plus-round" style="{{colorFont}}"></i>
+      </button>  
+    </a>
+
+    <button class="button" style="border-style: none" ng-click="searchcon()">
       <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
     </button>
 
-    <!-- <a href="#/app/newmail">
-      <button class="button" style="border-style: none" >
-        <i class="icon ion-edit" style="{{colorFont}}"></i>
-      </button>  
-
-    </a> -->
+    <a>
+      <button class="button" style="border-style: none;height: 0px;padding-left: 0px;padding-right: 0px;"></button>
+    </a>
 
   </ion-nav-buttons>
 

@@ -43,14 +43,6 @@ angular.module('starter.scheduleservices', [])
               break;
         } 
         return result;
-      },
-      getStringHour:  function(date) {
-        var hh = (date.getHours()).toString().length == 1 ? "0"+(date.getHours()) : (date.getHours());
-        return hh;
-      },
-      getStringMinute:  function(date) {
-        var mm = (date.getMinutes()).toString().length == 1 ? "0"+(date.getMinutes()) : (date.getMinutes());
-        return mm;
       }
     };
 
