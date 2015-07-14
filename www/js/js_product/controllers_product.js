@@ -1,4 +1,4 @@
-angular.module('starter.productsController',[] )
+angular.module('starter.productsController',['starter.constantsproduct'] )
 
 // 
 // CONTROLLER PRODUCT DETAIL
@@ -92,7 +92,7 @@ angular.module('starter.productsController',[] )
 // 
 // CONTROLLER PRODUCT LIST
 //
-.controller('productsCtrl', function(allContact,$ionicHistory,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$scope,apiUrlLocal,$state,$ionicPopup) {
+.controller('productsCtrl', function(service_pruducts_list,$ionicHistory,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$scope,apiUrlLocal,$state,$ionicPopup) {
   console.log('*******************************************************');
   console.log("==CONTROLLER PRODUCTS==");
 
@@ -101,25 +101,25 @@ angular.module('starter.productsController',[] )
   $scope.totalPages; 
   $scope.page = 1; 
   $scope.showSearchBar = false;
-  $scope.contacts = [];
+  $scope.products = [];
   $scope.asknext = false;
   
   // EXECUTE QUERY WITH ()
-  $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+  $scope.newProducts = service_pruducts_list.query({'pageParam(pageNumber)':$scope.page});
   
-  $scope.newContacts.$promise.then(function (results){
+  $scope.newProducts.$promise.then(function (results){
         
     // call factory to validate the response
     PopupFactory.getPopup($scope,results);
         
     console.log("results of request: ",results);
     
-    $scope.contacts = (results['mainData'])['list'];
+    $scope.products = (results['mainData'])['list'];
     $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
     $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
     console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
     
-    if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+    if ( $scope.totalPages > $scope.page ) {
       $scope.asknext = true;  
     };
   })
@@ -136,27 +136,28 @@ angular.module('starter.productsController',[] )
     $scope.page=1;
     $scope.searchKey = "";
     $scope.showSearchBar = false;
+    $scope.asknext = false;
     $scope.$broadcast('scroll.infiniteScrollComplete');
 
     // EXECUTE QUERY WITH ()
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newProducts = service_pruducts_list.query({'pageParam(pageNumber)':$scope.page});
 
     // primise
-    $scope.newContacts.$promise.then(function (results){
+    $scope.newProducts.$promise.then(function (results){
 
       // call factory to validate the response
       PopupFactory.getPopup($scope,results);
 
       console.log("results of request: ",results);
 
-      $scope.contacts = results['mainData']['list'];
+      $scope.products = results['mainData']['list'];
       $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       $scope.$broadcast('scroll.refreshComplete'); 
 
       console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
       
-      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+      if ( $scope.totalPages > $scope.page ) {
         $scope.asknext = true;
       };
       $ionicScrollDelegate.scrollTop();
@@ -168,27 +169,28 @@ angular.module('starter.productsController',[] )
     console.log("loadMore principal");
   
     $scope.page = $scope.page + 1;
+    $scope.asknext = false;
 
     // EXECUTE QUERY WITH ()
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+    $scope.newProducts = service_pruducts_list.query({'pageParam(pageNumber)':$scope.page});
 
     // promise
-    $scope.newContacts.$promise.then(function(results){
+    $scope.newProducts.$promise.then(function(results){
     
       // call factory to validate the response
       PopupFactory.getPopup($scope,results);
 
       console.log("results of request: ",results);
     
-      $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+      $scope.products = $scope.products.concat((results['mainData'])['list']);
       $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
       
       console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
       
-      if ($scope.totalPages<=$scope.page+1) {
-        $scope.asknext = false;  
+      if ( $scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
       };
     });
   };
@@ -205,13 +207,13 @@ angular.module('starter.productsController',[] )
   $scope.search = function () {
     console.log('*******************************************************');
     console.log("search function");
-    $scope.contacts = [];
+    $scope.products = [];
     $scope.showSearchBar = !$scope.showSearchBar;
     $scope.asknext = false;
     $scope.page = 1;
 
-    // EXECUTE QUERY WITH ()
-    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+    // EXECUTE QUERY WITH ()                        
+    $scope.buscados = service_pruducts_list.query({'parameter(productName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
     
     // PROMISE
     $scope.buscados.$promise.then(function (results){
@@ -221,18 +223,18 @@ angular.module('starter.productsController',[] )
 
       console.log("results of request: ",results);
 
-      $scope.contacts = (results['mainData'])['list'];
+      $scope.products = (results['mainData'])['list'];
       $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       
       console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
           
-      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
+      if ($scope.products.length > 0 && $scope.totalPages>$scope.page) {
         $scope.asknext = true;  
       }; 
 
       // if no exists items show message
-      if ($scope.contacts.length == 0) {
+      if ($scope.products.length == 0) {
 
         var message = $filter('translate')('NoItems');
         var messageRefresh = $filter('translate')('PulltoRefresh');
@@ -252,9 +254,10 @@ angular.module('starter.productsController',[] )
       console.log("loadMore dentro search");
       console.log("trying to load more of the search",$scope.page);
       $scope.page = $scope.page +1;
+      $scope.asknext = false;
 
       // EXECUTE QUERY WITH ()
-      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
+      $scope.buscados = service_pruducts_list.query({'parameter(productName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
 
       // promise
       $scope.buscados.$promise.then(function(results){
@@ -263,14 +266,14 @@ angular.module('starter.productsController',[] )
         PopupFactory.getPopup($scope,results);
 
         console.log("results of request: ",results);
-
+        $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
         $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
-        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
+        $scope.products = $scope.products.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });
               
-      if ($scope.totalPages<$scope.pag+1) {
-        $scope.asknext = false;  
+      if ($scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
       };              
     };
   }

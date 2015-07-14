@@ -26,16 +26,17 @@
     <ion-refresher pulling-text="{{'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>
 
-    <ion-list ng-repeat="item in contacts">
+    <ion-list ng-repeat="item in products">
       <!-- product -->
-      <a ng-if='item.contactPersonAddressId != ""' ng-href="{{getContactUrl(item)}}" class="item item-thumbnail-left">
+      <a ng-href="{{getContactUrl(item)}}" class="item item-thumbnail-left">
 
-        <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}">
-        <img ng-if='item.imageId ==""' ng-src="img/image_product.png">
-
-        <h2>{{ item.contactPersonOfName }}</h2>
-        <h4>{{ item.addressName }}</h4>
-        <h4>{{ item.function }}</h4>
+        <!-- <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}"> -->
+        <img ng-src="img/image_product.png">
+        <h2>{{ item.productName }}</h2>
+        <h4>{{ item.typeName }}</h4>
+        <h4>{{ item.groupName }}</h4>
+        <h4>{{ item.unitName }}</h4>
+        <h4>{{ item.priceFormatted }}</h4>
       </a>
 
     </ion-list>
