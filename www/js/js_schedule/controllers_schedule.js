@@ -138,6 +138,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.typeReminder = nTypeReminder;
   };
 
+  // // update date end with date start
+  // $scope.changeValue = function(){
+  //   $scope.dateEnd = { $scope.startDate.value };
+  // };
+
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
     $scope.startHourType = nHourType;
@@ -382,9 +387,23 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.typeReminder = nTypeReminder;
   };
 
+  // update date end with date start
+  $scope.changeValue = function(dateStart){
+    $scope.dateEnd = { value:  dateStart};
+  };
+
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
     $scope.startHourType = nHourType;
+  
+    for (i = 0; i < $scope.hoursArray.length; i++) {
+      if(nHourType.value == $scope.hoursArray[i].value) {
+        $scope.endHourType = $scope.hoursArray[i+1];
+      }
+    }
+    if ($scope.endHourType == undefined) {
+      $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
+    }
   };
 
   // help function to update hour
@@ -395,6 +414,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // help function to update minutes
   $scope.updateStartMinute = function(nMinuteType){
     $scope.startMinuteType = nMinuteType;
+
+    for (i = 0; i < $scope.minutesArray.length; i++) {
+      if(nMinuteType.value == $scope.minutesArray[i].value) {
+        $scope.endMinuteType = $scope.minutesArray[i];
+      }
+    }
   };
 
   // help function to update minutes

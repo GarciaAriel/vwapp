@@ -6,8 +6,8 @@
 
       <div class="item item-avatar">
         <img src="img/image_product.png">
-        <h2>{{contact.mainData.entity.organizationName}}</h2>
-        <p>{{titleperson}}</p>
+        <h2>{{entity.productName}}</h2>
+        <p>{{entity.description}}</p>
       </div>
 
       <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;">
@@ -30,10 +30,10 @@
 
 
       <div class="item item-icon-left positive">
-        <i class="icon ion-music-note"></i>
-        {{contact.mainData.entity.name1}}<br>
-        {{contact.mainData.entity.name2}}<br>
-        {{contact.mainData.entity.name3}}
+        <i class="icon ion-social-usd"></i>
+        {{entity.priceFormatted}}<br>
+        {{entity.name2}}<br>
+        {{entity.name3}}
       </div>
 
     </div>

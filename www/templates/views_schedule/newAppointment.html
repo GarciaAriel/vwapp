@@ -45,7 +45,7 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
-                <input type="date" ng-model="dateStart.value">
+                <input type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)">
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">

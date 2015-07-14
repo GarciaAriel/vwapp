@@ -17,7 +17,7 @@ angular.module('starter.productRoutes', ['starter.productsController'])
 
   // route detail product
   $stateProvider.state('app.productDetail', {
-    url: "/productDetail?contactId&addressId&contactPersonId&name1&name2",
+    url: "/productDetail?productId&productName",
     cache: true,
     views: {
       'menuContent': {
