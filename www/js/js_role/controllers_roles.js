@@ -11,6 +11,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
   $scope.accessRightAppointment = $scope.accessRight.APPOINTMENT.VIEW;
   $scope.accessRightContact = $scope.accessRight.CONTACT.VIEW;
   $scope.accessRightPerson = $scope.accessRight.CONTACT.VIEW;
+  $scope.accessRightProduct = $scope.accessRight.PRODUCT.VIEW;
 
   $scope.logout = function(){
 
@@ -185,7 +186,12 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
                   $state.go('app.mailboxes');
                 }
                 else{
-                  $state.go('app.startPage');      
+                  if (data.mainData.accessRight.PRODUCT.VIEW == "true") {
+                    $state.go('app.products');
+                  }
+                  else{
+                    $state.go('app.startPage');  
+                  }
                 }
               }
             }
