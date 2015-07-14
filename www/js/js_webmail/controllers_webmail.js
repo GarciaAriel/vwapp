@@ -402,13 +402,15 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   })
 
 // NEW EMAIL 
-.controller('NewMail',function(FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function(PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
 
   $scope.data = {};
   $scope.colorFont = COLOR_VIEW;
   $scope.data.to = $stateParams.to;
+  $scope.data.cc = "";
+  $scope.data.bcc = "";
   
   var request = $http({
     method: "get",    
@@ -416,14 +418,70 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
   request.success(
     function(data, status, headers, config) {          
-      $scope.data.mailAccountId = data.mainData.mailAccount.email;
-      console.log('--===',data);
+      
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,data);
+
+      var aMailAccountArray = data.mainData.mailAccountArray;
+      $scope.mailAccountArray = [];
+      aMailAccountArray.forEach(function(aMail) {
+        $scope.mailAccountArray.push({
+          name: aMail.email,
+          value: aMail.mailAccountId
+        });       
+        if( aMail.isDefaultAccount == 'true') {
+          $scope.mailAccount = $scope.mailAccountArray[$scope.mailAccountArray.length-1];  
+        }
+      });
+      console.log('user mail list: ',$scope.mailAccountArray);
     }
   );
+
+  // help function to update email
+  $scope.updateEmail = function(nEmail){
+    $scope.mailAccount = nEmail;
+  };
   
   $scope.sendMail = function() {
     console.log('*******************************************************');
-    console.log('function to send new email: ', $scope.data);
+    console.log('data to send new email: ', $scope.data);
+    console.log('mail user: ', $scope.mailAccount);
+
+    var fd = new FormData();    
+    fd.append( 'save', 'save');
+    fd.append( 'dto(to)', $scope.data.to);
+    fd.append( 'dto(cc)', $scope.data.cc);
+    fd.append( 'dto(bcc)', $scope.data.bcc);
+    fd.append( 'dto(mailSubject)', $scope.data.mailSubject);
+    fd.append( 'dto(body)', $scope.data.body);
+    fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);
+    
+      
+    $.ajax({
+      url: apiUrlLocal+COMPOSE_EMAIL_URL,
+      data: fd,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
+
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,data);
+
+        var result = JSON.parse(data);
+        if(result.forward == "Success")
+        {
+          console.log("Email sent succesfull");          
+          $state.go('app.mailboxes'); 
+        }
+        else
+        {        
+          PopupFactory.getPopup($scope,result);
+        }             
+      }
+    });
+     
+
     
   }
 

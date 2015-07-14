@@ -1,5 +1,8 @@
 angular.module('starter.constantsWebmail',[])  
 
+// new mail
+.constant('COMPOSE_EMAIL_URL','/bmapp/Mail/ComposeEmail.do')
+
 // forward new mail
 .constant('FORWARD_CREATE_MAIL_URL','/bmapp/Mail/Forward/ComposeEmail.do')
 
