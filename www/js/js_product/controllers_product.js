@@ -25,7 +25,19 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
     console.log("results of request: ",results);
 
     $scope.entity = results.mainData.entity;
-    
+
+    $scope.productGroup = results.mainData.productGroupArray.filter(function ( obj ) {
+      return obj.productGroup === $scope.entity.productGroup;
+    })[0];
+
+    $scope.productType = results.mainData.productTypeArray.filter(function ( obj ) {
+      return obj.productTypeId === $scope.entity.productTypeId;
+    })[0];
+
+    $scope.vatType = results.mainData.vatArray.filter(function ( obj ) {
+      return obj.vatId === $scope.entity.vatId;
+    })[0];
+
   });
 })
 
