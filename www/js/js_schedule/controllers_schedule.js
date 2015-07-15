@@ -146,6 +146,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
     $scope.startHourType = nHourType;
+
+    for (i = 0; i < $scope.hoursArray.length; i++) {
+      if(nHourType.value == $scope.hoursArray[i].value) {
+        $scope.endHourType = $scope.hoursArray[i+1];
+      }
+    }
+    if ($scope.endHourType == undefined) {
+      $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
+    }
   };
 
   // help function to update hour
@@ -156,6 +165,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // help function to update minutes
   $scope.updateStartMinute = function(nMinuteType){
     $scope.startMinuteType = nMinuteType;
+
+    for (i = 0; i < $scope.minutesArray.length; i++) {
+      if(nMinuteType.value == $scope.minutesArray[i].value) {
+        $scope.endMinuteType = $scope.minutesArray[i];
+      }
+    }
   };
 
   // help function to update minutes
@@ -294,12 +309,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE NEW APPOINTMENT
 // 
-.controller('NewAppointmentController',function(CREATE_APPOINTMENT_URL,factoryAccessRight,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
+.controller('NewAppointmentController',function(bridgeServiceDate,CREATE_APPOINTMENT_URL,factoryAccessRight,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
   // prepare info to view
   $scope.entity = {isAllDay: false, reminder: false, isPrivate: false};
+  var daddd = bridgeServiceDate.getDate();
+  console.log('-------=======aaaaa',daddd);
   
   // reminter list type 
   var textMinute = $filter('translate')('minutesBefore');
@@ -314,12 +331,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.typeReminder = $scope.reminderList[0];
 
   // display the current day // start and end
-  var date = new Date();
+  var date = daddd; //new Date();
   date.setMilliseconds(0);
   date.setSeconds(0);
   date.setMinutes(0); 
   $scope.dateStart = { value: date };
-  var dateToday = new Date();
+  var dateToday = daddd;// new Date();
   var datePlus = new Date(dateToday.setHours(dateToday.getHours()+1));
   datePlus.setMilliseconds(0);
   datePlus.setSeconds(0);
@@ -503,7 +520,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE VIEW CALENDAR
 // 
-.controller('ControlSchedule',function(factoryAccessRight,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(bridgeServiceDate,factoryAccessRight,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE VIEW CALENDAR==");
 
@@ -757,6 +774,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   };
 
   $scope.newevent = function(){
+    bridgeServiceDate.saveDate($scope.calendar.options.position.start);
     console.log('new event');
     $state.go('app.newAppointment');
   };

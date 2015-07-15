@@ -19,6 +19,25 @@ angular.module('starter.scheduleservices', [])
 
 })
 
+// SERVICE SAVE DATE
+.service('bridgeServiceDate', function() {
+  var date = {};
+
+  var saveDate = function(newDate) {
+      date = newDate;
+  };
+
+  var getDate = function(){
+      return date;
+  };
+
+  return {
+    saveDate: saveDate,
+    getDate: getDate
+  };
+
+})
+
 // SERVICE TO GET FORMAT DATE
 .factory('getFormatDate', function() {
 

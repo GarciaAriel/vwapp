@@ -402,7 +402,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   })
 
 // NEW EMAIL 
-.controller('NewMail',function(PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function($state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
 
