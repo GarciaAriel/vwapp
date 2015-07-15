@@ -28,10 +28,21 @@ angular.module('starter.services', [])
       if (result.forward == "ConcurrencyFail") {
         console.log("==ERROR CONTROL== Concurrency Fail:",result);
         console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+
+        var message = "";
+        if (result.errorsArray) {
+          message = result.errorsArray[0].error;
+          for (var i = 1; i < result.errorsArray.length; i++) {
+            message=message+"<br>"+result.errorsArray[i].error ;
+          };
+        }
+        else{
+          message = $filter('translate')('ConcurrencyFail');
+        }
+        
         return $ionicPopup.show({
-         
           title: $filter('translate')('Error'),
-          template:  $filter('translate')('ConcurrencyFail'),
+          template:  message,
           scope: scope,
           buttons: [
             { text: '<b>close</b>',

@@ -238,14 +238,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       success: function(data){
 
         var result = JSON.parse(data);
-        if(result.forward == "Success")
-        {
+        if(result.forward == "Success"){
           console.log("Appointment update succesfull");
           $state.go('app.schedulerView');
         }
-        else
-        {        
-          PopupFactory.getPopup($scope,data);
+        else{        
+          // call factory to validate the response
+          PopupFactory.getPopup($scope,result);
         }             
       }
     });
@@ -319,7 +318,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
   // prepare info to view
-  $scope.entity = {isAllDay: false, reminder: false, isPrivate: false};
+  $scope.entity = {isAllDay: false, reminder: false, isPrivate: false, location: "",descriptionText: ""};
   var dateBridge = bridgeServiceDate.getDate();
   
   // reminter list type 
