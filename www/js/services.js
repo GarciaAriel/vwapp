@@ -3,11 +3,11 @@ angular.module('starter.services', [])
 .factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state,$filter) {
   
   function getPopup(scope,result) {
-
+    console.log('^^^^^^^^^^^^^^^^START^^^^^^^^^^^^^^^^^^');
       // if session Expired
       if (result.forward == "SessionExpired") {
         console.log("==ERROR CONTROL== session expired:",result);
-        
+        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
         return $ionicPopup.show({
          
           title: "Error",
@@ -27,7 +27,7 @@ angular.module('starter.services', [])
       // if Concurrency fail
       if (result.forward == "ConcurrencyFail") {
         console.log("==ERROR CONTROL== Concurrency Fail:",result);
-        
+        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
         return $ionicPopup.show({
          
           title: $filter('translate')('Error'),
@@ -46,6 +46,8 @@ angular.module('starter.services', [])
       
       if (result.errorsArray) {
         console.log("==ERROR CONTROL== errors array:",result);
+        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+
         var message = result.errorsArray[0].error;
         for (var i = 1; i < result.errorsArray.length; i++) {
           message=message+"<br>"+result.errorsArray[i].error ;
@@ -65,39 +67,13 @@ angular.module('starter.services', [])
       };
 
       console.log("==ERROR CONTROL== no problems");
+      console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
   }
        
    return {
        getPopup: getPopup
    };  
 
-})
-
-.service('factoryAccessRight', function($localstorage) {
-  console.log('*******************************************************');
-  console.log('==FACTORY ACCESS RIGHT==');
-
-  // GET ACCESS RIGHT FROM LOCAL STORAGE
-  var accessRight = $localstorage.getObject('accessRight');
-  console.log('Access Right',accessRight);
-  
-  var getAccessRight = function(modulo,type) {
-    console.log('*******************************************************');
-    console.log('==FACTORY ACCESS RIGHT==');
-    console.log("modulo: "+modulo+" type: "+type);
-
-    // get value
-    var res = accessRight[modulo][type];
-    console.log('result of access right: ',res);
-
-    // response boolean
-    var result = res == 'true' ? true : false;
-    return result;
-  };
-
-  return {
-    getAccessRight: getAccessRight
-  };
 })
 
 .factory('myHttpInterceptor', function($q,$location,$injector) {

@@ -167,7 +167,6 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             $localstorage.setObject('rememberUsername',$scope.data.username);
             $localstorage.setObject('rememberCompany',$scope.data.company);
             $localstorage.set("currentUser",'true');
-            $localstorage.set("session",data.mainData.userInfo.JSESSIONID);
 
             var lenguage = data.mainData.userInfo.locale;
             console.log("==CONTROLLER LOGIN==  lenguage: ","-"+lenguage+"-" );

@@ -255,10 +255,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE DETAIL
 //
-.controller('ControlScheduleDetail', function(bridgeServiceAppointment,$state,PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
+.controller('ControlScheduleDetail', function($localstorage,bridgeServiceAppointment,$state,PopupFactory,$scope, $stateParams,scheduleService,pathSchedule,$ionicActionSheet) {
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE== view detail");
   console.log("param id appointment: ", $stateParams.appointmentId);
+
+  $scope.accessRight = $localstorage.getObject('accessRight');
+  $scope.updatePermission = $scope.accessRight.APPOINTMENT.UPDATE;
+  console.log('Access right appointment update',$scope.accessRight);
 
   // EXECUTE QUERY WITH (appointment id)
   $scope.taskcall = scheduleService.query({'dto(appointmentId)':$stateParams.appointmentId,'dto(title)':'meeting'});
@@ -295,7 +299,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         return obj.value === $scope.entity.reminderType;
       })[0];  
       $scope.timebefore = $scope.entity.reminderType == '1' ? $scope.entity.timeBefore_1 : $scope.entity.timeBefore_2;
-      console.log('reminder type: '+$scope.reminder+'  reminder time before: '+$scope.timebefore);
+      console.log('reminder type: ',$scope.reminder);
+      console.log('reminder time before: ',$scope.timebefore);
     }
   })
 
@@ -309,14 +314,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE NEW APPOINTMENT
 // 
-.controller('NewAppointmentController',function(bridgeServiceDate,CREATE_APPOINTMENT_URL,factoryAccessRight,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
+.controller('NewAppointmentController',function(bridgeServiceDate,CREATE_APPOINTMENT_URL,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
   // prepare info to view
   $scope.entity = {isAllDay: false, reminder: false, isPrivate: false};
-  var daddd = bridgeServiceDate.getDate();
-  console.log('-------=======aaaaa',daddd);
+  var dateBridge = bridgeServiceDate.getDate();
   
   // reminter list type 
   var textMinute = $filter('translate')('minutesBefore');
@@ -331,12 +335,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.typeReminder = $scope.reminderList[0];
 
   // display the current day // start and end
-  var date = daddd; //new Date();
+  var date = dateBridge; 
   date.setMilliseconds(0);
   date.setSeconds(0);
   date.setMinutes(0); 
   $scope.dateStart = { value: date };
-  var dateToday = daddd;// new Date();
+  var dateToday = dateBridge;
   var datePlus = new Date(dateToday.setHours(dateToday.getHours()+1));
   datePlus.setMilliseconds(0);
   datePlus.setSeconds(0);
@@ -520,7 +524,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE VIEW CALENDAR
 // 
-.controller('ControlSchedule',function(bridgeServiceDate,factoryAccessRight,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(bridgeServiceDate,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE VIEW CALENDAR==");
 
@@ -530,7 +534,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $('view-title').css({"color":COLOR_2});
 
   $scope.calendar;
-  $scope.newAppointmentPermission = factoryAccessRight.getAccessRight('APPOINTMENT','CREATE');
+  $scope.accessRight = $localstorage.getObject('accessRight');
+  $scope.newPermission = $scope.accessRight.APPOINTMENT.CREATE;
+  console.log('Access right appointment create: ',$scope.newPermission);
 
   // GET USER INFO FOR LANGUAGE CALENDAR
   var userInfo = $localstorage.getObject('userInfo');
