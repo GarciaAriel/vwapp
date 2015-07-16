@@ -38,17 +38,14 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
       return obj.vatId === $scope.entity.vatId;
     })[0];
 
+    $scope.help = ['help'];
+    $scope.iframeWidth = $(window).width();
+    $scope.boolPicture = false;
     if (results.mainData.productPictureArray.length > 0) {
       $scope.productPictureArray = results.mainData.productPictureArray;
       $scope.productPictureDefault = $scope.productPictureArray[0];  
-
-      
+      $scope.boolPicture = true;
     }
-    
-    $scope.files.splice(0,$scope.productPictureArray.length);
-      $scope.files = $scope.files.concat($scope.productPictureArray);
-    
-    
 
   });
 })

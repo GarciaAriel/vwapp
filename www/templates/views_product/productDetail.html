@@ -5,28 +5,30 @@
     <div class="list card">
 
       <div class="item item-avatar">
-        <img src="img/image_product.png">
+        <img ng-if="boolPicture == false" src="img/image_product.png">
+        <img ng-if="boolPicture == true" src="{{apiUrlLocal}}{{productPictureDefault.imageUrl}}">
         <h2>{{entity.productName}}</h2>
         <p>{{entity.description}}</p>
         <p>{{productGroup.name}}</p>
         <p>{{productType.name}}</p>
       </div>
 
-      <ion-slide-box on-slide-changed="slideChanged(index)" auto-play="true" does-continue="true">
-        <ion-slide ng-repeat="slide in files">
-          <img ng-src="{{slide.filename}}" > 
-        </ion-slide>
-      </ion-slide-box>
-
-      <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;">
+      <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;" ng-repeat="p in help">
         <!-- ng-repeat="picture in productPictureArray" -->
         
-          <ion-slide ng-repeat="picture in productPictureArray" style="padding-top: 0px;" >
-            <div class="item item-image">
-              
-              <img src="{{apiUrlLocal}}{{picture.imageUrl}}">
+          <ion-slide style="padding-top: 0px;" ng-repeat="picture in productPictureArray">
+            <div class="item ">
+              <img width="{{iframeWidth * 0.70}}" ng-src="{{apiUrlLocal}}{{picture.imageUrl}}">
+            </div>
+          </ion-slide>
+
+          <ion-slide ng-if="boolPicture == false" style="padding-top: 0px;">
+            <div class="item ">
+              <img width="{{iframeWidth * 0.70}}" ng-src="img/image_product.png">
             </div>
           </ion-slide>    
+
+          
 
       </ion-slide-box>
 
