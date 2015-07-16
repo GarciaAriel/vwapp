@@ -19,7 +19,18 @@
 
   </ion-nav-buttons>
 
-  <ion-content> 
+  <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
+    <span class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+
+      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="search()">
+      <button class="button button-clear" ng-click="hideSearch()">X</button>
+    </span>
+
+    <button class="button button-clear button-assertive" ng-click="search()">{{ 'Search' | translate}}</button>
+  </div>
+
+  <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'"> 
     <ion-refresher pulling-text="{{ 'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>
 
@@ -56,7 +67,7 @@
       </ion-item>
     </ion-list>
       
-    <ion-infinite-scroll ng-if="_doRefresh" immediate-check="false" on-infinite="loadMore()" distance="1%">
+    <ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
     </ion-infinite-scroll>  
 
   </ion-content>

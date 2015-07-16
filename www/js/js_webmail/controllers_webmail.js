@@ -9,22 +9,23 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE,
   FOLDER_DEFAULT_TYPE) {
 
+  console.log('*******************************************************');
+  console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
-  // $('icon').css({"color":COLOR_2});
-  
-  //  CALL SERVICES WEBMAIL FOLDERS
-  console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
-  $scope.newFolders = Webmal_read_forlders.query();
   $scope.folders = [];
-
+  
+  // EXECUTE QUERY WITH ()
+  $scope.newFolders = Webmal_read_forlders.query();
+  
   // PROMISE
   $scope.newFolders.$promise.then(function (results){
 
     // call factory 
     PopupFactory.getPopup($scope,results);
 
-    console.log("==CONTROLLER WEBMAIL== get query list FOLDERS success OK",results['mainData']);
+    console.log("results of request: ",results);
+
     var data = ((results['mainData'])['systemFolders']);
 
     // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
@@ -52,18 +53,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   });
 
   $scope.doRefresh = function() {
+    console.log('*******************************************************');
+    console.log("do refresh FOLDERS");
     $scope.folders = [];
-    //  CALL SERVICES WEBMAIL FOLDERS
-    console.log("==CONTROLLER WEBMAIL== do refresh FOLDERS");
+    
+    // EXECUTE QUERY WITH ()
     $scope.newFolders = Webmal_read_forlders.query();
 
     // PROMISE
     $scope.newFolders.$promise.then(function (results){
 
-      // call factory 
+      // call factory to validate the response
       PopupFactory.getPopup($scope,results);
 
-      console.log("==CONTROLLER WEBMAIL== get query refresh list FOLDERS success OK",results['mainData']);
+      console.log("results of request: ",results);
       var data = ((results['mainData'])['systemFolders']);
 
       // CONVERT DATA OF FOLDERS DEFAULT IN OBJECT
@@ -94,91 +97,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     
   };
 
-  // show or hide search
-  $scope.searchcon = function(){
-    $scope.showSearchBar = !$scope.showSearchBar;
-  }
-
-  // clear search
-  $scope.hideSearch = function() {
-    $scope.searchKey = "";
-    $scope.showSearchBar = false;
-  };
-
-  // function search mail
-  $scope.search = function () {
-    console.log('*******************************************************');
-    console.log("search function");
-    $scope.contacts = [];
-    $scope.showSearchBar = !$scope.showSearchBar;
-    $scope.asknext = false;
-    $scope.page = 1;
-
-    // EXECUTE QUERY WITH ()
-    $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
-    
-    // PROMISE
-    $scope.buscados.$promise.then(function (results){
-          
-      // call factory to validate the response
-      PopupFactory.getPopup($scope,results);    
-
-      console.log("results of request: ",results);
-
-      $scope.contacts = (results['mainData'])['list'];
-      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
-      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
-      
-      console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
-          
-      if ($scope.contacts.length > 0 && $scope.totalPages>$scope.page) {
-        $scope.asknext = true;  
-      }; 
-
-      // if no exists items show message
-      if ($scope.contacts.length == 0) {
-
-        var message = $filter('translate')('NoItems');
-        var messageRefresh = $filter('translate')('PulltoRefresh');
-        // An alert dialog
-        console.log("==CONTROLLER CONTACTS== alert if no exists items");
-        var alertPopup = $ionicPopup.alert({
-            title: message,
-            template: messageRefresh
-        });
-      }
-      $ionicScrollDelegate.scrollTop();
-                  
-    });
-        
-    $scope.loadMore = function() {
-      console.log('*******************************************************');
-      console.log("loadMore dentro search");
-      console.log("trying to load more of the search",$scope.page);
-      $scope.page = $scope.page +1;
-
-      // EXECUTE QUERY WITH ()
-      $scope.buscados = allContact.query({'parameter(contactSearchName)':$scope.searchKey,'pageParam(pageNumber)':$scope.page});
-
-      // promise
-      $scope.buscados.$promise.then(function(results){
-
-        // call factory to validate the response
-        PopupFactory.getPopup($scope,results);
-
-        console.log("results of request: ",results);
-
-        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
-        $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-      });
-              
-      if ($scope.totalPages<$scope.pag+1) {
-        $scope.asknext = false;  
-      };              
-    };
-  }
-
   //  RETURN CLASS ICON OF FOLDER
   $scope.getClassImage = function(item){
     var response;
@@ -207,82 +125,61 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   };
 })
 
-// MAILLISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function(PopupFactory,$filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
-  // COLOR DEFAULT
+// MAIL LISTS IN FORDER (REFRESH / LOADMORE)
+.controller('MailsListCtrl',function($ionicScrollDelegate,PopupFactory,$filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+  
+  console.log('*******************************************************');
+  console.log('==CONTROLLER WEBMAIL== lis email in folder');  
+
   $scope.colorFont = COLOR_VIEW;
-
-  console.log('==CONTROLLER WEBMAIL== STARTING');
-
-  // NUMBER PAGE EQUAL 1 -- TOTAL PAGES 
   $scope.page = 1; 
   $scope.totalPages; 
   $scope.apiUrlLocal = apiUrlLocal;
-
-  $scope.folderName = $stateParams.folderName;
-  console.log("folderName======== ",$scope.folderName);
-
-  //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
-  console.log("==CONTROLLER WEBMAIL== get query list mails first time");
-  $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
   $scope.mailList = [];
+  $scope.folderName = $stateParams.folderName;
+  $scope.asknext = false;
 
-  // REFRESH FALSE IF THERE ARE NOT MORE MAILS
-  $scope._doRefresh = false;
-
-  $scope.realDate = 
-
+  console.log("folder name",$scope.folderName);
+  
+  // EXECUTE QUERY WITH ()
+  $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
+  
   // PROMISE
   $scope.newMailList.$promise.then(function (results){
 
-    // call factory 
+    // call factory to validate the response
     PopupFactory.getPopup($scope,results);
 
-      console.log('==CONTROLLER WEBMAIL== get query list mails success OK',results['mainData']);
-      
-      //  SAVE PAGE NUMBER
-      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    console.log("results of request: ",results);
 
-      // SAVE TOTAL PAGES
-      $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
+    //  SAVE PAGE NUMBER AND TOTAL PAGES
+    $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+    $scope.totalPages = parseInt(results['mainData']['pageInfo']['totalPages']);
 
-      // RECOVER LIST MAIL FOR VIEW
-      $scope.mailList = (results['mainData'])['list'];
+    // RECOVER LIST MAIL FOR VIEW
+    $scope.mailList = (results['mainData'])['list'];
 
-      // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
-      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
-          $scope._doRefresh = true;  
-      };
+    // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
+    if ($scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
+    };
 
-      // if no exists items show message
-      if ($scope.mailList.length == 0) {
-        // An alert dialog
-        var message = $filter('translate')('NoItems');
-        var messageSelect = $filter('translate')('SelectAnother');
+    // if no exists items show message
+    if ($scope.mailList.length == 0) {
+      console.log("alert if no exists items");
+      // An alert dialog
+      var message = $filter('translate')('NoItems');
+      var messageSelect = $filter('translate')('SelectAnother');
 
-        console.log("==CONTROLLER CONTACTS== alert if no exists items");
-        var alertPopup = $ionicPopup.alert({
-            title: message,
-            template: messageSelect
-        });
-      }
+      var alertPopup = $ionicPopup.alert({
+          title: message,
+          template: messageSelect
+      });
+    }
       
   });
 
-  $scope.getDateMilli22 = function(milliseconds){
-    // var offset = -4;
-    // var aaaa = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString().replace( / GMT$/, "" )
-
-    // console.log("-----asdf",aaaa);
-  
-    var daa = new Date(+milliseconds);
-
-    console.log("------tz.name()",daa.getTimezoneOffset()); 
-    return daa;
-  }
-
   $scope.getDateMilli = function(milliseconds){
-    
     var day_Send = new Date(+milliseconds);
     
     var dd = day_Send.getDate();
@@ -295,9 +192,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       // date: in the same day
       var hhh = day_Send.getHours();
       var mmmm = (day_Send.getMinutes()).toString();
-      
       var mmm = (mmmm).length < 2 ? "0"+mmmm : mmmm;
-      // var item.contactPersonAddressId ==='' ?  : ;
+      
       return (hhh+":"+mmm);  
     }
     else {
@@ -328,8 +224,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         weekdays[2] = Tuesday;
         weekdays[3] = Wednesday;
 
-        console.log("00000-=-=-",weekdays);
-        
         var day = day_Send.getDay();
         
         return weekdays[day];
@@ -344,62 +238,147 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         return ddddd;
       }
     }
-
-
-    
-    
-    // return date.getDate();
   }
   
   $scope.doRefresh = function() {
+    console.log('*******************************************************');
+    console.log('do refresh list emails');
+    $scope.searchKey = "";
     $scope.page = 1; 
 
-    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
-    console.log('==CONTROLLER WEBMAIL== do refresh');
+    // EXECUTE QUERY WITH (PAGE NUMBER)  
     $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
     // PROMISE
     $scope.newMailList.$promise.then(function (results){
 
-      // call factory 
+      // call factory to validate the response
       PopupFactory.getPopup($scope,results);
 
-      console.log("==CONTROLLER WEBMAIL==  query doRefresh success OK data: ",results['mainData']);
+      console.log("results of request: ",results);
 
       //  MAIL LIST
       $scope.mailList = (results['mainData'])['list'];
       $scope.$broadcast('scroll.refreshComplete');  
-
       
-      if ($scope.mailList.length > 0 && $scope.totalPages>$scope.page) {
-        $scope._doRefresh = true;  
+      if ($scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
       };  
     });
   }
 
   $scope.loadMore = function() {
-      $scope.page = $scope.page + 1;
+    console.log('*******************************************************');
+    console.log('load more');
+    $scope.page = $scope.page + 1;
+
+    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+    $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
+
+    // PROMISE
+    $scope.newMails.$promise.then(function(results){
+      // call factory 
+      PopupFactory.getPopup($scope,results);
+
+      console.log("results of request: ",results);
+      $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      // REFRESH = FALSE IF TOTAL PAGES <= PAGE ACTUAL ++
+      if ($scope.totalPages<=$scope.page+1) {
+        $scope.asknext = false;  
+      };
+    });  
+  }
+
+  // function search mail
+  $scope.search = function () {
+    console.log('*******************************************************');
+    console.log("search function with: ",$scope.searchKey);
+    $scope.mailList = [];
+    $scope.showSearchBar = !$scope.showSearchBar;
+    $scope.asknext = false;
+    $scope.page = 1;
+
+    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+    $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId,'parameter(mailSubject@_mailFrom@_mailPersonalFrom)':$scope.searchKey});
+    
+    // PROMISE
+    $scope.newMails.$promise.then(function (results){
+          
+      // call factory to validate the response
+      PopupFactory.getPopup($scope,results);    
+
+      console.log("results of request: ",results);
+
+      $scope.mailList = (results['mainData'])['list'];
+      $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+      
+      console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
+          
+      if ( $scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
+      }; 
+
+      // if no exists items show message
+      if ($scope.mailList.length == 0) {
+        console.log("alert if no exists items");
+
+        var message = $filter('translate')('NoItems');
+        var messageRefresh = $filter('translate')('PulltoRefresh');
+        // An alert dialog
+        
+        var alertPopup = $ionicPopup.alert({
+            title: message,
+            template: messageRefresh
+        });
+      }
+      $ionicScrollDelegate.scrollTop();
+                  
+    });
+        
+    $scope.loadMore = function() {
+      console.log('*******************************************************');
+      console.log("loadMore dentro search");
+      $scope.page = $scope.page +1;
+      $scope.asknext = false;
 
       //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
-      console.log('==CONTROLLER WEBMAIL== load more');
-      $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
-
-      // PROMISE
+      $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId,'parameter(mailSubject@_mailFrom@_mailPersonalFrom)':$scope.searchKey});
+  
+      // promise
       $scope.newMails.$promise.then(function(results){
-        // call factory 
+
+        // call factory to validate the response
         PopupFactory.getPopup($scope,results);
 
-        console.log("==CONTROLLER WEBMAIL==  query loadMore success OK data: ",results['mainData']);
+        console.log("results of request: ",results);
+
+        $scope.page=parseInt((results['mainData'])['pageInfo']['pageNumber']);
+        $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+              
+      if ($scope.totalPages > $scope.page) {
+        $scope.asknext = true;  
+      };              
+    };
+  }
 
-        // REFRESH = FALSE IF TOTAL PAGES <= PAGE ACTUAL ++
-        if ($scope.totalPages<=$scope.page+1) {
-          $scope._doRefresh = false;  
-        };
-      });  
-    }
-  })
+  // show or hide search
+  $scope.searchcon = function(){
+    $scope.showSearchBar = !$scope.showSearchBar;
+  }
+
+  // clear search
+  $scope.hideSearch = function() {
+    // $scope.searchKey = "";
+    $scope.showSearchBar = false;
+  };
+
+})
 
 // NEW EMAIL 
 .controller('NewMail',function($state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){

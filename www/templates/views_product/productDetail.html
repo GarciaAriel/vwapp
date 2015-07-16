@@ -12,23 +12,24 @@
         <p>{{productType.name}}</p>
       </div>
 
-      <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;">
-        <ion-slide style="padding-top: 0px;">
-          <div class="item item-image">
-            <img src="img/image_product.png">
-          </div>
-        </ion-slide>
-        <ion-slide style="padding-top: 0px;">
-          <div class="item item-image">
-            <img src="img/person.png">
-          </div>
-        </ion-slide>
-        <ion-slide style="padding-top: 0px;">
-          <div class="item item-image">
-            <img src="img/image_product.png">
-          </div>
+      <ion-slide-box on-slide-changed="slideChanged(index)" auto-play="true" does-continue="true">
+        <ion-slide ng-repeat="slide in files">
+          <img ng-src="{{slide.filename}}" > 
         </ion-slide>
       </ion-slide-box>
+
+      <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;">
+        <!-- ng-repeat="picture in productPictureArray" -->
+        
+          <ion-slide ng-repeat="picture in productPictureArray" style="padding-top: 0px;" >
+            <div class="item item-image">
+              
+              <img src="{{apiUrlLocal}}{{picture.imageUrl}}">
+            </div>
+          </ion-slide>    
+
+      </ion-slide-box>
+
 
 
       <div class="item item-icon-left positive">

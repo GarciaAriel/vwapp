@@ -219,10 +219,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     }
     
     var datePattern = $filter('translate')('datePattern');
-    fd.append('dto(startDate)', getFormatDate.getStringDate($scope.dateStart.value,datePattern));
+    var stringDateStart = "";
+    var stringDateEnd = "";
+    if ($scope.dateStart.value != null) {
+      stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
+    }
+    if ($scope.dateEnd.value != null) {
+      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
+    }
+    fd.append('dto(startDate)', stringDateStart);
     fd.append('dto(startHour)',$scope.startHourType.value);
     fd.append('dto(startMin)', $scope.startMinuteType.value);
-    fd.append('dto(endDate)', getFormatDate.getStringDate($scope.dateEnd.value,datePattern));
+    fd.append('dto(endDate)', stringDateEnd);
     fd.append('dto(endHour)', $scope.endHourType.value);
     fd.append('dto(endMin)', $scope.endMinuteType.value);
     
@@ -318,7 +326,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
   // prepare info to view
-  $scope.entity = {isAllDay: false, reminder: false, isPrivate: false, location: "",descriptionText: ""};
+  $scope.entity = {isAllDay: false, reminder: false, isPrivate:false, location:"",descriptionText:"",title:""};
   var dateBridge = bridgeServiceDate.getDate();
   
   // reminter list type 
@@ -471,10 +479,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     fd.append('dto(descriptionText)',$scope.entity.descriptionText);
 
     var datePattern = $filter('translate')('datePattern');
-    fd.append('dto(startDate)', getFormatDate.getStringDate($scope.dateStart.value,datePattern));
+    var stringDateStart = "";
+    var stringDateEnd = "";
+    if ($scope.dateStart.value != null) {
+      stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
+    }
+    if ($scope.dateEnd.value != null) {
+      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
+    }
+    fd.append('dto(startDate)', stringDateStart);
     fd.append('dto(startHour)',$scope.startHourType.value);
     fd.append('dto(startMin)', $scope.startMinuteType.value);
-    fd.append('dto(endDate)', getFormatDate.getStringDate($scope.dateEnd.value,datePattern));
+    fd.append('dto(endDate)', stringDateEnd);
     fd.append('dto(endHour)', $scope.endHourType.value);
     fd.append('dto(endMin)', $scope.endMinuteType.value);
     

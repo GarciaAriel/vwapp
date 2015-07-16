@@ -38,6 +38,18 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
       return obj.vatId === $scope.entity.vatId;
     })[0];
 
+    if (results.mainData.productPictureArray.length > 0) {
+      $scope.productPictureArray = results.mainData.productPictureArray;
+      $scope.productPictureDefault = $scope.productPictureArray[0];  
+
+      
+    }
+    
+    $scope.files.splice(0,$scope.productPictureArray.length);
+      $scope.files = $scope.files.concat($scope.productPictureArray);
+    
+    
+
   });
 })
 

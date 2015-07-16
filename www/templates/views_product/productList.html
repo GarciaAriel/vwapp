@@ -30,8 +30,8 @@
       <!-- product -->
       <a ng-href="{{getProductUrl(item)}}" class="item item-thumbnail-left">
 
-        <!-- <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}"> -->
-        <img ng-src="img/image_product.png">
+        <img ng-if='item.imageUrl !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}">
+        <img ng-if='item.imageUrl ==""' ng-src="img/image_product.png">
         <h2>{{ item.productName }}</h2>
         <h4>{{ item.typeName }}</h4>
         <h4>{{ item.groupName }}</h4>
