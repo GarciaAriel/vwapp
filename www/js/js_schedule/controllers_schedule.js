@@ -460,11 +460,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     $scope.endMinuteType = nMinuteType;
   };
 
-  $scope.holaa = function(text){
-    
-    var des = text.length > 30 ? text.substring(0,30) : text;
-    console.log('---0',des);
-    $scope.entity.location = des;
+  $scope.maxLenght = function(text){
+    $scope.entity.location = text.length > 30 ? text.substring(0,30) : text;
   }
   
   $scope.saveAppointment = function(){
@@ -488,9 +485,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     fd.append('dto(title)', $scope.entity.title);
     fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
     fd.append('dto(descriptionText)',$scope.entity.descriptionText);
-
-    var text = ($scope.entity.location).toString(); 
-    var des = text.length > 30 ? text.substring(0,30) : text ;
     fd.append('dto(location)', des);
 
     var datePattern = $filter('translate')('datePattern');
@@ -810,8 +804,21 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   };
 
   $scope.newevent = function(){
-    bridgeServiceDate.saveDate($scope.calendar.options.position.start);
+    // console.log('^^^^^^^^^^^^^^^^START^^^^^^^^^^^^^^^^');
+    console.log('----------------START----------------');
     console.log('new event');
+
+    var check = new Date();
+    var from = $scope.calendar.options.position.start;
+    var to = $scope.calendar.options.position.end;
+    var result = from;
+    if((check.getTime() <= to.getTime() && check.getTime() >= from.getTime())){
+      console.log('date actual into range view');
+      result = check;
+    }
+    bridgeServiceDate.saveDate(result);
+    
+    console.log('-------------END------------------');
     $state.go('app.newAppointment');
   };
 
