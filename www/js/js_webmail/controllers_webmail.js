@@ -459,8 +459,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         }             
       }
     });
-     
+  }
 
+  $scope.attachFile = function(){
     
   }
 

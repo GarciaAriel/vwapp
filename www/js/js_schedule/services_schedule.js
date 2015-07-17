@@ -43,7 +43,8 @@ angular.module('starter.scheduleservices', [])
 
     return {
       getStringDate:  function(date,datePattern) {
-
+        console.log('^^^^^^^^^^^^^^^^START^^^^^^^^^^^^^^^^');
+        console.log('function to change format date to: ',datePattern);
         var yyyy = date.getFullYear();
         var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
         var dd = (date.getDate()).toString().length == 1 ? "0"+(date.getDate()) : (date.getDate());
@@ -61,6 +62,8 @@ angular.module('starter.scheduleservices', [])
               result = dd+'/'+mm+'/'+yyyy;
               break;
         } 
+        console.log('final result: ',result);
+        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
         return result;
       }
     };

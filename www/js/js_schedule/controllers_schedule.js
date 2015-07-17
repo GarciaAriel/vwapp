@@ -9,6 +9,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log("==CONTROLLER SCHEDULE== edit appointment");
 
   // GET OBJECT APPOINTMET TO EDIT
+  $scope.viewTitle = $filter('translate')('EditAppointment');
   var mainData = bridgeServiceAppointment.getAppointment();
   console.log("recover mainData: ",mainData);
 
@@ -25,7 +26,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.entity.isPrivate = $scope.entity.isPrivate == 'true' ? true : false;
 
   var aTypesArray = mainData.appointmentTypeArray;
-  $scope.appointmentTypes = [];    
+  $scope.appointmentTypes = [];  
   aTypesArray.forEach(function(aType) {           
       $scope.appointmentTypes.push({
         name: aType.name,
@@ -66,17 +67,17 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       }
   });
 
-  var prioritiesArray = mainData.priorityArray;
-  $scope.priorities = [];    
-  prioritiesArray.forEach(function(priority) {           
-      $scope.priorities.push({
-        name: priority.name,
-        value:priority.priorityId
-      });       
-      if($scope.entity.priorityId == priority.priorityId) {             
-         $scope.priority = $scope.priorities[$scope.priorities.length-1];  
-      } 
-  });
+  // var prioritiesArray = mainData.priorityArray;
+  // $scope.priorities = [];    
+  // prioritiesArray.forEach(function(priority) {           
+  //     $scope.priorities.push({
+  //       name: priority.name,
+  //       value:priority.priorityId
+  //     });       
+  //     if($scope.entity.priorityId == priority.priorityId) {             
+  //        $scope.priority = $scope.priorities[$scope.priorities.length-1];  
+  //     } 
+  // });
 
   var textMinute = $filter('translate')('minutesBefore');
   var textHour = $filter('translate')('hourBefore');
@@ -137,11 +138,6 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.updateReminder = function(nTypeReminder){
     $scope.typeReminder = nTypeReminder;
   };
-
-  // // update date end with date start
-  // $scope.changeValue = function(){
-  //   $scope.dateEnd = { $scope.startDate.value };
-  // };
 
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
@@ -327,9 +323,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   // prepare info to view
   $scope.entity = {isAllDay: false, reminder: false, isPrivate:false, location:"",descriptionText:"",title:""};
+  $scope.viewTitle = $filter('translate')('NewAppointment');
   var dateBridge = bridgeServiceDate.getDate();
+  console.log('date calendar to use in new appointment: ',dateBridge);
   
-  // reminter list type 
+  // reminter list type
   var textMinute = $filter('translate')('minutesBefore');
   var textHour = $filter('translate')('hourBefore');
   var textDay = $filter('translate')('dayBefore');  
@@ -353,6 +351,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   datePlus.setSeconds(0);
   datePlus.setMinutes(0);
   $scope.dateEnd = { value: datePlus };
+  console.log('date start: ',$scope.dateStart);
+  console.log('date end: ',$scope.dateEnd);
+
+  $scope.endHourType = {};
+  $scope.startHourType = {};
 
   // Simple POST request
   var request = $http({
@@ -422,16 +425,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
+    console.log('------lllegaaaaaa valor',nHourType);
+    console.log('------lllegaaaaaa array',$scope.hoursArray);
     $scope.startHourType = nHourType;
-  
-    for (i = 0; i < $scope.hoursArray.length; i++) {
+    $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
+       
+    for (i = 0; i < $scope.hoursArray.length-1; i++) {
       if(nHourType.value == $scope.hoursArray[i].value) {
         $scope.endHourType = $scope.hoursArray[i+1];
-      }
-    }
-    if ($scope.endHourType == undefined) {
-      $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
-    }
+        console.log('entraaaaaa',$scope.endHourType);
+        return $scope.endHourType;
+       }
+    }  
   };
 
   // help function to update hour
@@ -454,6 +459,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.updateEndMinute = function(nMinuteType){
     $scope.endMinuteType = nMinuteType;
   };
+
+  $scope.holaa = function(text){
+    
+    var des = text.length > 30 ? text.substring(0,30) : text;
+    console.log('---0',des);
+    $scope.entity.location = des;
+  }
   
   $scope.saveAppointment = function(){
     console.log('*******************************************************');
@@ -475,8 +487,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     fd.append('dto(save)', 'save');
     fd.append('dto(title)', $scope.entity.title);
     fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
-    fd.append('dto(location)',$scope.entity.location);
     fd.append('dto(descriptionText)',$scope.entity.descriptionText);
+
+    var text = ($scope.entity.location).toString(); 
+    var des = text.length > 30 ? text.substring(0,30) : text ;
+    fd.append('dto(location)', des);
 
     var datePattern = $filter('translate')('datePattern');
     var stringDateStart = "";

@@ -1,5 +1,5 @@
 
-<ion-view view-title="">
+<ion-view view-title="{{viewTitle}}">
 
   <ion-nav-buttons side="right">
 
@@ -49,10 +49,12 @@
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
-                  <select class="button button-small button-light" ng-model="startHourType" ng-change="updateStartHour(startHourType)" ng-options="c.name for c in hoursArray"></select>
+                  <select class="button button-small button-light" ng-model="startHourType" ng-options="c.name for c in hoursArray" ng-change="updateStartHour(startHourType)"></select>
                 </label>
               </div>
+
               <label ng-show="!entity.isAllDay" style="padding-top: 12px;">:</label>
+
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
                   <select class="button button-small button-light" ng-model="startMinuteType" ng-change="updateStartMinute(startMinuteType)" ng-options="c.name for c in minutesArray"></select>
@@ -73,10 +75,12 @@
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
-                  <select class="button button-small button-light" ng-model="endHourType" ng-change="updateEndHour(endHourType)" ng-options="c.name for c in hoursArray"></select>
+                  <select class="button button-small button-light" ng-model="endHourType" ng-options="c.name for c in hoursArray" ng-change="updateEndHour(endHourType)"></select>
                 </label>
               </div>
+
               <label ng-show="!entity.isAllDay" style="padding-top: 12px;">:</label>
+
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
                   <select class="button button-small button-light" ng-model="endMinuteType" ng-change="updateEndMinute(endMinuteType)" ng-options="c.name for c in minutesArray"></select>
@@ -88,7 +92,7 @@
 
         <label class="item item-input">
           <span class="input-label">{{'Location'|translate}}:</span>
-          <input type="text" maxlength="30"  ng-model="entity.location">
+          <input type="text" ng-model="entity.location" ng-change="holaa(entity.location)">
         </label>
 
         <label class="item item-toggle">

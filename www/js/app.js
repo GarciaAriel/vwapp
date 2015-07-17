@@ -14,20 +14,27 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $ionicPlatform.ready(function() {    
 
-    var language = navigator.language;
-    if( language.indexOf("fr") != -1){
-      $translate.use("fr");  
+    var userInfo = $localstorage.getObject('userInfo');
+    if (userInfo.locale) {
+        $translate.use(userInfo.locale);
     }
     else{
-      if (language.indexOf("de") != -1) {
-        $translate.use("de");
-      }
-      else{
-        if (language.indexOf("es") != -1) {
-          $translate.use("es");
+        var language = navigator.language;
+        if( language.indexOf("fr") != -1){
+          $translate.use("fr");  
         }
-      }
-    }  
+        else{
+          if (language.indexOf("de") != -1) {
+            $translate.use("de");
+          }
+          else{
+            if (language.indexOf("es") != -1) {
+              $translate.use("es");
+            }
+          }
+        }    
+    }
+      
     
     var isOnline = $cordovaNetwork.isOnline()
     if(!isOnline)
@@ -86,6 +93,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 .config(function($translateProvider) {
 
   $translateProvider.translations("en", {
+
+    EditAppointment:"Edit appointment",
+    NewAppointment:"New appointment",
     Cc:"Cc",
     Bcc:"Bcc",
     dayBefore: "day before",
@@ -192,6 +202,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    EditAppointment:"Modificar evento",
+    NewAppointment:"Nuevo evento",
     Cc:"Cc",
     Bcc:"Bcc",
     dayBefore: "día antes",
@@ -300,6 +312,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    EditAppointment:"Termin bearbeiten",
+    NewAppointment:"Neuer Termin",
     Cc:"CC",
     Bcc:"BCC",
     dayBefore: "tag(e) vorher",
@@ -408,6 +422,8 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    EditAppointment:"Modifier un événement",
+    NewAppointment:"Nouvel événement",
     Cc:"Cc",
     Bcc:"Bcc",
     dayBefore: "jour avant",
