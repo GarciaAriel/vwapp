@@ -7,7 +7,7 @@
       <div class="item item-thumbnail-left">
         <img ng-if="boolPicture == false" src="img/image_product.png"  style="padding: 7px;">
         <img ng-if="boolPicture == true" src="{{apiUrlLocal}}{{productPictureDefault.imageUrl}}"  style="padding: 7px;">
-        <h2>{{entity.productName}}</h2>
+        <h2 style="padding-top:10px">{{entity.productName}}</h2>
         <p>{{productGroup.name}}</p>
         <p>{{productType.name}}</p>
       </div>
@@ -30,11 +30,7 @@
           
 
       </ion-slide-box>
-
-
-
       <div class="item positive">
-        <!-- <i class="icon ion-social-usd"></i> -->
         {{entity.priceFormatted}}<br>
         {{entity.priceGross}}<br>
         {{vatType.name}}

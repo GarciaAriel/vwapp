@@ -24,6 +24,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.entity.isAllDay  = $scope.entity.isAllDay == 'true' ? true : false;
   $scope.entity.reminder  = $scope.entity.reminder == 'true' ? true : false;
   $scope.entity.isPrivate = $scope.entity.isPrivate == 'true' ? true : false;
+  $scope.entity.isRecurrence = $scope.entity.isRecurrence == 'true' ? true : false;
 
   var aTypesArray = mainData.appointmentTypeArray;
   $scope.appointmentTypes = [];  
@@ -322,7 +323,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
   // prepare info to view
-  $scope.entity = {isAllDay: false, reminder: false, isPrivate:false, location:"",descriptionText:"",title:""};
+  $scope.entity = {isAllDay: false, reminder: false, isPrivate:false, location:"",descriptionText:"",title:"",isRecurrence:false};
   $scope.viewTitle = $filter('translate')('NewAppointment');
   var dateBridge = bridgeServiceDate.getDate();
   console.log('date calendar to use in new appointment: ',dateBridge);
@@ -485,7 +486,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     fd.append('dto(title)', $scope.entity.title);
     fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
     fd.append('dto(descriptionText)',$scope.entity.descriptionText);
-    fd.append('dto(location)', des);
+    fd.append('dto(location)', $scope.entity.location);
 
     var datePattern = $filter('translate')('datePattern');
     var stringDateStart = "";

@@ -30,7 +30,8 @@
         <label class="item item-toggle">
           {{'AllDay'|translate}}:
           <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="entity.isAllDay" name="" ng-change="hideDiv()">
+            <input ng-if="entity.isRecurrence == false" type="checkbox" ng-model="entity.isAllDay" name="" ng-change="hideDiv()">
+            <input ng-if="entity.isRecurrence == true" type="checkbox" ng-model="entity.isAllDay" name="" ng-change="hideDiv()" disabled>
               <div class="track">
                <div class="handle"></div>
               </div>
@@ -45,7 +46,8 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
-                <input type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)">
+                <input ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)" disabled>
+                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)">
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
@@ -71,7 +73,9 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
-                <input type="date" ng-model="dateEnd.value">
+                
+                <input ng-if="entity.isRecurrence == true" type="date" ng-model="dateEnd.value" disabled>
+                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateEnd.value">
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
