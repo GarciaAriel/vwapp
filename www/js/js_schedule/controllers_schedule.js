@@ -318,7 +318,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE NEW APPOINTMENT
 // 
-.controller('NewAppointmentController',function(bridgeServiceDate,CREATE_APPOINTMENT_URL,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
+.controller('NewAppointmentController',function($rootScope,bridgeServiceDate,CREATE_APPOINTMENT_URL,$filter,getFormatDate,$state,NEW_APPOINTMENT_FORWARD,$scope,PopupFactory,apiUrlLocal,$http){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE NEW APPOINTMENT==");
 
@@ -427,21 +427,21 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
     console.log('------lllegaaaaaa valor',nHourType);
-    console.log('------lllegaaaaaa array',$scope.hoursArray);
     $scope.startHourType = nHourType;
+    
     $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
-       
+    $scope.hoursArray = $scope.hoursArray;
     for (i = 0; i < $scope.hoursArray.length-1; i++) {
       if(nHourType.value == $scope.hoursArray[i].value) {
         $scope.endHourType = $scope.hoursArray[i+1];
         console.log('entraaaaaa',$scope.endHourType);
-        return $scope.endHourType;
-       }
+      }
     }  
   };
 
   // help function to update hour
   $scope.updateEndHour = function(nHourType){
+    console.log('----',nHourType);
     $scope.endHourType = nHourType;
   };
 
@@ -452,12 +452,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     for (i = 0; i < $scope.minutesArray.length; i++) {
       if(nMinuteType.value == $scope.minutesArray[i].value) {
         $scope.endMinuteType = $scope.minutesArray[i];
+        break;
       }
     }
   };
 
   // help function to update minutes
-  $scope.updateEndMinute = function(nMinuteType){
+  $scope.updateEndMinute = function(nMinuteType,startMinuteType){
     $scope.endMinuteType = nMinuteType;
   };
 

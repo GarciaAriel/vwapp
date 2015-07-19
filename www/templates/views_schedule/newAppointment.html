@@ -87,7 +87,7 @@
 
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
-                  <select class="button button-small button-light" ng-model="endMinuteType" ng-change="updateEndMinute(endMinuteType)" ng-options="c.name for c in minutesArray"></select>
+                  <select class="button button-small button-light" ng-model="endMinuteType" ng-change="updateEndMinute(endMinuteType,startMinuteType)" ng-options="c.name for c in minutesArray"></select>
                 </label>
               </div>
             </div>    
