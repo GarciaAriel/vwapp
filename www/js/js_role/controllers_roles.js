@@ -5,7 +5,8 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
   $scope.colorFont = COLOR_VIEW;
   $('ion-nav-bar').css({"color":COLOR_2});
 
-  $scope.accessRight = $localstorage.getObject('accessRight');  
+  $scope.accessRight = $localstorage.getObject('accessRight');
+  console.log('---====dsssfad',$scope.accessRight);  
 
   $scope.accessRightMail = $scope.accessRight.MAIL.VIEW;
   $scope.accessRightAppointment = $scope.accessRight.APPOINTMENT.VIEW;

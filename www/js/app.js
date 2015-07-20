@@ -14,26 +14,54 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $ionicPlatform.ready(function() {    
 
-    
-    
-    // // Simple POST request
-    // var request = $http({
-    //     method: "get",        
-    //     url: apiUrlLocal+"/Reload/UserInfo.do"
-    // });
-    // request.success(
-    //     function(data, status, headers, config) {    
+    // Simple POST request to refresh info user
+    var request = $http({
+        method: "get",        
+        url: apiUrlLocal+"/bmapp/Reload/UserInfo.do"
+    });
+    request.success(
+        function(data, status, headers, config) {    
+            $localstorage.setObject('accessRight',data.mainData.accessRight);
+            $localstorage.setObject('userInfo',data.mainData.userInfo);
+            if (data.mainData.userInfo.locale) {
+                $translate.use(data.mainData.userInfo.locale);
+            }
+            var User = $localstorage.get("currentUser");
+            if( User == 'true') {
+              var accessRight = $localstorage.getObject('accessRight');
+              console.log('----0000----user true go to',accessRight);
+                if (accessRight.CONTACT.VIEW == "true") {
+                    $state.go('app.contacts');
+                }
+                else{
+                  if (accessRight.APPOINTMENT.VIEW == "true") {
+                    $state.go('app.schedulerView');
+                  }
+                  else{
+                    if (accessRight.MAIL.VIEW == "true") {
+                      $state.go('app.mailboxes');
+                    }
+                    else{
+                      if (accessRight.PRODUCT.VIEW == "true") {
+                        $state.go('app.products');
+                      }
+                      else{
+                        $state.go('app.startPage');  
+                      }
+                    }
+                  }
+                }
+              
+            }
+    }).error(
+    function(data, status, headers, config) {    
+            console.log("problems with http request: reload user info",data);
+        }
+    );
 
-    //       // call factory to validate the response
-    //       PopupFactory.getPopup($scope,data);
-
-    // }).error(
-    // function(data, status, headers, config) {    
-    //         console.log("problems with http request: reload user info",data);
-    //     }
-    // );
-
+          
     var userInfo = $localstorage.getObject('userInfo');
+    
     if (userInfo.locale) {
         $translate.use(userInfo.locale);
     }
@@ -65,12 +93,6 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
       alertPopup.then(function(res) {
         ionic.Platform.exitApp();
       });    
-    }
-
-    var User = $localstorage.get("currentUser");
-    console.log('Current User registration: ',User);
-    if( User == 'true') {
-      $state.go('app.contacts');
     }
 
     StatusBar.overlaysWebView(false);

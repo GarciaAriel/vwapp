@@ -44,7 +44,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
    // ROUTE NEW MAIL
    .state('app.newmail', {
       url: '/newmail?to',
-      cache: true,
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-new.html',          

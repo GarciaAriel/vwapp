@@ -143,16 +143,28 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
     $scope.startHourType = nHourType;
-
-    for (i = 0; i < $scope.hoursArray.length; i++) {
+    
+    $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
+    $scope.hoursArray = $scope.hoursArray;
+    for (i = 0; i < $scope.hoursArray.length-1; i++) {
       if(nHourType.value == $scope.hoursArray[i].value) {
         $scope.endHourType = $scope.hoursArray[i+1];
       }
+    }  
+
+    var val = nHourType.name;
+    var sel = document.getElementById('endHour');
+    var opts = sel.options;
+    sel.selectedIndex = opts.length-1;
+    
+    for(j=0 ; j < opts.length-1 ; j++){
+      if(opts[j].label == val) {
+          sel.selectedIndex = j+1;
+          break;
+      }
     }
-    if ($scope.endHourType == undefined) {
-      $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];
-    }
-  };
+
+  }
 
   // help function to update hour
   $scope.updateEndHour = function(nHourType){
@@ -160,15 +172,25 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   };
 
   // help function to update minutes
-  $scope.updateStartMinute = function(nMinuteType){
-    $scope.startMinuteType = nMinuteType;
+  $scope.updateStartMinute = function(nStartMinute){
+    $scope.startMinuteType = nStartMinute;
 
-    for (i = 0; i < $scope.minutesArray.length; i++) {
-      if(nMinuteType.value == $scope.minutesArray[i].value) {
-        $scope.endMinuteType = $scope.minutesArray[i];
+    for (i = 0; i < $scope.minutesArrayEnd.length; i++) {
+      if(nStartMinute.value == $scope.minutesArrayEnd[i].value) {
+        $scope.endMinuteType = $scope.minutesArrayEnd[i];
+        break;
       }
     }
-  };
+    var val = nStartMinute.name;
+    var sel = document.getElementById('endMinute');
+    var opts = sel.options;
+    for(var opt, j = 0; opt = opts[j]; j++) {
+        if(opt.label == val) {
+            sel.selectedIndex = j;
+            break;
+        }
+    }
+  }
 
   // help function to update minutes
   $scope.updateEndMinute = function(nMinuteType){
