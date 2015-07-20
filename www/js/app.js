@@ -6,13 +6,32 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','starter.productRoutes','ngResource'])
 
-.run(function($state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
+.run(function(apiUrlLocal,$http,$state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
   });
 
   $ionicPlatform.ready(function() {    
+
+    
+    
+    // // Simple POST request
+    // var request = $http({
+    //     method: "get",        
+    //     url: apiUrlLocal+"/Reload/UserInfo.do"
+    // });
+    // request.success(
+    //     function(data, status, headers, config) {    
+
+    //       // call factory to validate the response
+    //       PopupFactory.getPopup($scope,data);
+
+    // }).error(
+    // function(data, status, headers, config) {    
+    //         console.log("problems with http request: reload user info",data);
+    //     }
+    // );
 
     var userInfo = $localstorage.getObject('userInfo');
     if (userInfo.locale) {

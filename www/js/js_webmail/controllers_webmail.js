@@ -384,12 +384,16 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 .controller('NewMail',function($state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
-
-  $scope.data = {};
+    
+  $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: ""};
   $scope.colorFont = COLOR_VIEW;
-  $scope.data.to = $stateParams.to;
   $scope.data.cc = "";
   $scope.data.bcc = "";
+
+  if ($stateParams.to) {
+    $scope.data.to = $stateParams.to;
+    console.log('entrooo');
+  }
   
   var request = $http({
     method: "get",    
@@ -433,7 +437,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     fd.append( 'dto(bcc)', $scope.data.bcc);
     fd.append( 'dto(mailSubject)', $scope.data.mailSubject);
     fd.append( 'dto(body)', $scope.data.body);
-    fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);
+    if ($scope.mailAccount) {
+      fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);  
+    }
+    
     
       
     $.ajax({
