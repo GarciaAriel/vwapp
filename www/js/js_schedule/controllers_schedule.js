@@ -604,8 +604,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     language: $scope.languageCalendar,
     tmpl_cache: false,
     day: yyyy+"-"+mm+"-"+dd,
-    time_start: '00:00',
-    time_end: '24:00',
+    time_start: '01:00',
+    time_end: '23:00',
     time_split: '60',
     width: '100%',   
 
