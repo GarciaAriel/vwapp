@@ -245,6 +245,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     console.log('do refresh list emails');
     $scope.searchKey = "";
     $scope.page = 1; 
+    $scope.asknext = false;
 
     // EXECUTE QUERY WITH (PAGE NUMBER)  
     $scope.newMailList = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
@@ -259,6 +260,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
       //  MAIL LIST
       $scope.mailList = (results['mainData'])['list'];
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       $scope.$broadcast('scroll.refreshComplete');  
       
       if ($scope.totalPages > $scope.page) {
@@ -271,7 +274,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     console.log('*******************************************************');
     console.log('load more');
     $scope.page = $scope.page + 1;
-
+    
     //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
     $scope.newMails = Mail.query({'pageParam(pageNumber)':$scope.page,'folderId':$stateParams.folderId});
 
@@ -282,10 +285,12 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
       console.log("results of request: ",results);
       $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
+      $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
+      $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
 
       // REFRESH = FALSE IF TOTAL PAGES <= PAGE ACTUAL ++
-      if ($scope.totalPages<=$scope.page+1) {
+      if ($scope.totalPages<$scope.page+1) {
         $scope.asknext = false;  
       };
     });  
@@ -387,8 +392,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     
   $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: ""};
   $scope.colorFont = COLOR_VIEW;
-  $scope.data.cc = "";
-  $scope.data.bcc = "";
+  $scope.iframeWidth = $(window).width()*0.22;
 
   if ($stateParams.to) {
     $scope.data.to = $stateParams.to;

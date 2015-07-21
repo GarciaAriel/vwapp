@@ -29,14 +29,15 @@
 
     <button class="button button-clear button-assertive" ng-click="search()">{{ 'Search' | translate}}</button>
   </div>
-
+  
   <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'"> 
+
     <ion-refresher pulling-text="{{ 'PulltoRefresh' | translate}}" on-refresh="doRefresh()">
     </ion-refresher>
 
-    <ion-list>
+    <ion-list ng-repeat="item in mailList">
       
-      <ion-item class="item item-thumbnail-left" ng-click="(item.hasReadState)=!(item.hasReadState)" ng-repeat="item in mailList" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
+      <ion-item class="item item-thumbnail-left" ng-click="(item.hasReadState)=!(item.hasReadState)" type="item-text-wrap"  ng-href="#/app/mail-detail?mailId={{item.mailId}}&folderId={{item.folderId}}&imageFrom={{item.fromImageUrl}}&fromImageId={{item.fromImageId}}">
 
         <img ng-if="item.mailIconType === '1'" ng-src="img/recipient_unknown.png" style="width: 64px; height: 64px">
         <img ng-if="item.mailIconType === '2'" ng-src="img/recipient_known.png" style="width: 64px; height: 64px">

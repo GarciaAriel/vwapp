@@ -1,4 +1,9 @@
 /* Empty. Add your own CSS if you like */
+.align-leftt {
+   float: left;
+   width: 49%;
+   }
+
 .slider {
   height: 100%;
 }

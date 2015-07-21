@@ -92,7 +92,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         {name: '30 '+textMinute,type: '1',value: '30'},{name: '45 '+textMinute,type: '1',value: '45'},
         {name: '1 '+textHour,type: '2',value: '1'},{name: '2 '+textHour,type: '2',value: '2'},
         {name: '3 '+textHour,type: '2',value: '3'},{name: '12 '+textHour,type: '2',value: '12'},
-        {name: '1 '+textDay,type: '3',value: '1'},{name: '2 textDay',type: '3',value: '2'},];
+        {name: '1 '+textDay,type: '3',value: '1'},{name: '2 '+textDay,type: '3',value: '2'},];
   $scope.typeReminder = $scope.reminderList[0];
 
   // search type of rimender type by id
@@ -144,6 +144,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.updateReminder = function(nTypeReminder){
     $scope.typeReminder = nTypeReminder;
   };
+
+  // update date end with date start
+  $scope.changeValue = function(dateStart){
+    $scope.dateEnd = { value:  dateStart};
+  }
+
+  $scope.maxLenght = function(text){
+    $scope.entity.location = text.length > 30 ? text.substring(0,30) : text;
+  }
 
   // help function to update hour
   $scope.updateStartHour = function(nHourType){
@@ -222,9 +231,15 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     fd.append('dto(save)', 'save');
     fd.append('dto(appointmentId)',$scope.entity.appointmentId);
     fd.append('dto(version)',$scope.entity.version);
-    fd.append('dto(title)', $scope.entity.title);
     fd.append('dto(appointmentTypeId)', $scope.typeAppointment.value);
     fd.append('dto(reminder)', $scope.entity.reminder);
+
+    if ($scope.entity.title != undefined) {
+      fd.append('dto(title)', $scope.entity.title);
+    }
+    else{
+     fd.append('dto(title)', ""); 
+    }
 
     if ($scope.entity.isAllDay) {
       console.log('ppointment all day true');
@@ -240,6 +255,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       fd.append('dto(reminderType)',$scope.typeReminder.type);
       fd.append('dto(timeBefore_1)',$scope.typeReminder.value);
       fd.append('dto(timeBefore_2)',$scope.typeReminder.value);
+    }
+
+    if ($scope.entity.isRecurrence) {
+     fd.append('dto(isRecurrence)',$scope.entity.isRecurrence); 
     }
     
     var datePattern = $filter('translate')('datePattern');
@@ -363,7 +382,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
         {name: '30 '+textMinute,type: '1',value: '30'},{name: '45 '+textMinute,type: '1',value: '45'},
         {name: '1 '+textHour,type: '2',value: '1'},{name: '2 '+textHour,type: '2',value: '2'},
         {name: '3 '+textHour,type: '2',value: '3'},{name: '12 '+textHour,type: '2',value: '12'},
-        {name: '1 '+textDay,type: '3',value: '1'},{name: '2 textDay',type: '3',value: '2'},];
+        {name: '1 '+textDay,type: '3',value: '1'},{name: '2 '+textDay,type: '3',value: '2'},];
 
   $scope.typeReminder = $scope.reminderList[0];
 
@@ -381,6 +400,10 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   $scope.dateEnd = { value: datePlus };
   console.log('date start: ',$scope.dateStart);
   console.log('date end: ',$scope.dateEnd);
+
+  // var datePattern = $filter('translate')('datePattern');
+  // console.log("++++++++++++++datePattern",datePattern);
+  // $scope.dateStart = $filter("date")($scope.dateStart, datePattern);
 
   $scope.endHourType = {};
   $scope.startHourType = {};
@@ -435,7 +458,17 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
       });
       $scope.startMinuteType = $scope.minutesArrayStart[0];
       $scope.endMinuteType = $scope.minutesArrayEnd[0];
-     
+
+  //     var datePattern = $filter('translate')('datePattern');
+  // stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
+  // stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
+  
+  // console.log('---===',stringDateStart);
+  // console.log('---===',stringDateEnd);
+  // document.getElementById("dateStartValue").value = stringDateStart;
+  // document.getElementById("dateEndValue").value = stringDateEnd;
+   // $scope.date = $filter("date")(Date.now(), 'yyyy.MM.dd');
+
     }).error(
     function(data, status, headers, config) {    
       console.log("problems with http request: get info new appointment",data);
@@ -453,6 +486,16 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   // update date end with date start
   $scope.changeValue = function(dateStart){
     $scope.dateEnd = { value:  dateStart};
+
+  //   var datePattern = $filter('translate')('datePattern');
+  //   stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
+  //   stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
+  
+  // console.log('---===',stringDateStart);
+  // console.log('---===',stringDateEnd);
+  // document.getElementById("dateStartValue").value = stringDateStart;
+  // document.getElementById("dateEndValue").value = stringDateEnd;
+
   }
 
   // help function to update hour

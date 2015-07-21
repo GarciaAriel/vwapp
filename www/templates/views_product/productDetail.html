@@ -31,9 +31,16 @@
 
       </ion-slide-box>
       <div class="item positive">
-        {{entity.priceFormatted}}<br>
-        {{entity.priceGross}}<br>
-        {{vatType.name}}
+        <div ng-if="entity.priceFormatted != ''">
+          {{ 'NetPrice' | translate}}:&nbsp;{{entity.priceFormatted}}
+        </div>
+        <div ng-if="entity.priceGrossFormatted != ''">
+          {{ 'GrossPrice' | translate}}:&nbsp;{{entity.priceGrossFormatted}}
+        </div>
+        <div ng-if="entity.vatId != ''">
+          {{ 'Vat' | translate}}:&nbsp;{{vatType.name}}  
+        </div>
+        
       </div>
       
       <div class="item item-text-wrap">

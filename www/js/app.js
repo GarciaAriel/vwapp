@@ -140,6 +140,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("en", {
 
+    Vat:"VAT",
+    NetPrice:"Net price",
+    GrossPrice:"Gross price",
     EditAppointment:"Edit appointment",
     NewAppointment:"New appointment",
     Cc:"Cc",
@@ -248,6 +251,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    Vat:"IVA",
+    NetPrice:"Precio neto",
+    GrossPrice:"Precio bruto",
     EditAppointment:"Modificar evento",
     NewAppointment:"Nuevo evento",
     Cc:"Cc",
@@ -358,6 +364,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    Vat:"USt.",
+    NetPrice:"Nettopreis",
+    GrossPrice:"Bruttopreis",
     EditAppointment:"Termin bearbeiten",
     NewAppointment:"Neuer Termin",
     Cc:"CC",
@@ -468,6 +477,9 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    Vat:"TVA",
+    NetPrice:"Prix net",
+    GrossPrice:"Prix brut",
     EditAppointment:"Modifier un événement",
     NewAppointment:"Nouvel événement",
     Cc:"Cc",
