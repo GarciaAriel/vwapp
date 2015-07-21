@@ -424,7 +424,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.updateEmail = function(nEmail){
     $scope.mailAccount = nEmail;
   };
-  
+  $scope.mySwitch = false;
+  $scope.seeCc = function(){
+    $scope.mySwitch = !$scope.mySwitch;
+  }
+
   $scope.sendMail = function() {
     console.log('*******************************************************');
     console.log('data to send new email: ', $scope.data);

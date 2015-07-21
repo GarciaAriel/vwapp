@@ -6,13 +6,13 @@
 // 'starter.controllers' is found in controllers.js
 var starter = angular.module('starter', ['ionic','starter.constants','ui.router','starter.rolesroutes','starter.scheduleroutes','underscore', 'ngCordova', 'pascalprecht.translate', 'starter.controllers','starter.services','starter.webmailroutes','starter.contactroutes','starter.productRoutes','ngResource'])
 
-.run(function(apiUrlLocal,$http,$state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
+.run(function(PopupFactory,apiUrlLocal,$http,$state,$localstorage,$translate,$cordovaNetwork,$ionicPopup,$ionicPlatform, $translate,$rootScope, $location, AuthenticationService, RoleService, SessionService) {  
 
   $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
       var permisos = RoleService.validateRoleAdmin(SessionService.currentUser);
   });
 
-  $ionicPlatform.ready(function() {    
+  $ionicPlatform.ready(function() {
 
     // Simple POST request to refresh info user
     var request = $http({
@@ -21,38 +21,43 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     });
     request.success(
         function(data, status, headers, config) {    
-            $localstorage.setObject('accessRight',data.mainData.accessRight);
-            $localstorage.setObject('userInfo',data.mainData.userInfo);
-            if (data.mainData.userInfo.locale) {
-                $translate.use(data.mainData.userInfo.locale);
-            }
-            var User = $localstorage.get("currentUser");
-            if( User == 'true') {
-              var accessRight = $localstorage.getObject('accessRight');
-              console.log('----0000----user true go to',accessRight);
-                if (accessRight.CONTACT.VIEW == "true") {
-                    $state.go('app.contacts');
+            
+            if (data.forward != "SessionExpired") {
+                $localstorage.setObject('accessRight',data.mainData.accessRight);
+                $localstorage.setObject('userInfo',data.mainData.userInfo);
+                if (data.mainData.userInfo.locale) {
+                    $translate.use(data.mainData.userInfo.locale);
                 }
-                else{
-                  if (accessRight.APPOINTMENT.VIEW == "true") {
-                    $state.go('app.schedulerView');
-                  }
-                  else{
-                    if (accessRight.MAIL.VIEW == "true") {
-                      $state.go('app.mailboxes');
+                var User = $localstorage.get("currentUser");
+                if( User == 'true') {
+                  var accessRight = $localstorage.getObject('accessRight');
+                  
+                    if (accessRight.CONTACT.VIEW == "true") {
+                        $state.go('app.contacts');
                     }
                     else{
-                      if (accessRight.PRODUCT.VIEW == "true") {
-                        $state.go('app.products');
+                      if (accessRight.APPOINTMENT.VIEW == "true") {
+                        $state.go('app.schedulerView');
                       }
                       else{
-                        $state.go('app.startPage');  
+                        if (accessRight.MAIL.VIEW == "true") {
+                          $state.go('app.mailboxes');
+                        }
+                        else{
+                          if (accessRight.PRODUCT.VIEW == "true") {
+                            $state.go('app.products');
+                          }
+                          else{
+                            $state.go('app.startPage');  
+                          }
+                        }
                       }
                     }
-                  }
-                }
-              
+                  
+                }                
             }
+            
+            
     }).error(
     function(data, status, headers, config) {    
             console.log("problems with http request: reload user info",data);

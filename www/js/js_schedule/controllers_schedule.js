@@ -52,19 +52,24 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
          $scope.endHourType = $scope.hoursArray[$scope.hoursArray.length-1];  
       }
   });
-
+  
   var aMinutesArray = mainData.minutesArray;
-  $scope.minutesArray = [];    
+  $scope.minutesArrayStart = [];
+  $scope.minutesArrayEnd = [];
   aMinutesArray.forEach(function(aMinute) {           
-      $scope.minutesArray.push({
+      $scope.minutesArrayStart.push({
         name: aMinute.label,
         value: aMinute.value
-      });       
+      });
+      $scope.minutesArrayEnd.push({
+        name: aMinute.label,
+        value: aMinute.value
+      });
       if($scope.entity.startMin == aMinute.value) {             
-         $scope.startMinuteType = $scope.minutesArray[$scope.minutesArray.length-1];  
+         $scope.startMinuteType = $scope.minutesArrayStart[$scope.minutesArrayStart.length-1];  
       }
       if($scope.entity.endMin == aMinute.value) {             
-         $scope.endMinuteType = $scope.minutesArray[$scope.minutesArray.length-1];  
+         $scope.endMinuteType = $scope.minutesArrayEnd[$scope.minutesArrayEnd.length-1];  
       }
   });
 

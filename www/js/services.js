@@ -24,6 +24,35 @@ angular.module('starter.services', [])
         })
       };
 
+      // if appointment was deleted by other user
+      if (result.forward == "MainSearch") {
+        console.log("==ERROR CONTROL== appointment deleted:",result);
+        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+
+        var message = "";
+        if (result.errorsArray) {
+          message = result.errorsArray[0].error;
+          for (var i = 1; i < result.errorsArray.length; i++) {
+            message=message+"<br>"+result.errorsArray[i].error ;
+          };
+        }
+        
+        return $ionicPopup.show({
+          title: $filter('translate')('Error'),
+          template:  message,
+          scope: scope,
+          buttons: [
+            { text: '<b>close</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $ionicHistory.goBack();
+                $state.go('app.schedulerView');
+              }
+            },
+          ]
+        })
+      };
+
       // if Concurrency fail
       if (result.forward == "ConcurrencyFail") {
         console.log("==ERROR CONTROL== Concurrency Fail:",result);
