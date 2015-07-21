@@ -26,24 +26,19 @@
           <option value=""></option></select>
         </label>
 
-<div class="row">
-  <div class="col col-90">
-        <label class="item item-input">
-          <span class="input-label">{{ 'To' | translate}}:</span>
-          <input type="text" ng-model="data.to" style="text-align:left;">
-        </label>
-  </div>
-  <!-- <div class="col"> -->
-    <!-- <ion-checkbox ng-model="mySwitch"></ion-checkbox> -->
-    <button class="button button-clear button-positive" ng-click="seeCc()">
-  C
-</button>
-  <!-- </div> -->
-</div>
+        <div class="row" style="padding-top: 0px; padding-bottom: 0px; border-top-style: solid; border-top-width: 0px; margin-top: -4px; margin-bottom: -4px;">
+          <div class="col col-90">
+                <label class="item item-input">
+                  <span class="input-label">{{ 'To' | translate}}:</span>
+                  <input type="text" ng-model="data.to" style="text-align:left;">
+                </label>
+          </div>
+            <button class="button button-clear button-positive" ng-click="seeCc()">
+              <i ng-class="mySwitch ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+            </button>
+          
+        </div>
         
-
-        
-
         <label class="item item-input" ng-show="mySwitch">
           <input type="text" placeholder="{{'Cc'|translate}}" ng-model="data.cc">
         </label>

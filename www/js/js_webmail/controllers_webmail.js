@@ -437,15 +437,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     var fd = new FormData();    
     fd.append( 'save', 'save');
     fd.append( 'dto(to)', $scope.data.to);
-    fd.append( 'dto(cc)', $scope.data.cc);
-    fd.append( 'dto(bcc)', $scope.data.bcc);
     fd.append( 'dto(mailSubject)', $scope.data.mailSubject);
     fd.append( 'dto(body)', $scope.data.body);
     if ($scope.mailAccount) {
       fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);  
     }
     
-    
+    if ($scope.mySwitch) {
+      fd.append( 'dto(cc)', $scope.data.cc);
+      fd.append( 'dto(bcc)', $scope.data.bcc);
+    }
+    else{
+      fd.append( 'dto(cc)', "");
+      fd.append( 'dto(bcc)', ""); 
+    }
       
     $.ajax({
       url: apiUrlLocal+COMPOSE_EMAIL_URL,
