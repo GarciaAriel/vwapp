@@ -36,10 +36,10 @@
             <b>{{ 'StartDate' | translate}}:</b>            
           </div>
           <div ng-if="entity.isAllDay == 'true'" class="col col-50" align="right">
-            {{entity.startDateTime | date:'MM/dd/yyyy'}}    
+            {{entity.startDateFormated}}
           </div>
           <div ng-if="entity.isAllDay == 'false'" class="col col-50" align="right">
-            {{entity.startDateTime | date:'MM/dd/yyyy HH:mm'}}    
+            {{entity.startDateFormated}}
           </div>
         </div>
 
@@ -48,10 +48,10 @@
             <b>{{ 'EndDate' | translate}}: </b>
           </div>
           <div ng-if="entity.isAllDay == 'true'" class="col col-50" align="right">
-            {{entity.endDateTime | date:'MM/dd/yyyy'}}     
+            {{entity.endDateFormated}}
           </div>
           <div ng-if="entity.isAllDay == 'false'" class="col col-50" align="right">
-            {{entity.endDateTime | date:'MM/dd/yyyy HH:mm'}}     
+            {{entity.endDateFormated}}
           </div>
         </div>
         <b ng-if="entity.isAllDay == 'true'">

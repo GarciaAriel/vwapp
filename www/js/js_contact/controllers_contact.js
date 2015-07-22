@@ -2677,11 +2677,14 @@ $scope.search = function () {
 
     $scope.go_to = function(link)
     {      
+      console.log('000000000');
       if (!link.startsWith("http://")){
-        window.open('http://'+link, '_system', 'location=yes'); return false;
+        console.log('iffffffff',link);
+        window.open('http://'+link, '_blank', 'location=yes'); return false;
       }
       else{
-       window.open(link, '_system', 'location=yes'); return false; 
+        console.log('elseeeeeee',link);
+       window.open(link, '_blank', 'location=yes'); return false; 
       }       
     }  
 

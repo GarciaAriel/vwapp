@@ -697,8 +697,8 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     language: $scope.languageCalendar,
     tmpl_cache: false,
     day: yyyy+"-"+mm+"-"+dd,
-    time_start: '01:00',
-    time_end: '23:00',
+    time_start: '05:00',
+    time_end: '21:00',
     time_split: '60',
     width: '100%',   
 
@@ -755,6 +755,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
+  console.log('-----=====',$scope.listAppointments[0]);  
+  var d = new Date(parseInt($scope.listAppointments[0].startMillis));
+  console.log('-----=====',d);
+  d.setUTCMilliseconds(3600000);
+  console.log('-----=====00000000000000000000000000');
+  console.log('-----=====',d);
+
         //parse to variables
         $scope.appointments = [];
         angular.forEach($scope.listAppointments, function (appointment) {
