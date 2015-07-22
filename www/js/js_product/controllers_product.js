@@ -123,6 +123,7 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
       };
       $ionicScrollDelegate.scrollTop();
     });
+    $ionicScrollDelegate.scrollTop();
   };  
 
   $scope.loadMore = function() {
@@ -207,7 +208,7 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
         });
       }
       $ionicScrollDelegate.scrollTop();
-                  
+
     });
         
     $scope.loadMore = function() {

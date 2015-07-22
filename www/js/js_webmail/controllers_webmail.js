@@ -138,6 +138,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.mailList = [];
   $scope.folderName = $stateParams.folderName;
   $scope.asknext = false;
+  $scope.showSearchBar = false;
 
   console.log("folder name",$scope.folderName);
   
@@ -379,7 +380,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   // clear search
   $scope.hideSearch = function() {
-    // $scope.searchKey = "";
+    $scope.searchKey = "";
     $scope.showSearchBar = false;
   };
 
@@ -392,7 +393,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     
   $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: ""};
   $scope.colorFont = COLOR_VIEW;
-  $scope.iframeWidth = $(window).width()*0.22;
+  $scope.iframeWidth = $(window).width()*0.17;
 
   if ($stateParams.to) {
     $scope.data.to = $stateParams.to;
