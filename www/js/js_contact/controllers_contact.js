@@ -2680,7 +2680,7 @@ $scope.search = function () {
       console.log('000000000');
       if (!link.startsWith("http://")){
         console.log('iffffffff',link);
-        window.open('http://'+link, '_blank', 'location=yes'); return false;
+        window.open('http://'+link, '_system', 'location=yes'); return false;
       }
       else{
         console.log('elseeeeeee',link);

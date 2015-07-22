@@ -1,4 +1,4 @@
-<ion-view view-title='{{ folderName | translate}}'>
+<ion-view cache-view="true" view-title='{{ folderName | translate}}'>
 
 
   <ion-nav-buttons side="right">
@@ -28,6 +28,9 @@
     </span>
 
     <button class="button button-clear button-assertive" ng-click="search()">{{ 'Search' | translate}}</button>
+    <!-- <button class="button button-clear button-assertive" style="border-style: none" ng-click="searchcon()">
+      <i class="icon ion-ios7-search" style="{{colorFont}}"></i>
+    </button> -->
   </div>
   
   <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'"> 
