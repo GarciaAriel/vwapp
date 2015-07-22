@@ -698,7 +698,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     tmpl_cache: false,
     day: yyyy+"-"+mm+"-"+dd,
     time_start: '05:00',
-    time_end: '21:00',
+    time_end: '23:00',
     time_split: '60',
     width: '100%',   
 
@@ -761,6 +761,14 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   d.setUTCMilliseconds(3600000);
   console.log('-----=====00000000000000000000000000');
   console.log('-----=====',d);
+
+
+// var a = moment.tz("2013-11-18 11:55", "America/Toronto");
+
+// var a = moment.tz("2013-11-18 11:55", "America/Toronto");
+// var moment = require('moment');
+// moment().format();
+        // console.log('-----=====localeeee',a);        
 
         //parse to variables
         $scope.appointments = [];
