@@ -46,8 +46,14 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
+
+                <ionic-datepicker idate="currentDate" disablepreviousdates="true"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" >
+                    <button class="button button-block button-positive">{{textButton}} -- </button>
+                    <!-- {{ currentDate | date:'dd - MMMM - yyyy' }} -->
+                </ionic-datepicker>
+
                 <input value="valueDate" ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue" disabled>
-                <input value="valueDate" ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue">
+                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" value="2015.02.02" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue">
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">

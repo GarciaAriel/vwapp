@@ -1,4 +1,4 @@
-angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
+angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic-datepicker'])
 
 // 
 // CONTROLLER SCHEDULE EDIT
@@ -404,6 +404,29 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   console.log('date start: ',$scope.dateStart);
   console.log('date end: ',$scope.dateEnd);
 
+  $scope.currentDate = new Date();
+  // $scope.title = "Custom Title controler";
+
+  $scope.datePickerCallback = function (val) {
+      if(typeof(val)==='undefined'){      
+          console.log('Date not selected');
+      }else{
+          console.log('Selected date is : ', val);
+      }
+
+      var datePattern = $filter('translate')('datePattern');
+      $scope.textButton = getFormatDate.getStringDate($scope.currentDate,datePattern);
+      console.log("---==fuaa",$scope.textButton);
+       
+  
+  //   stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
+  
+  // console.log('---===',stringDateStart);
+  // console.log('---===',stringDateEnd);
+  // document.getElementById("dateStartValue").value = "02.02.2015";
+  // document.getElementById("dateEndValue").value = stringDateEnd;
+  };
+
   // var datePattern = $filter('translate')('datePattern');
   // console.log("++++++++++++++datePattern",datePattern);
   // $scope.dateStart = $filter("date")($scope.dateStart, datePattern);
@@ -496,7 +519,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
   
   // console.log('---===',stringDateStart);
   // console.log('---===',stringDateEnd);
-  // document.getElementById("dateStartValue").value = stringDateStart;
+  document.getElementById("dateStartValue").value = "02.02.2015";
   // document.getElementById("dateEndValue").value = stringDateEnd;
 
   }
