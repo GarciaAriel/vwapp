@@ -46,8 +46,8 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
-                <input value="valueDate" ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)" id="dateStartValue" disabled>
-                <input value="valueDate" ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" ng-change="changeValue(dateStart.value)" id="dateStartValue">
+                <input value="valueDate" ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue" disabled>
+                <input value="valueDate" ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue">
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">

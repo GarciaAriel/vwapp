@@ -109,6 +109,7 @@
 	<div class="row-fluid clearfix cal-day-hour">
 		<div class="span1 col-xs-3"><b><%= cal.locale.after_time %></b></div>
 		<div class="span11 col-xs-9">
+		<% console.log("---------------after_time"); %>		
 			<% _.each(after_time, function(event){ %>
 			<div class="day-highlight dh-<%= event.class %>">
 				<span class="cal-hours"><%= event.start_hour %></span>

@@ -643,7 +643,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 // 
 // CONTROLLER SCHEDULE VIEW CALENDAR
 // 
-.controller('ControlSchedule',function(bridgeServiceDate,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
+.controller('ControlSchedule',function(timezone,bridgeServiceDate,PopupFactory,getAppointments,$http,apiUrlLocal,pathSchedule,$ionicScrollDelegate,$state,$window,COLOR_VIEW,COLOR_2,$scope,Load_variable_date,schedule_calculate_Next_Ant,$q,scheduleService,$localstorage,SCHEDULE_TYPE_MONTH,SCHEDULE_TYPE_WEEK,SCHEDULE_TYPE_DAY,SCHEDULE_TYPE_MONTH_STRING,SCHEDULE_TYPE_WEEK_STRING,SCHEDULE_TYPE_DAY_STRING){
   console.log('*******************************************************');
   console.log("==CONTROLLER SCHEDULE VIEW CALENDAR==");
 
@@ -697,7 +697,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     language: $scope.languageCalendar,
     tmpl_cache: false,
     day: yyyy+"-"+mm+"-"+dd,
-    time_start: '05:00',
+    time_start: '06:00',
     time_end: '23:00',
     time_split: '60',
     width: '100%',   
@@ -755,20 +755,18 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
 
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
-  console.log('-----=====',$scope.listAppointments[0]);  
-  var d = new Date(parseInt($scope.listAppointments[0].startMillis));
-  console.log('-----=====',d);
-  d.setUTCMilliseconds(3600000);
-  console.log('-----=====00000000000000000000000000');
-  console.log('-----=====',d);
+  // console.log('-----=====',$scope.listAppointments[0]);  
+  // var d = new Date(parseInt($scope.listAppointments[0].startMillis));
+  // console.log('-----=====',d);
+  // d.setUTCMilliseconds(3600000);
+  // console.log('-----=====00000000000000000000000000',$scope.calendar);
+  // aaaaaaa
+  // console.log('-----=====',d);
+// aaaaaa
 
-
-// var a = moment.tz("2013-11-18 11:55", "America/Toronto");
-
-// var a = moment.tz("2013-11-18 11:55", "America/Toronto");
-// var moment = require('moment');
-// moment().format();
-        // console.log('-----=====localeeee',a);        
+// var userInfo = $localstorage.getObject('userInfo');
+// console.log('timezone user',userInfo.dateTimeZone);
+//   var res = timezone.getTimezone(userInfo.dateTimeZone);
 
         //parse to variables
         $scope.appointments = [];
@@ -782,6 +780,11 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
             idAppointment = str.substring(0, pos);   
             console.log("new id appointment without '-' IN RECURRENT", idAppointment);
           };
+
+          // var startMillis = parseInt($scope.listAppointments[0].startMillis);
+          // var endMillis = parseInt($scope.listAppointments[0].endMillis);
+          // console.log('startMillis: ',startMillis);
+          // console.log('endMillis: ',endMillis);
           
           // load appointment and push in list
           var change = {id: appointment.virtualAppointmentId, title: appointment.title, start: appointment.startMillis, end: appointment.endMillis ,body: appointment.location,url:'#app/schedulerDetail'+'?appointmentId=' +idAppointment};

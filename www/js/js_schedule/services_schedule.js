@@ -19,6 +19,28 @@ angular.module('starter.scheduleservices', [])
 
 })
 
+// SERVICE
+.service('timezone', function() {
+  var timeZones = [{name: 'America/La_Paz', value: -4},{name: 'America/Godthab', value: -3}];
+                           
+  var getTimezone = function(text){
+    var res = {};
+    for (var i = 0; i < timeZones.length; i++) {
+      if (timeZones[i].name == text) {
+        console.log('timeZone service find ok ',timeZones[i]);
+        res = timeZones[i];
+        break;
+      }
+    }
+    return res;
+  };
+
+  return {
+    getTimezone: getTimezone
+  };
+
+})
+
 // SERVICE SAVE DATE
 .service('bridgeServiceDate', function() {
   var date = {};
