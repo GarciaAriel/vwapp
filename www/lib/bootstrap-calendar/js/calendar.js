@@ -491,7 +491,7 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 
-			if(e.start > end.getTime()) {
+			if(e.start >= end.getTime()) {
 				data.after_time.push(e);
 				return;
 			}

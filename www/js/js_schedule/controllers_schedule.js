@@ -260,6 +260,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices'])
     if ($scope.entity.isRecurrence) {
      fd.append('dto(isRecurrence)',$scope.entity.isRecurrence); 
     }
+    else{
+     fd.append('dto(isRecurrence)',false);  
+    }
     
     var datePattern = $filter('translate')('datePattern');
     var stringDateStart = "";
