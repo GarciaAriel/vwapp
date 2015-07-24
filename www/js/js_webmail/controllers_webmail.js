@@ -3,14 +3,38 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 /**
  * CONTROLLER FOLDERS
  */
-.controller('MailsCtrl', function(PopupFactory,$state,$scope,Webmal_read_forlders,COLOR_VIEW,PATH_WEBMAIL_READ_FOLDERS,
-  FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,FOLDER_DRAFT_ID,
-  FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,FOLDER_OUTBOX_NAME,
-  FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE,
-  FOLDER_DEFAULT_TYPE) {
+.controller('MailsCtrl', function($fileFactory,$ionicPlatform,PopupFactory,$state,$scope,
+  PATH_WEBMAIL_READ_FOLDERS,FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,
+  FOLDER_DRAFT_ID,FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,
+  FOLDER_OUTBOX_NAME,FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,
+  FOLDER_OUTBOX_TYPE,FOLDER_DEFAULT_TYPE,COLOR_VIEW,Webmal_read_forlders) {
 
   console.log('*******************************************************');
   console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
+
+
+  var fs = new $fileFactory();
+
+    $ionicPlatform.ready(function() {
+        fs.getEntriesAtRoot().then(function(result) {
+            $scope.files = result;
+        }, function(error) {
+            console.error(error);
+        });
+
+        $scope.getContents = function(path) {
+            fs.getEntries(path).then(function(result) {
+                $scope.files = result;
+                $scope.files.unshift({name: "[parent]"});
+                fs.getParentDirectory(path).then(function(result) {
+                    result.name = "[parent]";
+                    $scope.files[0] = result;
+                });
+            });
+        }
+    });
+
+
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
   $scope.folders = [];

@@ -1,7 +1,61 @@
 angular.module('starter.webmailservices', [])
-/**
- * A simple example service that returns some data.
- */
+
+.factory("$fileFactory", function($q) {
+
+    var File = function() { };
+
+    File.prototype = {
+
+        getParentDirectory: function(path) {
+            var deferred = $q.defer();
+            window.resolveLocalFileSystemURI(path, function(fileSystem) {
+                fileSystem.getParent(function(result) {
+                    deferred.resolve(result);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+        getEntriesAtRoot: function() {
+            var deferred = $q.defer();
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                var directoryReader = fileSystem.root.createReader();
+                directoryReader.readEntries(function(entries) {
+                    deferred.resolve(entries);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+
+        getEntries: function(path) {
+            var deferred = $q.defer();
+            window.resolveLocalFileSystemURI(path, function(fileSystem) {
+                var directoryReader = fileSystem.createReader();
+                directoryReader.readEntries(function(entries) {
+                    deferred.resolve(entries);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+
+    };
+
+    return File;
+
+})
+
 
 /**
  * SERVICES LIST MAILS IN WEBMAIL
@@ -22,31 +76,4 @@ angular.module('starter.webmailservices', [])
   var url = apiUrlLocal+PATH_WEBMAIL_READ_FOLDERS;
   console.log('==SERVICE WEBMAIL== read forlders',url);
   return $resource(url,{},{'query':{method:'GET', isArray:false}});
-})
-
-
-/**
-*SERVICES FOLDERS IN WEBMAIL
-*/
-.factory('MailsSubMenu', function($q,$timeout) {
-  console.log("==SERVICES WEBMAIL== GET FOLDERS OF WEBMAIL TO BM");
-  
- 
-  var getContacts = function() {
-    var deferred = $q.defer();
-
-    // $timeout( function(){
-        deferred.resolve([
-            {id: 'inbox',name: 'inbox',face:'img/android-archive.png'},
-            {id: 'sentItems',name: 'sentItems',face:'img/paper-airplane.png'},
-            {id: 'draftItems',name: 'draftItems',face:'img/android-mail.png'},
-        ]);
-
-    // }, 1500);
-    return deferred.promise;
-  };
-
-  return {
-      getContacts : getContacts
-  }
 });
