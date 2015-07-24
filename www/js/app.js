@@ -140,6 +140,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("en", {
 
+    NewMail:"New e-mail",
     Vat:"VAT",
     NetPrice:"Net price",
     GrossPrice:"Gross price",
@@ -251,6 +252,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    NewMail:"Nuevo e-mail",
     Vat:"IVA",
     NetPrice:"Precio neto",
     GrossPrice:"Precio bruto",
@@ -364,6 +366,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    NewMail:"eMail schreiben",
     Vat:"USt.",
     NetPrice:"Nettopreis",
     GrossPrice:"Bruttopreis",
@@ -426,7 +429,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     MessageRequired: "Anmeldeinformationen ungültig Sitzung.",
     Loading: "Mehrere Funktionen unter construccion",
     Start: "Anfang", 
-    End: "aleman",
+    End: "Ende",
     ReadMail: 'eMail lesen', 
     Mailboxes: 'Mailboxes',
     Inbox: "Posteingang",
@@ -477,6 +480,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    NewMail:"Nouveau e-mail",
     Vat:"TVA",
     NetPrice:"Prix net",
     GrossPrice:"Prix brut",
@@ -539,7 +543,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
     MessageRequired: "Références de connexion de session valide.",  
     Loading: "Plusieurs fonctions sous construccion", 
     Start: "Début",
-    End: "frances",
+    End: "Fin",
     ReadMail: 'Lire e-mail',         
     Mailboxes: 'Dossiers',    
     Inbox: "Plateau d'entrée",

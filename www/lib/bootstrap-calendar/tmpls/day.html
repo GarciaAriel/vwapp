@@ -23,7 +23,7 @@
 			<div class="span5 col-xs-5">
 				<% _.each(before_time, function(event){ %>
 					<div class="day-highlight dh-<%= event.class %>">
-						<span class="cal-hours"><%= event.start_hour %></span>
+						<!-- <span class="cal-hours"><%= event.start_hour %></span> -->
 						<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
 						   data-event-class="<%= event['class'] %>" class="event-item">
 							<%= event.title %></a>
@@ -112,7 +112,7 @@
 		<% console.log("---------------after_time"); %>		
 			<% _.each(after_time, function(event){ %>
 			<div class="day-highlight dh-<%= event.class %>">
-				<span class="cal-hours"><%= event.start_hour %></span>
+				<!-- <span class="cal-hours"><%= event.start_hour %></span> -->
 				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
 				   data-event-class="<%= event['class'] %>" class="event-item">
 					<%= event.title %></a>
