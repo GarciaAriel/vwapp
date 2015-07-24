@@ -47,13 +47,18 @@
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
 
-                <ionic-datepicker idate="currentDate" disablepreviousdates="true"  disablefuturedates="false" callback="datePickerCallback" disableddates="disabledDates" >
-                    <button class="button button-block button-positive">{{textButton}} -- </button>
-                    <!-- {{ currentDate | date:'dd - MMMM - yyyy' }} -->
+                <ionic-datepicker ng-if="entity.isRecurrence == true" idate="dateStart" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallbackStart" disableddates="disabledDates" >
+                    <button class="button button-small button-light" style="padding-right: 25px; padding-bottom: 9px;" disabled="true">{{textButtonStart}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-calendar"></i></button>
                 </ionic-datepicker>
 
-                <input value="valueDate" ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue" disabled>
-                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" value="2015.02.02" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue">
+                <ionic-datepicker ng-if="entity.isRecurrence == false" idate="dateStart" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallbackStart" disableddates="disabledDates" >
+                    <button class="button button-small button-light" style="padding-right: 25px; padding-bottom: 9px;">{{textButtonStart}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-calendar"></i></button>
+                </ionic-datepicker>
+
+
+
+                <!-- <input value="valueDate" ng-if="entity.isRecurrence == true" type="date" ng-model="dateStart.value" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue" disabled>
+                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateStart.value" value="2015.02.02" ng-click="changeValue(dateStart.value)" ng-change="changeValue(dateStart.value)" id="dateStartValue"> -->
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">
@@ -79,9 +84,16 @@
           <div class="item item-text-wrap" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
               <div class="col col-50" class="button button-small button-light">
+                <ionic-datepicker ng-if="entity.isRecurrence == true" idate="dateEnd" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallbackEnd" disableddates="disabledDates" >
+                    <button class="button button-small button-light" style="padding-right: 25px; padding-bottom: 9px;" disabled="true">{{textButtonEnd}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-calendar"></i></button>
+                </ionic-datepicker>
+
+                <ionic-datepicker ng-if="entity.isRecurrence == false" idate="dateEnd" disablepreviousdates="false"  disablefuturedates="false" callback="datePickerCallbackEnd" disableddates="disabledDates" >
+                    <button class="button button-small button-light" style="padding-right: 25px; padding-bottom: 9px;">{{textButtonEnd}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-calendar"></i></button>
+                </ionic-datepicker>
                 
-                <input ng-if="entity.isRecurrence == true" type="date" ng-model="dateEnd.value" id="dateEndValue" disabled>
-                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateEnd.value" id="dateEndValue">
+                <!-- <input ng-if="entity.isRecurrence == true" type="date" ng-model="dateEnd.value" id="dateEndValue" disabled>
+                <input ng-if="entity.isRecurrence == false" type="date" ng-model="dateEnd.value" id="dateEndValue"> -->
               </div>
               <div ng-show="!entity.isAllDay" class="col col-25">
                 <label class="item item-input">

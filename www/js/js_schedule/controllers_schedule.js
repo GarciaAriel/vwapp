@@ -17,14 +17,42 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
 
   // prepare info to view
   // display the current day // start and end
-  var dateStart = new Date(parseInt($scope.entity.startDateTime,10));
-  var dateEnd = new Date(parseInt($scope.entity.endDateTime,10));
-  $scope.dateStart = { value: dateStart };
-  $scope.dateEnd = { value: dateEnd };
+  $scope.dateStart = new Date(parseInt($scope.entity.startDateTime,10));
+  $scope.dateEnd = new Date(parseInt($scope.entity.endDateTime,10));
+  // $scope.dateStart = { value: dateStart };
+  // $scope.dateEnd = { value: dateEnd };
   $scope.entity.isAllDay  = $scope.entity.isAllDay == 'true' ? true : false;
   $scope.entity.reminder  = $scope.entity.reminder == 'true' ? true : false;
   $scope.entity.isPrivate = $scope.entity.isPrivate == 'true' ? true : false;
   $scope.entity.isRecurrence = $scope.entity.isRecurrence == 'true' ? true : false;
+
+  var datePattern = $filter('translate')('datePattern');
+  $scope.textButtonStart = getFormatDate.getStringDate($scope.dateStart,datePattern);
+  $scope.textButtonEnd = getFormatDate.getStringDate($scope.dateEnd,datePattern);
+
+  $scope.datePickerCallbackStart = function (val) {
+      if(typeof(val)==='undefined'){      
+        console.log('Date not selected');
+      }else{
+          console.log('Selected date is : ', val);
+          $scope.dateEnd = val;
+          $scope.dateStart = val;
+          var datePattern = $filter('translate')('datePattern');
+          $scope.textButtonStart = getFormatDate.getStringDate(val,datePattern);
+          $scope.textButtonEnd = getFormatDate.getStringDate(val,datePattern);
+      }
+  };
+
+  $scope.datePickerCallbackEnd = function (val) {
+      if(typeof(val)==='undefined'){      
+        console.log('Date not selected');
+      }else{
+          console.log('Selected date is : ', val);
+          $scope.dateEnd = val;
+          var datePattern = $filter('translate')('datePattern');
+          $scope.textButtonEnd = getFormatDate.getStringDate(val,datePattern);  
+      }
+  };
 
   var aTypesArray = mainData.appointmentTypeArray;
   $scope.appointmentTypes = [];  
@@ -267,12 +295,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
     var datePattern = $filter('translate')('datePattern');
     var stringDateStart = "";
     var stringDateEnd = "";
-    if ($scope.dateStart.value != null) {
-      stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
-    }
-    if ($scope.dateEnd.value != null) {
-      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
-    }
+    // if ($scope.dateStart != null) {
+      stringDateStart = getFormatDate.getStringDate($scope.dateStart,datePattern);
+    // }
+    // if ($scope.dateEnd != null) {
+      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd,datePattern);
+    // }
     fd.append('dto(startDate)', stringDateStart);
     fd.append('dto(startHour)',$scope.startHourType.value);
     fd.append('dto(startMin)', $scope.startMinuteType.value);
@@ -394,38 +422,52 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
   date.setMilliseconds(0);
   date.setSeconds(0);
   date.setMinutes(0); 
-  $scope.dateStart = { value: date };
+  // $scope.dateStart = { value: date };
+  $scope.dateStart = date;
   var dateToday = dateBridge;
   var datePlus = new Date(dateToday.setHours(dateToday.getHours()+1));
   datePlus.setMilliseconds(0);
   datePlus.setSeconds(0);
   datePlus.setMinutes(0);
-  $scope.dateEnd = { value: datePlus };
+  // $scope.dateEnd = { value: datePlus };
+  $scope.dateEnd = datePlus;
   console.log('date start: ',$scope.dateStart);
   console.log('date end: ',$scope.dateEnd);
 
-  $scope.currentDate = new Date();
-  // $scope.title = "Custom Title controler";
+  var datePattern = $filter('translate')('datePattern');
+  $scope.textButtonStart = getFormatDate.getStringDate($scope.dateStart,datePattern);
+  $scope.textButtonEnd = getFormatDate.getStringDate($scope.dateEnd,datePattern);
 
-  $scope.datePickerCallback = function (val) {
+  $scope.datePickerCallbackStart = function (val) {
       if(typeof(val)==='undefined'){      
-          console.log('Date not selected');
+        console.log('Date not selected');
       }else{
           console.log('Selected date is : ', val);
+          $scope.dateEnd = val;
+          $scope.dateStart = val;
+          var datePattern = $filter('translate')('datePattern');
+          $scope.textButtonStart = getFormatDate.getStringDate(val,datePattern);
+          $scope.textButtonEnd = getFormatDate.getStringDate(val,datePattern);
       }
-
-      var datePattern = $filter('translate')('datePattern');
-      $scope.textButton = getFormatDate.getStringDate($scope.currentDate,datePattern);
-      console.log("---==fuaa",$scope.textButton);
-       
-  
-  //   stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
-  
-  // console.log('---===',stringDateStart);
-  // console.log('---===',stringDateEnd);
-  // document.getElementById("dateStartValue").value = "02.02.2015";
-  // document.getElementById("dateEndValue").value = stringDateEnd;
   };
+
+  $scope.datePickerCallbackEnd = function (val) {
+      if(typeof(val)==='undefined'){      
+        console.log('Date not selected');
+      }else{
+          console.log('Selected date is : ', val);
+          $scope.dateEnd = val;
+          var datePattern = $filter('translate')('datePattern');
+          $scope.textButtonEnd = getFormatDate.getStringDate(val,datePattern);  
+      }
+  };
+
+  // $scope.changeValueStart = function(dateStart){
+  //   $scope.dateEnd = { value:  dateStart};
+
+  //   var datePattern = $filter('translate')('datePattern');
+  //   $scope.textButtonStart = getFormatDate.getStringDate(dateStart,datePattern);
+  // }
 
   // var datePattern = $filter('translate')('datePattern');
   // console.log("++++++++++++++datePattern",datePattern);
@@ -611,12 +653,12 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
     var datePattern = $filter('translate')('datePattern');
     var stringDateStart = "";
     var stringDateEnd = "";
-    if ($scope.dateStart.value != null) {
-      stringDateStart = getFormatDate.getStringDate($scope.dateStart.value,datePattern);
-    }
-    if ($scope.dateEnd.value != null) {
-      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd.value,datePattern);
-    }
+    // if ($scope.dateStart.value != null) {
+      stringDateStart = getFormatDate.getStringDate($scope.dateStart,datePattern);
+    // }
+    // if ($scope.dateEnd.value != null) {
+      stringDateEnd = getFormatDate.getStringDate($scope.dateEnd,datePattern);
+    // }
     fd.append('dto(startDate)', stringDateStart);
     fd.append('dto(startHour)',$scope.startHourType.value);
     fd.append('dto(startMin)', $scope.startMinuteType.value);
