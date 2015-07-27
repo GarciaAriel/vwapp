@@ -3,37 +3,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 /**
  * CONTROLLER FOLDERS
  */
-.controller('MailsCtrl', function($fileFactory,$ionicPlatform,PopupFactory,$state,$scope,
+.controller('MailsCtrl', function(PopupFactory,$state,$scope,Webmal_read_forlders,
   PATH_WEBMAIL_READ_FOLDERS,FOLDER_INBOX_ID,FOLDER_INBOX_NAME,FOLDER_SENT_ID,FOLDER_SENT_NAME,
   FOLDER_DRAFT_ID,FOLDER_DRAFT_NAME,FOLDER_TRASH_ID,FOLDER_TRASH_NAME,FOLDER_OUTBOX_ID,
   FOLDER_OUTBOX_NAME,FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,
-  FOLDER_OUTBOX_TYPE,FOLDER_DEFAULT_TYPE,COLOR_VIEW,Webmal_read_forlders) {
+  FOLDER_OUTBOX_TYPE,FOLDER_DEFAULT_TYPE,COLOR_VIEW) {
 
   console.log('*******************************************************');
   console.log("==CONTROLLER WEBMAIL== get query list FOLDERS");
-
-
-  var fs = new $fileFactory();
-
-    $ionicPlatform.ready(function() {
-        fs.getEntriesAtRoot().then(function(result) {
-            $scope.files = result;
-        }, function(error) {
-            console.error(error);
-        });
-
-        $scope.getContents = function(path) {
-            fs.getEntries(path).then(function(result) {
-                $scope.files = result;
-                $scope.files.unshift({name: "[parent]"});
-                fs.getParentDirectory(path).then(function(result) {
-                    result.name = "[parent]";
-                    $scope.files[0] = result;
-                });
-            });
-        }
-    });
-
 
   // COLOR DEFAULT
   $scope.colorFont = COLOR_VIEW;
@@ -119,7 +96,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     });
     
-  };
+  }
 
   //  RETURN CLASS ICON OF FOLDER
   $scope.getClassImage = function(item){
@@ -146,11 +123,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             response = "icon ion-folder"
     }
     return response;
-  };
+  }
 })
 
 // MAIL LISTS IN FORDER (REFRESH / LOADMORE)
-.controller('MailsListCtrl',function($ionicScrollDelegate,PopupFactory,$filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
+.controller('MailsListCtrl',function(serviceEmailList,$ionicScrollDelegate,PopupFactory,$filter,$ionicPopup,$scope,COLOR_VIEW,apiUrlLocal, Mail,$timeout,$ionicLoading,$resource,$stateParams){
   
   console.log('*******************************************************');
   console.log('==CONTROLLER WEBMAIL== lis email in folder');  
@@ -183,6 +160,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
     // RECOVER LIST MAIL FOR VIEW
     $scope.mailList = (results['mainData'])['list'];
+    serviceEmailList.saveList($scope.mailList);
 
     // REFRESH = TRUE IF LIST > 0 AND TOTAL PAGES > PAGE ACTUAL
     if ($scope.totalPages > $scope.page) {
@@ -411,7 +389,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // NEW EMAIL 
-.controller('NewMail',function($state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function($ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
     
@@ -449,6 +427,65 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     }
   );
 
+  var fs = new $fileFactory();
+
+    $ionicPlatform.ready(function() {
+        fs.getEntriesAtRoot().then(function(result) {
+            $scope.files = result;
+        }, function(error) {
+            console.error(error);
+        });
+
+        $scope.getContents = function(path) {
+            fs.getEntries(path).then(function(result) {
+                $scope.files = result;
+                $scope.files.unshift({name: "[parent]"});
+                fs.getParentDirectory(path).then(function(result) {
+                    result.name = "[parent]";
+                    $scope.files[0] = result;
+                });
+            });
+        }
+    })
+
+  function convertImgToBase64(url, callback, outputFormat){
+      var img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = function(){
+          var canvas = document.createElement('CANVAS');
+          var ctx = canvas.getContext('2d');
+        canvas.height = this.height;
+        canvas.width = this.width;
+          ctx.drawImage(this,0,0);
+          var dataURL = canvas.toDataURL(outputFormat || 'image/jpeg');
+          callback(dataURL);
+          canvas = null; 
+      };
+      img.src = url;
+    }
+
+  // prueba image picker
+  $scope.pickerImage= function (){
+      var options = {
+      maximumImagesCount: 1,
+      width: 300,
+      height: 300,
+      quality: 75
+      };
+
+      $cordovaImagePicker.getPictures(options)
+        .then(function (results) {          
+            convertImgToBase64(results[0], function(base64Img){
+                $scope.$apply(function(){
+                  $scope.imgURI=base64Img;
+                })           
+            });      
+        }, function(error) {
+          // error getting photos
+        })
+    }
+    // -----------------  
+
   // help function to update email
   $scope.updateEmail = function(nEmail){
     $scope.mailAccount = nEmail;
@@ -471,6 +508,11 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     if ($scope.mailAccount) {
       fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);  
     }
+
+//     dto(attachmentCounter) = 3     -> number of attachments
+// dto(file1)= document.doc
+// dto(file2)= summary.xls
+// dto(file3)= logo.jpg
     
     if ($scope.mySwitch) {
       fd.append( 'dto(cc)', $scope.data.cc);
@@ -513,18 +555,20 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function(PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
-  
-    console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
+.controller('MailDetailCtrl', function($state,serviceEmailList,PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+  console.log('*******************************************************');
+  console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
+
+  // get list of email for slide
+  $scope.emailList = serviceEmailList.getList();
+  console.log('email list: ',$scope.emailList);
 
     //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
-    $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,folderId: $stateParams.folderId});
+    $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,'folderId': $stateParams.folderId});
     $scope.item = {};
 
     $scope.iframeWidth = $(window).width();
-    // console.log('------',$scope.iframeWidth);
     
-
     // PROMISE
     $scope.detail.$promise.then(function (results){
 
@@ -585,9 +629,29 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
         $scope.iframeHeight = $(window).height();
         $scope.iframeWidth = $(window).width();
-
     });
 
+    $scope.onSlideChanged = function(index,item){
+      console.log('----===change slide index:',index);
+      console.log('----===change slide item:',item);
+      // var res = $scope.emailList[index];
+      var res = {};
+      for(var i=0; i < 4; i++){
+        if ($scope.emailList[i].mailId == item.mailId) {
+          console.log('---iffff');
+          res = $scope.emailList[i+1];
+          break;
+        }
+      }
+
+      console.log('------res',res);
+      // var res = $scope.emailList.filter(function ( obj ) {
+      //   re obj.mailId === item.mailId;
+      // })[1];
+      $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId}); 
+      
+    }
+    
     // DOWNLOAD FILE
     $scope.download = function(attach) {
         $ionicLoading.show({

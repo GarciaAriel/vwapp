@@ -67,6 +67,19 @@ angular.module('starter.webmailservices', [])
   return $resource(url,{},{'query':{method:'GET', isArray:false}});
 })
 
+.service('serviceEmailList', function() {
+  var emailList = {};
+  var saveList = function(newList) {
+      emailList = newList;
+  };
+  var getList = function(){
+      return emailList;
+  };
+  return {
+    saveList: saveList,
+    getList: getList
+  };
+}) 
 
 /**
  * SERVICES READ FORLDERS

@@ -1,8 +1,12 @@
 <ion-view view-title='{{ "ReadMail" | translate}}'>
   <ion-content direction="xy">
 
-    <!-- <ion-slide-box active-slide="myActiveSlide"> -->
-      <!-- <ion-slide> -->
+    
+      <!-- style="padding-top: 0px;" ng-repeat="p in help" -->
+        
+    <ion-slide-box active-slide="myActiveSlide" on-slide-changed="onSlideChanged(index,item)"> 
+      <ion-slide>
+
         <div class="list card">
             
           <div ng:bind="customHtml">{{item.body}}  </div>  
@@ -93,6 +97,12 @@
 
         <div ng-if="item.bodyType != '2' "  ng-bind-html="thisCanBeusedInsideNgBindHtml" style="width:{{iframeWidth}}px">
         </div>
+
+        </ion-slide>
+        <ion-slide>
+          <div><h1> fin BLUE</h1></div>
+        </ion-slide>
+      </ion-slide-box>
 
     </ion-content>
 </ion-view>

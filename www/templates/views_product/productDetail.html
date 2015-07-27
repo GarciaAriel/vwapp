@@ -13,7 +13,6 @@
       </div>
 
       <ion-slide-box active-slide="myActiveSlide" style="padding-top: 0px;" ng-repeat="p in help">
-        <!-- ng-repeat="picture in productPictureArray" -->
         
           <ion-slide style="padding-top: 0px;" ng-repeat="picture in productPictureArray">
             <div class="item ">
@@ -27,9 +26,8 @@
             </div>
           </ion-slide>    
 
-          
-
       </ion-slide-box>
+      
       <div class="item positive">
         <div ng-if="entity.priceFormatted != ''">
           {{ 'NetPrice' | translate}}:&nbsp;{{entity.priceFormatted}}
