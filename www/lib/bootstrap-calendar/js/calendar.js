@@ -396,6 +396,10 @@ if(!String.prototype.formatNum) {
 		}
 	}
 
+	Calendar.prototype.setTimeZone = function(timeZone) {
+		this.time_zone = $.extend(true,{}.strings,calendar_languages[timeZone])
+	}
+
 	Calendar.prototype._render = function() {
 		this.context.html('');
 		this._loadTemplate(this.options.view);
@@ -442,10 +446,14 @@ if(!String.prototype.formatNum) {
 		var time_split_count = 60 / time_split;
 		var time_split_hour = Math.min(time_split_count, 1);
 
+		var timeZoneAriel = this.options.time_zone_value;
+		var valueTimeZone = this.time_zone[timeZoneAriel];
+		console.log('-----------fuuuaaaaaaaaaaaaa',valueTimeZone);
+		
 		if(((time_split_count >= 1) && (time_split_count % 1 != 0)) || ((time_split_count < 1) && (1440 / time_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
 		}
-
+		
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
 
@@ -454,8 +462,10 @@ if(!String.prototype.formatNum) {
 		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
+		
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
+
 		var end = new Date(this.options.position.start.getTime());
 		end.setHours(time_end[0]);
 		end.setMinutes(time_end[1]);
@@ -467,7 +477,7 @@ if(!String.prototype.formatNum) {
 		$.each(data.events, function(k, e) {
 			var s = new Date(parseInt(e.start));
 			var f = new Date(parseInt(e.end));
-
+			
 			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
 			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
 
@@ -496,12 +506,17 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 
-			var event_start = start.getTime() - e.start;
+			var auxOffSetAriel = (start.getTimezoneOffset()) * 60000;
+			var event_start = start.getTime() - (auxOffSetAriel+ (valueTimeZone*60*60000) + parseInt( e.start));
 
+			
 			if(event_start >= 0) {
 				e.top = 0;
 			} else {
-				e.top = Math.abs(event_start) / ms_per_line;
+				var aux = Math.abs(event_start) / ms_per_line;
+				e.top = aux;
+				console.log('------ifffffffffff view day top',e.top);
+				
 			}
 
 			var lines_left = Math.abs(lines - e.top);
@@ -518,7 +533,6 @@ if(!String.prototype.formatNum) {
 
 			data.by_hour.push(e);
 		});
-
 		//var d = new Date('2013-03-14 13:20:00');
 		//warn(d.getTime());
 	};

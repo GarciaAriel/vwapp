@@ -739,6 +739,9 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
         $scope.languageCalendar = 'fr-FR';
         break;    
   };
+
+  console.log('------controller',userInfo.dateTimeZone);
+  var timeZone = userInfo.dateTimeZone;
   
   //  LOAD OBJECT IN LOCAL STORAGE
   Load_variable_date.setData();
@@ -757,12 +760,13 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
   $scope.real_date_view = yyyy+"-"+mm+"-"+dd;
 
   var options = {
-    events_source: function () {       
+    events_source: function () {
         return [];
-    }, 
+    },
     tmpl_path: 'lib/bootstrap-calendar/tmpls/',
     view: 'month',
     language: $scope.languageCalendar,
+    time_zone_value: timeZone,
     tmpl_cache: false,
     day: yyyy+"-"+mm+"-"+dd,
     time_start: '06:00',
@@ -819,7 +823,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
         // call factory to validate the response
         PopupFactory.getPopup($scope,results);
 
-        console.log("results of request: ");
+        console.log("results of request: ",results);
 
         $scope.listAppointments = (results['mainData'])['appointmentsList'];
     
@@ -897,7 +901,7 @@ angular.module('starter.schedulecontrollers', ['starter.scheduleservices','ionic
 
   //LOAD OPTIONS TO CALENDAR
   $scope.calendar = $('#calendar').calendar(options);    
-
+  $scope.calendar.setTimeZone('timezone');
   // FUNCTION NEXT FOR DAY WEEK AND MONTH  
   $scope.scheduleLoadAppointments = function(){
      return [];

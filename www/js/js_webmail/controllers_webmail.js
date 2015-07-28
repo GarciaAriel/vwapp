@@ -561,33 +561,33 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   // get list of email for slide
   $scope.emailList = serviceEmailList.getList();
-  console.log('email list: ',$scope.emailList);
+  console.log('email list service: ',$scope.emailList);
 
     //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
     $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,'folderId': $stateParams.folderId});
     $scope.item = {};
-
     $scope.iframeWidth = $(window).width();
-    
+   
     // PROMISE
     $scope.detail.$promise.then(function (results){
 
       // call factory 
       PopupFactory.getPopup($scope,results);
 
-        console.log("==CONTROLLER WEBMAIL==  query detail success OK data: ",results['mainData']);
+        console.log("query detail success OK data: ",results);
         $scope.item = (results['mainData'])['entity'];
+        console.log('itemmmmmmm query',$scope.item);
 
         //SPLIT STRING TO ARRAY CC
-        var cc = ((results['mainData'])['entity'])['cc'];
         $scope.arrayCC = [];
+        var cc = results['mainData']['entity']['cc'];
         $scope.arrayCC.push(cc);
-      
+        
         //SPLIT STRING TO ARRAY BCC
-        var bcc = ((results['mainData'])['entity'])['bcc'];
         $scope.arrayBCC = [];
-        $scope.arrayBCC.push(bcc);
-
+        var bcc = results['mainData']['entity']['bcc'];
+        $scope.arrayBCC.push(bcc);  
+        
         // this callback will be called asynchronously
         // CALL HTML BODY
         if (results['mainData']['entity']['bodyType'] == BODY_TYPE_HTML) {
@@ -631,26 +631,27 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope.iframeWidth = $(window).width();
     });
 
-    $scope.onSlideChanged = function(index,item){
-      console.log('----===change slide index:',index);
-      console.log('----===change slide item:',item);
-      // var res = $scope.emailList[index];
-      var res = {};
-      for(var i=0; i < 4; i++){
-        if ($scope.emailList[i].mailId == item.mailId) {
-          console.log('---iffff');
-          res = $scope.emailList[i+1];
-          break;
-        }
-      }
+    // $scope.onSlideChanged = function(index,item){
+    //   console.log('----===change slide item:',item);
+    //   // console.log('----===change slide direction:',direction);
+    //   var res = {};
+    //   // var varDirection = direction=='left' ?  1 : -1;
+    //   for(var i=0; i < $scope.emailList.length; i++){
+    //     if ($scope.emailList[i].mailId == item.mailId) {
+    //       res = $scope.emailList[i+1];
+    //       break;
+    //     }
+    //   }
+    //   console.log('on change ==== method',res);
+    //   $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId}); 
+    // }
 
-      console.log('------res',res);
-      // var res = $scope.emailList.filter(function ( obj ) {
-      //   re obj.mailId === item.mailId;
-      // })[1];
-      $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId}); 
-      
-    }
+    // $scope.onSwipeRight = function(){
+    //   console.log('------=====llloppppppp righttttt');
+    // }
+    // $scope.onSwipeLeft = function(){
+    //  console.log('------=====llloppppppp lefttttttt'); 
+    // }
     
     // DOWNLOAD FILE
     $scope.download = function(attach) {
