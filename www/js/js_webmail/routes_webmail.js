@@ -43,7 +43,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
    // ROUTE NEW MAIL
    .state('app.newmail', {
-      url: '/newmail?to',
+      url: '/newmail?to&replyOperation&mailId',
       cache: false,
       views: {
         'menuContent': {
@@ -52,6 +52,20 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
         }
       }
     })
+
+  
+
+ //  // ROUTE REPLY MAIL
+ // .state('app.replymail', {
+ //    url: '/replymail',
+ //    cache: false,
+ //    views: {
+ //      'menuContent': {
+ //        templateUrl: 'templates/views_webmail/mail-new.html',          
+ //        controller: 'ReplyMail'
+ //      }
+ //    }
+ //  }) 
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

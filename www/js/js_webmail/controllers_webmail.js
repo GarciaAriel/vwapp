@@ -388,8 +388,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
 })
 
+// ReplyMail
+
 // NEW EMAIL 
-.controller('NewMail',function($ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function(FORWARD_REPLY_MAIL_URL,$ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
     
@@ -399,12 +401,31 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   if ($stateParams.to) {
     $scope.data.to = $stateParams.to;
-    console.log('entrooo');
   }
+
+  console.log('--------------===stateParams replyOperation',$stateParams.replyOperation);
+  console.log('--------------===stateParams mailid',$stateParams.mailId);
   
+  if ($stateParams.mailId && $stateParams.replyOperation) {
+    var request = $http({
+      method: "get",    
+      url: apiUrlLocal+FORWARD_REPLY_MAIL_URL,
+      params:{'dto(mailId)': $stateParams.mailId,'replyOperation':$stateParams.replyOperation}
+    });
+    request.success(
+      function(data, status, headers, config) {          
+        
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,data);
+
+      }
+    );  
+  }
+
+  // aaaaaaaaaaaaaaaa
   var request = $http({
     method: "get",    
-    url: apiUrlLocal+FORWARD_CREATE_MAIL_URL,
+    url: apiUrlLocal+FORWARD_CREATE_MAIL_URL
   });
   request.success(
     function(data, status, headers, config) {          
@@ -427,26 +448,26 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     }
   );
 
-  var fs = new $fileFactory();
+  // var fs = new $fileFactory();
 
-    $ionicPlatform.ready(function() {
-        fs.getEntriesAtRoot().then(function(result) {
-            $scope.files = result;
-        }, function(error) {
-            console.error(error);
-        });
+  // $ionicPlatform.ready(function() {
+  //     fs.getEntriesAtRoot().then(function(result) {
+  //         $scope.files = result;
+  //     }, function(error) {
+  //         console.error(error);
+  //     });
 
-        $scope.getContents = function(path) {
-            fs.getEntries(path).then(function(result) {
-                $scope.files = result;
-                $scope.files.unshift({name: "[parent]"});
-                fs.getParentDirectory(path).then(function(result) {
-                    result.name = "[parent]";
-                    $scope.files[0] = result;
-                });
-            });
-        }
-    })
+  //     $scope.getContents = function(path) {
+  //         fs.getEntries(path).then(function(result) {
+  //             $scope.files = result;
+  //             $scope.files.unshift({name: "[parent]"});
+  //             fs.getParentDirectory(path).then(function(result) {
+  //                 result.name = "[parent]";
+  //                 $scope.files[0] = result;
+  //             });
+  //         });
+  //     }
+  // })
 
   function convertImgToBase64(url, callback, outputFormat){
       var img = new Image();
@@ -466,25 +487,44 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
   // prueba image picker
   $scope.pickerImage= function (){
-      var options = {
-      maximumImagesCount: 1,
-      width: 300,
-      height: 300,
-      quality: 75
-      };
+    var options = {
+    maximumImagesCount: 1,
+    width: 300,
+    height: 300,
+    quality: 75
+    };
 
-      $cordovaImagePicker.getPictures(options)
-        .then(function (results) {          
-            convertImgToBase64(results[0], function(base64Img){
-                $scope.$apply(function(){
-                  $scope.imgURI=base64Img;
-                })           
-            });      
-        }, function(error) {
-          // error getting photos
-        })
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {          
+          convertImgToBase64(results[0], function(base64Img){
+              $scope.$apply(function(){
+                $scope.imgURI=base64Img;
+              })           
+          });      
+      }, function(error) {
+        // error getting photos
+      })
+  }
+    
+  dataURItoBlob = function(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
     }
-    // -----------------  
+
+    return new Blob([ia], {type:mimeString});
+  }  
 
   // help function to update email
   $scope.updateEmail = function(nEmail){
@@ -494,6 +534,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.seeCc = function(){
     $scope.mySwitch = !$scope.mySwitch;
   }
+
 
   $scope.sendMail = function() {
     console.log('*******************************************************');
@@ -507,6 +548,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     fd.append( 'dto(body)', $scope.data.body);
     if ($scope.mailAccount) {
       fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);  
+    }
+
+    if($scope.imgURI != undefined){
+      fd.append('dto(attachmentCounter)',1);
+      fd.append('dto(file1)',dataURItoBlob($scope.imgURI)); 
+      console.log('ifffff imgUri');
+      // dto(file3)= logo.jpg
+      // fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
     }
 
 //     dto(attachmentCounter) = 3     -> number of attachments
@@ -601,14 +650,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               PopupFactory.getPopup($scope,data);
 
               console.log("==CONTROLLER WEBMAIL== html body",data);
-
-              // var newHtml = data.split('width="600"').join(' ');
-              // var newHtml = data.split('width="500"').join(' ');
-              // var newHtml = data.split('width="140"').join(' ');
-              // var newHtml = data.split('width="183"').join(' ');
-              // var newHtml = data.split('width="310"').join(' ');
-              // var newHtml = data.split('width="200"').join(' ');
-              // var newHtml = data.split('width="138"').join(' ');
 
               var newHtml = data.split("<img").join(" <img class='img-class' ");
               
@@ -712,7 +753,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
             // $ionicLoading.hide();
             console.log("Request for filesystem failed");
         });
-        //
     }
 
 
@@ -748,12 +788,25 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       angular.element(document).ready(function () {
           console.log('page loading completed');
       });
-      // var element = document.getElementById("page_content");
-      // element.style.height = element.scrollHeight + "px";
     };
+
+    $scope.reply = function(){
+      console.log('reply',$scope.item.mailId);
+      $state.go('app.newmail',{'replyOperation':'REPLY','mailId':$scope.item.mailId});
+    }
+
+    $scope.replyAll = function(){
+      console.log('replyAll',$scope.item.mailId);
+      $state.go('app.newmail',{'replyOperation':'REPLYALL','mailId':$scope.item.mailId});
+    }
+
+    $scope.forward = function(){
+      console.log('forward',$scope.item.mailId);
+      $state.go('app.newmail',{'replyOperation':'FORWARD','mailId':$scope.item.mailId});
+    }
 
 });
 
-window.onload = function () {
-    angular.element(document.getElementById('page_content')).scope().updateEditor();
-}
+// window.onload = function () {
+//     angular.element(document.getElementById('page_content')).scope().updateEditor();
+// }
