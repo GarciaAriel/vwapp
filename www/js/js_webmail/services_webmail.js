@@ -81,11 +81,11 @@ angular.module('starter.webmailservices', [])
   };
 }) 
 
-.filter('externalLinks', function() {
-  return function(text) {
-    return String(text).replace(/href=/gm, "class=\"ex-link\" href=");
-  }
-})
+// .filter('externalLinks', function() {
+//   return function(text) {
+//     return String(text).replace(/href=/gm, "class=\"ex-link\" href=");
+//   }
+// })
 
 /**
  * SERVICES READ FORLDERS

@@ -698,36 +698,16 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
               // call factory 
               PopupFactory.getPopup($scope,data);
-
-              console.log("==CONTROLLER WEBMAIL== html body",data);
+              console.log("results of request: ",data);
 
               var newHtml = data.split("<img").join(" <img class='img-class' ");
 
-              // var regex = /href/gi, result, indices = [];
-              // while ( (result = regex.exec(newHtml)) ) {
-              //     // indices.push(result.index);
-
-              //     // for(var i=0 ; i<indices.length ; i++){
-                    
-              //       var pos = result.index;
-              //       var j=1;
-              //       while(newHtml[pos+j] != " "){
-              //         j++;
-              //       }
-              //       var stringToReplace = newHtml.substring(pos,pos+j);
-              //       var newString = 'href="#" ' +' onclick="window.open('+newHtml.substring(pos+5,pos+j)+', "_system", "location=yes"); "';
-              //       // var newString = 'href="#" ' +' onclick="window.open('+newHtml.substring(pos+5,pos+j)+', "_system", "location=yes"); return false;"';
-
-              //       var newHtml = newHtml.replace(stringToReplace, newString);
-              //       console.log('------okkkkkkkk',newHtml.substring(pos,pos+j) );
-
-              //     // }
-              // }
-              // console.log('fuaaaaaaa',newHtml);
+              var regex = /href="([\S]+)"/g;
+              var newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
+              console.log('--------appppppp new html',newHtml);
               
-// onclick="window.open('http', '_system', 'location=yes'); return false;"
-
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
+              
             }).
             error(function(data, status, headers, config) {
               // or server returns response with an error status.
@@ -768,13 +748,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     //  console.log('------=====llloppppppp lefttttttt'); 
     // }
 
-    $timeout(function () {
-      $('.ex-link').click(function () {
-        var url = $(this).attr('href');
-        window.open(encodeURI(url), '_system', 'location=yes');
-        return false;
-      })
-    })
+    // $timeout(function () {
+    //   $('.ex-link').click(function () {
+    //     var url = $(this).attr('href');
+    //     window.open(encodeURI(url), '_system', 'location=yes');
+    //     return false;
+    //   })
+    // })
+// aaaaaaaaaaaaaaaaaa
     
     // DOWNLOAD FILE
     $scope.download = function(attach) {

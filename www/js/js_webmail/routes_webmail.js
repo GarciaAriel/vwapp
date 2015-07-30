@@ -8,7 +8,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
   // ROUTE MAIL DETAIL
   .state('app.details-mail', {  
       url: '/mail-detail?mailId&folderId&imageFrom&fromImageId',
-      cache: true,
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',
@@ -52,20 +52,6 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
         }
       }
     })
-
-  
-
- //  // ROUTE REPLY MAIL
- // .state('app.replymail', {
- //    url: '/replymail',
- //    cache: false,
- //    views: {
- //      'menuContent': {
- //        templateUrl: 'templates/views_webmail/mail-new.html',          
- //        controller: 'ReplyMail'
- //      }
- //    }
- //  }) 
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

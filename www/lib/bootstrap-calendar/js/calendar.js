@@ -1161,6 +1161,7 @@ if(!String.prototype.formatNum) {
 			}
 		});
 		return events;
+		// return this.options.events;
 	};
 
 	function showEventsList(event, that, slider, self) {
