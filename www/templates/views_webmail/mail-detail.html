@@ -110,7 +110,7 @@
           <textarea id="page_content" ng-init="updateEditor()" class="item-large-text" disabled="true">{{item.body}}</textarea>            
         </div>
 
-        <div ng-if="item.bodyType != '2' "  ng-bind-html="thisCanBeusedInsideNgBindHtml" style="width:{{iframeWidth}}px">
+        <div ng-if="item.bodyType != '2' "  ng-bind-html="thisCanBeusedInsideNgBindHtml | externalLinks" style="width:{{iframeWidth}}px">
         </div>
 
         <!-- </ion-slide> -->

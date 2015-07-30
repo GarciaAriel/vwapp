@@ -60,7 +60,7 @@ angular.module('starter.webmailservices', [])
 /**
  * SERVICES LIST MAILS IN WEBMAIL
  */
- .factory('Mail', function ($resource,apiUrlLocal,PATH_WEBMAIL) {
+.factory('Mail', function ($resource,apiUrlLocal,PATH_WEBMAIL) {
   
   var url = apiUrlLocal+PATH_WEBMAIL;
   console.log('==SERVICE WEBMAIL== URL',url);
@@ -80,6 +80,12 @@ angular.module('starter.webmailservices', [])
     getList: getList
   };
 }) 
+
+.filter('externalLinks', function() {
+  return function(text) {
+    return String(text).replace(/href=/gm, "class=\"ex-link\" href=");
+  }
+})
 
 /**
  * SERVICES READ FORLDERS

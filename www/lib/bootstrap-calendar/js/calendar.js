@@ -448,7 +448,8 @@ if(!String.prototype.formatNum) {
 
 		var timeZoneAriel = this.options.time_zone_value;
 		var valueTimeZone = this.time_zone[timeZoneAriel];
-		console.log('-----------fuuuaaaaaaaaaaaaa',valueTimeZone);
+		var difTZ = valueTimeZone*60*60000;
+		console.log('time zone to plus or rest',valueTimeZone);
 		
 		if(((time_split_count >= 1) && (time_split_count % 1 != 0)) || ((time_split_count < 1) && (1440 / time_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
@@ -474,12 +475,22 @@ if(!String.prototype.formatNum) {
 		data.by_hour = [];
 		data.after_time = [];
 		data.before_time = [];
+		console.log('----juaaaaaa',data.events);
 		$.each(data.events, function(k, e) {
-			var s = new Date(parseInt(e.start));
-			var f = new Date(parseInt(e.end));
+			console.log('*******************************************************');
+
+			// change correct timezone ariel
+			var s = new Date(parseInt(e.start)+difTZ);
+			var f = new Date(parseInt(e.end)+difTZ);
+			
+			console.log('start date TZ',s);
+			console.log('end date TZ',f);
 			
 			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
 			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
+
+			console.log('-----start hour',e.start_hour);
+			console.log('-----end hour',e.end_hour);
 
 			if(e.start < start.getTime()) {
 				warn(1);
@@ -495,20 +506,21 @@ if(!String.prototype.formatNum) {
 				data.all_day.push(e);
 				return;
 			}
-
-			if(e.end < start.getTime()) {
+			console.log('------before',( (e.end+difTZ) < start.getTime()));
+			console.log('------esto <',(e.end+difTZ));
+			console.log('------a esto',start.getTime());
+			if( (parseInt(e.end)+difTZ) < start.getTime() ) {
 				data.before_time.push(e);
 				return;
 			}
 
-			if(e.start >= end.getTime()) {
+			if( (parseInt(e.start)+difTZ) >= end.getTime()) {
 				data.after_time.push(e);
 				return;
 			}
 
 			var auxOffSetAriel = (start.getTimezoneOffset()) * 60000;
 			var event_start = start.getTime() - (auxOffSetAriel+ (valueTimeZone*60*60000) + parseInt( e.start));
-
 			
 			if(event_start >= 0) {
 				e.top = 0;

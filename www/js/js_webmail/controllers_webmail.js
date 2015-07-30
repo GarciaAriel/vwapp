@@ -391,22 +391,24 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 // ReplyMail
 
 // NEW EMAIL 
-.controller('NewMail',function(FORWARD_REPLY_MAIL_URL,$ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
+.controller('NewMail',function($sce,BODY_TYPE_HTML,FORWARD_REPLY_MAIL_URL,$ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');
   console.log('compose new email');
     
-  $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: ""};
+  // initial data
+  $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: "",body2: "",bodyType:"0"};
   $scope.colorFont = COLOR_VIEW;
   $scope.iframeWidth = $(window).width()*0.17;
 
+  // param "to" show in the view  (only in contact telecomunication)
   if ($stateParams.to) {
     $scope.data.to = $stateParams.to;
   }
-
-  console.log('--------------===stateParams replyOperation',$stateParams.replyOperation);
-  console.log('--------------===stateParams mailid',$stateParams.mailId);
-  
+// aaaaaaaaaaaaaaa
+  var boolBodyReply = false;
+  // call query forward if params "mailid" & "replyOperation" exist to reply email
   if ($stateParams.mailId && $stateParams.replyOperation) {
+    boolBodyReply = true;
     var request = $http({
       method: "get",    
       url: apiUrlLocal+FORWARD_REPLY_MAIL_URL,
@@ -417,12 +419,44 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         
         // call factory to validate the response
         PopupFactory.getPopup($scope,data);
+        console.log("results of request: ",data);
+        $scope.data = data.mainData.entity;
 
+        // CALL HTML BODY
+        if (data.mainData.entity.bodyType == BODY_TYPE_HTML) {
+            
+            var newurl = data.mainData.entity.htmlBodyUrl;
+            $http.get(apiUrlLocal+newurl).
+
+            success(function(data, status, headers, config) {
+
+              // call factory 
+              PopupFactory.getPopup($scope,data);
+              console.log("results of request: ",data);
+              $scope.stringHtml = data;
+              var newHtml = data.split("<img").join(" <img class='img-class' ");
+              
+              $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
+            }).
+            error(function(data, status, headers, config) {
+              // or server returns response with an error status.
+            });
+        }
+        else{
+          $scope.data.body2 = data.mainData.entity.body;
+          $scope.data.body = "";
+          
+          angular.element(document).ready(function () {
+            console.log('page loading completed------query');
+            var element = document.getElementById("page_content");
+            element.style.height = element.scrollHeight + "px";
+          });
+        }
       }
     );  
   }
 
-  // aaaaaaaaaaaaaaaa
+  // query to get list of emails 
   var request = $http({
     method: "get",    
     url: apiUrlLocal+FORWARD_CREATE_MAIL_URL
@@ -468,6 +502,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   //         });
   //     }
   // })
+
+  $scope.updateEditor = function() {
+    angular.element(document).ready(function () {
+        console.log('page loading completed ---function');
+        var element = document.getElementById("page_content");
+        element.style.height = element.scrollHeight + "px";
+    });
+  };
 
   function convertImgToBase64(url, callback, outputFormat){
       var img = new Image();
@@ -545,24 +587,33 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     fd.append( 'save', 'save');
     fd.append( 'dto(to)', $scope.data.to);
     fd.append( 'dto(mailSubject)', $scope.data.mailSubject);
-    fd.append( 'dto(body)', $scope.data.body);
-    if ($scope.mailAccount) {
-      fd.append( 'dto(mailAccountId)', $scope.mailAccount.value);  
-    }
 
+    if (boolBodyReply) {
+      fd.append( 'dto(mailState)', $scope.data.mailState);
+      fd.append( 'dto(replyMode)', $stateParams.replyOperation);
+      
+      if ($scope.data.bodyType == BODY_TYPE_HTML) {
+        var content = $scope.stringHtml;
+        var blob = new Blob([content], { type: 'text/html'});
+        fd.append( 'dto(body)', blob);
+      }
+      else{
+        fd.append( 'dto(body)', $scope.data.body + $scope.data.body2);
+      }
+    }
+    else{
+      fd.append( 'dto(body)', $scope.data.body);
+    }
+      
+    var mailAccount = $scope.mailAccount != undefined ? $scope.mailAccount.value : "";
+    fd.append( 'dto(mailAccountId)', mailAccount);  
+    
     if($scope.imgURI != undefined){
       fd.append('dto(attachmentCounter)',1);
-      fd.append('dto(file1)',dataURItoBlob($scope.imgURI)); 
+      fd.append('dto(file1)',dataURItoBlob($scope.imgURI));
       console.log('ifffff imgUri');
-      // dto(file3)= logo.jpg
-      // fd.append( 'imageFile', dataURItoBlob($scope.imgURI));
     }
 
-//     dto(attachmentCounter) = 3     -> number of attachments
-// dto(file1)= document.doc
-// dto(file2)= summary.xls
-// dto(file3)= logo.jpg
-    
     if ($scope.mySwitch) {
       fd.append( 'dto(cc)', $scope.data.cc);
       fd.append( 'dto(bcc)', $scope.data.bcc);
@@ -604,7 +655,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($state,serviceEmailList,PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function($timeout,$state,serviceEmailList,PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   console.log('*******************************************************');
   console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
@@ -625,8 +676,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 
         console.log("query detail success OK data: ",results);
         $scope.item = (results['mainData'])['entity'];
-        console.log('itemmmmmmm query',$scope.item);
-
+        
         //SPLIT STRING TO ARRAY CC
         $scope.arrayCC = [];
         var cc = results['mainData']['entity']['cc'];
@@ -652,7 +702,31 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
               console.log("==CONTROLLER WEBMAIL== html body",data);
 
               var newHtml = data.split("<img").join(" <img class='img-class' ");
+
+              // var regex = /href/gi, result, indices = [];
+              // while ( (result = regex.exec(newHtml)) ) {
+              //     // indices.push(result.index);
+
+              //     // for(var i=0 ; i<indices.length ; i++){
+                    
+              //       var pos = result.index;
+              //       var j=1;
+              //       while(newHtml[pos+j] != " "){
+              //         j++;
+              //       }
+              //       var stringToReplace = newHtml.substring(pos,pos+j);
+              //       var newString = 'href="#" ' +' onclick="window.open('+newHtml.substring(pos+5,pos+j)+', "_system", "location=yes"); "';
+              //       // var newString = 'href="#" ' +' onclick="window.open('+newHtml.substring(pos+5,pos+j)+', "_system", "location=yes"); return false;"';
+
+              //       var newHtml = newHtml.replace(stringToReplace, newString);
+              //       console.log('------okkkkkkkk',newHtml.substring(pos,pos+j) );
+
+              //     // }
+              // }
+              // console.log('fuaaaaaaa',newHtml);
               
+// onclick="window.open('http', '_system', 'location=yes'); return false;"
+
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
             }).
             error(function(data, status, headers, config) {
@@ -693,6 +767,14 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     // $scope.onSwipeLeft = function(){
     //  console.log('------=====llloppppppp lefttttttt'); 
     // }
+
+    $timeout(function () {
+      $('.ex-link').click(function () {
+        var url = $(this).attr('href');
+        window.open(encodeURI(url), '_system', 'location=yes');
+        return false;
+      })
+    })
     
     // DOWNLOAD FILE
     $scope.download = function(attach) {
@@ -782,12 +864,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     // ACORDEON HELP
     $scope.isGroupShown = function(group) {
       return $scope.shownGroup === group;
-    };
-
-    $scope.updateEditor = function() {
-      angular.element(document).ready(function () {
-          console.log('page loading completed');
-      });
     };
 
     $scope.reply = function(){
