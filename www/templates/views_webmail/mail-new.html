@@ -82,7 +82,7 @@
     </form>
 
     <div class="card" ng-if='data.bodyType == "2"'>
-      <textarea id="page_content" ng-init="updateEditor()" class="item-large-text" disabled="true" style="width: 100%; height: 200px">{{data.body2}}</textarea>
+      <textarea id="page_content2" ng-init="updateEditor()" class="item-large-text" disabled="true">{{data.body2}}</textarea>
     </div>
 
     <div ng-if='data.bodyType == "1"'  ng-bind-html="thisCanBeusedInsideNgBindHtml" >

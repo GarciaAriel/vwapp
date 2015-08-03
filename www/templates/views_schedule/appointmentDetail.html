@@ -1,12 +1,19 @@
 <ion-view view-title="{{ 'AppointmentDetail' | translate}}">
   <ion-nav-buttons side="right">
 
+    <button class="button" style="border-style: none" ng-click="participants()">
+      <i class="icon ion-person" style="{{colorFont}}"></i>
+    </button>  
+
     <button ng-if="updatePermission == 'true'" class="button"style="border-style: none" ng-click="callToEditAppointment()">
       <i class="icon ion-edit" style="color: #B80808"></i>
     </button>
 
+    <a>
+      <button class="button" style="border-style: none;height: 0px;padding-left: 0px;padding-right: 0px;"></button>
+    </a>
+
   </ion-nav-buttons>
-    
     
   <ion-content>
   

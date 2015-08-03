@@ -140,6 +140,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("en", {
 
+    DeleteParticipant:"Delete participant",
     NewMail:"New e-mail",
     Vat:"VAT",
     NetPrice:"Net price",
@@ -252,6 +253,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
   });
   $translateProvider.translations("es", {
     
+    DeleteParticipant:"¿Eliminar participante?",
     NewMail:"Nuevo e-mail",
     Vat:"IVA",
     NetPrice:"Precio neto",
@@ -366,6 +368,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("de", {
     
+    DeleteParticipant:"Gruppe entfernen",
     NewMail:"eMail schreiben",
     Vat:"USt.",
     NetPrice:"Nettopreis",
@@ -480,6 +483,7 @@ var starter = angular.module('starter', ['ionic','starter.constants','ui.router'
 
   $translateProvider.translations("fr", {
     
+    DeleteParticipant:"Supprimer participant?",
     NewMail:"Nouveau e-mail",
     Vat:"TVA",
     NetPrice:"Prix net",

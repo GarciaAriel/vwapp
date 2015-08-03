@@ -1,5 +1,33 @@
 angular.module('starter.scheduleservices', [])
 
+//SERVICE FORWARD ADD PARTICIPANTS
+.factory('forwardAddParticipantService', function($resource,apiUrlLocal,FORWARD_ADD_PARTICIPANT) {
+  var url = apiUrlLocal+FORWARD_ADD_PARTICIPANT;
+  console.log('==SERVICE SCHEDULE== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
+//SERVICE SEE PARTICIPANTS
+.factory('deleteParticipantService', function($resource,apiUrlLocal,DELETE_PARTICIPANT) {
+  var url = apiUrlLocal+DELETE_PARTICIPANT;
+  console.log('==SERVICE SCHEDULE== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
+//SERVICE SEE PARTICIPANTS
+.factory('seeParticipantsService', function($resource,apiUrlLocal,SEE_PARTICIPANTS) {
+  var url = apiUrlLocal+SEE_PARTICIPANTS;
+  console.log('==SERVICE SCHEDULE== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
+//SERVICE RESOURCE QUERY
+.factory('scheduleService', function($resource,apiUrlLocal,pathSchedule) {
+  var url = apiUrlLocal+pathSchedule;
+  console.log('==SERVICE SCHEDULE== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
+})
+
 // SERVICE SAVE APPOINTMENT
 .service('bridgeServiceAppointment', function() {
   var appointment = {};
@@ -90,13 +118,6 @@ angular.module('starter.scheduleservices', [])
       }
     };
 
-})
-
-//SERVICE RESOURCE QUERY
-.factory('scheduleService', function($resource,apiUrlLocal,pathSchedule) {
-  var url = apiUrlLocal+pathSchedule;
-  console.log('==SERVICE SCHEDULE== URL',url);
-  return $resource(url,{},{'query':{method:'GET', isArray:false}}); 
 })
 
 // SERVICE TO HELP LOAD OBJECT 'dataDate' AND CHANGE DAY TODAY

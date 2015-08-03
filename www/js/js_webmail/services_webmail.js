@@ -1,5 +1,29 @@
 angular.module('starter.webmailservices', [])
 
+/**
+ * SERVICES LIST MAILS IN WEBMAIL
+ */
+.factory('Mail', function ($resource,apiUrlLocal,PATH_WEBMAIL) {
+  
+  var url = apiUrlLocal+PATH_WEBMAIL;
+  console.log('==SERVICE WEBMAIL== URL',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
+
+.factory('Webmal_read_forlders', function ($resource,apiUrlLocal,PATH_WEBMAIL_READ_FOLDERS) {
+  
+  var url = apiUrlLocal+PATH_WEBMAIL_READ_FOLDERS;
+  console.log('==SERVICE WEBMAIL== read forlders',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
+
+.factory('forward_reply_mail', function ($resource,apiUrlLocal,FORWARD_REPLY_MAIL_URL) {
+  
+  var url = apiUrlLocal+FORWARD_REPLY_MAIL_URL;
+  console.log('==SERVICE WEBMAIL== forward reply mail',url);
+  return $resource(url,{},{'query':{method:'GET', isArray:false}});
+})
+
 .factory("$fileFactory", function($q) {
 
     var File = function() { };
@@ -56,17 +80,6 @@ angular.module('starter.webmailservices', [])
 
 })
 
-
-/**
- * SERVICES LIST MAILS IN WEBMAIL
- */
-.factory('Mail', function ($resource,apiUrlLocal,PATH_WEBMAIL) {
-  
-  var url = apiUrlLocal+PATH_WEBMAIL;
-  console.log('==SERVICE WEBMAIL== URL',url);
-  return $resource(url,{},{'query':{method:'GET', isArray:false}});
-})
-
 .service('serviceEmailList', function() {
   var emailList = {};
   var saveList = function(newList) {
@@ -79,20 +92,4 @@ angular.module('starter.webmailservices', [])
     saveList: saveList,
     getList: getList
   };
-}) 
-
-// .filter('externalLinks', function() {
-//   return function(text) {
-//     return String(text).replace(/href=/gm, "class=\"ex-link\" href=");
-//   }
-// })
-
-/**
- * SERVICES READ FORLDERS
- */
- .factory('Webmal_read_forlders', function ($resource,apiUrlLocal,PATH_WEBMAIL_READ_FOLDERS) {
-  
-  var url = apiUrlLocal+PATH_WEBMAIL_READ_FOLDERS;
-  console.log('==SERVICE WEBMAIL== read forlders',url);
-  return $resource(url,{},{'query':{method:'GET', isArray:false}});
 });

@@ -1,7 +1,19 @@
 angular.module('starter.constantsSchedule',[])  
 
+// add participant an appointment
+.constant('ADD_PARTICIPANT','/bmapp/AppointmentParticipant/Create.do') 
+
+// forwart new appointment
 .constant('NEW_APPOINTMENT_FORWARD','/bmapp/Appointment/Forward/Create.do') 
 
+// forward create participant an appointment
+.constant('FORWARD_ADD_PARTICIPANT','/bmapp/AppointmentParticipant/Forward/Create.do') 
+
+// see participants an appointment
+.constant('DELETE_PARTICIPANT','/bmapp/AppointmentParticipant/Delete.do') 
+
+// see participants an appointment
+.constant('SEE_PARTICIPANTS','/bmapp/Appointment/ParticipantList.do') 
 
 // create appointment
 .constant('CREATE_APPOINTMENT_URL','/bmapp/Appointment/Create.do')

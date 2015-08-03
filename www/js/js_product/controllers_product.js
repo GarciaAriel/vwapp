@@ -131,8 +131,7 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
     console.log("loadMore principal");
   
     $scope.page = $scope.page + 1;
-    $scope.asknext = false;
-
+    
     // EXECUTE QUERY WITH ()
     $scope.newProducts = service_pruducts_list.query({'pageParam(pageNumber)':$scope.page});
 
@@ -151,15 +150,11 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
       
       console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
       
-      if ( $scope.totalPages > $scope.page) {
-        $scope.asknext = true;  
+      if ($scope.totalPages<$scope.page+1) {
+        $scope.asknext = false;  
       };
+
     });
-  };
-
-
-  $scope.getProductUrl = function(item){
-    return '#/app/productDetail?productId='+item.productId+'&productName='+item.productName;  
   };
 
   $scope.searchcon = function(){
@@ -233,10 +228,10 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
         $scope.products = $scope.products.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });
-              
-      if ($scope.totalPages > $scope.page) {
-        $scope.asknext = true;  
-      };              
+                 
+      if ($scope.totalPages<$scope.page+1) {
+        $scope.asknext = false;  
+      };     
     };
   }
 })

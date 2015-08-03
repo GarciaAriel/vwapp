@@ -51,14 +51,28 @@ angular.module('starter.scheduleroutes', ['starter.schedulecontrollers','starter
     }
   })
 
-  // ROUTE TO ADD PARTICIPANTS TO AN APPOINTMENT
-  .state('app.addParticipantsToAnAppointment', {
-    url: "/addParticipants",
+  // ROUTE TO SEE PARTICIPANTS AN APPOINTMENT
+  .state('app.participants', {
+    url: "/participants?appointmentId",
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: "templates/views_schedule/addParticipantsToAnAppointment.html",
-        controller: "addParticipantsToAnAppointment"
+        templateUrl: "templates/views_schedule/seeParticipants.html",
+        controller: "seeParticipants"
+        // controller: "addParticipantsToAnAppointment"
+      }
+    }
+  })
+
+  // ROUTE TO ADD PARTICIPANTS AN APPOINTMENT
+  .state('app.addParticipants', {
+    url: "/addParticipants?appointmentId",
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/views_schedule/addParticipants.html",
+        controller: "addParticipants"
+        // controller: "addParticipantsToAnAppointment"
       }
     }
   })

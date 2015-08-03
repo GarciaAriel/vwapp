@@ -7,8 +7,8 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
   // ROUTE MAIL DETAIL
   .state('app.details-mail', {  
-      url: '/mail-detail?mailId&folderId&imageFrom&fromImageId',
-      cache: false,
+      url: '/mail-detail?mailId&folderId',
+      cache: true,
       views: {
         'menuContent': {
           templateUrl: 'templates/views_webmail/mail-detail.html',
