@@ -266,6 +266,10 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope.mailList = (results['mainData'])['list'];
       $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
+    
+      // RECOVER LIST MAIL FOR VIEW
+      serviceEmailList.saveList($scope.mailList);
+
       $scope.$broadcast('scroll.refreshComplete');  
       
       if ($scope.totalPages > $scope.page) {
@@ -292,6 +296,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      // RECOVER LIST MAIL FOR VIEW
+      serviceEmailList.saveList($scope.mailList);
 
       // REFRESH = FALSE IF TOTAL PAGES <= PAGE ACTUAL ++
       if ($scope.totalPages<$scope.page+1) {
@@ -325,10 +332,13 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
       $scope.totalPages = parseInt((results['mainData'])['pageInfo']['totalPages']);
       
       console.log("page number: "+$scope.page+" total pages: "+$scope.totalPages);
-          
+      
+      // RECOVER LIST MAIL FOR VIEW
+      serviceEmailList.saveList($scope.mailList);
+
       if ( $scope.totalPages > $scope.page) {
-        $scope.asknext = true;  
-      }; 
+        $scope.asknext = true;
+      };
 
       // if no exists items show message
       if ($scope.mailList.length == 0) {
@@ -368,6 +378,9 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope.totalPages=parseInt((results['mainData'])['pageInfo']['totalPages']);
         $scope.mailList = $scope.mailList.concat((results['mainData'])['list']);
         $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        // RECOVER LIST MAIL FOR VIEW
+        serviceEmailList.saveList($scope.mailList);
       });
               
       if ($scope.totalPages > $scope.page) {
@@ -648,38 +661,6 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   console.log('*******************************************************');
   console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
-  window.addEventListener("orientationchange", function() {
-    console.log('-------change orientation');
-
-    // $scope.$apply(function () {
-    //   $scope.thisCanBeusedInsideNgBindHtml = $scope.thisCanBeusedInsideNgBindHtml;
-    // });
-
-    // CALL HTML BODY
-    // $state.transitionTo($state.current, null, { reload: true });
-    // CALL HTML BODY
-    // console.log('---------fuaaaaaa',$scope.thisCanBeusedInsideNgBindHtml);
-    // if ($scope.thisCanBeusedInsideNgBindHtml != undefined) {
-    //   var NgBindHtml = $scope.thisCanBeusedInsideNgBindHtml;
-    //   $scope.thisCanBeusedInsideNgBindHtml = null;
-    //   $scope.thisCanBeusedInsideNgBindHtml = NgBindHtml;
-    //   console.log('---------fuaaaaaa')
-    // }       
-    // {updated: true}     
-    // console.log('-----00 params',$stateParams);
-    // console.log('-----00 current',$state.current);
-    // $ionicHistory.clearCache();
-    // window.location.reload(true)
-    // $state.go($state.current.name,$stateParams);
-    // console.log('-------change orientation111');
-    // $state.go($state.current.name,$stateParams);
-    // console.log('-------change orientation2222');
-    // $state.transitionTo($state.current.name, $stateParams, {reload: true, notify:true});
-    // $state.go($state.current, $stateParams, {reload: true});
-    // $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-    $state.reload();
-  }, false);
-
   // access right
   var accessRight = $localstorage.getObject('accessRight');
   accessRightMailExecute = $scope.accessRight.MAIL.EXECUTE;
@@ -761,37 +742,40 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
         $scope.iframeWidth = $(window).width();
     });
 
-    // $scope.onSlideChanged = function(index,item){
-    //   console.log('----===change slide item:',item);
-    //   // console.log('----===change slide direction:',direction);
-    //   var res = {};
-    //   // var varDirection = direction=='left' ?  1 : -1;
-    //   for(var i=0; i < $scope.emailList.length; i++){
-    //     if ($scope.emailList[i].mailId == item.mailId) {
-    //       res = $scope.emailList[i+1];
-    //       break;
-    //     }
-    //   }
-    //   console.log('on change ==== method',res);
-    //   $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId}); 
-    // }
+    $scope.onSwipeRight = function(item){
+      console.log('----------------START----------------');
+      console.log('slide right, item:',item);
+      var i = 0;
+      for(i; i < $scope.emailList.length; i++){
+        if ($scope.emailList[i].mailId == item.mailId) {
+          break;
+        }
+      }
+      if (i != 0) {
+        var res = $scope.emailList[i-1];
+      $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId}); 
+      }
+      console.log('----------------END----------------');
+    }
 
-    // $scope.onSwipeRight = function(){
-    //   console.log('------=====llloppppppp righttttt');
-    // }
-    // $scope.onSwipeLeft = function(){
-    //  console.log('------=====llloppppppp lefttttttt'); 
-    // }
+    $scope.onSwipeLeft = function(item){
+      console.log('----------------START----------------');
+      console.log('slide left, item:',item);
+      var i = 0;
+      for(i; i < $scope.emailList.length; i++){
+        if ($scope.emailList[i].mailId == item.mailId) {
+          break;
+        }
+      }
+// aaaaaaaaaaaaaaaaaaaaaaaaaa
 
-    // $timeout(function () {
-    //   $('.ex-link').click(function () {
-    //     var url = $(this).attr('href');
-    //     window.open(encodeURI(url), '_system', 'location=yes');
-    //     return false;
-    //   })
-    // })
-// aaaaaaaaaaaaaaaaaa
-    
+      if (i < $scope.emailList.length-1) {
+        var res = $scope.emailList[i+1];
+        $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId});   
+      }
+      console.log('----------------END----------------');
+    }
+
     // DOWNLOAD FILE
     $scope.download = function(attach) {
         $ionicLoading.show({
