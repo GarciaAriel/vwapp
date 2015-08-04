@@ -7,7 +7,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
   // ROUTE MAIL DETAIL
   .state('app.details-mail', {  
-      url: '/mail-detail?mailId&folderId',
+      url: '/mail-detail?mailId&folderId&typeFolder',
       cache: true,
       views: {
         'menuContent': {
@@ -19,7 +19,7 @@ angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
 
   //  ROUTE MAILLIST IN ANY FOLDER
   .state('app.mail-items', {
-      url: '/mail-list?pageParam&folderId&folderName',
+      url: '/mail-list?pageParam&folderId&folderName&type',
       cache: true,
       views: {
         'menuContent': {

@@ -4,15 +4,15 @@
   
   <ion-nav-buttons side="right">
 
-    <button class="button" style="border-style: none" ng-click="reply()">
+    <button ng-if="replyExecute == true" class="button" style="border-style: none" ng-click="reply()">
       <i class="icon ion-reply" style="{{colorFont}}"></i>
     </button>  
     
-    <button class="button" style="border-style: none" ng-click="replyAll()">
+    <button ng-if="replyAllExecute == true" class="button" style="border-style: none" ng-click="replyAll()">
       <i class="icon ion-reply-all" style="{{colorFont}}"></i>
     </button>
 
-    <button class="button" style="border-style: none" ng-click="forward()">
+    <button ng-if="forwardExecute == true" class="button" style="border-style: none" ng-click="forward()">
       <i class="icon ion-forward" style="{{colorFont}}"></i>
     </button>
     

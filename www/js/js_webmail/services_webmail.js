@@ -80,6 +80,78 @@ angular.module('starter.webmailservices', [])
 
 })
 
+.service('serviceExecute', function(FOLDER_INBOX_TYPE,FOLDER_SENT_TYPE,FOLDER_DRAFT_TYPE,FOLDER_TRASH_TYPE,FOLDER_OUTBOX_TYPE) {
+
+  var reply = function(typeFolder) {
+    var result = true;
+    switch (typeFolder) {
+      case FOLDER_INBOX_TYPE:
+        result = true;
+        break;
+      case FOLDER_SENT_TYPE:
+        result = false;
+        break;
+      case FOLDER_DRAFT_TYPE:
+        result = false;
+        break;
+      case FOLDER_TRASH_TYPE:
+        result = true;
+        break;
+      case FOLDER_OUTBOX_TYPE:
+        result = false;
+        break;
+    }     
+    return result;
+  };
+  var replyAll = function(typeFolder){
+    var result = true;
+    switch (typeFolder) {
+      case FOLDER_INBOX_TYPE:
+        result = true;
+        break;
+      case FOLDER_SENT_TYPE:
+        result = false;
+        break;
+      case FOLDER_DRAFT_TYPE:
+        result = false;
+        break;
+      case FOLDER_TRASH_TYPE:
+        result = true;
+        break;
+      case FOLDER_OUTBOX_TYPE:
+        result = false;
+        break;
+    }     
+    return result;
+  };
+  var forward = function(typeFolder){
+      var result = true;
+    switch (typeFolder) {
+      case FOLDER_INBOX_TYPE:
+        result = true;
+        break;
+      case FOLDER_SENT_TYPE:
+        result = true;
+        break;
+      case FOLDER_DRAFT_TYPE:
+        result = false;
+        break;
+      case FOLDER_TRASH_TYPE:
+        result = true;
+        break;
+      case FOLDER_OUTBOX_TYPE:
+        result = false;
+        break;
+    }     
+    return result;
+  };
+  return {
+    reply: reply,
+    replyAll: replyAll,
+    forward: forward
+  };
+})
+
 .service('serviceEmailList', function() {
   var emailList = {};
   var saveList = function(newList) {

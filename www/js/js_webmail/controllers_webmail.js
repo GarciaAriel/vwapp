@@ -140,7 +140,8 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
   $scope.folderName = $stateParams.folderName;
   $scope.asknext = false;
   $scope.showSearchBar = false;
-
+  $scope.typeFolder = $stateParams.type;
+  
   console.log("folder name",$scope.folderName);
   
   // EXECUTE QUERY WITH ()
@@ -643,7 +644,7 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
 })
 
 // DETAILS MAIL
-.controller('MailDetailCtrl', function($ionicHistory,$timeout,$state,serviceEmailList,PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
+.controller('MailDetailCtrl', function(serviceExecute,$localstorage,$ionicHistory,$timeout,$state,serviceEmailList,PopupFactory,$filter,$scope,$cordovaFileTransfer,$http,$sce,$ionicPopup,$ionicLoading,$stateParams,Mail,apiUrlLocal,PATH_WEBMAIL,BODY_TYPE_HTML,BODY_TYPE_HTML) {
   console.log('*******************************************************');
   console.log("==WEBMAIL CONTROLLER DETAILS MAIL== start");
 
@@ -679,6 +680,18 @@ angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter
     $state.reload();
   }, false);
 
+  // access right
+  var accessRight = $localstorage.getObject('accessRight');
+  accessRightMailExecute = $scope.accessRight.MAIL.EXECUTE;
+  $scope.replyExecute = false;
+  $scope.replyAllExecute = false;
+  $scope.forwardExecute = false;  
+  if (accessRightMailExecute == "true") {
+    $scope.replyExecute = serviceExecute.reply($stateParams.typeFolder);
+    $scope.replyAllExecute = serviceExecute.replyAll($stateParams.typeFolder);
+    $scope.forwardExecute = serviceExecute.forward($stateParams.typeFolder);  
+  }
+  
   // get list of email for slide
   $scope.emailList = serviceEmailList.getList();
   console.log('email list service: ',$scope.emailList);
