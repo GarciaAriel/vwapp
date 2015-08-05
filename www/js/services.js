@@ -3,11 +3,11 @@ angular.module('starter.services', [])
 .factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state,$filter) {
   
   function getPopup(scope,result) {
-    console.log('^^^^^^^^^^^^^^^^START^^^^^^^^^^^^^^^^^^');
+    console.log('----------------START----------------');
       // if session Expired
       if (result.forward == "SessionExpired") {
         console.log("==ERROR CONTROL== session expired:",result);
-        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+        console.log('----------------END----------------');
         return $ionicPopup.show({
          
           title: "Error",
@@ -27,7 +27,7 @@ angular.module('starter.services', [])
       // if appointment was deleted by other user
       if (result.forward == "MainSearch") {
         console.log("==ERROR CONTROL== appointment deleted:",result);
-        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+        console.log('----------------END----------------');
 
         var message = "";
         if (result.errorsArray) {
@@ -56,7 +56,7 @@ angular.module('starter.services', [])
       // if Concurrency fail
       if (result.forward == "ConcurrencyFail") {
         console.log("==ERROR CONTROL== Concurrency Fail:",result);
-        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+        console.log('----------------END----------------');
 
         var message = "";
         if (result.errorsArray) {
@@ -86,7 +86,7 @@ angular.module('starter.services', [])
       
       if (result.errorsArray) {
         console.log("==ERROR CONTROL== errors array:",result);
-        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+        console.log('----------------END----------------');
 
         var message = result.errorsArray[0].error;
         for (var i = 1; i < result.errorsArray.length; i++) {
@@ -107,7 +107,7 @@ angular.module('starter.services', [])
       };
 
       console.log("==ERROR CONTROL== no problems");
-      console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+      console.log('----------------END----------------');
   }
        
    return {

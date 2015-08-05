@@ -93,7 +93,7 @@ angular.module('starter.scheduleservices', [])
 
     return {
       getStringDate:  function(date,datePattern) {
-        console.log('^^^^^^^^^^^^^^^^START^^^^^^^^^^^^^^^^');
+        console.log('----------------START----------------');
         console.log('function to change format date to: ',datePattern);
         var yyyy = date.getFullYear();
         var mm = (date.getMonth()+1).toString().length == 1 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
@@ -113,7 +113,7 @@ angular.module('starter.scheduleservices', [])
               break;
         } 
         console.log('final result: ',result);
-        console.log('^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^');
+        console.log('----------------END----------------');
         return result;
       }
     };

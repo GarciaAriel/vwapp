@@ -160,7 +160,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
           data: {"dto(login)":$scope.data.username, "dto(companyLogin)":$scope.data.company, "dto(password)":$scope.data.password, "dto(language)":"en","dto(rememberInfo)":true}
         }).success(function(data, status, headers, config) {
           
-          console.log('==CONTROLLER LOGIN== REQUEST SUCCESS OK',data);
+          console.log("results of request: ",data);
 
           if( data.forward != "Fail")
           {
@@ -171,7 +171,9 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             $localstorage.set("currentUser",'true');
 
             var lenguage = data.mainData.userInfo.locale;
-            console.log("==CONTROLLER LOGIN==  lenguage: ","-"+lenguage+"-" );
+            var timeZone = data.mainData.userInfo.dateTimeZone;
+            console.log("locale: ","-"+lenguage+"-" );
+            console.log("locale: ","-"+timeZone+"-" );
             $scope.ChangeLanguage(lenguage);
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             

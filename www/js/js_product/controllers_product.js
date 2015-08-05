@@ -126,6 +126,10 @@ angular.module('starter.productsController',['starter.constantsproduct','starter
     $ionicScrollDelegate.scrollTop();
   };  
 
+  $scope.getProductUrl = function(item){
+    return '#/app/productDetail?productId='+item.productId+'&productName='+item.productName;
+  };
+
   $scope.loadMore = function() {
     console.log('*******************************************************');
     console.log("loadMore principal");

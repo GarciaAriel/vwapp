@@ -1,6 +1,6 @@
-<ion-nav-bar></ion-nav-bar> -->
+<!-- <ion-nav-bar></ion-nav-bar> -->
 <!-- <ion-nav-view> -->
-<ion-view cache-view="true" view-title='{{ "ReadMail" | translate}}'>
+<ion-view cache-view="false" view-title='{{ "ReadMail" | translate}}'>
   
   <ion-nav-buttons side="right">
 
@@ -23,8 +23,7 @@
   <ion-content direction="xy" >
 
     <ion-slide-box active-slide="myActiveSlide">
-    <!-- on-slide-changed="onSlideChanged(index,item)" -->
-
+    
       <ion-slide style="padding-top: 0px;" on-swipe-right="onSwipeRight(item)" on-swipe-left="onSwipeLeft(item)">
 
         <div class="list card">
@@ -116,7 +115,6 @@
         </div>
 
         <div ng-if="item.bodyType != '2' "  ng-bind-html="thisCanBeusedInsideNgBindHtml" >
-        <!-- style="width:{{iframeWidth}}px" -->
         </div>
 
         </ion-slide>

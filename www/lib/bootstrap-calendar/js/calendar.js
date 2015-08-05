@@ -421,7 +421,7 @@ if(!String.prototype.formatNum) {
 		var end = parseInt(this.options.position.end.getTime());
 
 		data.events = this.getEventsBetween(start, end);
-
+		
 		switch(this.options.view) {
 			case 'month':
 				break;
@@ -463,11 +463,14 @@ if(!String.prototype.formatNum) {
 		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
+		console.log("---options of calendario",this.options)
+		console.log("---date start",start)
 		
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
 
 		var end = new Date(this.options.position.start.getTime());
+		console.log("---date end",end)
 		end.setHours(time_end[0]);
 		end.setMinutes(time_end[1]);
 
@@ -475,11 +478,13 @@ if(!String.prototype.formatNum) {
 		data.by_hour = [];
 		data.after_time = [];
 		data.before_time = [];
-		console.log('----juaaaaaa',data.events);
+		console.log('------events',data.events);
 		$.each(data.events, function(k, e) {
 			console.log('*******************************************************');
 
 			// change correct timezone ariel
+			console.log('---e.start millis',e.start);
+			console.log('---e.end millis',e.end);
 			var s = new Date(parseInt(e.start)+difTZ);
 			var f = new Date(parseInt(e.end)+difTZ);
 			
@@ -506,9 +511,10 @@ if(!String.prototype.formatNum) {
 				data.all_day.push(e);
 				return;
 			}
-			console.log('------before',( (e.end+difTZ) < start.getTime()));
-			console.log('------esto <',(e.end+difTZ));
+			console.log('------before',( (parseInt(e.end)+difTZ) < start.getTime()));
+			console.log('-------esto es menor',(parseInt(e.end)+difTZ));
 			console.log('------a esto',start.getTime());
+			
 			if( (parseInt(e.end)+difTZ) < start.getTime() ) {
 				data.before_time.push(e);
 				return;

@@ -1,12 +1,11 @@
-
-angular.module('starter.webmailroutes', ['starter.webmailcontrollers'])
-
+angular.module('starter.webmailroutes', ['starter.webmailControllerDetail','starter.webmailControllerFolders','starter.webmailControllerListEmail','starter.webmailControllerNew'])
+// ,'starter.webmailControllerNew','starter.webmailControllerListEmail'
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
   // ROUTE MAIL DETAIL
-  .state('app.details-mail', {  
+  .state('app.details-mail', { 
       url: '/mail-detail?mailId&folderId&typeFolder',
       cache: true,
       views: {

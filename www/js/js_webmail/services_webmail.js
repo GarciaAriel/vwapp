@@ -152,16 +152,16 @@ angular.module('starter.webmailservices', [])
   };
 })
 
-.service('serviceEmailList', function() {
-  var emailList = {};
-  var saveList = function(newList) {
-      emailList = newList;
+.service('serviceEmailData', function() {
+  var data = {};
+  var saveData = function(newData) {
+      data = newData;
   };
-  var getList = function(){
-      return emailList;
+  var getData = function(){
+      return data;
   };
   return {
-    saveList: saveList,
-    getList: getList
+    saveData: saveData,
+    getData: getData
   };
 });
