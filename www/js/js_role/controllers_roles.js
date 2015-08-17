@@ -173,7 +173,7 @@ angular.module('starter.rolescontrollers', ['starter.rolesservices'])
             var lenguage = data.mainData.userInfo.locale;
             var timeZone = data.mainData.userInfo.dateTimeZone;
             console.log("locale: ","-"+lenguage+"-" );
-            console.log("locale: ","-"+timeZone+"-" );
+            console.log(timeZone );
             $scope.ChangeLanguage(lenguage);
             AuthenticationService.login({name: $scope.data.username, company: $scope.data.company});
             

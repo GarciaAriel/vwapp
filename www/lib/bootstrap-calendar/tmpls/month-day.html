@@ -1,5 +1,6 @@
 <div class="cal-month-day <%= cls %>">
 	<span class="pull-right" data-cal-date="<%= data_day %>" data-cal-view="day" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
+	<% console.log("----------events month",events); %>
 	<% if (events.length > 0) { %>
 		<div  data-cal-start="<%= start %>" data-cal-end="<%= end %>" style="bottom: 10px; padding-left: 15px; padding-top: 50px;" >
 			
