@@ -61,11 +61,10 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
               PopupFactory.getPopup($scope,data);
               console.log("results of request: ",data);
 
-              var newHtml = data.split("<img").join(" <img class='img-class' ");
-
               var regex = /href="([\S]+)"/g;
               var newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
-              console.log('--------appppppp new html',newHtml);
+
+              var newHtml = data.split("<img").join(" <img class='img-class' ");
               
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
               
@@ -75,7 +74,6 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
             });
         }
         else{
-          // zzzzzzzzzzzzzzz detail
           angular.element(document).ready(function () {
             console.log('page loading completed');
             var element = document.getElementById("page_content");

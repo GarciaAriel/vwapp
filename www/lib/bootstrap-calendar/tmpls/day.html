@@ -42,10 +42,10 @@
 			<% }; %>	
 			<% arrayByhours[event.start_hour].push(event) %>			
 		<% }; %>	
-		<% console.log("----------hours",arrayByhours); %>
+		<!--% console.log("----------hours",arrayByhours); %-->
 		<% last_event = undefined%>	
 		<% for(arrhour in arrayByhours) { %>
-			<% console.log("----------hours",arrhour); %>
+			<!--% console.log("----------hours",arrhour); %-->
 			<% if(arrayByhours[arrhour].length == 1){ %>
 				<% event = arrayByhours[arrhour][0]; %>
 

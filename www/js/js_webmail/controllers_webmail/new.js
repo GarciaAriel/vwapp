@@ -1,9 +1,5 @@
 angular.module('starter.webmailControllerNew', ['starter.webmailservices','starter.constantsWebmail'])
 
-angular.module('starter.webmailcontrollers', ['starter.webmailservices','starter.constantsWebmail'])
-
-
-
 // NEW EMAIL 
 .controller('NewMail',function(forward_reply_mail,$sce,BODY_TYPE_TEXT,BODY_TYPE_HTML,FORWARD_REPLY_MAIL_URL,$ionicPlatform,$fileFactory,$cordovaImagePicker,$state,PopupFactory,COMPOSE_EMAIL_URL,FORWARD_CREATE_MAIL_URL,apiUrlLocal,$http,$stateParams,$scope,COLOR_VIEW){
   console.log('*******************************************************');

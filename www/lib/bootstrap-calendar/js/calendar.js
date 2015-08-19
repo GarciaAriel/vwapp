@@ -420,12 +420,12 @@ if(!String.prototype.formatNum) {
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
 
-		console.log('---options start',this.options.position.start.getTime());
-		console.log('---options end',this.options.position.end.getTime());
+		// console.log('---options start',this.options.position.start.getTime());
+		// console.log('---options end',this.options.position.end.getTime());
 		
 		data.events = this.getEventsBetween(start, end);
-		console.log('//==',data.events);
-
+		console.log('events between',data.events);
+		
 		switch(this.options.view) {
 			case 'month':
 				break;
@@ -453,6 +453,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data) {
+		console.log('*******************************************************');
 		var $self = this;
 		var time_split = parseInt(this.options.time_split);
 		var time_split_count = 60 / time_split;
@@ -487,9 +488,9 @@ if(!String.prototype.formatNum) {
 		data.by_hour = [];
 		data.after_time = [];
 		data.before_time = [];
-		console.log('------events',data.events);
+		// console.log('------events',data.events);
 		$.each(data.events, function(k, e) {
-			console.log('*******************************************************');
+			// console.log('..........................');
 
 			var s = new Date(parseInt(e.start));
 			var s1 = new Date(parseInt(e.start));
@@ -515,13 +516,13 @@ if(!String.prototype.formatNum) {
 				warn(1);
 				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
 			}
-
+			
 			if(e.start < start.getTime() && e.end > end.getTime()) {
 				data.all_day.push(e);
 				return;
 			}
 			
-			if( (parseInt(f.getTime())) < start.getTime() ) {
+			if( (parseInt(f.getTime())) <= start.getTime() ) {
 				data.before_time.push(e);
 				return;
 			}
@@ -532,33 +533,32 @@ if(!String.prototype.formatNum) {
 			}
 
 			var event_start = start.getTime() - (parseInt( s.getTime()));
-
-			console.log('===start.getTime',start.getTime() );
-			console.log('===s.getTime()', s.getTime() );
+			// console.log('===start.getTime',start.getTime() );
+			// console.log('===s.getTime()', s.getTime() );
 
 			if(event_start >= 0) {
 				e.top = 0;
-				console.log('------ifffffffffff view day top',e.top);
+				// console.log('------ifffffffffff view day top',e.top);
 			} else {
 				var aux = Math.abs(event_start) / ms_per_line;
 				e.top = aux;
-				console.log('------elseeeeeeee view day top',e.top);
+				// console.log('------elseeeeeeee view day top',e.top);
 				
 			}
-
+			
 			var lines_left = Math.abs(lines - e.top);
 			var lines_in_event = (e.end - e.start) / ms_per_line;
 
-			if(event_start >= 0) {
+			if(event_start > 0) {
 				lines_in_event = (f.end - start.getTime()) / ms_per_line;
 			}
 
 			e.lines = lines_in_event;
 			if(lines_in_event > lines_left) {
 				e.lines = lines_left;
-				console.log('=== 22222');
 			}
-			console.log('=== eeeee',e);
+			// e.lines = 1;
+			console.log('result new event',e);
 			data.by_hour.push(e);
 		});
 		//var d = new Date('2013-03-14 13:20:00');
@@ -591,8 +591,24 @@ if(!String.prototype.formatNum) {
 		var self = this;
 		var first_day = getExtentedOption(this, 'first_day');
 
+		// ---------------arielgarcia
+			var timeZoneAriel = this.options.time_zone_value;
+			var valueTimeZone = this.time_zone[timeZoneAriel];
+			var s = new Date();
+			var hdif = ((s.getTimezoneOffset()) / 60)+ valueTimeZone;
+		// --------------
+
 		$.each(this.getEventsBetween(start, end), function(k, event) {
-			event.start_day = new Date(parseInt(event.start)).getDay();
+			// ---------------arielgarcia
+			var day = new Date(parseInt(event.start));
+			day.setHours(day.getHours() + hdif);
+			event.start_day = day.getDay();
+			// ------------
+			// event.start_day = new Date(parseInt(event.start)).getDay();
+
+			console.log('event.start',parseInt(event.start));
+			console.log('start_day',event.start_day);
+
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
 			}
@@ -990,7 +1006,7 @@ if(!String.prototype.formatNum) {
 		});
 		$('.cal-cell').click(function() {
 			// $scope.real_date_view = $('[data-cal-date]', this).data('cal-view');
-			console.log("clickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+			// console.log("clickkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 			var view = $('[data-cal-date]', this).data('cal-view');
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);
@@ -1167,19 +1183,20 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype.getEventsBetween = function(start, end) {
 
-		console.log('*********************************getEventsBetween');
-		console.log('start',start);
-		console.log('end',end);
+		// console.log('*********************************getEventsBetween');
+		// console.log('start',start);
+		// console.log('end',end);
 		var events = [];
 
-		var timeZoneAriel = this.options.time_zone_value;
+		var difTZ = 0;
 		if (this.time_zone) {
+			var timeZoneAriel = this.options.time_zone_value;
 			var valueTimeZone = this.time_zone[timeZoneAriel];
 			var s = new Date();
 			var hdif = ((s.getTimezoneOffset()) / 60) + valueTimeZone;
 
 			var difTZ = hdif*60*60000;	
-			console.log('--- xd time zone to plus or rest',difTZ);
+			// console.log('milliseconds to plus or rest',difTZ);
 		}
 		
 
@@ -1189,15 +1206,8 @@ if(!String.prototype.formatNum) {
 			}
 			var event_end = this.end || this.start;
 
-			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
+			if( ((parseInt(this.start)+difTZ) < end) && (( parseInt(event_end)+difTZ) >= start)) {
 				events.push(this);
-
-				console.log('');
-				console.log('this.start',this.start);
-				console.log('this.  end',this.end);
-				console.log('event_ end',event_end);
-
-				console.log('--------------------');
 			}
 		});
 		return events;
