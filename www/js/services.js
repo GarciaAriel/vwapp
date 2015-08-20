@@ -5,7 +5,7 @@ angular.module('starter.services', [])
   function getPopup(scope,result) {
     console.log('----------------START----------------');
       // if session Expired
-      if (result.forward == "SessionExpired") {
+      if (result.forward != undefined && result.forward == "SessionExpired") {
         console.log("==ERROR CONTROL== session expired:",result);
         console.log('----------------END----------------');
         return $ionicPopup.show({
@@ -25,7 +25,7 @@ angular.module('starter.services', [])
       };
 
       // if appointment was deleted by other user
-      if (result.forward == "MainSearch") {
+      if (result.forward != undefined && result.forward == "MainSearch") {
         console.log("==ERROR CONTROL== appointment deleted:",result);
         console.log('----------------END----------------');
 
@@ -54,7 +54,7 @@ angular.module('starter.services', [])
       };
 
       // if Concurrency fail
-      if (result.forward == "ConcurrencyFail") {
+      if (result.forward != undefined && result.forward == "ConcurrencyFail") {
         console.log("==ERROR CONTROL== Concurrency Fail:",result);
         console.log('----------------END----------------');
 
