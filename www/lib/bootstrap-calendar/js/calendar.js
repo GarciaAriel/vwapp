@@ -558,7 +558,7 @@ if(!String.prototype.formatNum) {
 				e.lines = lines_left;
 			}
 			// e.lines = 1;
-			console.log('result new event',e);
+			// console.log('result new event',e);
 			data.by_hour.push(e);
 		});
 		//var d = new Date('2013-03-14 13:20:00');
