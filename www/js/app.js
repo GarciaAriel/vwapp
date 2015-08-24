@@ -153,6 +153,8 @@ var starter = angular.module('starter', ['ionic',
 
   $translateProvider.translations("en", {
 
+    Participants:"Participants",
+    AddUser:"Add User",
     DeleteParticipant:"Delete participant",
     NewMail:"New e-mail",
     Vat:"VAT",
@@ -211,7 +213,7 @@ var starter = angular.module('starter', ['ionic',
     CheckFolder: "Please check your folder bm App.",
     Downloaded: "Downloaded",
     SelectAnother: "Please select another folder.",
-    PulltoRefresh: "Please pull to refresh.",
+    PulltoRefresh: "Pull to refresh.",
     NoItems: "No Items",
     Messagefailed: "Please check your credentials.",
     MessageRequired: "Logon credentials invalid session.",
@@ -265,7 +267,9 @@ var starter = angular.module('starter', ['ionic',
 
   });
   $translateProvider.translations("es", {
-    
+
+    Participants:"Participantes",
+    AddUser:"Añadir usuario",
     DeleteParticipant:"¿Eliminar participante?",
     NewMail:"Nuevo e-mail",
     Vat:"IVA",
@@ -324,7 +328,7 @@ var starter = angular.module('starter', ['ionic',
     CheckFolder: "Por favor revise su carpeta de bm App.",
     Downloaded: "Descargado",
     SelectAnother: "Por favor, seleccione otra carpeta.",
-    PulltoRefresh: "Por favor, deslice para refrescar.",
+    PulltoRefresh: "Deslice para refrescar.",
     NoItems: "No hay artículos",
     Messagefailed: "Por favor compruebe sus credenciales.",
     MessageRequired: "Credenciales de inicio de sesión no válidos.",
@@ -381,6 +385,8 @@ var starter = angular.module('starter', ['ionic',
 
   $translateProvider.translations("de", {
     
+    Participants:"Teilnehmer",
+    AddUser:"Teilnehmer hinzufügen",
     DeleteParticipant:"Gruppe entfernen",
     NewMail:"eMail schreiben",
     Vat:"USt.",
@@ -496,6 +502,8 @@ var starter = angular.module('starter', ['ionic',
 
   $translateProvider.translations("fr", {
     
+    Participants:"Participants",
+    AddUser:"Ajouter utilisateur",
     DeleteParticipant:"Supprimer participant?",
     NewMail:"Nouveau e-mail",
     Vat:"TVA",

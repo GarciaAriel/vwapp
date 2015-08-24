@@ -2,8 +2,36 @@ angular.module('starter.services', [])
 
 .factory("PopupFactory", function ($ionicHistory,$ionicPopup,$state,$filter) {
   
-  function getPopup(scope,result) {
+  function getPopup(scope,result,showErrorAndGoBack) {
     console.log('----------------START----------------');
+
+      // if session Expired
+      if (result.forward != undefined && showErrorAndGoBack == true) {
+        console.log("==ERROR CONTROL== show error and go back:",result);
+        console.log('----------------END----------------');
+        
+        var message = "";
+        message = result.errorsArray[0].error;
+        for (var i = 1; i < result.errorsArray.length; i++) {
+          message=message+"<br>"+result.errorsArray[i].error ;
+        };
+        
+        return $ionicPopup.show({
+          title: $filter('translate')('Error'),
+          template:  message,
+          scope: scope,
+          buttons: [
+            { text: '<b>close</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                $ionicHistory.goBack();
+              }
+            },
+          ]
+        })
+
+      };
+
       // if session Expired
       if (result.forward != undefined && result.forward == "SessionExpired") {
         console.log("==ERROR CONTROL== session expired:",result);

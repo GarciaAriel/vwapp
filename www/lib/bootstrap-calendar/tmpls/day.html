@@ -84,7 +84,7 @@
 
 				<% objectArray = arrayByhours[arrhour]; %>
 
-				<% if( (iniE > ini && iniE < fin) || (finE > ini && finE < fin) ){ %>
+				<% if( (iniE > ini && iniE < fin) || (finE > ini && finE < fin) || (iniE == ini && finE == fin) || (ini > iniE && ini < finE) || (fin > iniE && fin < finE) ){ %>
 					<% console.log("-----iffffff 1111"); %>
 					<% arrayByhours[arrhour].push(event) %>
 					<% nuevoList = false; %>
