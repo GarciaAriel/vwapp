@@ -64,7 +64,9 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
               var newHtml = data.split("<img").join(" <img class='img-class' ");
 
               var regex = /href="([\S]+)"/g;
-              var newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
+              newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
+
+              newHtml = newHtml.replace("/bm/", apiUrlLocal+"/");
               
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
               
