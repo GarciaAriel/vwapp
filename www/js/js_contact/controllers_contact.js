@@ -1218,7 +1218,7 @@ $scope.doRefresh = function() {
     $scope.searchKey = "";
     $scope.showSearchBar = false;
     $scope.pag = 1;
-    $scope.$broadcast('scroll.infiniteScrollComplete');
+    // $scope.$broadcast('scroll.infiniteScrollComplete');
 
   $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
 
@@ -1231,7 +1231,7 @@ $scope.doRefresh = function() {
     if (results['forward'] == "") {
       $scope.contacts = (results['mainData'])['list'];
       $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
-      $scope.$broadcast('scroll.refreshComplete'); 
+      // $scope.$broadcast('scroll.refreshComplete'); 
         
       $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
