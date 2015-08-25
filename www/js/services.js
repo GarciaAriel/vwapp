@@ -148,7 +148,7 @@ angular.module('starter.services', [])
   return {
     'request': function(config) {
       $injector.get("$ionicLoading").show({
-        template: '<i class="icon ion-loading-d" style="font-size: 32px"></i>',
+        template: '<i class="icon ion-loading-d" style="font-size: 40px"></i>',
         animation: 'fade-in',
         noBackdrop: false
       });

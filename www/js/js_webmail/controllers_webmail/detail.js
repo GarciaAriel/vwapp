@@ -61,10 +61,10 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
               PopupFactory.getPopup($scope,data);
               console.log("results of request: ",data);
 
+              var newHtml = data.split("<img").join(" <img class='img-class' ");
+
               var regex = /href="([\S]+)"/g;
               var newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
-
-              var newHtml = data.split("<img").join(" <img class='img-class' ");
               
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
               
@@ -108,13 +108,15 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
       console.log('----------------START----------------');
       console.log('slide left, item:',item);
       var i = 0;
+      var find = false;
       for(i; i < $scope.emailList.length; i++){
         if ($scope.emailList[i].mailId == item.mailId) {
+          find = true;
           break;
         }
       }
 
-      if (i < $scope.emailList.length-1) {
+      if (find) {
         var res = $scope.emailList[i+1];
         $state.go('app.details-mail',{'mailId':res.mailId,'folderId':res.folderId,'imageFrom':res.fromImageUrl,'fromImageId':res.fromImageId});   
       }
