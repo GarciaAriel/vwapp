@@ -63,11 +63,12 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
 
               var newHtml = data.split("<img").join(" <img class='img-class' ");
 
+              newHtml = newHtml.split("/bm/").join(apiUrlLocal+"/");
+
               var regex = /href="([\S]+)"/g;
               newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
 
-              newHtml = newHtml.replace("/bm/", apiUrlLocal+"/");
-              
+              console.log("final html: ",newHtml);
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
               
             }).
