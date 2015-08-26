@@ -15,8 +15,9 @@ angular.module('starter.scheduleControllerShowParticipants', ['starter.schedules
   $scope.participants = [];
   $scope.asknext = false;
 
-  // $scope.accessRight = $localstorage.getObject('accessRight');
-  // $scope.addParticipants = $scope.accessRight.PARTICIPANTS.ADD;
+  $scope.accessRight = $localstorage.getObject('accessRight');
+  $scope.addParticipants = $scope.accessRight.APPOINTMENTPARTICIPANT.CREATE;
+  $scope.deleteParticipants = $scope.accessRight.APPOINTMENTPARTICIPANT.DELETE;
   // elgarjo
   
 

@@ -3,8 +3,8 @@
   <ion-nav-buttons side="right">
 
 <!-- elgarjo -->
-<!-- ng-if="addParticipants == true" -->
-    <button  class="button" style="border-style: none" ng-click="addParticipant()">
+
+    <button ng-if="addParticipants == 'true'" class="button" style="border-style: none" ng-click="addParticipant()">
       <i class="icon ion-person-add" style="{{colorFont}}"></i>
     </button>
 
@@ -29,7 +29,7 @@
             <h2>{{item.userName}}</h2>
             <p>{{item.groupName}} </p>
 
-            <i ng-if="item.canBeDeleted == 'true'" class="icon ion-trash-b" ng-click="deleteParticipant(item)"></i>
+            <i ng-if="item.canBeDeleted == 'true' && deleteParticipants == 'true'" class="icon ion-trash-b" ng-click="deleteParticipant(item)"></i>
         </a>
 
     </ion-list>
