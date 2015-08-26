@@ -90,10 +90,17 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
               // call factory 
               PopupFactory.getPopup($scope,data);
               console.log("results of request: ",data);
-              $scope.stringHtml = data;
+
+              //
               var newHtml = data.split("<img").join(" <img class='img-class' ");
+
+              var regex = /href="([\S]+)"/g;
+              newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
+
+              newHtml = newHtml.replace("/bm/", apiUrlLocal+"/");
               
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
+              
             }).
             error(function(data, status, headers, config) {
               // or server returns response with an error status.

@@ -10,6 +10,8 @@ angular.module('starter.scheduleControllerDetail', ['starter.scheduleservices','
 
   $scope.accessRight = $localstorage.getObject('accessRight');
   $scope.updatePermission = $scope.accessRight.APPOINTMENT.UPDATE;
+  // elgarjo
+  // $scope.seeParticipants = $scope.accessRight.PARTICIPANTS.SEE;
   console.log('Access right appointment update',$scope.accessRight);
 
   // EXECUTE QUERY WITH (appointment id)

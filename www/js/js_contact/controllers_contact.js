@@ -1,6 +1,6 @@
 angular.module('starter.contactcontrollers',['starter.contactservices','starter.constantscontact'] )
  
-.controller('editPersonCtrl', function(UPDATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$ionicPopup,$filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
+.controller('editPersonCtrl', function($cacheFactory,UPDATE_PER_AND_ORG_URL,GET_CITIES_OF_COUNTRY_URL,$ionicPopup,$filter,$ionicHistory,$state,$cordovaCamera,$cordovaImagePicker,PersonType,PopupFactory,apiUrlLocal,$http,transformRequestAsFormPost,bridgeService,$scope,COLOR_VIEW, $stateParams,apiUrlLocal,$localstorage) {
     $scope.apiUrlLocal = apiUrlLocal;
     $scope.colorFont = COLOR_VIEW;
     $scope.ntitle = $filter('translate')('EditPerson');
@@ -289,7 +289,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
       fd.append( 'dto(addressType)', $scope.entity.addressType);      
       fd.append( 'dto(version)', $scope.entity.version);      
       if ($scope.entity.name1 !=  undefined){
-        fd.append( 'dto(name1)', $scope.entity.name1);  
+        fd.append( 'dto(name1)', $scope.entity.name1);
       }
       else
       {
@@ -322,7 +322,11 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         fd.append( 'zip', $scope.city.zip);
       }    
 
-
+      console.log('----lo anterior changeeeeee entity',$scope.entity);
+      console.log('---- city',$scope.city);
+// ariel
+      // var aaaa = $cacheFactory;
+      // console.log('cache',aaaa);
 
       $scope.choices.forEach(function(choice){      
         index = verifyIndexTelecom(contIndexTelecom,choice);
@@ -1203,7 +1207,6 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
           $scope.asknext = true;  
         };
-        // $window.location.reload();
     })
 
   $scope.hideSearch = function() {
@@ -1218,7 +1221,7 @@ $scope.doRefresh = function() {
     $scope.searchKey = "";
     $scope.showSearchBar = false;
     $scope.pag = 1;
-    // $scope.$broadcast('scroll.infiniteScrollComplete');
+    $scope.$broadcast('scroll.infiniteScrollComplete');
 
   $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
 
@@ -1231,7 +1234,7 @@ $scope.doRefresh = function() {
     if (results['forward'] == "") {
       $scope.contacts = (results['mainData'])['list'];
       $scope.pagesintotal = parseInt((results['mainData'])['pageInfo']['totalPages']);
-      // $scope.$broadcast('scroll.refreshComplete'); 
+      $scope.$broadcast('scroll.refreshComplete'); 
         
       $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
@@ -2688,8 +2691,8 @@ $scope.search = function () {
       }       
     }  
 
-    $localstorage.setObject("EditContact",results.mainData);
-
+    // $localstorage.setObject("EditContact",results.mainData);
+// aaaaaaaaaaaaaa
     if (results.mainData.entity.countryId != "") {
       var countries = results.mainData.countryArray;
       countries.forEach(function(country) {
