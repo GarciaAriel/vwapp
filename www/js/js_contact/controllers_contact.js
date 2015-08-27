@@ -1165,7 +1165,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
 })
 
 
-.controller('ContactsCtrl', function($window,$cacheFactory,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
+.controller('ContactsCtrl', function(contactsListActual,$window,$cacheFactory,$ionicHistory,allContact,PopupFactory,$localstorage,$filter,$ionicScrollDelegate,$window,$scope,COLOR_VIEW, Contact,$timeout,$ionicLoading,apiUrlLocal,$location, $state, $window,$ionicPopup) {
 
     $ionicHistory.clearHistory();   
     $scope.apiUrlLocal = apiUrlLocal;
@@ -1181,15 +1181,18 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
     $scope.showSearchBar = false;
     $scope.apiUrlLocal = apiUrlLocal;
 
-    $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
-    $scope.contacts = [];
-    
-    $scope.asknext = false;
-   
+    // var contactListCache = contactsListActual.getContactList();
 
-    console.log("FIRST CALL",$scope.newContacts);
+    // if (contactListCache.list == undefined ) {
 
-    $scope.newContacts.$promise.then(function (results){
+      $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
+      $scope.contacts = [];
+        
+      $scope.asknext = false;
+
+      console.log("FIRST CALL",$scope.newContacts);
+
+      $scope.newContacts.$promise.then(function (results){
         
         // call factory 
         PopupFactory.getPopup($scope,results);
@@ -1197,6 +1200,7 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         console.log("THIS INFO",(results['mainData']));
   
         $scope.contacts = (results['mainData'])['list'];
+        contactsListActual.saveContactList(results['mainData']);
 
         console.log('LIST OF THE FIRST CONTACTS',$scope.contacts);
         $scope.page = parseInt((results['mainData'])['pageInfo']['pageNumber']);
@@ -1207,7 +1211,18 @@ angular.module('starter.contactcontrollers',['starter.contactservices','starter.
         if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
           $scope.asknext = true;  
         };
-    })
+      })
+
+    // }
+    // else{
+    //   console.log('--------sersdfsdf',contactListCache);
+    //   $scope.contacts = contactListCache.list;
+    //   $scope.page = contactListCache.pageInfo.pageNumber;
+    //   $scope.pagesintotal = contactListCache.pageInfo.totalPages;
+    //   if ($scope.contacts.length > 0 && $scope.pagesintotal>$scope.page) {
+    //     $scope.asknext = true;  
+    //   };
+    // }
 
   $scope.hideSearch = function() {
     $scope.searchKey = "";
@@ -1227,7 +1242,6 @@ $scope.doRefresh = function() {
 
   $scope.newContacts.$promise.then(function (results){
 
-
     // call factory 
     PopupFactory.getPopup($scope,results);
 
@@ -1238,6 +1252,8 @@ $scope.doRefresh = function() {
         
       $scope.pag=parseInt((results['mainData'])['pageInfo']['pageNumber']);
       $scope.totalpag=parseInt((results['mainData'])['pageInfo']['totalPages']);
+
+      // contactsListActual.saveContactList(results['mainData']);
       
       console.log('COMEBACK TO THE FIRST LIST',$scope.page);
       console.log('WITH THIS CONTACTS',$scope.contacts);
@@ -1254,7 +1270,7 @@ $scope.doRefresh = function() {
 
 $scope.loadMore = function() {
     
-    console.log("------------------1 loadMore principal");
+  console.log("------------------1 loadMore principal");
   console.log('Loading more contacts');
   $scope.page = $scope.page + 1;
   $scope.newContacts = allContact.query({'pageParam(pageNumber)':$scope.page});
@@ -1267,14 +1283,20 @@ $scope.loadMore = function() {
     console.log("++++new page #", $scope.page);
     $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
     $scope.$broadcast('scroll.infiniteScrollComplete');
-      console.log("++++new contacts list ", $scope.contacts);
-      
-      if ($scope.pagesintotal<=$scope.page+1) {
-          $scope.asknext = false;  
-        };
+    console.log("++++new contacts list ", $scope.contacts);
+    
+    // var finalObject = results['mainData'];
+    // finalObject.list = $scope.contacts;
+    // console.log('----===',finalObject);
+    // contactsListActual.saveContactList(finalObject);  
+
+
+    if ($scope.pagesintotal<=$scope.page+1) {
+        $scope.asknext = false;  
+      };
       
   });
-    };
+};
 
 
 $scope.getContactUrl = function(item,type){  
@@ -1363,6 +1385,8 @@ $scope.search = function () {
         console.log("search info", results['mainData']);
         console.log("list  of contacts, first search", $scope.contacts);
          
+        // contactsListActual.saveContactList(results['mainData']); 
+
         if ($scope.contacts.length > 0 && $scope.totalpag>$scope.pag) {
           $scope.asknext = true;  
         }; 
@@ -1399,6 +1423,13 @@ $scope.search = function () {
           $scope.contacts = $scope.contacts.concat((results['mainData'])['list']);
           $scope.$broadcast('scroll.infiniteScrollComplete');
           console.log("======0000new list of contacts for search",$scope.contacts);
+
+          
+
+          // var finalObject = results['mainData'];
+          // finalObject.list = $scope.contacts;
+          // console.log('----===',finalObject);
+          // contactsListActual.saveContactList(finalObject);  
                 
       });
             
