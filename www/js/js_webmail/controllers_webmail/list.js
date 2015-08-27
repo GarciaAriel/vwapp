@@ -272,7 +272,7 @@ angular.module('starter.webmailControllerListEmail', ['starter.webmailservices',
     if ($scope.folderName == "DraftItems") {
       // '/mail-detail?mailId&folderId&typeFolder'
       // '/newmail?to&replyOperation&mailId'
-      return "#/app/newmail?replyOperation=REPLY&mailId="+item.mailId;
+      return "#/app/newmail?replyOperation=REPLY&mailId="+item.mailId+"&folderName="+$scope.folderName;
       // $state.go('app.newmail',{'replyOperation':'REPLY','mailId':item.mailId});
     }
     else{

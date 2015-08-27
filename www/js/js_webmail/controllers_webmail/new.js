@@ -15,6 +15,8 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
     $scope.data.to = $stateParams.to;
   }
 
+  $scope.typeFolder = $stateParams.folderName;
+  console.log('-----typeFolder',$scope.typeFolder);
   // only for reply mail
   var boolBodyReply = false;
 
@@ -94,9 +96,10 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
               //
               var newHtml = data.split("<img").join(" <img class='img-class' ");
 
-              newHtml = newHtml.split("/bm/").join(apiUrlLocal+"/");
+              newHtml = newHtml.split('"/bm/').join('"'+apiUrlLocal+"/");
 
               var regex = /href="([\S]+)"/g;
+
               newHtml = newHtml.replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
 
               $scope.thisCanBeusedInsideNgBindHtml = $sce.trustAsHtml(newHtml);
