@@ -270,10 +270,7 @@ angular.module('starter.webmailControllerListEmail', ['starter.webmailservices',
 
   $scope.getUrlDetailOrSend = function(item){
     if ($scope.folderName == "DraftItems") {
-      // '/mail-detail?mailId&folderId&typeFolder'
-      // '/newmail?to&replyOperation&mailId'
-      return "#/app/newmail?replyOperation=REPLY&mailId="+item.mailId+"&folderName="+$scope.folderName;
-      // $state.go('app.newmail',{'replyOperation':'REPLY','mailId':item.mailId});
+      return "#/app/newmail?mailId="+item.mailId+"&folderName="+$scope.folderName+"&folderId="+item.folderId;
     }
     else{
       return "#/app/mail-detail?mailId="+item.mailId+"&folderId="+item.folderId+"&typeFolder="+$scope.typeFolder;

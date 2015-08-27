@@ -77,6 +77,10 @@ angular.module('starter.webmailControllerDetail', ['starter.webmailservices','st
             });
         }
         else{
+          // var message = $scope.item.body;
+          // console.log("---====== 123444body type text:",message);
+          // $scope.bodyTypeText = $sce.trustAsHtml(message);
+          //
           angular.element(document).ready(function () {
             console.log('page loading completed');
             var element = document.getElementById("page_content");
