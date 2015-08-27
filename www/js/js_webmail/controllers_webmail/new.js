@@ -77,7 +77,7 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
         // $scope.bodyTypeText = $sce.trustAsHtml(message);
         //
         $scope.data.body2 = $scope.data.body;
-        
+
         angular.element(document).ready(function () {
           console.log('aaq page loading completed');
           var element = document.getElementById("page_content2");
@@ -180,19 +180,21 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
             });
         }
         else{
-          $scope.data.body2 = $scope.data.body;
-          $scope.data.body = "";
-          angular.element(document).ready(function () {
-            console.log('page loading completed');
-            var element = document.getElementById("page_content2");
-            element.style.height = element.scrollHeight + "px";
-          });
-          
-
-          // var message = $scope.data.body;
-          // console.log("body type text:",message);
-          // $scope.bodyTypeText = $sce.trustAsHtml(message);
-          // $scope.data.body = "";
+          if ($scope.typeFolder == 'DraftItems') {
+            $scope.data.body2 = $scope.data.body;
+            $scope.data.body = "";
+            angular.element(document).ready(function () {
+              console.log('page loading completed');
+              var element = document.getElementById("page_content2");
+              element.style.height = element.scrollHeight + "px";
+            });  
+          }
+          else{
+            var message = $scope.data.body;
+            console.log("body type text:",message);
+            $scope.bodyTypeText = $sce.trustAsHtml(message);
+            $scope.data.body = "";  
+          }
           
         }
 
