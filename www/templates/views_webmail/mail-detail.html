@@ -125,4 +125,15 @@
 
     </ion-content>
 </ion-view>
-<!-- </ion-nav-view>
+
+<script>
+
+  $(document).ready(function() { 
+    $('iframe').load(function() { 
+      var element = document.getElementById("page_content");
+      element.style.height = element.scrollHeight + "px";
+    }
+  });
+      
+</script>
+
