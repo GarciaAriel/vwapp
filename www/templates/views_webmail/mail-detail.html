@@ -21,11 +21,11 @@
   </ion-nav-buttons>
 
 
-  <ion-content direction="xy">
+  <ion-content direction="xy" on-swipe-right="onSwipeRight(item)" on-swipe-left="onSwipeLeft(item)">
 
     <ion-slide-box show-pager="false" active-slide="myActiveSlide">
     
-      <ion-slide style="padding-top: 0px;" on-swipe-right="onSwipeRight(item)" on-swipe-left="onSwipeLeft(item)">
+      <ion-slide style="padding-top: 0px;">
 
         <div class="list card" style="text-align: justify;">
             

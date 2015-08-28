@@ -15,12 +15,41 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
     $scope.data.to = $stateParams.to;
   }
 
+  if ($stateParams.replyOperation == undefined && $scope.typeFolder == undefined) {
+    var request = $http({
+      method: "get",    
+      url: apiUrlLocal+FORWARD_CREATE_MAIL_URL
+    });
+    request.success(
+      function(data, status, headers, config) {          
+        
+        // call factory to validate the response
+        PopupFactory.getPopup($scope,data);
+        
+        console.log("results of request: ",data);
+
+        var aMailAccountArray = data.mainData.mailAccountArray;
+        $scope.mailAccountArray = [];
+        aMailAccountArray.forEach(function(aMail) {
+          $scope.mailAccountArray.push({
+            name: aMail.email,
+            value: aMail.mailAccountId
+          });       
+          if( aMail.isDefaultAccount == 'true') {
+            $scope.mailAccount = $scope.mailAccountArray[$scope.mailAccountArray.length-1];  
+          }
+        });
+      }
+    );  
+  }
+
+  // draft items send mail
   $scope.typeFolder = $stateParams.folderName;
   if ($scope.typeFolder != undefined && $scope.typeFolder == "DraftItems") {
     console.log('aaq mailid',$stateParams.mailId);
     console.log('aaq folderId',$stateParams.folderId);
 
-//  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
+    //  CALL SERVICES WITH (PAGE NUMBER AND FOLDER ID)
     $scope.detail = Mail.query({'dto(mailId)': $stateParams.mailId,'folderId': $stateParams.folderId});
     
     // PROMISE
@@ -31,6 +60,10 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
 
       console.log("aaq query detail success OK data: ",results);
       $scope.data = (results['mainData'])['entity'];
+
+      // aaaaaaaaaaaaaaaaa
+      // $scope.data.to var mailAccount = $scope.mailAccount != undefined ? $scope.mailAccount.value : "";
+      // $scope.data = {to: "", cc: "", bcc: "",mailSubject: "",body: "",body2: "",bodyType:"0"};
 
       var aMailAccountArray = results['mainData']['mailAccountArray'];// data.mainData.mailAccountArray;
       $scope.mailAccountArray = [];
@@ -76,6 +109,7 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
         // console.log("---====== 123444body type text:",message);
         // $scope.bodyTypeText = $sce.trustAsHtml(message);
         //
+        console.log('---inicio body',$scope.data.body);
         $scope.data.body2 = $scope.data.body;
 
         angular.element(document).ready(function () {
@@ -94,33 +128,7 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
 
   // query to get list of emails only in new mail
   
-  if ($stateParams.replyOperation == undefined && $scope.typeFolder == undefined) {
-    var request = $http({
-      method: "get",    
-      url: apiUrlLocal+FORWARD_CREATE_MAIL_URL
-    });
-    request.success(
-      function(data, status, headers, config) {          
-        
-        // call factory to validate the response
-        PopupFactory.getPopup($scope,data);
-        
-        console.log("results of request: ",data);
-
-        var aMailAccountArray = data.mainData.mailAccountArray;
-        $scope.mailAccountArray = [];
-        aMailAccountArray.forEach(function(aMail) {
-          $scope.mailAccountArray.push({
-            name: aMail.email,
-            value: aMail.mailAccountId
-          });       
-          if( aMail.isDefaultAccount == 'true') {
-            $scope.mailAccount = $scope.mailAccountArray[$scope.mailAccountArray.length-1];  
-          }
-        });
-      }
-    );  
-  }
+  
   
   if ($stateParams.mailId && $stateParams.replyOperation) {
     boolBodyReply = true;
@@ -280,7 +288,21 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
     fd.append( 'save', 'save');
     fd.append( 'dto(to)', $scope.data.to);
     fd.append( 'dto(mailSubject)', $scope.data.mailSubject);
-    fd.append( 'dto(body)', $scope.data.body+$scope.data.body2);
+
+    console.log('------body',$scope.data.body);
+    console.log('------body2',$scope.data.body2);
+    if ($scope.data.body != undefined && $scope.data.body2 != undefined) {
+      fd.append( 'dto(body)', $scope.data.body+$scope.data.body2);  
+    }
+    else{
+      if ($scope.data.body2 != undefined) {
+        fd.append( 'dto(body)', $scope.data.body2);           
+      }
+      else{
+        fd.append( 'dto(body)', $scope.data.body);
+      }
+    }
+    
     
 
     var mailAccount = $scope.mailAccount != undefined ? $scope.mailAccount.value : "";
@@ -298,7 +320,6 @@ angular.module('starter.webmailControllerNew', ['starter.webmailservices','start
     if($scope.imgURI != undefined){
       fd.append('dto(attachmentCounter)',1);
       fd.append('dto(file1)',dataURItoBlob($scope.imgURI));
-      console.log('ifffff imgUri');
     }
 
     if ($scope.mySwitch) {
