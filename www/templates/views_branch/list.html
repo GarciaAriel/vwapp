@@ -1,0 +1,41 @@
+<ion-view hide-back-button="true" cache-view="true" view-title="{{ 'Branchs' | translate}}">
+
+  <ion-nav-buttons side="right">
+  
+    <button class="button borderNone" ng-click="searchcon()">
+      <i class="icon ion-ios7-search"></i>
+    </button>
+  
+  </ion-nav-buttons>
+    
+  <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
+    <span class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+
+      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="doRefresh(true)">
+      <button class="button button-clear" ng-click="hideSearch()">X</button>
+    </span>
+
+    <button class="button button-clear button-assertive" ng-click="doRefresh(true)">{{ 'Search' | translate}}</button>
+  </div>
+
+
+  <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
+
+    <ion-refresher pulling-text="{{'PulltoRefresh' | translate}}" on-refresh="doRefresh(false)" refreshing-icon="ion-loading-d">
+    </ion-refresher>
+
+    <h4 ng-if='isEmptyList != ""' class="text-center">{{ 'ListEmpty' | translate}}</h4>
+
+      <div class="list" >
+        <a ng-repeat="item in products" class="item item-icon-right" href="#/app/contactPersonBranch?branchId={{item.branchId}}&branchName={{item.branchName}}">
+          {{ item.branchName }}
+          <i class="icon ion-chevron-right"></i>
+        </a>
+      </div>
+      
+    <ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

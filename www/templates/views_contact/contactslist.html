@@ -1,0 +1,48 @@
+<ion-view hide-back-button="true" cache-view="true" view-title="{{ 'Members' | translate}}">
+
+  <ion-nav-buttons side="right">
+
+    <a href="#/app/contacts">
+      <button class="button borderNone" ng-click="searchcon()">
+        <i class="icon ion-ios7-search"></i>
+      </button>
+    </a>
+
+  </ion-nav-buttons>  
+
+  <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
+    <span class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+
+      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="doRefresh(true)">
+      <button class="button button-clear" ng-click="hideSearch()">X</button>
+    </span>
+
+    <button class="button button-clear button-assertive" ng-click="doRefresh(true)">{{ 'Search' | translate}}</button>
+  </div>
+
+
+  <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
+
+    <ion-refresher pulling-text="{{'PulltoRefresh' | translate}}" on-refresh="doRefresh(false)" refreshing-icon="ion-loading-d">
+    </ion-refresher>
+
+    <h4 ng-if='isEmptyList != ""' class="text-center">{{ 'ListEmpty' | translate}}</h4>
+
+    <ion-list ng-repeat="item in contacts">
+    
+        <a ng-click="getContactUrl(item)" class="item item-thumbnail-left itemPadding">
+            <img ng-if='item.imageId !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}" style="width: 60px;">
+            <img ng-if='item.imageId ==""' ng-src="img/contactp.png" style="width: 60px; height: 60px">                      
+
+            <h2>{{item.organizationName}}</h2>
+            <p>{{item.titleName}} {{item.contactPersonName}}</p>
+            <p>{{item.function}} </p>
+        </a>
+    </ion-list>
+
+    <ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>

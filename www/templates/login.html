@@ -1,0 +1,53 @@
+
+<ion-view view-title="{{ 'Login' | translate}}" name="login-view">
+  <ion-content class="padding"> 
+    <br> 
+    <div align="center" class="col col-80 col-offset-10">
+        <img ng-if="imageUrlCompany == undefined" class="img-responsive" src="img/bm_image.png">
+        <img ng-if="imageUrlCompany != undefined" class="img-responsive" ng-src="{{imageUrlCompany}}">      
+    </div>
+    <br>
+      
+    <form >
+      <div class="row">
+        <div class="col col-90 col-offset-10">
+          <label class="item item-input">
+            <i class="icon ion-person"></i>&nbsp;&nbsp;
+            <input type="text" placeholder="{{ 'Username' | translate}}" ng-model="data.username">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-90 col-offset-10">
+          <label class="item item-input">
+            <i class="icon ion-locked"></i>&nbsp;&nbsp;
+            <input type="password" placeholder="{{ 'Password' | translate}}" ng-model="data.password">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-90 col-offset-10">
+          <label class="item item-input">
+            <i class="icon ion-person-stalker"></i>&nbsp;&nbsp;
+            <input type="text" placeholder="{{ 'Company' | translate}}" ng-model="data.company">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col col-10"></div>
+
+          <div class="col col-90">
+            <button class="button button-full button-positive" ng-click="doLogin()">{{ 'Login' | translate}}</button>        
+          </div>
+
+          <div class="col col-10"></div>
+      </div>
+
+    </form>
+
+
+  </ion-content>
+</ion-view>

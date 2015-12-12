@@ -1,0 +1,69 @@
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+
+    <ion-nav-view name="menuContent">
+    </ion-nav-view>
+
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">{{ 'Menu' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content>
+      <ion-list>
+<!--ng-if='accessRightProduct == "true"'-->
+        <ion-item   nav-clear menu-close href="#/app/products">
+          <i class="icon ion-calendar">
+            {{ 'Events' | translate}}
+          </i>    
+        </ion-item>
+<!--ng-if='accessRightContact == "true"'-->
+        <ion-item   nav-clear menu-close href="#/app/contacts">
+          <i class="icon ion-person-stalker">
+            {{ 'Members' | translate}}
+          </i>
+        </ion-item>
+
+        <ion-item nav-clear menu-close href="#/app/branchs">
+          <i class="icon ion-home">
+            {{ 'Branchs' | translate}}
+          </i>
+        </ion-item>
+
+        <ion-item  nav-clear menu-close href="#/app/profile?contactId=1&addressId=1&contactPersonId=30520">
+          <i class="icon ion-gear-a">
+            {{ 'Profile' | translate}}
+          </i>
+        </ion-item>
+
+        <ion-item  nav-clear menu-close href="#/app/information">
+          <i class="icon ion-information">
+            {{ 'Information' | translate}}
+          </i>
+        </ion-item>
+
+        <ion-item nav-clear menu-close ng-click="logout()" >
+          <i class="icon ion-log-out">
+            {{ 'Logout' | translate}}
+          </i>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+</ion-side-menus>
+

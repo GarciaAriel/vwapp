@@ -1,0 +1,70 @@
+<ion-view hide-back-button="true" view-title="{{ 'Events' | translate}}">
+
+  <ion-nav-buttons side="right">
+  
+    <button class="button borderNone" ng-click="searchIcon()">
+      <i class="icon ion-ios7-search"></i>
+    </button>
+  
+  </ion-nav-buttons>
+    
+  <div ng-if="showSearchBar" class="bar bar-subheader item-input-inset">
+    <span class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+
+      <input id="searchKey" type="search" placeholder="{{ 'Search' | translate}}" ng-model="$parent.searchKey" autocorrect="off" focus="true" ng-enter="doRefresh(true)">
+      <button class="button button-clear" ng-click="hideSearch()">X</button>
+    </span>
+
+    <button class="button button-clear button-assertive" ng-click="doRefresh(true)">{{ 'Search' | translate}}</button>
+  </div>
+
+  <ion-content ng-class="showSearchBar ? 'has-header has-subheader' : 'has-header'">
+
+
+    <ion-refresher pulling-text="{{'PulltoRefresh' | translate}}" on-refresh="doRefresh(false)" refreshing-icon="ion-loading-d">
+    </ion-refresher>
+    
+      <h4 ng-if='isEmptyList != ""' class="text-center">{{ 'ListEmpty' | translate}}</h4>
+    
+    <ion-list ng-repeat="item in products">
+      
+      <a ng-href="{{getProductUrl(item)}}" class="item item-thumbnail-left item-icon-right">
+        <img ng-if='item.imageUrl !=""' ng-src="{{apiUrlLocal}}{{item.imageUrl}}">
+        <img ng-if='item.imageUrl ==""' ng-src="img/image_product.png">
+        <div class="row">
+          <div class="col col-50">
+            <i class="ion-calendar"> {{mySplit(item.initDateTimeFormated,0)}} </i>
+          </div>
+          <div class="col col-50">
+            <i class="ion-clock"> {{mySplit(item.initDateTimeFormated,1)}}</i>    
+          </div>
+        </div>
+        <div>
+          <h2>{{ item.productName }}</h2>
+        </div>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+
+    </ion-list>
+
+    <ion-infinite-scroll ng-if="asknext" immediate-check="false" on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+
+  </ion-content>
+
+  <div class="tabs-striped tabs-color-assertive">
+    <div class="tabs">
+      <a class="{{isCurrentActive}}" ng-click="currentEvent()">
+        {{'Current' | translate}}
+      </a>
+      <a class="{{isMineActive}}"  ng-click="mineEvent()">
+        {{'Mine' | translate}}
+      </a>
+      <a class="{{isArchiveActive}}" ng-click="archiveEvent()">
+        {{'Archive' | translate}}
+      </a>
+    </div>
+  </div>
+
+</ion-view>

@@ -1,0 +1,109 @@
+<ion-view cache-view="true" view-title="{{ 'Detail' | translate}}">
+  
+  <ion-nav-buttons side="right">
+    
+      <button class="button borderNone" ng-click="getParticipantsUrl(entity.productId)">
+        <i class="icon ion-person-stalker" ></i>
+      </button>
+    
+      <button ng-if='entity.isParticipant == "false"'  class="button borderNone" ng-click="joinProduct(entity.productId)">
+        <i class="ion-android-add"></i>
+      </button>
+
+      <button ng-if='entity.isParticipant == "true"' class="button borderNone">
+        <i class="icon ion-checkmark-circled"></i>
+      </button>
+    
+    <a>
+      <button class="button borderNone" style="height: 0px;padding-left: 0px;padding-right: 0px;"></button>
+    </a>
+
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <div class="card">
+      <div class="row">
+        <div class="col col-100 addPaddingLeft text-center">
+          <h3>{{entity.productName}}</h3>  
+        </div>
+      </div>
+
+      <ion-slide-box ng-if="boolPicture" active-slide="myActiveSlide" style="padding-top: 0px;" ng-repeat="p in help">
+          <ion-slide style="padding-top: 0px;" ng-repeat="picture in productPictureArray">
+            <div class="item ">
+              <img class="imageWidthProduct" ng-src="{{apiUrlLocal}}{{picture.imageUrl}}">
+            </div>
+          </ion-slide>
+
+          <ion-slide ng-if="boolPicture == false" style="padding-top: 0px;">
+            <div class="item ">
+              <img class="imageWidthProduct" ng-src="img/image_product.png">
+            </div>
+          </ion-slide>    
+      </ion-slide-box>
+
+<!--button class="button borderNone" ng-click="linkMaps(-17.405083,-66.150929)">
+  aaaa
+</button-->
+
+      <div class="row addPaddingLeft">
+        <div class="col col-50">
+          <div class="row">
+            <div class="col col-20 col-offset-10">
+              <i class="icon ion-ios7-location"></i>
+            </div>
+
+            <div class="col">
+              <a ng-click="linkMap()">
+                {{entity.eventAddress}}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col col-50">
+          <div class="row">
+            <div class="col col-20 col-offset-10">
+              <i class="icon ion-clock"></i>
+            </div>
+            
+            <div class="col">
+                {{stringDay}}
+                {{entity.initDateTimeFormated}} - {{endHour}}
+                                                
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if='entity.description != ""' class="item item-icon-left dark">
+        <i class="icon ion-information"></i>
+          {{entity.description}}
+      </div>
+
+      <div ng-if='entity.priceFormatted != ""' class="item item-icon-left dark">
+        <i class="icon glyphicon-euro"></i>
+          {{entity.priceFormatted}}
+      </div>
+
+      <div ng-if='entity.webSiteLink != ""' class="item item-icon-left dark">
+        <i class="icon ion-earth"></i>
+          {{entity.webSiteLink}}
+      </div>
+
+      <div>
+        
+      </div>
+
+      
+      <div id="map" data-tap-disabled="true"></div>  
+      
+
+    </div>
+
+   
+
+  </ion-content>
+</ion-view>
+

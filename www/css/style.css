@@ -1,0 +1,110 @@
+/* Empty. Add your own CSS if you like */
+.imageWidthProduct {
+  width: 50% !important;
+}
+
+.addPaddingLeft {
+  padding-left: 15px;  
+}
+
+.align-leftt {
+   float: left;
+   width: 49%;
+}
+.border-card-email{
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+}
+
+.item-body-auto {
+  overflow: auto;
+  padding: 3px;
+  text-overflow: inherit;
+  white-space: normal; 
+  padding-left: 15px;
+}
+
+.borderNone{
+  border-style: none;
+}
+
+/*change color app*/
+i.icon {
+  color: #221577;
+}
+
+i.ion-android-add{
+ color: #221577; 
+}
+
+a.tab-item{
+ color: #221577 !important; 
+}
+
+a.active{
+ color: #221577 !important; 
+ border-color: #221577 !important;
+}
+
+button.button-icon{
+  color: #221577 !important;
+}
+
+.bar.bar-assertive{
+  background-color: #221577;
+}
+
+.toggle.toggle-assertive input:checked + .track {
+    background-color: #221577;
+    border-color: #221577;
+}
+
+.button.button-positive {
+    background-color: #221577;
+    border-color: #221577;
+    color: #fff;
+}
+/*end change color app*/
+
+/*item without padding left*/
+.itemPadding{
+  padding-left: 80px;  
+}
+
+/*height of item divider*/
+.item.item-divider{
+  height: 35px;  
+}
+
+/**/
+.telicomName{
+  width: 35%;  
+}
+.telecomDetail{
+  width: 65%;  
+}
+
+.telecomList{
+  width: 100%;  
+}
+
+.scroll {
+    height: 100%;
+}
+ 
+#map {
+    width: 100%;
+    height: 200px;
+}

@@ -1,0 +1,69 @@
+<ion-view cache-view="false" view-title="{{ 'Profile' | translate}}">
+
+  <ion-nav-buttons side="right">
+    <button class="button borderNone" ng-click="editPassword()">
+      <i class="icon ion-edit" ></i>
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <div class="list card">
+      	<div class="item item-thumbnail-left itemPadding" >
+          <img ng-if='contact.mainData.entity.imageId ==""' ng-src="img/contactp.png" style="width: 65px; height:70px;">
+          <img ng-if='contact.mainData.entity.imageId !=""' ng-src="{{apiUrlLocal}}{{contact.mainData.entity.imageUrl}}" style="width: 65px; height: auto;">
+          
+          <div>
+            <div ng-if="contact.mainData.entity.organizationName">
+              <div class="item item-body-auto" style="padding-left: 2px;">
+                {{contact.mainData.entity.organizationName}} <br>
+                {{titleperson}} {{contact.mainData.entity.name1}}{{contact.mainData.entity.name2=='' ? '' : ',' }} {{contact.mainData.entity.name2}}{{contact.mainData.entity.name3=='' ? '' : ',' }} {{contact.mainData.entity.name3}}<br>
+                {{contact.mainData.entity.function}}
+              </div>
+            </div>          
+          </div>
+      	</div>
+    </div>
+  
+    <div class="list card">
+     	<div class="item item-divider bar bar-header bar-assertive">
+       	{{ 'Address' | translate}}
+     	</div>
+           
+      <div class="item item-body">
+          <div ng-if='contact.mainData.entity.orgStreet != ""'>{{contact.mainData.entity.orgStreet}} {{contact.mainData.entity.orgHouseNumber}} </div>
+          <div ng-if='contact.mainData.entity.orgCity != ""'>{{contact.mainData.entity.orgZip}} {{contact.mainData.entity.orgCity}}</div>         
+          <div ng-if='contact.mainData.entity.orgCountryName != ""'>{{contact.mainData.entity.orgCountryName}}</div>
+      </div>                      
+    </div>
+
+    <div class="list card">
+       <div class="item item-divider bar bar-header bar-assertive">
+         {{ 'Communication' | translate}}
+       </div>
+
+       <div class="item item-body">
+          <div ng-if="firstGruoup.length != 0">
+            <div ng-repeat="telecom in telecomss">
+              <div ng-repeat="tele in telecom.telecomList">
+                <table class="col">
+                  <tr>
+                    <td class="col col-33">
+                      {{telecom.telecomTypeName}}:
+                    </td>  
+                    <td class="col col-67">
+                      <a ng-if="telecom.telecomTypeType == 'PHONE'" ng-href="tel:{{tele.data}}">{{tele.data}}</a>   
+                      <a ng-if="telecom.telecomTypeType == 'EMAIL'" ng-click="writeEmail(tele.data)">{{tele.data}}</a>
+                      <a ng-if="telecom.telecomTypeType == 'LINK'"  ng-click="go_to(tele.data)">{{tele.data}}</a>
+                      <a ng-if="telecom.telecomTypeType != 'LINK' && telecom.telecomTypeType != 'EMAIL' && telecom.telecomTypeType != 'PHONE'" >{{tele.data}}</a>
+                    </td>                    
+                  </tr>                    
+                </table>                           
+              </div>
+            </div>
+          </div>   
+       </div>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,980 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"unde",
+				"underscore"
+			],
+			[
+				"undes",
+				"underscorejs"
+			],
+			[
+				"company",
+				"companyLogin"
+			],
+			[
+				"cl",
+				"closeLogin"
+			],
+			[
+				"s",
+				"scope"
+			],
+			[
+				"login",
+				"loginData"
+			],
+			[
+				"a",
+				"action"
+			],
+			[
+				"sele",
+				"selectedBook"
+			],
+			[
+				"se",
+				"selectedChapter"
+			],
+			[
+				"va",
+				"valueattr"
+			],
+			[
+				"margin-",
+				"margin-left"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"currentC",
+				"currentChap"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"che",
+				"checkForStartSelection"
+			],
+			[
+				"dev",
+				"devAnnotator"
+			],
+			[
+				"the",
+				"the-canvas"
+			],
+			[
+				"initial",
+				"initialized"
+			],
+			[
+				"c",
+				"canvas"
+			],
+			[
+				"page",
+				"pageNum"
+			],
+			[
+				"ratio",
+				"ratioW"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"inner",
+				"innerWidth"
+			],
+			[
+				"res",
+				"resizeCanvas"
+			],
+			[
+				"me",
+				"meanTime"
+			],
+			[
+				"com",
+				"commenting"
+			],
+			[
+				"comment",
+				"commentReset"
+			],
+			[
+				"comm",
+				"commentNr"
+			],
+			[
+				"co",
+				"colgroup	Tag"
+			],
+			[
+				"cu",
+				"curentTab"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"d",
+				"display"
+			],
+			[
+				"ch",
+				"chapContainer"
+			],
+			[
+				"C",
+				"Chapter"
+			],
+			[
+				"chap",
+				"chapterNr"
+			],
+			[
+				"chan",
+				"changeSrc"
+			],
+			[
+				"current",
+				"currentBookId"
+			],
+			[
+				"boo",
+				"bookId"
+			],
+			[
+				"change",
+				"changeBook"
+			],
+			[
+				"tex",
+				"text-decoration"
+			],
+			[
+				"font-",
+				"font-weight"
+			],
+			[
+				"int",
+				"instance"
+			],
+			[
+				"getT",
+				"getTileAtCellPosition"
+			],
+			[
+				"set",
+				"selectedTile"
+			],
+			[
+				"sli",
+				"slideav3"
+			],
+			[
+				"slide",
+				"slideav1"
+			],
+			[
+				"has",
+				"hash"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"i",
+				"italic"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "www/templates/contacts.html",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/templates/contact.html",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 2218,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "www/js/app.js",
+			"settings":
+			{
+				"buffer_size": 4115,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/www/js/app.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/www/index.html",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\n<html xmlns=\"http://www.w3.org/1999/xhtml\" >\n<head id=\"ctl00_Head1\"><meta http-equiv=\"Expires\" content=\"0\" /><meta http-equiv=\"Cache-Control\" content=\"no-cache\" /><meta http-equiv=\"Pragma\" content=\"no-cache\" /><title>\n	Emisión de facturas\n</title><link href=\"../../../../../Principal.css\" rel=\"stylesheet\" type=\"text/css\" /><link href=\"../../../../../Principal1.css\" rel=\"stylesheet\" type=\"text/css\" /><link href=\"../../../../../Trabajo.css\" rel=\"stylesheet\" type=\"text/css\" /><link href=\"../../../../../Certificacion.css\" rel=\"stylesheet\" type=\"text/css\" />\n  <style type=\"text/css\">\n#splashRecuperando {\n	position: fixed;\n	left: 200;\n	top: 300;\n	z-index: 1500;\n	background-color: white;\n	display: block;\n	width: 250px;\n	height: 30px;\n	border: 1px solid blue;\n	font-family: Verdana, Arial, Helvetica, sans-serif;\n	font-size: 9px;\n}\n</style>\n<!--[if gte IE 5.5]>\n	<![if lt IE 7]>\n	<style>\n	#modalBackground, #modalIframe\n	{    \n		position: absolute;\n		left: expression(ignoreMe = document.documentElement.scrollLeft + \"px\");\n		top: expression(ignoreMe = document.documentElement.scrollTop + \"px\");\n		width: expression(document.documentElement.clientWidth + \"px\");\n		height: expression(document.documentElement.clientHeight + \"px\");\n	}\n	#modalIframe\n	{\n		filter: alpha(opacity=0);\n		z-index: 8;\n	}\n	\n	#splashRecuperando\n	{\n		position: absolute;\n		left: expression(ignoreMe = document.documentElement.scrollLeft + \"px\");\n		top: expression(ignoreMe = document.documentElement.scrollTop + \"px\");\n	}\n	</style>\n	<![endif]>\n	<![endif]-->\n  <script language=\"javascript\" type=\"text/javascript\">\n\n//Llevar al Master Page\nfunction OnWindowResize(id)\n{\n	// we only need to move the dialog based on scroll position if\n	// we're using a browser that doesn't support position: fixed, like IE\n	var left = document.all ? document.documentElement.scrollLeft : 0;\n	var top = document.all ? document.documentElement.scrollTop : 0;\n	var div = document.getElementById(id);\n	\n	div.style.left = Math.max((left + (GetWindowWidth() - div.offsetWidth) / 2), 0) + 'px';\n	div.style.top = Math.max((top + (GetWindowHeight() - div.offsetHeight) / 2), 0) + 'px';\n}\n//Llevar al Master Page\nfunction GetWindowWidth()\n{\n	var width =\n		document.documentElement && document.documentElement.clientWidth ||\n		document.body && document.body.clientWidth ||\n		document.body && document.body.parentNode && document.body.parentNode.clientWidth ||\n		0;\n		\n	return width;\n}\n//Llevar al Master Page\nfunction GetWindowHeight()\n{\n    var height =\n		document.documentElement && document.documentElement.clientHeight ||\n		document.body && document.body.clientHeight ||\n  		document.body && document.body.parentNode && document.body.parentNode.clientHeight ||\n  		0;\n  		\n  	return height;\n}\n//Llevar al Master Page\nfunction getElement(id)\n{\n	if (document.getElementById) \n		return document.getElementById(id);\n	else \n		if (document.layers) \n			return document.layers[id];\n		else \n			if (document.all) \n				return document.all[id];\n}\n</script>\n  \n<link href=\"../../../../../App_Themes/Newton/Certificacion.css\" type=\"text/css\" rel=\"stylesheet\" /><link href=\"../../../../../App_Themes/Newton/Principal.css\" type=\"text/css\" rel=\"stylesheet\" /><link href=\"../../../../../App_Themes/Newton/Principal1.css\" type=\"text/css\" rel=\"stylesheet\" /><link href=\"../../../../../App_Themes/Newton/Styles.css\" type=\"text/css\" rel=\"stylesheet\" /><link href=\"../../../../../App_Themes/Newton/Trabajo.css\" type=\"text/css\" rel=\"stylesheet\" /></head>\n<body bottommargin=\"0\" leftmargin=\"0\" rightmargin=\"0\" class=\"Body\" bgcolor= \"#2A4E66\">\n    <form name=\"aspnetForm\" method=\"post\" action=\"default.aspx\" id=\"aspnetForm\">\n<div>\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTU0Mzc1NzEzMQ9kFgJmD2QWAgIDD2QWCAIDDw8WAh4EVGV4dAUJMjkzMjM0MDIxZGQCBA8PFgIfAAUVSlVMSUVOIFBJRVJSRSBPUlRFR0EgZGQCBg9kFgoCAw8QDxYCHgtfIURhdGFCb3VuZGdkDxYBZhYBEAVZQ0FMTEUgU09MIERFIFNFUFRJRU1CUkUgIE5vLiBTL04gWm9uYSBIVUFZTExBTkkgICAgVGVsLiA0NzI2MzY0IFRlbC4gNjg5MDAwMDggPUNPQ0hBQkFNQkEFWUNBTExFIFNPTCBERSBTRVBUSUVNQlJFICBOby4gUy9OIFpvbmEgSFVBWUxMQU5JICAgIFRlbC4gNDcyNjM2NCBUZWwuIDY4OTAwMDA4ID1DT0NIQUJBTUJBZxYBZmQCBQ8QDxYCHwFnZA8WAWYWARAFHUNvbiBkZXJlY2hvIGEgY3LDqWRpdG8gZmlzY2FsBR1Db24gZGVyZWNobyBhIGNyw6lkaXRvIGZpc2NhbGcWAWZkAgcPDxYCHgFFBQoxMS8wMy8yMDE1ZGQCFQ8UKwACDxYGHglJdGVtQ291bnQC/////w8eDERhdGFLZXlGaWVsZAUbTnVtZXJvU2VjdWVuY2lhLE51bWVyb0xpbmVhHgtfIUl0ZW1Db3VudGZkPCsAHAIAFgYeE3NlckFjdGl2ZUNlbGxTdHJpbmdkHhJBbGxvd1VwZGF0ZURlZmF1bHQLKZoBSW5mcmFnaXN0aWNzLldlYlVJLlVsdHJhV2ViR3JpZC5BbGxvd1VwZGF0ZSwgSW5mcmFnaXN0aWNzMi5XZWJVSS5VbHRyYVdlYkdyaWQudjcuMSwgVmVyc2lvbj03LjEuMjAwNzEuNDAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49N2RkNWMzMTYzZjJjZDBjYgEeEnNlckFjdGl2ZVJvd1N0cmluZ2QUFCsAAmQWATwrABQCABYIHgNLZXkFC0RUREZhY3R1cmFzHg1CYXNlVGFibGVOYW1lBQtEVERGYWN0dXJhcx4QQWRkQnV0dG9uQ2FwdGlvbgULRFRERmFjdHVyYXMfBAUbTnVtZXJvU2VjdWVuY2lhLE51bWVyb0xpbmVhDRQrAAQWDSgpWlN5c3RlbS5VSW50NjQsIG1zY29ybGliLCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQEwKCsFATEoKwUBMigrBQEzKCsFATQoKwUBNSgrBQE2KCsFATcoKwUBOCgrBQE5KCsFCjg1ODk5MzQ1OTIoKwUKNDI5NDk2NzMwNSgrBQEwFgoUKwAJFgYfCQUETnJvLh4FV2lkdGgbAAAAAAAASUABAAAAHgtBbGxvd1VwZGF0ZQsrBAJkZGRkZBQrAAUWAh4HQ2FwdGlvbgUETnJvLmRkFgIeB09yaWdpblhmZDwrAAUBAxYCHw9mZBQrAAkWDB4IRGF0YVR5cGUFDFN5c3RlbS5JbnQzMh4OQmFzZUNvbHVtbk5hbWUFD051bWVyb1NlY3VlbmNpYR8JBQ9OdW1lcm9TZWN1ZW5jaWEeB0lzQm91bmRnHwwbAAAAAAAASUABAAAAHgZIaWRkZW5nZGRkZGQUKwAFFgIfDgUPTnVtZXJvU2VjdWVuY2lhZGQWAh8PAgFkPCsABQEDFgIfDwIBZBQrAAkWCh8QBQxTeXN0ZW0uSW50MTYfEQULTnVtZXJvTGluZWEfCQULTnVtZXJvTGluZWEfEmcfE2dkZGRkZBQrAAUWAh8OBQtOdW1lcm9MaW5lYWRkFgIfDwICZDwrAAUBAxYCHw8CAmQUKwAJFggfEQUHRGV0YWxsZR8JBQdEZXRhbGxlHxJnHwwbAAAAAAAgfEABAAAAZGRkZGQUKwAFFgIfDgUIQ29uY2VwdG9kZBYCHw8CA2Q8KwAFAQMWAh8PAgNkFCsACRYIHxAFDVN5c3RlbS5VSW50NjQfEQUIQ2FudGlkYWQfCQUIQ2FudGlkYWQfEmdkZGRkZBQrAAUWAh8OBQhDYW50aWRhZGRkFgIfDwIEZDwrAAUBAxYCHw8CBGQUKwAJFggfEAUOU3lzdGVtLkRlY2ltYWwfEQUMUHJlY2lvVW5pZGFkHwkFDFByZWNpb1VuaWRhZB8SZ2RkZGRkFCsABRYCHw4FD1ByZWNpbyBVbml0YXJpb2RkFgIfDwIFZDwrAAUBAxYCHw8CBWQUKwAJFggfEAUOU3lzdGVtLkRlY2ltYWwfEQUJRGVzY3VlbnRvHwkFCURlc2N1ZW50bx8SZ2RkZGRkFCsABRYCHw4FDERlc2N1ZW50byglKWRkFgIfDwIGZDwrAAUBAxYCHw8CBmQUKwAJFggfEQUHVXN1YXJpbx8JBQdVc3VhcmlvHxJnHxNnZGRkZGQUKwAFFgIfDgUHVXN1YXJpb2RkFgIfDwIHZDwrAAUBAxYCHw8CB2QUKwAJFggfEQUMRmVjaGFWZXJzaW9uHwkFDEZlY2hhVmVyc2lvbh8SZx8TZ2RkZGRkFCsABRYCHw4FDEZlY2hhVmVyc2lvbmRkFgIfDwIIZDwrAAUBAxYCHw8CCGQUKwAJFgQfCQUFVG90YWwfDQsrBAJkZGRkZBQrAAUWAh8OBQVUb3RhbGRkFgIfDwIJZDwrAAUBAxYCHw8CCWQWChQrAAUWAh8OBQROcm8uZGQWAh8PZmQUKwAFFgIfDgUPTnVtZXJvU2VjdWVuY2lhZGQWAh8PAgFkFCsABRYCHw4FC051bWVyb0xpbmVhZGQWAh8PAgJkFCsABRYCHw4FCENvbmNlcHRvZGQWAh8PAgNkFCsABRYCHw4FCENhbnRpZGFkZGQWAh8PAgRkFCsABRYCHw4FD1ByZWNpbyBVbml0YXJpb2RkFgIfDwIFZBQrAAUWAh8OBQxEZXNjdWVudG8oJSlkZBYCHw8CBmQUKwAFFgIfDgUHVXN1YXJpb2RkFgIfDwIHZBQrAAUWAh8OBQxGZWNoYVZlcnNpb25kZBYCHw8CCGQUKwAFFgIfDgUFVG90YWxkZBYCHw8CCWQWCjwrAAUBAxYCHw9mPCsABQEDFgIfDwIBPCsABQEDFgIfDwICPCsABQEDFgIfDwIDPCsABQEDFgIfDwIEPCsABQEDFgIfDwIFPCsABQEDFgIfDwIGPCsABQEDFgIfDwIHPCsABQEDFgIfDwIIPCsABQEDFgIfDwIJZAJFDw8WAh4HVmlzaWJsZWhkFgQCAQ8UKwACZDwrABwBABYEHwZkHwhkZAIDDw9kDxAWAWYWARYCHg5QYXJhbWV0ZXJWYWx1ZTL/AwABAAAA/////wEAAAAAAAAADAIAAABWU0lOLkdhdXNzLkNPUi5Db211biwgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTdlZDZhZGQxYjgyMDE4ODQEAQAAAL8BU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTSU4uR2F1c3MuQ09SLkNvbXVuLkNvbnRyYXRvcy5TZXJ2aWNpb0NvbmZpZ3VyYWNpb24uRXJyb3JDb250cm9sZXMsIFNJTi5HYXVzcy5DT1IuQ29tdW4sIFZlcnNpb249MS4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj03ZWQ2YWRkMWI4MjAxODg0XV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgQAAERTSU4uR2F1c3MuQ09SLkNvbXVuLkNvbnRyYXRvcy5TZXJ2aWNpb0NvbmZpZ3VyYWNpb24uRXJyb3JDb250cm9sZXNbXQIAAAAICAkDAAAAAAAAAAEAAAAHAwAAAAABAAAAAAAAAARCU0lOLkdhdXNzLkNPUi5Db211bi5Db250cmF0b3MuU2VydmljaW9Db25maWd1cmFjaW9uLkVycm9yQ29udHJvbGVzAgAAAAsWAQIFZGQCCA8PFgIfAAUKMTEvMDMvMjAxNWRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYNBRxjdGwwMCRCb3RvbkxvZ091dDEkYnRuTG9nT3V0BSJjdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJHR4dEZlY2hhBTZjdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJENhamFEZVRleHRvRW5tYXNjYXJhZG9JbmZyYTkFN2N0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkQ2FqYURlVGV4dG9Fbm1hc2NhcmFkb0luZnJhMTAFIGN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkR3JpbGxhBTZjdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJENhamFEZVRleHRvRW5tYXNjYXJhZG9JbmZyYTIFJWN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkQm90b25JbmZyYTYFJWN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkYnRuRWxpbWluYXIFJWN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkQm90b25JbmZyYTEFJGN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkYnRuVmFsaWRhcgUlY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyMSRCb3RvbkluZnJhMgUlY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyMSRidG5JbXByaW1pcgUiY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyMSRidG5OdWV2b/w0lH7Fqckw7V8HM/+eL0qWxBg7\" />\n</div>\n\n<script type=\"text/javascript\">\n<!--\nvar theForm = document.forms['aspnetForm'];\nif (!theForm) {\n    theForm = document.aspnetForm;\n}\nfunction __doPostBack(eventTarget, eventArgument) {\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\n        theForm.__EVENTTARGET.value = eventTarget;\n        theForm.__EVENTARGUMENT.value = eventArgument;\n        theForm.submit();\n    }\n}\n// -->\n</script>\n\n\n<script src=\"/WebResource.axd?d=GvvfrrswkXpJe_iwForl8Q2&amp;t=633167577667187500\" type=\"text/javascript\"></script>\n\n<script type=\"text/javascript\">\n<!--\nvar ig_pi_imageUrl='/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPosDmLhzC-riwSYMu8TeIbDnRJmCMlygbOjgltnhKSBlyjmOCfKqAY0ELPCgelA79-r-dmofJagrnyr5SEt3n9p3ZiqGiwbto81mpwg16td9lR6RRyQnr9OXzInRKkQ5Mv7H39YkXJ7efftWVY-FTLY1&t=633188052939062500';try{(new Image()).src=ig_pi_imageUrl;}catch(ex){}\n// -->\n</script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPosDmLhzC-riwSYMu8TeIbDnRJmCMlygbOjgltnhKSBlyjmOCfKqAY0ELPCgelA79-r-dmofJagrnyr5SEt3n9ogsO1A3uIYlVhP8Lq5t9kq0xzUfkveosJq56hQnftPpw2&amp;t=633188052939062500\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPosDmLhzC-riwSYMu8TeIbDnRJmCMlygbOjgltnhKSBlyjmOCfKqAY0ELPCgelA79-r-dmofJagrnyr5SEt3n9pcEYTnZIvKNVljGdJJqmhqlO7nPafcmrkWzEFfhmIdiA2&amp;t=633188052939062500\" type=\"text/javascript\"></script>\n<style type=\"text/css\">\n	.ctl00_ContentPlaceHolder1_txtFecha0{}\n</style>\n\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPj3MElcpwzW5ApoQvg9A-o8gSOv2lYDZC3QUuJbA7A_XdxJNuQ9e_qCbnEIKVNfqCYzsoyf_Q6b0U4SPEgd7e-WXlMzscNzNxDkzsLCLuCjQ64bD7PsoF9-rd7g-ddJG7JbV1J45aQz0DNxmv0tws3w1&amp;t=633188052934062500\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3gBxUyctI_N9ll7RRWitGyA1&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3riGjpmbqtEdl5cGGwItPi41&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3kngbBe8vba8d9Xg2tey-rI1&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3rbegV5TH2RrA1xHrf3fev81&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3ua0Jg0BbFhNGgSNPHV4fbE1&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<script src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8UbA6jdYqcG9MP5KLXP1I3mFiExq4QqnKzSNbokDboD01&amp;t=633188052942500000\" type=\"text/javascript\"></script>\n<style type=\"text/css\">\n	.ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra90{}\n	.ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra100{}\n	.ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra20{}\n	 .ig_6b7e2788_0{font-family:Microsoft Sans Serif;font-size:8.25pt;background-color:window;border-color:inactivecaption;border-style:Solid;border-width:1px;width:930px;height:200px;}\n	 .ig_6b7e2788_1{background-color:LightGrey;border-style:Solid;border-width:1px;border-left-color:White;border-top-color:White;border-left-width:1px;border-top-width:1px;}\n	.ig_6b7e2788_17{background-color:activeborder;border-color:window;}\n	.ig_6b7e2788_18{background-color:window;border-color:inactivecaption;border-style:Solid;border-width:1px;border-left-color:White;border-top-color:White;border-left-width:1px;border-top-width:1px;}\n	 TBODY.ig_6b7e2788_2 TR TD, THEAD.ig_6b7e2788_2 TR TH, TFOOT.ig_6b7e2788_2 TR TH, TBODY.ig_6b7e2788_2 TR TH{font-family:Microsoft Sans Serif;font-size:8.25pt;background-color:AliceBlue;border-color:Silver;border-style:Solid;border-width:1px;padding-left:3px;border-left-color:window;border-top-color:window;}\n	 TBODY.ig_6b7e2788_2 TR.ig_6b7e2788_3 TD{background-color:LightSteelBlue;}\n	 .ig_6b7e2788_12{background-color:Lavender;border-style:None;border-width:0px;}\n	 THEAD.ig_6b7e2788_4 TR TH, TFOOT.ig_6b7e2788_4 TR TH, TBODY.ig_6b7e2788_4 TR TH{color:Black;border-style:Solid;border-left-color:White;border-top-color:White;border-left-width:1px;border-top-width:1px;background-image:url(/ig_common/images/fondomessages11.jpg); text-align:left;}\n	 TFOOT.ig_6b7e2788_5 TR TH{background-color:LightGrey;border-style:Solid;border-width:1px;border-left-color:White;border-top-color:White;border-left-width:1px;border-top-width:1px;}\n	 TBODY.ig_6b7e2788_4 TR TH.ig_6b7e2788_6{background-color:buttonface;border-color:window;}\n	 TBODY.ig_6b7e2788_4 TR TH.ig_6b7e2788_7{background-color:White;}\n	 TBODY.ig_6b7e2788_4 TR TH.ig_6b7e2788_8, TFOOT.ig_6b7e2788_4 TR TH.ig_6b7e2788_8{background-color:AliceBlue;border-width:0px;width:22px;padding:0px 0px 0px 0px; text-align:center; vertical-align:middle;}\n	 .ig_6b7e2788_9{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;background-color:White;border-color:Silver;border-style:Solid;border-width:1px;padding-left:2px;overflow:auto;}\n	 .ig_6b7e2788_10{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:11px;background-color:White;border-color:Silver;border-style:Solid;border-width:1px;width:200px;height:300px;padding-left:2px;overflow:auto;}\n	 .ig_6b7e2788_11{background-color:#151C55;color:White;}\n	 TBODY.ig_6b7e2788_2 TR TD.ig_6b7e2788_14, .ig_6b7e2788_14{border-top-color:Black;border-bottom-color:Black;border-top-width:1px;border-bottom-width:1px;border-top-style:Solid;border-bottom-style:Solid;}\n	 TBODY.ig_6b7e2788_2 TR TD.ig_6b7e2788_15, .ig_6b7e2788_15{border-left-color:Black;border-left-width:1px;border-left-style:Solid;}\n	 TBODY.ig_6b7e2788_2 TR TD.ig_6b7e2788_16, .ig_6b7e2788_16{border-right-color:Black;border-right-width:1px;border-right-style:Solid;}\n	 TBODY.ig_6b7e2788_2 TR TD.ig_6b7e2788_13, THEAD.ig_6b7e2788_2 TR TH.ig_6b7e2788_13, TFOOT.ig_6b7e2788_2 TR TH.ig_6b7e2788_13, .ig_6b7e2788_13{background-color:Transparent;border-width:0px;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px; text-align:left; vertical-align:top;}\n</style>\n      \n    <div>\n      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"984\">\n            <tr>\n                <td class=\"CabeceraN\" style=\"width: 365px; height: 84px\">\n                    &nbsp;</td>\n                <td class=\"CabeceraN1\" style=\"width: 400px; height: 84px; text-align: right;\">\n                    <br />\n                    <br />\n                    <a href= \"../../Default.aspx\"><span style=\"color: black\"></span><span style=\"vertical-align: top;\n                        color: #000000; font-family: Arial\">Menú</span></a> | <span style=\"vertical-align: top;\n                            font-family: Arial\">\n                    \n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_BotonLogOut1_btnLogOut__2\" style=\"display:inline;height:22px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_BotonLogOut1_btnLogOut__1\" style=\"height:22px;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_BotonLogOut1_btnLogOut__5\" style=\"padding:0px 6px 1px 7px;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_BotonLogOut1_btnLogOut__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">LogOut</span>\n			<input id=\"ctl00_BotonLogOut1_btnLogOut\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$BotonLogOut1$btnLogOut\" value=\"LogOut\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n\n                        </span>&nbsp;\n                </td>\n                <td class=\"CabeceraN1\" style=\"height: 84px; text-align: right; color: #000000;\" valign=\"top\" width=\"400\">\n                    <table align=\"right\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"CabeceraN2\"\n                        width=\"100\">\n                        <tr>\n                            <td class=\"CabeceraN2\" style=\"text-align: left\">\n                        <span id=\"ctl00_lblNit\" style=\"display:inline-block;color:White;font-size:Smaller;width:154px;\">293234021</span><span id=\"ctl00_lblDenominacion\" style=\"display:inline-block;color:White;font-size:Smaller;width:300px;\">JULIEN PIERRE ORTEGA </span>&nbsp;</td>\n                        </tr>\n                        <tr>\n                            <td class=\"CabeceraN3\">\n                                &nbsp;</td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n            <tr valign=\"top\" style=\"color: #000000\">\n                <td colspan=\"3\" style=\"vertical-align: middle; height: 289px;\" align=\"center\">\n                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"984\">\n                        <tr>\n                            <td class=\"lateral1\" valign=\"top\" width=\"13\">\n                                &nbsp;</td>\n                            <td class=\"centro\">                                \n                                    \n\n\n    <table class=\"tablaContenedor\" style=\"width: 940px; border-top-width: 1px; border-left-width: 1px; border-left-color: silver; border-bottom-width: 1px; border-bottom-color: silver; border-top-color: silver; border-right-width: 1px; border-right-color: silver;\">\n        <tr>\n            <td class=\"cabeceraTrabajo\" style=\"height: 25px; width: 940px; vertical-align: top; text-align: left;\">\n                <table style=\"width: 314px; height: 1px\">\n                    <tr>\n                        <td style=\"width: 20px; height: 16px\" valign=\"top\">\n                            <img id=\"ctl00_ContentPlaceHolder1_Image1\" src=\"../../../../../App_Themes/Newton/images/titulotrabajo1.gif\" style=\"border-width:0px;\" /></td>\n                        <td style=\"font-weight: bold; height: 16px\">\n                            Emitir Factura</td>\n                    </tr>\n                </table>\n            </td>\n        </tr>\n        <tr>\n            <td class=\"centroTrabajo\" style=\"height: 128px; vertical-align: top; width: 1022px;\" valign=\"top\">\n                <table style=\"width: 935px; border-right: silver 1px solid; border-top: silver 1px solid; border-left: silver 1px solid; border-bottom: silver 1px solid;\">\n                    <tr>\n                        <td colspan=\"4\" style=\"height: 16px; width: 908px;\" valign=\"top\">\n                                    <table style=\"width: 920px\" cellpadding=\"0\" cellspacing=\"0\">\n                                        <tr>\n                                            <td style=\"width: 1932px; height: 26px; background-color: inactivecaptiontext\" align=\"left\">\n                                                Sucursal:</td>\n                                            <td style=\"height: 26px; background-color: inactivecaptiontext;\" colspan=\"3\"><select name=\"ctl00$ContentPlaceHolder1$cmbSucursal\" id=\"ctl00_ContentPlaceHolder1_cmbSucursal\" style=\"font-size:8pt;width:488px;\">\n	<option selected=\"selected\" value=\"CALLE SOL DE SEPTIEMBRE  No. S/N Zona HUAYLLANI    Tel. 4726364 Tel. 68900008 =COCHABAMBA\">CALLE SOL DE SEPTIEMBRE  No. S/N Zona HUAYLLANI    Tel. 4726364 Tel. 68900008 =COCHABAMBA</option>\n\n</select></td>\n                                            <td align=\"left\" style=\"width: 5067px; height: 26px; background-color: inactivecaptiontext;\n                                                text-align: left\">\n                                                &nbsp; &nbsp;Tipo Factura:</td>\n                                            <td colspan=\"3\" style=\"height: 26px; background-color: inactivecaptiontext; text-align: left\">\n                                                <select name=\"ctl00$ContentPlaceHolder1$cmbTipoFactura\" id=\"ctl00_ContentPlaceHolder1_cmbTipoFactura\" style=\"width:262px;\">\n	<option selected=\"selected\" value=\"Con derecho a crédito fiscal\">Con derecho a cr&#233;dito fiscal</option>\n\n</select></td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 1932px; height: 29px; background-color: inactivecaptiontext\" align=\"left\">\n                                                Fecha:</td>\n                                            <td style=\"width: 488px; height: 29px; background-color: inactivecaptiontext\" align=\"left\">\n                                                \n<span style=\"display:none\">&nbsp;</span><style type=\"text/css\">\n	.ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra20{}\n</style>\n\n\n<input type=\"hidden\" name=\"ctl00$ContentPlaceHolder1$txtFecha\" id=\"ctl00_ContentPlaceHolder1_txtFecha\" value=\"11032015\" />\n\n<input type=\"hidden\" name=\"ctl00_ContentPlaceHolder1_txtFecha_p\" id=\"ctl00_ContentPlaceHolder1_txtFecha_p\" />\n<input type=\"text\" style=\"width:113px;text-align:Left;\" value=\"11/03/2015\" id=\"igtxtctl00_ContentPlaceHolder1_txtFecha\" disabled=\"true\" />\n\n                                            </td>\n                                            <td style=\"width: 412px; height: 29px; background-color: inactivecaptiontext\">\n                                            </td>\n                                            <td style=\"width: 251px; height: 29px; background-color: inactivecaptiontext\">\n                                            </td>\n                                            <td align=\"left\" style=\"width: 5067px; height: 29px; background-color: inactivecaptiontext;\n                                                text-align: right\">\n                                                &nbsp; &nbsp;</td>\n                                            <td style=\"width: 1935px; height: 29px; background-color: inactivecaptiontext; text-align: left\">\n                                            </td>\n                                            <td style=\"width: 975px; height: 29px; background-color: inactivecaptiontext; text-align: left\">\n                                                </td>\n                                            <td style=\"width: 578px; height: 29px; background-color: inactivecaptiontext; text-align: left\">\n                                                &nbsp;</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 1932px; height: 9px; background-color: inactivecaptiontext\" align=\"left\">\n                                                Señor(es):</td>\n                                            <td style=\"width: 488px; height: 9px; background-color: inactivecaptiontext\">\n                                                \n\n<input type=\"hidden\" name=\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra9\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra9\" value=\"\" />\n\n<input type=\"hidden\" name=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra9_p\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra9_p\" />\n<input type=\"text\" style=\"width:441px;text-align:Left;\" id=\"igtxtctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra9\" />\n\n                                            </td>\n                                            <td style=\"width: 412px; height: 9px; background-color: inactivecaptiontext\">\n                                                &nbsp;</td>\n                                            <td style=\"width: 251px; height: 9px; background-color: inactivecaptiontext\">\n                                                &nbsp;&nbsp;</td>\n                                            <td align=\"left\" style=\"width: 5067px; height: 9px; background-color: inactivecaptiontext;\n                                                text-align: left\">\n                                                &nbsp; &nbsp;NIT/CI:</td>\n                                            <td style=\"width: 1935px; height: 9px; background-color: inactivecaptiontext; text-align: left\">\n\n<input type=\"hidden\" name=\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra10\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra10\" value=\"\" />\n\n<input type=\"hidden\" name=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra10_p\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra10_p\" />\n<input type=\"text\" style=\"width:254px;\" id=\"igtxtctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra10\" />\n\n                                            </td>\n                                            <td style=\"width: 975px; height: 9px; background-color: inactivecaptiontext; text-align: left\">\n                                                </td>\n                                            <td style=\"width: 578px; height: 9px; background-color: inactivecaptiontext; text-align: left\">\n                                                &nbsp;</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 1932px; height: 20px; background-color: inactivecaptiontext\" align=\"left\">\n                                                </td>\n                                            <td colspan=\"3\" style=\"height: 20px; background-color: inactivecaptiontext\" align=\"left\">\n                                                \n                                            </td>\n                                            <td align=\"left\" style=\"width: 5067px; height: 20px; background-color: inactivecaptiontext;\n                                                text-align: right\" valign=\"middle\">\n                                                \n                                            </td>\n                                            <td colspan=\"3\" style=\"height: 20px; background-color: inactivecaptiontext; text-align: left\">\n                                                \n                                            </td>\n                                        </tr>\n                                    </table>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td colspan=\"4\" style=\"width: 908px; height: 15px\" valign=\"top\">\n                            &nbsp;&nbsp;\n                            <input type='hidden' id='ctl00_ContentPlaceHolder1_Grilla' name='ctl00xContentPlaceHolder1xGrilla' value=\"\" /><table border='0' cellpadding='0' cellspacing='0' id='ctl00xContentPlaceHolder1xGrilla_main' style=\"overflow:hidden;table-layout:fixed;position:relative;width:930px;height:200px;\" class=\"ig_6b7e2788_0\" onresize=\"igtbl_onResize('ctl00xContentPlaceHolder1xGrilla');\" onmousemove=\"igtbl_tableMouseMove(event,'ctl00xContentPlaceHolder1xGrilla');\" onmouseup=\"igtbl_tableMouseUp(event,'ctl00xContentPlaceHolder1xGrilla');\"><tr><td align=\"left\" style=\"overflow:hidden;width:100%;\"><div id='ctl00xContentPlaceHolder1xGrilla_hdiv' onscroll=\"igtbl_onStationaryMarginScroll(event, 'ctl00xContentPlaceHolder1xGrilla', 'ctl00xContentPlaceHolder1xGrilla_hdiv')\" style='overflow:hidden;width:100%;position:relative;'><table border='0' cellpadding='0' cellspacing='0' style='position:relative;table-layout:fixed;height:100%;width:900px;' bandNo='0'><colgroup><col width='50px' /><col width='450px' /><col width='100px' /><col width='100px' /><col width='100px' /><col width='100px' /><col width='1' style='display:none;' /><col width='1' style='display:none;' /><col width='1' style='display:none;' /><col width='1' style='display:none;' /></colgroup><thead class=\"ig_6b7e2788_2 ig_6b7e2788_4\" onmousedown='igtbl_headerClickDown(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseup='igtbl_headerClickUp(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseout='igtbl_headerMouseOut(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmousemove='igtbl_headerMouseMove(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseover='igtbl_headerMouseOver(event,\"ctl00xContentPlaceHolder1xGrilla\");' oncontextmenu='igtbl_headerContextMenu(event,\"ctl00xContentPlaceHolder1xGrilla\");' ondblclick='igtbl_cellDblClick(event,\"ctl00xContentPlaceHolder1xGrilla\");'><tr><th id='ctl00xContentPlaceHolder1xGrilla_c_0_0' columnNo='0' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:0:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Nro.</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_1' columnNo='1' height='20px' style=\"display:none;\"><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:1:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>NumeroSecuencia</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_2' columnNo='2' height='20px' style=\"display:none;\"><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:2:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>NumeroLinea</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_3' columnNo='3' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:3:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Concepto</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_4' columnNo='4' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:4:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Cantidad</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_5' columnNo='5' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:5:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Precio Unitario</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_6' columnNo='6' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:6:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Descuento(%)</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_7' columnNo='7' height='20px' style=\"display:none;\"><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:7:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Usuario</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_8' columnNo='8' height='20px' style=\"display:none;\"><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:8:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>FechaVersion</nobr></th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_9' columnNo='9' height='20px'><a href=\"javascript:igtbl_doPostBack('ctl00$ContentPlaceHolder1$Grilla','GroupByDrop:group:0:9:true:band:0');\"><img src=\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5BxpZ23w77nYxCOe8Kk78k1&t=633188052942500000\" border='0' onmouseup=\"return igtbl_cancelEvent(event);\" imgType='group' /></a><nobr>Total</nobr></th></tr></thead></table></div></td></tr><tr id=\"ctl00xContentPlaceHolder1xGrilla_mr\" style=\"height:100%;\"><td id=\"ctl00xContentPlaceHolder1xGrilla_mc\" align='left' style=\"height:100%;width:100%;vertical-align:top;\"><div id=\"ctl00xContentPlaceHolder1xGrilla_div\" style=\"position:relative;overflow:auto;width:100%;height:100%;\" onscroll='igtbl_onScroll(event,\"ctl00xContentPlaceHolder1xGrilla\");' tabIndexPage='0' hideFocus='true'><table id='G_ctl00xContentPlaceHolder1xGrilla' bandNo='0' StationaryMarginsOutlookGroupBy='True' border='0' cellpadding='0' cellspacing='0' style='table-layout:fixed;width:900px;position:relative;' onSelectStart='igtbl_selectStart(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmousedown='igtbl_cellClickDown(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseup='igtbl_cellClickUp(event,\"ctl00xContentPlaceHolder1xGrilla\");' oncontextmenu='igtbl_cellContextMenu(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmousemove='igtbl_cellMouseMove(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseover='igtbl_cellMouseOver(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseout='igtbl_cellMouseOut(event,\"ctl00xContentPlaceHolder1xGrilla\");' ondblclick='igtbl_cellDblClick(event,\"ctl00xContentPlaceHolder1xGrilla\");'><colgroup><col width='50px' /><col width='450px' /><col width='100px' /><col width='100px' /><col width='100px' /><col width='100px' /><col width='1px' style='display:none;' /><col width='1px' style='display:none;' /><col width='1px' style='display:none;' /><col width='1px' style='display:none;' /></colgroup><thead class=\"ig_6b7e2788_2 ig_6b7e2788_4\" style='display:none;' onmousedown='igtbl_headerClickDown(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseup='igtbl_headerClickUp(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseout='igtbl_headerMouseOut(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmousemove='igtbl_headerMouseMove(event,\"ctl00xContentPlaceHolder1xGrilla\");' onmouseover='igtbl_headerMouseOver(event,\"ctl00xContentPlaceHolder1xGrilla\");' oncontextmenu='igtbl_headerContextMenu(event,\"ctl00xContentPlaceHolder1xGrilla\");'><tr><th id='ctl00xContentPlaceHolder1xGrilla_c_0_0' columnNo='0' height='20px'>&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_1' columnNo='1' height='20px' style=\"display:none;\">&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_2' columnNo='2' height='20px' style=\"display:none;\">&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_3' columnNo='3' height='20px'>&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_4' columnNo='4' height='20px'>&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_5' columnNo='5' height='20px'>&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_6' columnNo='6' height='20px'>&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_7' columnNo='7' height='20px' style=\"display:none;\">&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_8' columnNo='8' height='20px' style=\"display:none;\">&nbsp;</th><th id='ctl00xContentPlaceHolder1xGrilla_c_0_9' columnNo='9' height='20px'>&nbsp;</th></tr></thead><tbody style=\"height:100%\" class=\"ig_6b7e2788_2 ig_6b7e2788_4\"></tbody></table></div></td></tr><tr style='height:1%;'><td id=\"ctl00xContentPlaceHolder1xGrilla_addBox\" align='left' style=\"overflow:auto;display:none;width:100%;padding:5px;\" class=\"ig_6b7e2788_18\"><table border='0' cellpadding='0' cellspacing='0'><tr><td valign=middle style='font-family:Microsoft Sans Serif;font-size:8.25pt;padding-right:5px;'>Add...</td><td><table border='0' cellpadding='0' cellspacing='0' onmousedown='igtbl_addNewClickDown(event,\"ctl00xContentPlaceHolder1xGrilla\")' onmouseup='igtbl_addNewClickUp(event,\"ctl00xContentPlaceHolder1xGrilla\")' onmouseout='igtbl_addNewMouseOut(event,\"ctl00xContentPlaceHolder1xGrilla\")'><tbody class=\"ig_6b7e2788_2 ig_6b7e2788_4\"><tr><th id='ctl00xContentPlaceHolder1xGrilla_an_0' addNew='true' bandNo='0' style='padding-right:5;'>&nbsp;DTDFacturas&nbsp;</th></tr></tbody></table></td></tr></table></td></tr></table><div id='ctl00xContentPlaceHolder1xGrilla_rowtempl_0' style='z-index:10000;overflow:hidden;position:absolute;display:none;font-family:Microsoft Sans Serif;font-size:8.25pt;background-color:window;border-color:window;border-style:Ridge;border-width:1px;border-left-color:window;border-top-color:window;border-left-width:3px;border-top-width:3px;border-right-width:3px;border-bottom-width:3px; padding-left:3px;'>\n                                            <br>\n                                            <p align=\"center\">\n                                                <input style=\"width: 50px;\" id=\"igtbl_reOkBtn\" onclick=\"igtbl_gRowEditButtonClick(event);\" type=\"button\" value=\"OK\">&nbsp;\n                                                <input style=\"width: 50px;\" id=\"igtbl_reCancelBtn\" onclick=\"igtbl_gRowEditButtonClick(event);\" type=\"button\" value=\"Cancel\"></p>\n                                        </div><img src='/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n45XBJFtqbwC5iZJdma1WC01&t=633188052942500000' border='0px' width='10px' height='12px' id=\"ctl00xContentPlaceHolder1xGrilla_pimgUp\" style=\"overflow:hidden;position:absolute;left:0px;top:0px;display:none;\" /><img src='/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n2FsduS1x2eK2e5t53JsCbY1&t=633188052942500000' border='0px' width='10px' height='12px' id=\"ctl00xContentPlaceHolder1xGrilla_pimgDn\" style=\"overflow:hidden;position:absolute;left:0px;top:0px;display:none;\" />\n                            &nbsp;\n                            \n                            \n                            \n                            \n                            \n                            \n                            \n                            \n                            \n                            </td>\n                    </tr>\n                    <tr>\n                        <td colspan=\"4\" style=\"width: 908px; height: 1px\" valign=\"top\">\n                            <table style=\"width: 921px\">\n                                <tr>\n                                    <td style=\"width: 177px; background-color: inactivecaptiontext; height: 16px;\">\n                                        Descuento Global (%):</td>\n                                    <td style=\"width: 177px; background-color: inactivecaptiontext; height: 16px;\" align=\"left\">\n                                        \n\n<input type=\"hidden\" name=\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra2\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra2\" value=\"\" />\n\n<input type=\"hidden\" name=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra2_p\" id=\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra2_p\" />\n<input type=\"text\" style=\"width:149px;\" id=\"igtxtctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra2\" />\n\n                                        </td>\n                                    <td style=\"width: 258px; background-color: inactivecaptiontext; height: 16px;\">\n                                        </td>\n                                    <td style=\"width: 93px; background-color: transparent; height: 16px;\">\n                                    </td>\n                                    <td style=\"width: 187px; background-color: inactivecaptiontext; height: 16px;\">\n                                        Total&nbsp; Bs:</td>\n                                    <td style=\"height: 16px; width: 209px;\" align=\"left\">\n                                        &nbsp;<span id=\"ctl00_ContentPlaceHolder1_txtTotal\" style=\"display:inline-block;width:74px;\"></span></td>\n                                </tr>\n                                <tr>\n                                    <td style=\"width: 155px; height: 26px; background-color: transparent\">\n                                        </td>\n                                    <td colspan=\"2\" style=\"height: 26px\" align=\"left\">\n                                        \n                                    </td>\n                                    <td style=\"width: 93px; height: 26px\">\n                                    </td>\n                                    <td style=\"width: 187px; height: 26px; background-color: transparent\">\n                                                </td>\n                                    <td style=\"height: 26px; width: 209px;\" align=\"left\">\n                                        \n                                    </td>\n                                </tr>\n                            </table>\n                        </td>\n                    </tr>\n                </table>\n                </td>\n        </tr>\n    </table>\n    <br />\n                <table style=\"width: 940px\">\n                    <tr>\n                        <td style=\"width: 25267px; height: 8px;\">\n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra6__2\" style=\"display:inline;width:107px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra6__1\" style=\"table-layout:fixed;cursor:Default;width:107px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_BotonInfra6__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_BotonInfra6__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">Insertar Item</span>\n			<input id=\"ctl00_ContentPlaceHolder1_BotonInfra6\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$BotonInfra6\" value=\"Insertar Item\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                            &nbsp;\n                            \n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnEliminar__2\" style=\"display:inline;width:99px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnEliminar__1\" style=\"table-layout:fixed;cursor:Default;width:99px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_btnEliminar__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_btnEliminar__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">Eliminar Item</span>\n			<input id=\"ctl00_ContentPlaceHolder1_btnEliminar\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$btnEliminar\" value=\"Eliminar Item\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                            \n                        </td>\n                        <td colspan=\"1\" style=\"height: 8px\">\n                        </td>\n                        <td colspan=\"1\" style=\"width: 3px; height: 8px\">\n                        \n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra1__2\" style=\"display:inline;width:116px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra1__1\" style=\"table-layout:fixed;cursor:Default;width:116px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_BotonInfra1__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_BotonInfra1__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">Modificar</span>\n			<input id=\"ctl00_ContentPlaceHolder1_BotonInfra1\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$BotonInfra1\" value=\"Modificar\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                        </td>\n                        <td colspan=\"1\" style=\"width: 284px; height: 8px;\">\n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnValidar__2\" style=\"display:inline;width:114px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnValidar__1\" style=\"table-layout:fixed;cursor:Default;width:114px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_btnValidar__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_btnValidar__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">Validar</span>\n			<input id=\"ctl00_ContentPlaceHolder1_btnValidar\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$btnValidar\" value=\"Validar\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                            </td>\n                        <td style=\"width: 90px; height: 8px;\">\n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra2__2\" style=\"display:inline;width:111px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_BotonInfra2__1\" style=\"table-layout:fixed;cursor:Default;width:111px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_BotonInfra2__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_BotonInfra2__3\" style=\"border:0px;background:none;color:Gray;font-family:Arial;font-size:10pt;\">Generar</span>\n			<input id=\"ctl00_ContentPlaceHolder1_BotonInfra2\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$BotonInfra2\" value=\"Generar\" disabled=\"true\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                            </td>\n                        <td style=\"width: 138px; height: 8px;\">\n                            &nbsp;\n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnImprimir__2\" style=\"display:inline;width:107px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnImprimir__1\" style=\"table-layout:fixed;cursor:Default;width:107px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_btnImprimir__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_btnImprimir__3\" style=\"border:0px;background:none;color:Gray;font-family:Arial;font-size:10pt;\">Imprimir  *</span>\n			<input id=\"ctl00_ContentPlaceHolder1_btnImprimir\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$btnImprimir\" value=\"Imprimir  *\" disabled=\"true\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                        </td>\n                        <td style=\"width: 160px; height: 8px\">\n                            \n<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnNuevo__2\" style=\"display:inline;width:115px;\"><tr><td>\n	<table cellspacing=\"0\" cellpadding=\"0\" id=\"ctl00_ContentPlaceHolder1_btnNuevo__1\" style=\"table-layout:fixed;cursor:Default;width:115px;height:24px;border-style:Solid;border-width:1px;border-color:#F0F0F0 #707070 #707070 #F0F0F0;\">\n		<tr><td nowrap=\"true\" id=\"ctl00_ContentPlaceHolder1_btnNuevo__5\" style=\"background-color:buttonface;padding:0px 1px 1px 0px;border-width:1px;border-style:Solid;border-color:White #A0A0A0 #A0A0A0 White;\" align=\"Center\" valign=\"Middle\" height=\"100%\">\n			<span unselectable=\"on\" id=\"ctl00_ContentPlaceHolder1_btnNuevo__3\" style=\"border:0px;background:none;font-family:Arial;font-size:10pt;\">Nuevo</span>\n			<input id=\"ctl00_ContentPlaceHolder1_btnNuevo\" type=\"submit\" size=\"0\" style=\"font-size:2px;padding:0px;width:0px;height:0px;border:0px;\" name=\"ctl00$ContentPlaceHolder1$btnNuevo\" value=\"Nuevo\" />\n		</td></tr>\n	</table>\n</td></tr></table>\n                        </td>\n                        \n                    </tr>\n                    <tr>\n                        <td style=\"width: 25267px; height: 8px; text-align: left\">\n                            <span id=\"ctl00_ContentPlaceHolder1_Label5\" style=\"display:inline-block;width:354px;\">* USTED DEBE USAR TAMAÑO DE PAPEL CARTA</span></td>\n                        <td colspan=\"1\" style=\"height: 8px\">\n                        </td>\n                        <td colspan=\"1\" style=\"width: 3px; height: 8px\">\n                        </td>\n                        <td colspan=\"1\" style=\"width: 284px; height: 8px\">\n                        </td>\n                        <td style=\"width: 90px; height: 8px\">\n                        </td>\n                        <td style=\"width: 138px; height: 8px\">\n                        </td>\n                        <td style=\"width: 160px; height: 8px\">\n                        </td>\n                    </tr>\n                </table>\n    \n    \n    &nbsp;&nbsp;\n    <br />\n</td>\n                            <td class=\"lateral2\" valign=\"top\" width=\"15\">\n                                &nbsp;</td>\n                        </tr>\n                        <tr>\n                            <td class=\"inferior1\" valign=\"top\">\n                                &nbsp;</td>\n                            <td>\n                                <p class=\"inferios\">\n                                    &nbsp;</p>\n                            </td>\n                            <td class=\"inferior2\" valign=\"top\">\n                                &nbsp;</td>\n                        </tr>\n                        <tr>\n                            <td class=\"inferior4\" valign=\"top\" style=\"height: 19px\">\n                                &nbsp;</td>\n                            <td class=\"pie1\" style=\"height: 19px; text-align: center;\">\n                                <span style=\"font-family: Verdana\"><span style=\"font-size: 8pt; color: #ffffff\"></span>\n                                </span></td>\n                            <td class=\"inferior3\" valign=\"top\" style=\"height: 19px\">\n                                &nbsp;</td>\n                        </tr>\n                    </table>\n                   </td>\n            </tr>\n            <tr>\n                <td class=\"pie\" colspan=\"3\">\n                </td>\n            </tr>\n        </table>\n    </div>\n      \n    \n<div>\n\n	<input type=\"hidden\" name=\"__SCROLLPOSITIONX\" id=\"__SCROLLPOSITIONX\" value=\"0\" />\n	<input type=\"hidden\" name=\"__SCROLLPOSITIONY\" id=\"__SCROLLPOSITIONY\" value=\"0\" />\n	<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"/wEWAwKgnpbxCgKbi9L4CAKtpojBDYiexcdg9mCpyF0LZP1HV9+bLP4n\" />\n</div>\n\n<script type=\"text/javascript\">\n<!--\n\ntheForm.oldSubmit = theForm.submit;\ntheForm.submit = WebForm_SaveScrollPositionSubmit;\n\ntheForm.oldOnSubmit = theForm.onsubmit;\ntheForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;\n// -->\n</script>\n<script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_BotonLogOut1_btnLogOut\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 6px 1px 7px\",\"\",\"\",\"pd;1px 5px 0px 8px\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igedit_init(\"ctl00_ContentPlaceHolder1_txtFecha\",1,\"ctl00$ContentPlaceHolder1$txtFecha,,1,,,,0,1,1,,,0,1,,-1,\",[\"11032015\",\"CC/CC/CCCC\",\"_  10\"]);}catch(e){window.status=\"Can't init editor\";}\n//--></script><script type='text/javascript'><!--\ntry{igedit_init(\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra9\",1,\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra9,,1,,,,0,1,1,,,0,1,,-1,\",[\"\",\"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\",\"_  10\"]);}catch(e){window.status=\"Can't init editor\";}\n//--></script><script type='text/javascript'><!--\ntry{igedit_init(\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra10\",1,\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra10,,1,,,,0,1,1,,,0,1,,-1,\",[\"\",\"############\",\"_  10\"]);}catch(e){window.status=\"Can't init editor\";}\n//--></script><script type='text/javascript'><!--\n	var octl00xContentPlaceHolder1xGrilla = igtbl_initGrid(\"ctl00xContentPlaceHolder1xGrilla\",[true,0,1,2,1,2,\"ig_6b7e2788_2\",\"ig_6b7e2788_3\",1,3,\"ig_6b7e2788_12\",1,\"ig_6b7e2788_5\",\"ig_6b7e2788_6\",0,\"ig_6b7e2788_4\",1,22,\"\",\"ig_6b7e2788_8\",\"ig_6b7e2788_7\",\"\",\"\",\"\",1,1,1,3,0,2,false,1,1,8,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n_ieIP4mHpHIL28QJaJPobY1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n6asbmvvBpp_LNflfUntTOQ1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n0hLyaRuhWA3mcvjYiIGjLY1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n9uxu2zw5CtToFh-495gJ481&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n11eqy7QGQerTAngqRev01I1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n9Cl5LLtMnC4_GtZB_wbddw1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4nwIxQvQyExz4Jn-CJ7B-ZD41&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n8awyUyHnOM0ZKiy3sxoozY1&t=633188052942500000\",[true,\"#000000\",\"\",\"\",[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]],\".|,\",2,\"ctl00$ContentPlaceHolder1$Grilla\",1,0,\"\",false,0,\"ctl00_ContentPlaceHolder1_Grilla\",1900,false,1,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n18Y4jJDvG7ukGvBWc7aoJc1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n4KRHxEcrLEg63e2lfuYGzU1&t=633188052942500000\",0,1,1,0,0,0,\"Row {0}, {1}: {2}\",\"Child row {0}, {1}: {2}\",\"ig_6b7e2788_10\",\"ig_6b7e2788_11\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4nzbfu3040y9EoAgdsjs-7fM1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n6FijIwdHSKhbr79z2GQowsGrVkQZj48-47PPhGqo1UE0&t=633188052942500000\",\"\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPosDmLhzC-riwSYMu8TeIbDnRJmCMlygbOjgltnhKSBlyjmOCfKqAY0ELPCgelA79-r-dmofJagrnyr5SEt3n9p3ZiqGiwbto81mpwg16td9lR6RRyQnr9OXzInRKkQ5Mv7H39YkXJ7efftWVY-FTLY1&t=633188052939062500\",true,2,0,\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n9Cl5LLtMnC4_GtZB_wbddw1&t=633188052942500000\",\"http://190.129.75.132/privado/fct/MenuLineo/fct/EmisionFacturas/default.aspx\",\"ig_6b7e2788_14\",\"ig_6b7e2788_15\",\"ig_6b7e2788_16\",[[3,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4nyXCO_fCgGb_LYuluBuH1Eo1&t=633188052942500000\",\"Filter Equals\",\"Equals\"],[4,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n1dYr85GEc_1wD6AowbQqyAlWYQGaAtsHz6qPYOpuZ_80&t=633188052942500000\",\"Not Equal\",\"Not Equals\"],[5,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n9ArPjwnR16fndR7B0k23ps1&t=633188052942500000\",\"Like\",\"Like\"],[6,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4nyD_INoYdvqAv_Wy7mt9qknqK6OyC-Y-nC6FdjA-rynx0&t=633188052942500000\",\"Not Like\",\"Not Like\"],[7,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n19KlEaywswj0JOMFkY0umgtg6Cw1KykvC-sDGRGXDEH0&t=633188052942500000\",\"Less Than\",\"Less Than\"],[8,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5fiE1eOT4NPI0mRgVv32qFm4SojIYVV3KMfeRSqAWzh0&t=633188052942500000\",\"Less Than Or Equals To\",\"Less Than Or Equals\"],[9,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5u7vhLlHvcG8eTUVwmOFRDL3U6lFaRcDGVs0s_y9uzV0&t=633188052942500000\",\"Greater Than\",\"Greater Than\"],[10,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5u7vhLlHvcG8eTUVwmOFRD8hl59Gsga66m4JEeriefL0&t=633188052942500000\",\"Greater Than Or Equals To\",\"Greater Than Or Equals\"],[11,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n5mbkclzI2x-OPFoyRir0WhBcAuB-wlWECiZQ4eDZ6yf0&t=633188052942500000\",\"Starts With\",\"Starts With\"],[12,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n7XlgCpypScA21WJcqE0DUd7nQf66OPUKe0iEIApsocy0&t=633188052942500000\",\"Does Not Start With\",\"Does Not Start With\"],[13,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n1GBfxD3mC7pZSTb9tKnfgZz2LD9XGT3TUj9jQE_aNf60&t=633188052942500000\",\"Ends With\",\"Ends With\"],[14,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4nz5F4X1Jj64YHWsYKba-g_6GnuIY5bXRXK9SRMYTYbW80&t=633188052942500000\",\"Does Not End With\",\"Does Not End With\"],[15,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n06aqWYIlq06vyAEdhBDhBZTKidpDwkaTWziDSLo0aHq0&t=633188052942500000\",\"Contains\",\"Contains\"],[16,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n15UxC5Fb_h9lNXUpKNh0L8aIkWewBURDE8JpbYjIGvs0&t=633188052942500000\",\"Does Not Contain\",\"Does Not Contain\"]],\"\",\"ig_6b7e2788_9\",\"\",\"\",\"\",1],[[\"DTDFacturas\",1,0,0,0,\"ig_6b7e2788_2\",\"ig_6b7e2788_3\",0,0,1,2,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n_ieIP4mHpHIL28QJaJPobY1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n0hLyaRuhWA3mcvjYiIGjLY1&t=633188052942500000\",\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n9uxu2zw5CtToFh-495gJ481&t=633188052942500000\",\"20px\",\"ig_6b7e2788_12\",0,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8amV8nyVSRtAO0VaIcam4n6asbmvvBpp_LNflfUntTOQ1&t=633188052942500000\",\"ig_6b7e2788_5\",\"ig_6b7e2788_6\",0,\"ig_6b7e2788_4\",0,true,false,\"ig_6b7e2788_8\",\"ig_6b7e2788_4\",\"ig_6b7e2788_7\",\"\",\"\",\"\",0,0,0,0,0,\"\",\"ctl00xContentPlaceHolder1xGrilla_rowtempl_0\",[],1,false,22,\"\",\"NumeroSecuencia,NumeroLinea\",\"\",\"\",0,1,1,false,false,1,2,2,\"\",true,1,1,1,\"(All)\",\"(Empty)\",\"(NonEmpty)\",[],0,\"0\",\"2\",\"ig_6b7e2788_10\",\"ig_6b7e2788_11\",2,0,2,1,1,1,\"\",\"\",\"\",\"\",\"\",[\"Equals\",\"Not Equals\",\"Like\",\"Not Like\",\"Less Than\",\"Less Than Or Equals\",\"Greater Than\",\"Greater Than Or Equals\",\"Starts With\",\"Does Not Start With\",\"Ends With\",\"Does Not End With\",\"Contains\",\"Does Not Contain\"],0]],[[[\"Nro.\",\"Nro.\",8,0,false,1,0,2,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"50px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"NumeroSecuencia\",\"NumeroSecuencia\",3,0,true,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"50px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"display:none;\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"NumeroLinea\",\"NumeroLinea\",2,0,true,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"display:none;\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"Detalle\",\"Concepto\",8,0,false,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"450px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"Cantidad\",\"Cantidad\",21,0,false,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"PrecioUnidad\",\"Precio Unitario\",14,0,false,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"Descuento\",\"Descuento(%25)\",14,0,false,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"Usuario\",\"Usuario\",8,0,true,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"display:none;\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"FechaVersion\",\"FechaVersion\",8,0,true,1,0,0,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"display:none;\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0],[\"Total\",\"Total\",8,0,false,1,0,2,0,0,0,0,false,\"\",false,0,\"\",\"\",\"\",\"\",0,\"\",[],\"\",\"\",\"\",0,[],\"\",\"\",\"100px\",true,false,false,\"\",\"width:100%;height:100%;\",false,\"\",0,\"\",\"\",\"\",false,\"\",\"\",\"\",\"\",false,[],2,1,1,0,3,1,0]]],[[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0],[\"\", 0]],[0,50,50,[],[],[],\"\",\"\",\"\",0,0,\"/WebResource.axd?d=CQ0gBJI__cGfAvQYEIDQPqVMyHXU9oMtw-jOrgjQLjgastjYmHtNl962x5N2XwBhhxO4Nt1DJazEdYTBpHWBe5PdITLZuop5vTDK0M61OSPT4ujXgj2jsAnsURolSWa8zFFiVzg1aVn8eYY9eTEmtcQzMAkbuXev6bgAhhS1WDs1&t=633188052942500000\",\"\",[],,-1]);\n\n//--></script><script type='text/javascript'><!--\ntry{igedit_init(\"ctl00_ContentPlaceHolder1_CajaDeTextoEnmascaradoInfra2\",1,\"ctl00$ContentPlaceHolder1$CajaDeTextoEnmascaradoInfra2,,1,,,,0,1,1,,,0,1,,-1,\",[\"\",\"###\",\"_  10\"]);}catch(e){window.status=\"Can't init editor\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_BotonInfra6\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_btnEliminar\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_BotonInfra1\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_btnValidar\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_BotonInfra2\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"clr;Gray\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_btnImprimir\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"clr;Gray\"]);}catch(e){status=\"Can not init button\";}\n//--></script><script type='text/javascript'><!--\ntry{igbut_init(\"ctl00_ContentPlaceHolder1_btnNuevo\",[\"1,1,1,2,,,,,1,1,\",\"pd;0px 1px 1px 0px;bc;#F0F0F0 #707070 #707070 #F0F0F0;ibc;White #A0A0A0 #A0A0A0 White;clr;\",\"\",\"\",\"pd;1px 0px 0px 1px;bc;#707070 #D0D0D0 #D0D0D0 #707070;ibc;#A0A0A0 #F0F0F0 #F0F0F0 #A0A0A0\",\"\"]);}catch(e){status=\"Can not init button\";}\n//--></script></form>\n</body>\n</html>\n\n\n",
+			"file": "/Volumes/Data_SSD/Users/julien/AreaStudio/Factures/Jatun/Reporte (1).pdf",
+			"file_size": 71243,
+			"file_write_time": 1426080912000000,
+			"settings":
+			{
+				"buffer_size": 70660,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/bower.json",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/.bowerrc",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"Pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Discover Packages"
+			],
+			[
+				"re",
+				"Indentation: Reindent Lines"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/js/controllers.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/index.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/js/app.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/js/services.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/js/services.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/templates/contacts.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/templates/contacts.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/templates/menu.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/lib/ionic/js/ionic.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/templates/login.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/bower.json",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/templates/contact.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/templates/login.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/js/controllers.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/index.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/js/app.js",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/bmapp/www/templates/menu.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/conference/www/templates/contact.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/templates/menu.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/js/controllers.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/templates/contacts.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/templates/contact.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/js/services.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/data/contact.json",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/templates/sessions.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/Jatun/ionic-tutorial/conference/www/templates/session.html",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/elwis-ds.xml",
+		"/usr/bin/jboss-5.1.0/server/default/log/server.log",
+		"/usr/bin/jboss-5.1.0/server/default/deploy/default-ds.xml",
+		"/Volumes/Data_SSD/Users/julien/AndroidstudioProjects/JWPubsFeeder/jWPubsFeeder/src/main/AndroidManifest.xml",
+		"/Volumes/Data_SSD/Users/julien/Downloads/res 4/values/styles_test.xml",
+		"/Volumes/Data_SSD/Users/julien/Downloads/visita_zona/AdobeHDS.php",
+		"/Volumes/Data_SSD/Users/julien/Downloads/visita_zona/download.sh",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_5.400/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_3.300/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_4/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_4.300/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_4.300/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_2/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_2.300/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/index_save.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_1/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_1/js/app.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_1/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/floatingbiblejs/lang_1/js/script.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/FloatingStudyTimer/assets/www/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_3/css/style.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_2/css/style.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_1/bible/1-chroniques_1_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_1/css/style.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/lang_3/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/hooks/extensions/myannotate.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/libs/myannotator.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/examples/annotator.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/libs/annotator/lib/annotator.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/hooks/extensions/annotate.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/annotator.touch.js-development/pkg/annotator.touch.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/libs/annotator/lib/viewer.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/reader_src/reader.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/src/chapter.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/reader/dev.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/libs/annotator/css/annotator.touch.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/annotator-1.2.9/dev.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/reader/js/hooks/extensions/annotator.js",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/reader/index.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/epub.js-master/documentation/README.md",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/css/default.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/css/fonts.css",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/content.opf",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/META-INF/container.xml",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/Readme.txt",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/0204_W15.TK1.xhtml",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/toc.xhtml",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/OEBPS/toc.ncx",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/ePubReader/w_S_20150115 copy/mimetype",
+		"/Volumes/Data_SSD/Users/julien/Downloads/books/sm140106.sm3",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/android/FloatingMinistrySchoolTimer/assets/www/application-es.json",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_1_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_2_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_3_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_4_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_5_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_6_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_7_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_8_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-corintios_9_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_10_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_11_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_12_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_13_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_14_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_15_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_16_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_17_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_18_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_19_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_1_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_20_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_21_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_22_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_23_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_24_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_25_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_26_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_27_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_28_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_29_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_2_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_3_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_4_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_5_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_6_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_7_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_8_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-cronicas_9_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-juan_1_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-juan_2_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-juan_3_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-juan_4_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-juan_5_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-pedro_1_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-pedro_2_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-pedro_3_.html",
+		"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output/1-pedro_4_.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/usr/bin/jboss-5.1.0/server/default",
+			"<open folders>",
+			"/Volumes/Data_SSD/Users/julien/Documents/dev/nwtFloatingBible/output",
+			"/Volumes/Data_SSD/Users/julien/Documents/dev/PlannerWorkspace/Planner",
+			"/Volumes/Data_SSD/Users/julien/Documents/dev/PlannerWorkspace/Planner-Backend",
+			"/Volumes/Data_SSD/Users/julien/Documents/dev/SampleWorkspace/Planner-Backend",
+			"/Volumes/Data_SSD/Users/julien/Documents/dev/SampleWorkspace/Planner"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"str",
+			"VM117:2 ",
+			"ERROR",
+			"persistenceManager",
+			"postoffice",
+			"ERR",
+			"ERROR",
+			"8080",
+			"VM156:2 ",
+			"VM224:2 ",
+			"VM3047:2 ",
+			"VM1179:2 ",
+			"\",\"  \",\"",
+			",",
+			",,",
+			",,  ",
+			"  ",
+			"                        ",
+			"\\n",
+			"<.*?>",
+			" ",
+			"\\n",
+			"<.*?>",
+			"​",
+			", ",
+			"​",
+			"<.*?>",
+			"​",
+			"<.*?>",
+			", ",
+			"isOnline",
+			", ",
+			"<.*?>",
+			"​",
+			", ",
+			"<.*?>",
+			", ",
+			"​",
+			"<.*?>",
+			"​",
+			", ",
+			"<.*?>",
+			"​",
+			"​​",
+			", ",
+			"​",
+			"​​",
+			"<.*?>",
+			"chaps: (\\d+)",
+			"../bower",
+			"chaps: (\\d+)",
+			"./bower",
+			" \n",
+			"item",
+			"type",
+			"...",
+			"../../components",
+			"setupAn",
+			"createA",
+			"_onS",
+			"_wat",
+			"util",
+			"this.util",
+			"_watc",
+			"this.subs",
+			"this.range",
+			"createAnn",
+			"temp",
+			"highlightRange",
+			"highlightRanges",
+			"highlightRa",
+			"high",
+			"hight",
+			"Hight",
+			"isAn",
+			"annotator-wra",
+			".annotator-w",
+			"this.wra",
+			"checkFor",
+			"getSelectedR",
+			"this.getSe",
+			"this.se",
+			"document",
+			".bind",
+			"$(",
+			"$(doc",
+			"$",
+			"bind",
+			"checkForEn",
+			"checkForS",
+			"$",
+			"checkForEndS",
+			"checkForEnd",
+			"bind",
+			"select",
+			"');/*\n\ngetSelectedRanges(",
+			"');/*\n\ngetSelectedRanges",
+			"');/*\n",
+			"selectedR",
+			"conso",
+			"../libs/annotator/lib/",
+			"style",
+			"log",
+			"Prefe",
+			"initialize(",
+			"webViewerLoad",
+			"webViewerInitialized",
+			"file",
+			"floatingministryschooltimer\n",
+			"    \n",
+			"fn6273687",
+			"<div id=\"bibleText\">",
+			"shadowSc",
+			"shadowW",
+			"group(",
+			"images/",
+			"content/",
+			"getTileA",
+			"mouseMove",
+			"content/",
+			"moveTo",
+			"scrollPage",
+			"moveSectionDo",
+			"MouseWheelH",
+			"slideIn",
+			"scrollSl",
+			"scrollPa",
+			"moveSectionD"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"",
+			"\",\"",
+			"",
+			",",
+			"",
+			",",
+			"",
+			"\",\"",
+			"",
+			"\",\"",
+			"",
+			"\",\"",
+			"",
+			"\",\"",
+			"",
+			"\",\\n\"",
+			"",
+			"\", \"",
+			"",
+			"chaps: new Array\\($1\\)",
+			"./bower",
+			"chaps: new Array\\($1\\)",
+			"../bower",
+			"./bower_components",
+			"../annotator-1.2.9/lib/",
+			"floatingstudytimer",
+			"<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body><div id=\"bibleText\">",
+			"img/",
+			"",
+			"/planner/",
+			"Planner",
+			".planner.",
+			"Planner"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "www/templates/contacts.html",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "www/templates/contact.html",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "www/js/controllers.js",
+					"settings":
+					{
+						"buffer_size": 2218,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 851.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "www/js/app.js",
+					"settings":
+					{
+						"buffer_size": 4115,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 131.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/www/js/app.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/www/index.html",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Volumes/Data_SSD/Users/julien/AreaStudio/Factures/Jatun/Reporte (1).pdf",
+					"settings":
+					{
+						"buffer_size": 70660,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5944.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/bower.json",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/usr/bin/jboss-5.1.0/server/default/deploy/ROOT.war/problemaRoles/.bowerrc",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 53.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 273.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,21 @@
+<ion-view view-title='{{ "Start" | translate}}'>
+  <ion-content>
+  
+    <div class="row">
+      <div class="col"></div>
+        
+      <div align="center" class="col col-80 col-offset-10">
+          <img ng-if="imageUrlCompany == undefined" class="img-responsive" src="img/bm_image.png">
+          <img ng-if="imageUrlCompany != undefined" class="img-responsive" ng-src="{{imageUrlCompany}}">      
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="item item-text-wrap">
+        The “Wirtschaftsverein” in Hamburg-Harburg is one of the oldest business clubs in Germany. It was 
+    founded in 1947. The tradition, activities and members of this association have a high quality.
+      </div>
+    </div>
+    
+  </ion-content>
+</ion-view>
